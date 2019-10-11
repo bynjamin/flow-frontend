@@ -1,3 +1,3 @@
-import firebaseService from './firebaseService.js';
+import firebaseService from './firebaseService';
 
 export default firebaseService;

@@ -1,0 +1,23 @@
+[ignore]
+.*/node_modules/.*
+
+[include]
+
+[libs]
+./flow-typed
+./flow-definitions
+
+[lints]
+sketchy-null=warn
+sketchy-null-bool=off
+
+[options]
+# Use $FlowFixMe with a description for unsolvable issues
+suppress_comment= \\(.\\|\n\\)*\\$FlowFixMe
+
+[strict]
+nonstrict-import
+unclear-type
+untyped-import
+untyped-type-import
+unsafe-getters-setters
