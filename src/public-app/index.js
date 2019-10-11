@@ -10,8 +10,8 @@ import jssExtend from 'jss-extend';
 import { create } from 'jss';
 import { FuseLayout, FuseTheme } from '@fuse';
 import history from '@history';
-import store from '../store';
-import AppContext from '../AppContext';
+import store from '../app/store';
+import AppContext from '../app/AppContext';
 import routes from './publicRoutesConfig';
 // import Pricing from './main/pages/pricing/style-3/PricingStyle3Page';
 

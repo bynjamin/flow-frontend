@@ -13,10 +13,7 @@ import history from '@history';
 import { Auth } from './auth';
 import store from './store';
 import AppContext from './AppContext';
-import DomainRouter from './DomainRouter';
 import routes from './fuse-configs/routesConfig';
-// import Pricing from './main/pages/pricing/style-3/PricingStyle3Page';
-import publicContent from './public-content';
 
 const jss = create({
   ...jssPreset(),
@@ -26,7 +23,7 @@ const jss = create({
 
 const generateClassName = createGenerateClassName();
 
-const app = (
+const App = (
   <AppContext.Provider
     value={{
       routes,
@@ -47,9 +44,5 @@ const app = (
     </StylesProvider>
   </AppContext.Provider>
 );
-
-const App = () => {
-  return <DomainRouter tenantContent={app} publicContent={publicContent} />;
-};
 
 export default App;
