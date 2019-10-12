@@ -2,22 +2,37 @@
 
 import React from 'react';
 import { FuseSuspense } from './@fuse';
-import PublicApp from './public-app';
-import App from './app/App';
+import { EnvException } from './exceptions';
+
+const PublicApp = React.lazy(() => import('./public-app'));
+const App = React.lazy(() => import('./app/App'));
 
 const DomainRouter = () => {
   const { REACT_APP_HOST } = process.env;
-  const rootDomainNum = REACT_APP_HOST.split('.').length;
+
+  if (!REACT_APP_HOST) {
+    EnvException('REACT_APP_HOST');
+  }
+
+  const rootDomainNum = REACT_APP_HOST && REACT_APP_HOST.split('.').length;
 
   const domains = window.location.hostname.split('.');
   if (domains.length == rootDomainNum) {
-    return PublicApp;
+    return (
+      <FuseSuspense>
+        <PublicApp />
+      </FuseSuspense>
+    );
   }
   if (domains.length == rootDomainNum + 1) {
     const subdomain = domains[0];
     console.log('Subdomain: ', subdomain);
     // Subdomain validation
-    return App;
+    return (
+      <FuseSuspense fallback={<div>Loading...</div>}>
+        <App />
+      </FuseSuspense>
+    );
   }
   return 'Page not found';
 };

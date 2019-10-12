@@ -23,7 +23,7 @@ const jss = create({
 
 const generateClassName = createGenerateClassName();
 
-const App = (
+const App = () => (
   <AppContext.Provider
     value={{
       routes,
