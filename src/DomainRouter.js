@@ -5,14 +5,9 @@ import { FuseSuspense } from './@fuse';
 import PublicApp from './public-app';
 import App from './app/App';
 
-  /* $FlowFixMe */
-  //const PublicApp = React.lazy(() => import('./public-app'));
-  /* $FlowFixMe */
-  //const App = React.lazy(() => import('./app/App'));
-
 const DomainRouter = () => {
-  const { REACT_APP_URL } = process.env;
-  const rootDomainNum = REACT_APP_URL.split('.').length;
+  const { REACT_APP_HOST } = process.env;
+  const rootDomainNum = REACT_APP_HOST.split('.').length;
 
   const domains = window.location.hostname.split('.');
   if (domains.length == rootDomainNum) {

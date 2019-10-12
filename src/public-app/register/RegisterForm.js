@@ -3,6 +3,7 @@ import Formsy from 'formsy-react';
 import { Button, InputAdornment, Icon } from '@material-ui/core';
 import * as authActions from 'app/auth/store/actions';
 import { useDispatch, useSelector } from 'react-redux';
+import Recaptcha from 'react-google-recaptcha';
 import { TextFieldFormsy } from '@fuse';
 
 function JWTRegisterTab(props) {
@@ -50,8 +51,50 @@ function JWTRegisterTab(props) {
         <TextFieldFormsy
           className="mb-16"
           type="text"
-          name="displayName"
-          label="Display name"
+          name="siteAddress"
+          label="Site address"
+          validations={{
+            minLength: 3,
+          }}
+          validationErrors={{
+            minLength: 'Min character length is 3',
+          }}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">.flowato.com</InputAdornment>
+            ),
+          }}
+          variant="outlined"
+          required
+        />
+        <TextFieldFormsy
+          className="mb-16"
+          type="text"
+          name="companyName"
+          label="Company Name"
+          validations={{
+            minLength: 3,
+          }}
+          validationErrors={{
+            minLength: 'Min character length is 3',
+          }}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <Icon className="text-20" color="action">
+                  business_center
+                </Icon>
+              </InputAdornment>
+            ),
+          }}
+          variant="outlined"
+          required
+        />
+        <TextFieldFormsy
+          className="mb-16"
+          type="text"
+          name="fullName"
+          label="Full Name"
           validations={{
             minLength: 4,
           }}
@@ -135,6 +178,12 @@ function JWTRegisterTab(props) {
           }}
           variant="outlined"
           required
+        />
+        <Recaptcha
+          sitekey="6LdrLb0UAAAAAH6J74vpjsjlTt9ueSooIXTWuJPv"
+          onChange={v => {
+            console.log('Captcha: ', v);
+          }}
         />
 
         <Button

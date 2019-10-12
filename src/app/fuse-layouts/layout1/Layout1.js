@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { renderRoutes } from 'react-router-config';
 import { makeStyles } from '@material-ui/styles';
 import { useSelector } from 'react-redux';
-import SettingsPanel from 'app/fuse-layouts/shared-components/SettingsPanel';
+// import SettingsPanel from 'app/fuse-layouts/shared-components/SettingsPanel';
 import AppContext from 'app/AppContext';
 import clsx from 'clsx';
 import { FuseScrollbars, FuseMessage, FuseDialog, FuseSuspense } from '@fuse';
@@ -125,7 +125,7 @@ function Layout1(props) {
                   {config.footer.display &&
                     config.footer.position === 'below' && <FooterLayout1 />}
 
-                  <SettingsPanel />
+                  {/* <SettingsPanel /> */}
                 </div>
 
                 {config.navbar.display &&
@@ -197,7 +197,7 @@ function Layout1(props) {
                   config.footer.position === 'below' &&
                   config.footer.style === 'fixed' && <FooterLayout1 />}
 
-                <SettingsPanel />
+                {/* <SettingsPanel /> */}
               </div>
 
               {config.navbar.display && config.navbar.position === 'right' && (
