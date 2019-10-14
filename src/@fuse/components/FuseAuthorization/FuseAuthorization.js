@@ -3,7 +3,7 @@ import {FuseUtils} from '@fuse';
 import {matchRoutes} from 'react-router-config';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import AppContext from 'app/AppContext';
+import AppContext from 'common/AppContext';
 
 class FuseAuthorization extends Component {
 

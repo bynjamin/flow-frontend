@@ -10,7 +10,6 @@ import {
 import { makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import { NavLink } from 'react-router-dom';
-
 import { FuseAnimate, FuseAnimateGroup } from '@fuse';
 
 const useStyles = makeStyles(theme => ({

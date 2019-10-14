@@ -5,7 +5,7 @@ import { FuseSuspense } from './@fuse';
 import { EnvException } from './exceptions';
 
 const PublicApp = React.lazy(() => import('./public-app'));
-const App = React.lazy(() => import('./app/App'));
+const App = React.lazy(() => import('./app'));
 
 const DomainRouter = () => {
   const { REACT_APP_HOST } = process.env;
