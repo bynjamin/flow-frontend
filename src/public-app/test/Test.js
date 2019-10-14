@@ -4,7 +4,9 @@ import { gql } from 'apollo-boost';
 
 const DAY_QUERY = gql`
   {
-    testQuery
+    testQuery {
+      text
+    }
   }
 `;
 
