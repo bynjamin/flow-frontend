@@ -12,7 +12,7 @@ import clsx from 'clsx';
 import { NavLink } from 'react-router-dom';
 import { FuseAnimate, FuseAnimateGroup } from '@fuse';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: any) => ({
   header: {
     height: 600,
     background: `linear-gradient(to right, ${theme.palette.primary.dark} 0%, ${theme.palette.primary.main} 100%)`,

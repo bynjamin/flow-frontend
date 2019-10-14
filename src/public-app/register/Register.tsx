@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Card,
   CardContent,
-  Tab,
-  Tabs,
   Typography,
   AppBar,
   Toolbar,
@@ -16,7 +14,7 @@ import { makeStyles } from '@material-ui/styles';
 import { FuseAnimate } from '@fuse';
 import RegisterForm from './RegisterForm';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: any) => ({
   root: {
     background: `linear-gradient(to right, ${
       theme.palette.primary.dark

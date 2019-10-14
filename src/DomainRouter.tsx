@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import { FuseSuspense } from './@fuse';
 import { EnvException } from './exceptions';
@@ -8,13 +6,13 @@ const PublicApp = React.lazy(() => import('./public-app'));
 const App = React.lazy(() => import('./app'));
 
 const DomainRouter = () => {
-  const { REACT_APP_HOST } = process.env;
+  const REACT_APP_HOST = process.env.REACT_APP_HOST || '';
 
   if (!REACT_APP_HOST) {
     EnvException('REACT_APP_HOST');
   }
 
-  const rootDomainNum = REACT_APP_HOST && REACT_APP_HOST.split('.').length;
+  const rootDomainNum = REACT_APP_HOST.split('.').length || 0;
 
   const domains = window.location.hostname.split('.');
   if (domains.length == rootDomainNum) {
@@ -29,12 +27,12 @@ const DomainRouter = () => {
     console.log('Subdomain: ', subdomain);
     // Subdomain validation
     return (
-      <FuseSuspense fallback={<div>Loading...</div>}>
+      <FuseSuspense>
         <App />
       </FuseSuspense>
     );
   }
-  return 'Page not found';
+  return <div>'Page not found'</div>;
 };
 
 export default DomainRouter;

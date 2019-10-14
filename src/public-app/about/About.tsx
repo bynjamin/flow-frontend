@@ -16,13 +16,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const About = props => {
+const About = () => {
   const classes = useStyles();
   return (
     <FusePageSimple
-      classes={{
-        root: classes.layoutRoot,
-      }}
+      className={classes.layoutRoot}
       header={
         <AppBar>
           <Toolbar>

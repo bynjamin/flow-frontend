@@ -9,6 +9,13 @@
         "@material-ui/icons": "4.4.1",
         "@material-ui/pickers": "3.2.5",
         "@material-ui/styles": "4.4.1",
+        "@types/jest": "^24.0.18",
+        "@types/node": "^12.7.12",
+        "@types/react": "^16.9.5",
+        "@types/react-dom": "^16.9.1",
+        "@types/react-google-recaptcha": "^1.1.0",
+        "@types/react-redux": "^7.1.4",
+        "@types/react-router-dom": "^5.1.0",
         "apollo-boost": "^0.4.4",
         "auth0-lock": "11.17.2",
         "autosuggest-highlight": "3.1.1",
@@ -64,6 +71,7 @@
         "redux-thunk": "2.3.0",
         "styled-components": "^4.4.0",
         "typeface-muli": "0.0.71",
+        "typescript": "3.5.3",
         "velocity-react": "1.4.3"
     },
     "resolutions": {
