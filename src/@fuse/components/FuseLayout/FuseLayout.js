@@ -7,7 +7,7 @@ import {matchRoutes} from 'react-router-config'
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as Actions from 'app/store/actions';
-import AppContext from 'app/AppContext';
+import AppContext from 'common/AppContext';
 import {generateSettings} from 'app/store/reducers/fuse/settings.reducer';
 
 const styles = theme => ({

@@ -4,7 +4,7 @@ import { renderRoutes } from 'react-router-config';
 import { useSelector } from 'react-redux';
 import SettingsPanel from 'app/fuse-layouts/shared-components/SettingsPanel';
 import clsx from 'clsx';
-import AppContext from 'app/AppContext';
+import AppContext from 'common/AppContext';
 import { FuseScrollbars, FuseMessage, FuseDialog, FuseSuspense } from '@fuse';
 import LeftSideLayout2 from './components/LeftSideLayout2';
 import ToolbarLayout2 from './components/ToolbarLayout2';

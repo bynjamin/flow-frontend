@@ -3,7 +3,7 @@ import { renderRoutes } from 'react-router-config';
 import { makeStyles } from '@material-ui/styles';
 import { useSelector } from 'react-redux';
 // import SettingsPanel from 'app/fuse-layouts/shared-components/SettingsPanel';
-import AppContext from 'app/AppContext';
+import AppContext from 'common/AppContext';
 import clsx from 'clsx';
 import { FuseScrollbars, FuseMessage, FuseDialog, FuseSuspense } from '@fuse';
 import ToolbarLayout1 from './components/ToolbarLayout1';

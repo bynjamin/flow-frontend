@@ -12,7 +12,7 @@ import { FuseAuthorization, FuseLayout, FuseTheme } from '@fuse';
 import history from '@history';
 import { Auth } from './auth';
 import store from './store';
-import AppContext from './AppContext';
+import AppContext from '../common/AppContext';
 import routes from './fuse-configs/routesConfig';
 
 const jss = create({
