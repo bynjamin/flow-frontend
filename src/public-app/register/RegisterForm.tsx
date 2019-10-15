@@ -1,3 +1,4 @@
+// todo: ts-fix
 import React, { useEffect, useRef, useState } from 'react';
 import Formsy from 'formsy-react';
 import { Button, InputAdornment, Icon } from '@material-ui/core';
@@ -6,9 +7,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import Recaptcha from 'react-google-recaptcha';
 import { TextFieldFormsy } from '@fuse';
 
-function JWTRegisterTab(props) {
+function RegisterForm(props: any) {
   const dispatch = useDispatch();
-  const register = useSelector(({ auth }) => auth.register);
+  const register = useSelector(({ auth }: any) => auth.register);
 
   const [isFormValid, setIsFormValid] = useState(false);
   const formRef = useRef(null);
@@ -20,6 +21,7 @@ function JWTRegisterTab(props) {
         register.error.password ||
         register.error.email)
     ) {
+      // @ts-ignore
       formRef.current.updateInputsWithError({
         ...register.error,
       });
@@ -35,7 +37,7 @@ function JWTRegisterTab(props) {
     setIsFormValid(true);
   }
 
-  function handleSubmit(model) {
+  function handleSubmit(model: any) {
     dispatch(authActions.submitRegister(model));
   }
 
@@ -202,4 +204,4 @@ function JWTRegisterTab(props) {
   );
 }
 
-export default JWTRegisterTab;
+export default RegisterForm;
