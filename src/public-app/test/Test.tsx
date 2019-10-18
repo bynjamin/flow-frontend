@@ -4,9 +4,7 @@ import { gql } from 'apollo-boost';
 
 const DAY_QUERY = gql`
   {
-    testQuery {
-      text
-    }
+    testQuery (text:"Ahoj - skusam test query")
   }
 `;
 
