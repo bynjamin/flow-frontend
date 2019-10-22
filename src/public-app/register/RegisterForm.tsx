@@ -1,13 +1,13 @@
 // todo: ts-fix
 import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Formsy from 'formsy-react';
 import { Button, InputAdornment, Icon } from '@material-ui/core';
 import * as authActions from 'app/auth/store/actions';
-import { useDispatch, useSelector } from 'react-redux';
-import Recaptcha from 'react-google-recaptcha';
 import { TextFieldFormsy } from '@fuse';
+import { RecaptchaFormsy } from 'common/components/formsy';
 
-function RegisterForm(props: any) {
+function RegisterForm() {
   const dispatch = useDispatch();
   const register = useSelector(({ auth }: any) => auth.register);
 
@@ -181,12 +181,7 @@ function RegisterForm(props: any) {
           variant="outlined"
           required
         />
-        <Recaptcha
-          sitekey="6LdrLb0UAAAAAH6J74vpjsjlTt9ueSooIXTWuJPv"
-          onChange={v => {
-            console.log('Captcha: ', v);
-          }}
-        />
+        <RecaptchaFormsy name="recaptcha" validations="isExisty" />
 
         <Button
           type="submit"
