@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar } from '@material-ui/core/';
 import { FusePageSimple, DemoContent } from '@fuse';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: any) => ({
   layoutRoot: {},
   link: {
     margin: theme.spacing(2),

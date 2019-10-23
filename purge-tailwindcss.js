@@ -13,7 +13,7 @@ class TailwindExtractor {
 }
 
 const purgecss = new Purgecss({
-  content: ['./src/**/*.js'],
+  content: ['./src/**/*.js', './src/**/*.tsx', './src/**/*.ts'],
   css: ['./src/styles/tailwind.css'],
   whitelist: ['pl-24', 'pl-40', 'pl-56', 'pl-72', 'pl-80'],
   extractors: [
