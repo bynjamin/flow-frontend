@@ -14,6 +14,8 @@ function RegisterForm() {
   const [isFormValid, setIsFormValid] = useState(false);
   const formRef = useRef(null);
 
+  const host = process.env.REACT_APP_HOST || '';
+
   useEffect(() => {
     if (
       register.error &&
@@ -63,7 +65,7 @@ function RegisterForm() {
           }}
           InputProps={{
             endAdornment: (
-              <InputAdornment position="end">.flowato.com</InputAdornment>
+              <InputAdornment position="end">.{host}</InputAdornment>
             ),
           }}
           variant="outlined"
