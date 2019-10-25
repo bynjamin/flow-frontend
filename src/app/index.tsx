@@ -1,5 +1,5 @@
 import React from 'react';
-import Provider from 'react-redux/es/components/Provider';
+import { Provider } from 'react-redux';
 import {
   StylesProvider,
   jssPreset,
@@ -18,7 +18,7 @@ import routes from './fuse-configs/routesConfig';
 const jss = create({
   ...jssPreset(),
   plugins: [...jssPreset().plugins, jssExtend()],
-  insertionPoint: document.getElementById('jss-insertion-point'),
+  insertionPoint: document.getElementById('jss-insertion-point') || undefined,
 });
 
 const generateClassName = createGenerateClassName();
