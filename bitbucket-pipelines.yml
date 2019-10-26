@@ -13,4 +13,5 @@ pipelines:
         script: # Modify the commands below to build your repository.
           - yarn
           - yarn lint:ts
+          - yarn test
           - yarn build

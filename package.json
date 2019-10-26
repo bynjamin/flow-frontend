@@ -84,6 +84,7 @@
         "@types/react-router-dom": "^5.1.0",
         "@typescript-eslint/eslint-plugin": "^2.4.0",
         "@typescript-eslint/parser": "^2.4.0",
+        "craco": "^0.0.3",
         "cross-env": "5.2.1",
         "eslint": "^6.1.0",
         "eslint-config-airbnb": "^18.0.1",
@@ -106,11 +107,11 @@
         "lint:ts": "eslint --ext=ts,tsx src",
         "lint:js": "eslint --ext=js,jsx src",
         "tailwind": "./node_modules/.bin/tailwind build ./src/styles/tailwind.base.css -c ./tailwind.js -o ./src/styles/tailwind.css",
-        "test": "react-scripts test --env=node",
+        "test": "react-scripts test --env=node --watchAll=false --passWithNoTests",
+        "test:watch": "react-scripts test --env=node",
         "eject": "react-scripts eject",
         "build-docs": "find ./src/app/main/documentation/material-ui-components \\( -name '*.ts' -o -name '*.tsx' \\) -type f -delete && babel-node src/app/main/documentation/material-ui-components/build.js",
-        "build-stats": "yarn run build --stats",
-        "bundle-report": "yarn run build-stats && webpack-bundle-analyzer build/bundle-stats.json -m static -r build/bundle-stats.html -O"
+        "bundle-report": "yarn run tailwind && node ./purge-tailwindcss.js && cross-env GENERATE_SOURCEMAP=false craco build"
     },
     "eslintConfig": {
         "extends": "react-app"
