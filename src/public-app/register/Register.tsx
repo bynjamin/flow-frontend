@@ -1,10 +1,12 @@
 import React from 'react';
+import { useMutation } from '@apollo/react-hooks';
 import {
   Card,
   CardContent,
   Typography,
   AppBar,
   Toolbar,
+  CircularProgress,
 } from '@material-ui/core';
 import { darken } from '@material-ui/core/styles/colorManipulator';
 import { Link, NavLink } from 'react-router-dom';
@@ -13,6 +15,10 @@ import { makeStyles } from '@material-ui/styles';
 
 import { FuseAnimate } from '@fuse';
 import RegisterForm from './RegisterForm';
+import { REGISTER } from './RegisterMutation';
+import { RegistrationInput } from './types';
+import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
+import { IconContext } from 'react-icons';
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
@@ -32,7 +38,18 @@ const useStyles = makeStyles((theme: any) => ({
 }));
 
 const Register = () => {
+  const [registerMutation, { data, loading, error }] = useMutation<
+    RegistrationInput
+  >(REGISTER);
   const classes = useStyles();
+
+  const submitRegistration = (input: RegistrationInput) => {
+    registerMutation({ variables: { ...input } });
+  };
+
+  console.log('data: ', data);
+  console.log('loading: ', loading);
+  console.log('error :', error);
 
   return (
     <div
@@ -95,22 +112,51 @@ const Register = () => {
       </div>
 
       <FuseAnimate animation={{ translateX: [0, '100%'] }}>
-        <Card className="w-full max-w-400 mx-auto m-16 md:m-0" square>
-          <CardContent className="flex flex-col items-center justify-center p-32 md:p-48 md:pt-128 ">
-            <Typography variant="h6" className="md:w-full mb-32">
-              CREATE AN ACCOUNT
-            </Typography>
+        <Card
+          className="w-full max-w-400 mx-auto m-16 md:m-0 flex justify-center items-center"
+          square
+        >
+          <CardContent className="flex flex-col items-center justify-center p-32 md:p-48 md:pt-128">
+            {!loading && !data && !error && (
+              <>
+                <Typography variant="h6" className="md:w-full mb-32">
+                  CREATE AN ACCOUNT
+                </Typography>
+                <RegisterForm submit={submitRegistration} />
 
-            <RegisterForm />
+                <div className="flex flex-col items-center justify-center pt-32 pb-24">
+                  <span className="font-medium">Already have an account?</span>
+                  <Link className="font-medium mt-8" to="/">
+                    Back to Dashboard
+                  </Link>
+                </div>
 
-            <div className="flex flex-col items-center justify-center pt-32 pb-24">
-              <span className="font-medium">Already have an account?</span>
-              <Link className="font-medium mt-8" to="/">
-                Back to Dashboard
-              </Link>
-            </div>
-
-            <div className="flex flex-col items-center" />
+                <div className="flex flex-col items-center" />
+              </>
+            )}
+            {loading && (
+              <>
+                <CircularProgress size={60} color="secondary" thickness={3} />
+                <span>We are preparing your workspace...</span>
+              </>
+            )}
+            {data && (
+              <IconContext.Provider value={{ color: '#7DD460', size: '9em' }}>
+                <div>
+                  <FaCheckCircle />
+                </div>
+              </IconContext.Provider>
+            )}
+            {error && (
+              <>
+                <IconContext.Provider value={{ color: '#FF5656', size: '9em' }}>
+                  <div>
+                    <FaTimesCircle />
+                  </div>
+                </IconContext.Provider>
+                <div>{error.message}</div>
+              </>
+            )}
           </CardContent>
         </Card>
       </FuseAnimate>

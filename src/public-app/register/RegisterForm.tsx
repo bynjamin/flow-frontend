@@ -1,21 +1,22 @@
 // todo: ts-fix
-import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useRef, useState } from 'react';
 import Formsy from 'formsy-react';
 import { Button, InputAdornment, Icon } from '@material-ui/core';
-import * as authActions from 'app/auth/store/actions';
 import { TextFieldFormsy } from '@fuse';
 import { RecaptchaFormsy } from 'common/components/formsy';
+import { RegistrationInput } from './types';
 
-function RegisterForm() {
-  const dispatch = useDispatch();
-  const register = useSelector(({ auth }: any) => auth.register);
+type Props = {
+  submit: (input: RegistrationInput) => void;
+};
 
+const RegisterForm = ({ submit }: Props) => {
   const [isFormValid, setIsFormValid] = useState(false);
   const formRef = useRef(null);
 
   const host = process.env.REACT_APP_HOST || '';
 
+  /*
   useEffect(() => {
     if (
       register.error &&
@@ -30,18 +31,20 @@ function RegisterForm() {
       disableButton();
     }
   }, [register.error]);
+  */
 
-  function disableButton() {
+  const disableButton = () => {
     setIsFormValid(false);
-  }
+  };
 
-  function enableButton() {
+  const enableButton = () => {
     setIsFormValid(true);
-  }
+  };
 
-  function handleSubmit(model: any) {
-    dispatch(authActions.submitRegister(model));
-  }
+  const handleSubmit = (input: RegistrationInput) => {
+    console.log(input);
+    submit(input);
+  };
 
   return (
     <div className="w-full">
@@ -74,7 +77,7 @@ function RegisterForm() {
         <TextFieldFormsy
           className="mb-16"
           type="text"
-          name="companyName"
+          name="company"
           label="Company Name"
           validations={{
             minLength: 3,
@@ -121,7 +124,7 @@ function RegisterForm() {
         <TextFieldFormsy
           className="mb-16"
           type="text"
-          name="email"
+          name="mail"
           label="Email"
           validations="isEmail"
           validationErrors={{
@@ -145,9 +148,11 @@ function RegisterForm() {
           type="password"
           name="password"
           label="Password"
-          validations="equalsField:password-confirm"
+          validations={{
+            minLength: 8,
+          }}
           validationErrors={{
-            equalsField: 'Passwords do not match',
+            minLength: 'Min character length is 8',
           }}
           InputProps={{
             endAdornment: (
@@ -165,7 +170,7 @@ function RegisterForm() {
         <TextFieldFormsy
           className="mb-16"
           type="password"
-          name="password-confirm"
+          name="passwordConfirm"
           label="Confirm Password"
           validations="equalsField:password"
           validationErrors={{
@@ -183,7 +188,7 @@ function RegisterForm() {
           variant="outlined"
           required
         />
-        <RecaptchaFormsy name="recaptcha" validations="isExisty" />
+        <RecaptchaFormsy name="captcha" validations="isExisty" />
 
         <Button
           type="submit"
@@ -199,6 +204,6 @@ function RegisterForm() {
       </Formsy>
     </div>
   );
-}
+};
 
 export default RegisterForm;
