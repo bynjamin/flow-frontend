@@ -32,7 +32,8 @@
     "react",
     "prettier",
     "@typescript-eslint",
-    "react-hooks"
+    "react-hooks",
+    "graphql"
   ],
   "settings": {
     "import/resolver": {
@@ -55,7 +56,15 @@
         "jsxSingleQuote": false,
         "bracketSpacing": true
       }
-  ],
+    ],
+
+    "graphql/template-strings": [
+      "error",
+      {
+        "env": "apollo",
+        "schemaJsonFilepath": "./schema.json"
+      }
+    ],
 
     "semi": 0,
     "eqeqeq": [1, "always"],
