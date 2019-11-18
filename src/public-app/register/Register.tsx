@@ -1,5 +1,9 @@
 import React from 'react';
+import { IconContext } from 'react-icons';
+import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
+import { Link, NavLink } from 'react-router-dom';
 import { useMutation } from '@apollo/react-hooks';
+import clsx from 'clsx';
 import {
   Card,
   CardContent,
@@ -8,17 +12,14 @@ import {
   Toolbar,
   CircularProgress,
 } from '@material-ui/core';
-import { darken } from '@material-ui/core/styles/colorManipulator';
-import { Link, NavLink } from 'react-router-dom';
-import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
-
+import { darken } from '@material-ui/core/styles/colorManipulator';
 import { FuseAnimate } from '@fuse';
+
 import RegisterForm from './RegisterForm';
 import { REGISTER } from './RegisterMutation';
 import { RegistrationInput } from './types';
-import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
-import { IconContext } from 'react-icons';
+import Banner from 'common/components/banner';
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
@@ -154,7 +155,11 @@ const Register = () => {
                     <FaTimesCircle />
                   </div>
                 </IconContext.Provider>
-                <div>{error.message}</div>
+                <Banner
+                  type="critical"
+                  title="Something goes wrong..."
+                  message={error.message}
+                />
               </>
             )}
           </CardContent>
