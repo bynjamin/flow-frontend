@@ -17,7 +17,7 @@ import { darken } from '@material-ui/core/styles/colorManipulator';
 import { FuseAnimate } from '@fuse';
 
 import RegisterForm from './RegisterForm';
-import { REGISTER } from './RegisterMutation';
+import { REGISTER } from './RegisterGraphQL';
 import { RegistrationInput } from './types';
 import Banner from 'common/components/banner';
 
