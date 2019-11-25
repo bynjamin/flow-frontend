@@ -1,10 +1,28 @@
 // todo: ts-fix
 import React, { useRef, useState } from 'react';
 import Formsy from 'formsy-react';
+import { execute, makePromise } from 'apollo-link';
+import { HttpLink } from 'apollo-boost';
 import { Button, InputAdornment, Icon } from '@material-ui/core';
 import { TextFieldFormsy } from '@fuse';
 import { RecaptchaFormsy } from 'common/components/formsy';
+import { SITE_ADDRESS_CHECK } from './RegisterGraphQL';
 import { RegistrationInput } from './types';
+
+const uri = process.env.REACT_APP_API_URL;
+const link = new HttpLink({ uri });
+
+const isSiteAddressAvailable = async (siteAddress: string) => {
+  const operation = {
+    query: SITE_ADDRESS_CHECK,
+    variables: { siteAddress },
+  };
+  const { data } = await makePromise(execute(link, operation));
+  if (data) {
+    return data.isSiteAddressAvailable;
+  }
+  throw new Error('Somethin went wrong');
+};
 
 type Props = {
   submit: (input: RegistrationInput) => void;
@@ -12,9 +30,31 @@ type Props = {
 
 const RegisterForm = ({ submit }: Props) => {
   const [isFormValid, setIsFormValid] = useState(false);
+  const [siteAddressVal, setSiteAddressVal] = useState('');
   const formRef = useRef(null);
 
   const host = process.env.REACT_APP_HOST || '';
+
+  const customValidateForm = async (values: RegistrationInput) => {
+    const { siteAddress } = values;
+    // trigger API call only if site address changed
+    if (siteAddress && siteAddress !== siteAddressVal) {
+      setSiteAddressVal(siteAddress);
+      if (siteAddress.length > 2) {
+        const isAvailable = await isSiteAddressAvailable(siteAddress);
+        if (!isAvailable) {
+          // @ts-ignore
+          formRef.current.updateInputsWithError(
+            {
+              siteAddress: 'This site is already used',
+            },
+            true,
+          );
+          setIsFormValid(false);
+        }
+      }
+    }
+  };
 
   /*
   useEffect(() => {
@@ -42,9 +82,23 @@ const RegisterForm = ({ submit }: Props) => {
   };
 
   const handleSubmit = (input: RegistrationInput) => {
-    console.log(input);
     submit(input);
   };
+
+  /*
+  In case we would like to validate site address only on submit (lesser requests to API)
+
+  const handleSubmit = async (input: RegistrationInput, reset: any, invalidate: any) => {
+    const isAvailable = await isSiteAddressAvailable(input.siteAddress);
+    if (!isAvailable) {
+      invalidate({
+        siteAddress: 'This site address is already used',
+      })
+    } else {
+      submit(input);
+    }
+  };
+  */
 
   return (
     <div className="w-full">
@@ -52,6 +106,7 @@ const RegisterForm = ({ submit }: Props) => {
         onValidSubmit={handleSubmit}
         onValid={enableButton}
         onInvalid={disableButton}
+        onChange={customValidateForm}
         ref={formRef}
         className="flex flex-col justify-center w-full"
       >
@@ -80,10 +135,10 @@ const RegisterForm = ({ submit }: Props) => {
           name="company"
           label="Company Name"
           validations={{
-            minLength: 3,
+            minLength: 4,
           }}
           validationErrors={{
-            minLength: 'Min character length is 3',
+            minLength: 'Min character length is 4',
           }}
           InputProps={{
             endAdornment: (
@@ -188,7 +243,7 @@ const RegisterForm = ({ submit }: Props) => {
           variant="outlined"
           required
         />
-        <RecaptchaFormsy name="captcha" validations="isExisty" />
+        <RecaptchaFormsy name="captcha" validations="isExisty" required />
 
         <Button
           type="submit"
