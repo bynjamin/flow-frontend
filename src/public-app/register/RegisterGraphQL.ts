@@ -18,7 +18,9 @@ export const REGISTER = gql`
       passwordConfirm: $passwordConfirm
       captcha: $captcha
       siteAddress: $siteAddress
-    )
+    ) {
+      fqdn
+    }
   }
 `;
 
