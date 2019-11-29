@@ -90,7 +90,7 @@ const Pricing = () => {
                           color="inherit"
                           className="text-32 ml-4 mr-8 font-light leading-none"
                         >
-                          29
+                          0
                         </Typography>
                       </div>
                       <Typography color="inherit">monthly per user</Typography>
@@ -130,7 +130,7 @@ const Pricing = () => {
               <div className="w-full max-w-320 sm:w-1/3 p-12">
                 <Card className="relative" raised>
                   <div className="p-32 text-center">
-                    <Typography className="text-32">Pro</Typography>
+                    <Typography className="text-32">Basic</Typography>
                     <Typography
                       color="textSecondary"
                       className="text-16 font-medium"
@@ -203,7 +203,7 @@ const Pricing = () => {
               <div className="w-full max-w-320 sm:w-1/3 p-12">
                 <Card className="relative">
                   <div className="p-32 text-center">
-                    <Typography className="text-32">Enterprise</Typography>
+                    <Typography className="text-32">Pro</Typography>
                     <Typography
                       color="textSecondary"
                       className="text-16 font-medium"
