@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { IconContext } from 'react-icons';
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/react-hooks';
 import clsx from 'clsx';
 import {
@@ -9,8 +8,9 @@ import {
   CardContent,
   Typography,
   CircularProgress,
+  Button,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles, withStyles } from '@material-ui/styles';
 import { darken } from '@material-ui/core/styles/colorManipulator';
 import { FuseAnimate } from '@fuse';
 
@@ -19,6 +19,7 @@ import { REGISTER } from './RegisterGraphQL';
 import { RegistrationInput } from './types';
 import Banner from 'common/components/banner';
 import NavigationBar from '../navigation';
+import RedirectToWorkspaceDialog from './RedirectToWorkspaceDialog';
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
@@ -29,19 +30,36 @@ const useStyles = makeStyles((theme: any) => ({
   },
 }));
 
+const RedirectButton = withStyles({
+  root: {
+    textTransform: 'none',
+  },
+})(Button);
+
+// TODO: Najst nejaky generator datovych typov
+type DataType = {
+  fqdn: string;
+};
+
 const Register = () => {
-  const [registerMutation, { data, loading, error }] = useMutation<
-    RegistrationInput
-  >(REGISTER);
+  const [registerMutation, { data, loading, error }] = useMutation<DataType>(
+    REGISTER,
+  );
   const classes = useStyles();
+
+  const [isDialogOpened, setIsDialogOpened] = useState(false);
+
+  const handleOpenDialog = () => {
+    setIsDialogOpened(true);
+  };
+
+  const handleCloseDialog = () => {
+    setIsDialogOpened(false);
+  };
 
   const submitRegistration = (input: RegistrationInput) => {
     registerMutation({ variables: { ...input } });
   };
-
-  console.log('data: ', data);
-  console.log('loading: ', loading);
-  console.log('error :', error);
 
   return (
     <>
@@ -95,11 +113,14 @@ const Register = () => {
 
                   <div className="flex flex-col items-center justify-center pt-32 pb-24">
                     <span className="font-medium">
-                      Already have an account?
+                      Already have a workspace?
                     </span>
-                    <Link className="font-medium mt-8" to="/">
-                      Back to Dashboard
-                    </Link>
+                    <RedirectButton
+                      color="secondary"
+                      onClick={handleOpenDialog}
+                    >
+                      Login to your workspace
+                    </RedirectButton>
                   </div>
 
                   <div className="flex flex-col items-center" />
@@ -138,6 +159,10 @@ const Register = () => {
           </Card>
         </FuseAnimate>
       </div>
+      <RedirectToWorkspaceDialog
+        isOpen={isDialogOpened}
+        handleClose={handleCloseDialog}
+      />
     </>
   );
 };
