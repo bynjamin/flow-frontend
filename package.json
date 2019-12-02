@@ -113,6 +113,7 @@
         "lint:ts": "eslint --ext=ts,tsx src",
         "lint:js": "eslint --ext=js,jsx src",
         "graphql:schema": "better-npm-run graphql:schema",
+        "graphql:types": "apollo codegen:generate --localSchemaFile=schema.json --target=typescript  --tagName=gql --addTypename --globalTypesFile=src/__generated__/globalTypes.ts",
         "tailwind": "./node_modules/.bin/tailwind build ./src/styles/tailwind.base.css -c ./tailwind.js -o ./src/styles/tailwind.css",
         "test": "react-scripts test --env=node --watchAll=false --passWithNoTests",
         "test:watch": "react-scripts test --env=node",

@@ -1,4 +1,3 @@
-// todo: ts-fix
 import React, { useRef, useState } from 'react';
 import Formsy from 'formsy-react';
 import { execute, makePromise } from 'apollo-link';
@@ -7,12 +6,15 @@ import { Button, InputAdornment, Icon } from '@material-ui/core';
 import { TextFieldFormsy } from '@fuse';
 import { RecaptchaFormsy } from 'common/components/formsy';
 import { SITE_ADDRESS_CHECK } from './RegisterGraphQL';
-import { RegistrationInput } from './types';
+import { RegistrationMutationVariables } from './__generated__/RegistrationMutation';
+import { IsSiteAddressAvailableVariables } from './__generated__/IsSiteAddressAvailable';
 
 const uri = process.env.REACT_APP_API_URL;
 const link = new HttpLink({ uri });
 
-const isSiteAddressAvailable = async (siteAddress: string) => {
+const isSiteAddressAvailable = async ({
+  siteAddress,
+}: IsSiteAddressAvailableVariables) => {
   const operation = {
     query: SITE_ADDRESS_CHECK,
     variables: { siteAddress },
@@ -25,7 +27,7 @@ const isSiteAddressAvailable = async (siteAddress: string) => {
 };
 
 type Props = {
-  submit: (input: RegistrationInput) => void;
+  submit: (input: RegistrationMutationVariables) => void;
 };
 
 const RegisterForm = ({ submit }: Props) => {
@@ -35,13 +37,13 @@ const RegisterForm = ({ submit }: Props) => {
 
   const host = process.env.REACT_APP_HOST || '';
 
-  const customValidateForm = async (values: RegistrationInput) => {
+  const customValidateForm = async (values: RegistrationMutationVariables) => {
     const { siteAddress } = values;
     // trigger API call only if site address changed
     if (siteAddress && siteAddress !== siteAddressVal) {
       setSiteAddressVal(siteAddress);
       if (siteAddress.length > 2) {
-        const isAvailable = await isSiteAddressAvailable(siteAddress);
+        const isAvailable = await isSiteAddressAvailable({ siteAddress });
         if (!isAvailable) {
           // @ts-ignore
           formRef.current.updateInputsWithError(
@@ -81,7 +83,7 @@ const RegisterForm = ({ submit }: Props) => {
     setIsFormValid(true);
   };
 
-  const handleSubmit = (input: RegistrationInput) => {
+  const handleSubmit = (input: RegistrationMutationVariables) => {
     submit(input);
   };
 
