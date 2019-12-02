@@ -25,7 +25,7 @@ export const REGISTER = gql`
 `;
 
 export const SITE_ADDRESS_CHECK = gql`
-  query IsSiteNameAvailable($siteAddress: String!) {
+  query IsSiteAddressAvailable($siteAddress: String!) {
     isSiteAddressAvailable(siteAddress: $siteAddress)
   }
 `;

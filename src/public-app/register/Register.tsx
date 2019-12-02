@@ -16,10 +16,13 @@ import { FuseAnimate } from '@fuse';
 
 import RegisterForm from './RegisterForm';
 import { REGISTER } from './RegisterGraphQL';
-import { RegistrationInput } from './types';
 import Banner from 'common/components/banner';
 import NavigationBar from '../navigation';
 import RedirectToWorkspaceDialog from './RedirectToWorkspaceDialog';
+import {
+  RegistrationMutation as DataType,
+  RegistrationMutationVariables,
+} from './__generated__/RegistrationMutation';
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
@@ -35,11 +38,6 @@ const RedirectButton = withStyles({
     textTransform: 'none',
   },
 })(Button);
-
-// TODO: Najst nejaky generator datovych typov
-type DataType = {
-  fqdn: string;
-};
 
 const Register = () => {
   const [registerMutation, { data, loading, error }] = useMutation<DataType>(
@@ -57,7 +55,7 @@ const Register = () => {
     setIsDialogOpened(false);
   };
 
-  const submitRegistration = (input: RegistrationInput) => {
+  const submitRegistration = (input: RegistrationMutationVariables) => {
     registerMutation({ variables: { ...input } });
   };
 
