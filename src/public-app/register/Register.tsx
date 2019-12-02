@@ -20,8 +20,8 @@ import Banner from 'common/components/banner';
 import NavigationBar from '../navigation';
 import RedirectToWorkspaceDialog from './RedirectToWorkspaceDialog';
 import {
-  RegistrationMutation as DataType,
-  RegistrationMutationVariables,
+  RegistrationMutation as QueryDataType,
+  RegistrationMutationVariables as QueryVariables,
 } from './__generated__/RegistrationMutation';
 
 const useStyles = makeStyles((theme: any) => ({
@@ -39,10 +39,17 @@ const RedirectButton = withStyles({
   },
 })(Button);
 
+const RedirectButton2 = withStyles({
+  root: {
+    marginTop: '12px',
+  },
+})(Button);
+
 const Register = () => {
-  const [registerMutation, { data, loading, error }] = useMutation<DataType>(
-    REGISTER,
-  );
+  const [registerMutation, { data, loading, error }] = useMutation<
+    QueryDataType,
+    QueryVariables
+  >(REGISTER);
   const classes = useStyles();
 
   const [isDialogOpened, setIsDialogOpened] = useState(false);
@@ -55,7 +62,7 @@ const Register = () => {
     setIsDialogOpened(false);
   };
 
-  const submitRegistration = (input: RegistrationMutationVariables) => {
+  const submitRegistration = (input: QueryVariables) => {
     registerMutation({ variables: { ...input } });
   };
 
@@ -131,11 +138,30 @@ const Register = () => {
                 </>
               )}
               {data && (
-                <IconContext.Provider value={{ color: '#7DD460', size: '9em' }}>
-                  <div>
-                    <FaCheckCircle />
-                  </div>
-                </IconContext.Provider>
+                <>
+                  <IconContext.Provider
+                    value={{ color: '#7DD460', size: '9em' }}
+                  >
+                    <div>
+                      <FaCheckCircle />
+                    </div>
+                  </IconContext.Provider>
+                  <Banner
+                    type="success"
+                    title="Congratulations 🎉🎉"
+                    message="Your new workspace is ready. Go ahead and login for your first time!"
+                  />
+                  <RedirectButton2
+                    color="secondary"
+                    onClick={() => {
+                      window.location.assign(
+                        `http://${data.newRegistration.fqdn}`,
+                      );
+                    }}
+                  >
+                    Login to your workspace
+                  </RedirectButton2>
+                </>
               )}
               {error && (
                 <>
