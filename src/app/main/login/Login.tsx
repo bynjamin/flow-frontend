@@ -9,7 +9,7 @@ import JWTLoginTab from './tabs/JWTLoginTab';
 import FirebaseLoginTab from './tabs/FirebaseLoginTab';
 import Auth0LoginTab from './tabs/Auth0LoginTab';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: any) => ({
   root: {
     background: `linear-gradient(to right, ${
       theme.palette.primary.dark
@@ -22,7 +22,7 @@ const Login = () => {
   const classes = useStyles();
   const [selectedTab, setSelectedTab] = useState(0);
 
-  const handleTabChange = (event, value) => {
+  const handleTabChange = (event: any, value: any) => {
     setSelectedTab(value);
   };
 
