@@ -19,7 +19,7 @@ const purgecss = new Purgecss({
   extractors: [
     {
       extractor: TailwindExtractor,
-      extensions: ['html', 'js'],
+      extensions: ['html', 'js', 'ts', 'tsx'],
     },
   ],
 });
