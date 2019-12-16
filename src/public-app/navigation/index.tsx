@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: any) => ({
 const NavigationBar = () => {
   const classes = useStyles();
   return (
-    <AppBar>
+    <AppBar position="sticky">
       <Toolbar>
         {navigationConfig.map(item => (
           <NavLink
