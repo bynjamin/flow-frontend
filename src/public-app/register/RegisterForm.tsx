@@ -21,7 +21,7 @@ const isSiteAddressAvailable = async ({
   };
   const { data } = await makePromise(execute(link, operation));
   if (data) {
-    return data.isSiteAddressAvailable;
+    return data?.isSiteAddressAvailable;
   }
   throw new Error('Somethin went wrong');
 };

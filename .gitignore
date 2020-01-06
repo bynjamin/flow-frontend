@@ -18,6 +18,7 @@
 .env.production.local
 
 /.idea
+/.vscode
 
 /src/styles/tailwind.css
 
