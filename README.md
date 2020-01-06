@@ -20,6 +20,10 @@ You will also see any lint errors in the console.
 
 ### `yarn test`
 
+Launches the test runner in normal mode.
+
+### `yarn test:watch`
+
 Launches the test runner in the interactive watch mode.<br>
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
@@ -46,6 +50,18 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 ### `yarn lint:ts`
 
 Runs linter for typescript
+
+### `yarn bundle:report`
+
+Launches wepback bundle analyzer
+
+## `yarn graphql:schema`
+
+Downloads actual schema from server
+
+## `yarn graphql:types`
+
+Generates typescript types for graphql queries inside project. Types are generated inside `__generated__` folder inside each scope.
 
 ## Learn More
 

@@ -1,5 +1,5 @@
 import { lightBlue, red } from '@material-ui/core/colors';
-import { fuseDark } from '@fuse/fuse-colors';
+import { skyBlue, fuseDark } from '@fuse/fuse-colors';
 
 const themesConfig = {
   default: {
@@ -7,9 +7,32 @@ const themesConfig = {
       type: 'light',
       primary: fuseDark,
       secondary: {
+        light: skyBlue[100],
+        main: skyBlue[500],
+        dark: skyBlue[900],
+      },
+      background: {
+        paper: '#FFFFFF',
+        default: '#F7F7F7',
+      },
+      error: red,
+    },
+    status: {
+      danger: 'orange',
+    },
+  },
+  legacy: {
+    palette: {
+      type: 'light',
+      primary: fuseDark,
+      secondary: {
         light: lightBlue[400],
         main: lightBlue[600],
         dark: lightBlue[700],
+      },
+      background: {
+        paper: '#FFFFFF',
+        default: '#F7F7F7',
       },
       error: red,
     },
@@ -31,6 +54,10 @@ const themesConfig = {
         dark: '#FFCA7B',
         contrastText: '#FFF',
       },
+      background: {
+        paper: '#FFFFFF',
+        default: '#F7F7F7',
+      },
       error: red,
     },
     status: {
@@ -50,6 +77,10 @@ const themesConfig = {
         main: '#55C39E',
         dark: '#159270',
         contrastText: '#FFF',
+      },
+      background: {
+        paper: '#FFFFFF',
+        default: '#F7F7F7',
       },
       error: red,
     },
@@ -72,6 +103,10 @@ const themesConfig = {
         dark: '#BA5228',
         contrastText: '#FFF',
       },
+      background: {
+        paper: '#FFFFFF',
+        default: '#F7F7F7',
+      },
     },
   },
   tech: {
@@ -87,6 +122,10 @@ const themesConfig = {
         light: '#FFFF83',
         main: '#D1E751',
         dark: '#9DB516',
+      },
+      background: {
+        paper: '#FFFFFF',
+        default: '#F7F7F7',
       },
     },
   },
@@ -104,6 +143,10 @@ const themesConfig = {
         main: '#6080A3',
         dark: '#325474',
       },
+      background: {
+        paper: '#FFFFFF',
+        default: '#F7F7F7',
+      },
     },
   },
   defaultDark: {
@@ -111,9 +154,13 @@ const themesConfig = {
       type: 'dark',
       primary: fuseDark,
       secondary: {
-        light: lightBlue[400],
-        main: lightBlue[600],
-        dark: lightBlue[700],
+        light: skyBlue[100],
+        main: skyBlue[500],
+        dark: skyBlue[900],
+      },
+      background: {
+        paper: '#1E2125',
+        default: '#121212',
       },
       error: red,
     },
@@ -135,6 +182,10 @@ const themesConfig = {
         dark: '#C600B6',
         contrastText: '#FFF',
       },
+      background: {
+        paper: '#1E2125',
+        default: '#121212',
+      },
     },
   },
   slate: {
@@ -150,6 +201,10 @@ const themesConfig = {
         main: '#FF6B6B',
         dark: '#C73840',
         contrastText: '#FFF',
+      },
+      background: {
+        paper: '#1E2125',
+        default: '#121212',
       },
     },
   },
