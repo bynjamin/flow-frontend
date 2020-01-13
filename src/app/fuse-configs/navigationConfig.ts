@@ -12,6 +12,13 @@ const navigationConfig = [
         icon: 'whatshot',
         url: '/example',
       },
+      {
+        id: 'users-app',
+        title: 'Users',
+        type: 'item',
+        icon: 'person',
+        url: '/users',
+      },
     ],
   },
 ];
