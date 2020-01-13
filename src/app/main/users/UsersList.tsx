@@ -8,6 +8,7 @@ import {
 } from '@material-ui/core';
 import { FuseUtils, FuseAnimate } from '@fuse';
 import ReactTable from 'react-table';
+import { withRouter } from 'react-router';
 import UsersMultiSelectMenu from './UsersMultiSelectMenu';
 
 const mockContacts = [
@@ -63,7 +64,7 @@ const UsersList = (props: any) => {
             className: 'cursor-pointer',
             onClick: (e: any, handleOriginal: any) => {
               if (rowInfo) {
-                window.location.href = `/users/detail/${rowInfo.original.id}`;
+                props.history.push(`/users/detail/${rowInfo.original.id}`);
               }
             },
           };
@@ -154,4 +155,4 @@ const UsersList = (props: any) => {
   );
 };
 
-export default UsersList;
+export default withRouter(UsersList);
