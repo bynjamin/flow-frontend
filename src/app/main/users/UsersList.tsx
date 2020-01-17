@@ -69,6 +69,11 @@ const UsersList = (props: any) => {
             },
           };
         }}
+        getTheadProps={(state: any, rowInfo: any, column: any) => {
+          return {
+            className: 'table-header-fix',
+          };
+        }}
         data={contacts}
         columns={[
           {

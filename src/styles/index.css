@@ -82,6 +82,11 @@ a[role=button] {
         box-shadow: inset 0 0 0 20px rgba(0, 0, 0, 0.37);
         border-radius: 20px;
     }
+
+    /* Align to scrollbar */
+    .table-header-fix {
+      padding-right: 12px;
+    }
 }
 
 form label {
