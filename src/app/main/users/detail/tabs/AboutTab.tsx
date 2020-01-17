@@ -17,20 +17,89 @@ import {
 import { FuseAnimateGroup } from '@fuse';
 import axios from 'axios';
 
-function AboutTab() {
-  const [data, setData] = useState<any>(null);
+const mockData = {
+  general: {
+    gender: 'Male',
+    birthday: 'February 30th, 1974',
+    locations: ['London, UK', 'New York, USA'],
+    about:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis eget pharetra felis, sed ullamcorper dui. Sed et elementum neque. Vestibulum pellente viverra ultrices. Etiam justo augue, vehicula ac gravida a, interdum sit amet nisl. Integer vitae nisi id nibh dictum mollis in vitae tortor.',
+  },
+  work: {
+    occupation: 'Developer',
+    skills: 'C#, PHP, Javascript, Angular, JS, HTML, CSS',
+    jobs: [
+      {
+        company: 'Self-Employed',
+        date: '2010 - Now',
+      },
+      {
+        company: 'Google',
+        date: '2008 - 2010',
+      },
+    ],
+  },
+  contact: {
+    address:
+      'Ut pharetra luctus est quis sodales. Duis nisi tortor, bibendum eget tincidunt, aliquam ac elit. Mauris nec euismod odio.',
+    tel: ['+6 555 6600', '+9 555 5255'],
+    websites: ['withinpixels.com'],
+    emails: ['mail@withinpixels.com', 'mail@creapond.com'],
+  },
+  groups: [
+    {
+      id: '1',
+      name: 'Android',
+      category: 'Technology',
+      members: '1.856.546',
+    },
+    {
+      id: '2',
+      name: 'Google',
+      category: 'Web',
+      members: '1.226.121',
+    },
+    {
+      id: '3',
+      name: 'Fallout',
+      category: 'Games',
+      members: '526.142',
+    },
+  ],
+  supervisors: [
+    {
+      id: '1',
+      name: 'Garry Newman',
+      avatar: 'assets/images/avatars/garry.jpg',
+    },
+    {
+      id: '2',
+      name: 'Carl Henderson',
+      avatar: 'assets/images/avatars/carl.jpg',
+    },
+    {
+      id: '3',
+      name: 'Jane Dean',
+      avatar: 'assets/images/avatars/jane.jpg',
+    },
+  ],
+};
 
+const AboutTab: React.FC = () => {
+  const [data, setData] = useState<any>(mockData);
+  /*
   useEffect(() => {
     axios.get('/api/profile/about').then(res => {
       setData(res.data);
     });
   }, []);
+  */
 
   if (!data) {
     return null;
   }
 
-  const { general, work, contact, groups, friends } = data;
+  const { general, work, contact, groups, supervisors } = data;
 
   return (
     <div className="md:flex max-w-2xl">
@@ -215,21 +284,18 @@ function AboutTab() {
                   color="inherit"
                   className="flex-1"
                 >
-                  Friends
+                  Supervisors
                 </Typography>
-                <Button className="normal-case" color="inherit" size="small">
-                  See 454 more
-                </Button>
               </Toolbar>
             </AppBar>
             <CardContent className="p-0">
-              <List className="p-8">
-                {friends.map((friend: any) => (
+              <List className="flex flex-wrap p-8">
+                {supervisors.map((supervisor: any) => (
                   <img
-                    key={friend.id}
-                    className="w-64 m-4"
-                    src={friend.avatar}
-                    alt={friend.name}
+                    key={supervisor.id}
+                    className="w-64 m-4 rounded-4 block"
+                    src={supervisor.avatar}
+                    alt={supervisor.name}
                   />
                 ))}
               </List>
@@ -255,7 +321,9 @@ function AboutTab() {
               <List className="p-0">
                 {groups.map((group: any) => (
                   <ListItem key={group.id}>
-                    <Avatar alt={group.name}>{group.name[0]}</Avatar>
+                    <Avatar className="mx-8" alt={group.name}>
+                      {group.name[0]}
+                    </Avatar>
                     <ListItemText
                       primary={
                         <div className="">
@@ -288,6 +356,6 @@ function AboutTab() {
       </div>
     </div>
   );
-}
+};
 
 export default AboutTab;

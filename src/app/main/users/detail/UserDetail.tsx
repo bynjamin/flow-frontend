@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme: any) => ({
 
 function ProfilePage() {
   const classes = useStyles();
-  const [selectedTab, setSelectedTab] = useState(1);
+  const [selectedTab, setSelectedTab] = useState(0);
 
   // @ts-ignore
   function handleTabChange(event, value) {
@@ -53,15 +53,7 @@ function ProfilePage() {
               color="secondary"
               aria-label="Follow"
             >
-              Follow
-            </Button>
-            <Button
-              className="normal-case"
-              variant="contained"
-              color="primary"
-              aria-label="Send Message"
-            >
-              Send Message
+              Send message
             </Button>
           </div>
         </div>
@@ -105,7 +97,7 @@ function ProfilePage() {
       content={
         <div className="p-16 sm:p-24">
           {/* selectedTab === 0 && <TimelineTab /> */}
-          {selectedTab === 1 && <AboutTab />}
+          {selectedTab === 0 && <AboutTab />}
           {/* selectedTab === 2 && <PhotosVideosTab /> */}
         </div>
       }
