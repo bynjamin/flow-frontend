@@ -20,6 +20,13 @@ const navigationConfig = [
         url: '/users',
       },
       {
+        id: 'clients-app',
+        title: 'Clients',
+        type: 'item',
+        icon: 'account_circle',
+        url: '/clients',
+      },
+      {
         id: 'contacts-app',
         title: 'Contacts',
         type: 'item',

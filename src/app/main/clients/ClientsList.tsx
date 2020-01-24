@@ -9,13 +9,13 @@ import {
 import { FuseUtils, FuseAnimate } from '@fuse';
 import ReactTable from 'react-table';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import ContactsMultiSelectMenu from './ContactsMultiSelectMenu';
+import ClientsMultiSelectMenu from './ClientsMultiSelectMenu';
 import { DialogType } from './types';
 
-const mockContacts = [
+const mockClients = [
   {
     id: 1,
-    name: 'Jozef',
+    name: 'Assyx',
     lastName: 'Mrkva',
     jobTitle: 'Asistent',
     email: 'jozef@flowato.com',
@@ -23,7 +23,7 @@ const mockContacts = [
   },
   {
     id: 2,
-    name: 'Jana',
+    name: 'Netflix',
     lastName: 'Bleda',
     jobTitle: 'Asistentka asistenta',
     email: 'jana@flowato.com',
@@ -31,7 +31,7 @@ const mockContacts = [
   },
   {
     id: 3,
-    name: 'Pavol',
+    name: 'Albi',
     lastName: 'Hviezdoslav',
     jobTitle: 'Exorcista',
     email: 'pavol@flowato.com',
@@ -43,18 +43,18 @@ type Props = {
   openDialog: (type: DialogType) => void;
 } & RouteComponentProps;
 
-const ContactsList: React.FC<Props> = ({ openDialog }) => {
+const ClientsList: React.FC<Props> = ({ openDialog }) => {
   // eslint-disable-next-line prefer-destructuring
-  const contacts: Array<any> = mockContacts;
+  const clients: Array<any> = mockClients;
   const selectedContactIds: Array<number> = [];
   const searchText = '';
   const user: any = { starred: [] };
 
-  if (contacts?.length === 0) {
+  if (clients?.length === 0) {
     return (
       <div className="flex flex-1 items-center justify-center h-full">
         <Typography color="textSecondary" variant="h5">
-          There are no contacts!
+          There are no clients!
         </Typography>
       </div>
     );
@@ -79,7 +79,7 @@ const ContactsList: React.FC<Props> = ({ openDialog }) => {
             className: 'table-header-fix',
           };
         }}
-        data={contacts}
+        data={clients}
         columns={[
           {
             Header: () => (
@@ -93,11 +93,11 @@ const ContactsList: React.FC<Props> = ({ openDialog }) => {
                     : console.log('Deselect all users');
                 }}
                 checked={
-                  selectedContactIds.length === contacts?.length &&
+                  selectedContactIds.length === clients?.length &&
                   selectedContactIds.length > 0
                 }
                 indeterminate={
-                  selectedContactIds.length !== contacts?.length &&
+                  selectedContactIds.length !== clients?.length &&
                   selectedContactIds.length > 0
                 }
               />
@@ -122,7 +122,7 @@ const ContactsList: React.FC<Props> = ({ openDialog }) => {
           },
           {
             Header: () =>
-              selectedContactIds.length > 0 && <ContactsMultiSelectMenu />,
+              selectedContactIds.length > 0 && <ClientsMultiSelectMenu />,
             accessor: 'avatar',
             Cell: (row: any) => (
               <Avatar
@@ -187,10 +187,10 @@ const ContactsList: React.FC<Props> = ({ openDialog }) => {
           },
         ]}
         defaultPageSize={10}
-        noDataText="No contacts found"
+        noDataText="No clients found"
       />
     </FuseAnimate>
   );
 };
 
-export default withRouter(ContactsList);
+export default withRouter(ClientsList);

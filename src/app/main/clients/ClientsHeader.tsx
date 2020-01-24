@@ -11,7 +11,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import { FuseAnimate } from '@fuse';
 import { useSelector } from 'react-redux';
 
-function ContactsHeader(props: any) {
+function ClientsHeader(props: any) {
   const [searchText, setSearchText] = useState<string>('');
   // @ts-ignore
   const mainTheme = useSelector(({ fuse }) => fuse.settings.mainTheme);
@@ -32,11 +32,11 @@ function ContactsHeader(props: any) {
 
         <div className="flex items-center">
           <FuseAnimate animation="transition.expandIn" delay={300}>
-            <Icon className="text-32 mr-12">account_box</Icon>
+            <Icon className="text-32 mr-12">account_circle</Icon>
           </FuseAnimate>
           <FuseAnimate animation="transition.slideLeftIn" delay={300}>
             <Typography variant="h6" className="hidden sm:flex">
-              Contacts
+              Clients
             </Typography>
           </FuseAnimate>
         </div>
@@ -74,4 +74,4 @@ function ContactsHeader(props: any) {
   );
 }
 
-export default ContactsHeader;
+export default ClientsHeader;

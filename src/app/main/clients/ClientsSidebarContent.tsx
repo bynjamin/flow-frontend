@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: any) => ({
   },
 }));
 
-const ContactsSidebarContent: React.FC<any> = props => {
+const ClientsSidebarContent: React.FC<any> = props => {
   const user = { name: 'Franchesco Pentagielli', avatar: '' };
 
   const classes = useStyles(props);
@@ -53,7 +53,7 @@ const ContactsSidebarContent: React.FC<any> = props => {
             <ListItem
               button
               component={NavLinkAdapter}
-              to="/contacts/all"
+              to="/clients/all"
               activeClassName="active"
               className={classes.listItem}
             >
@@ -69,7 +69,7 @@ const ContactsSidebarContent: React.FC<any> = props => {
             <ListItem
               button
               component={NavLinkAdapter}
-              to="/contacts/starred"
+              to="/clients/starred"
               activeClassName="active"
               className={classes.listItem}
             >
@@ -89,4 +89,4 @@ const ContactsSidebarContent: React.FC<any> = props => {
   );
 };
 
-export default ContactsSidebarContent;
+export default ClientsSidebarContent;
