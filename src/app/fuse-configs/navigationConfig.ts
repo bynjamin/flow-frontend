@@ -19,6 +19,13 @@ const navigationConfig = [
         icon: 'person',
         url: '/users',
       },
+      {
+        id: 'contacts-app',
+        title: 'Contacts',
+        type: 'item',
+        icon: 'account_box',
+        url: '/contacts',
+      },
     ],
   },
 ];
