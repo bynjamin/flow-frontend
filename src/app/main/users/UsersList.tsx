@@ -7,7 +7,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { FuseUtils, FuseAnimate } from '@fuse';
-import ReactTable from 'react-table';
+import ReactTable from 'react-table-6';
 import { withRouter } from 'react-router';
 import UsersMultiSelectMenu from './UsersMultiSelectMenu';
 

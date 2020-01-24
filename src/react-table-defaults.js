@@ -1,7 +1,7 @@
-import "react-table/react-table.css";
+import "react-table-6/react-table.css";
 import React, {Component} from 'react';
 import {FormControl, FormHelperText, Icon, IconButton, Input, InputAdornment, Menu, MenuItem} from '@material-ui/core';
-import {ReactTableDefaults} from 'react-table'
+import {ReactTableDefaults} from 'react-table-6'
 import _ from '@lodash';
 
 const filterTypes = [
