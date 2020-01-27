@@ -13,6 +13,18 @@ const navigationConfig = [
         url: '/example',
       },
       {
+        id: 'tasks-app',
+        title: 'Tasks',
+        type: 'item',
+        icon: 'check_box',
+        url: '/tasks',
+        badge: {
+          title: 3,
+          bg: 'rgb(255, 111, 0)',
+          fg: '#FFFFFF',
+        },
+      },
+      {
         id: 'users-app',
         title: 'Users',
         type: 'item',

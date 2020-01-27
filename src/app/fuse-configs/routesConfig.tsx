@@ -7,6 +7,7 @@ import { LoginConfig } from 'app/main/login/LoginConfig';
 import { TestConfig } from 'app/main/test/TestConfig';
 import { ContactsConfig } from 'app/main/contacts/ContactsAppConfig';
 import { ClientsConfig } from 'app/main/clients/ClientsAppConfig';
+import { TasksAppConfig } from 'app/main/tasks/TakskAppConfig';
 
 const routeConfigs = [
   ExampleConfig,
@@ -14,6 +15,7 @@ const routeConfigs = [
   TestConfig,
   ContactsConfig,
   ClientsConfig,
+  TasksAppConfig,
   ...UsersConfig,
 ];
 
