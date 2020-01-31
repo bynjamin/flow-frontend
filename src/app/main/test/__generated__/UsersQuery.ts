@@ -3,10 +3,10 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: UserQuery
+// GraphQL query operation: UsersQuery
 // ====================================================
 
-export interface UserQuery_usersQuery {
+export interface UsersQuery_usersQuery {
   __typename: "User";
   /**
    * User ID
@@ -14,9 +14,9 @@ export interface UserQuery_usersQuery {
   id: string;
 }
 
-export interface UserQuery {
+export interface UsersQuery {
   /**
    * Get all users
    */
-  usersQuery: (UserQuery_usersQuery | null)[];
+  usersQuery: (UsersQuery_usersQuery | null)[];
 }

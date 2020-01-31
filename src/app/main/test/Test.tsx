@@ -3,8 +3,10 @@ import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 
 const TEST_QUERY = gql`
-  query UserQuery {
-    userQuery
+  query UsersQuery {
+    usersQuery {
+      id
+    }
   }
 `;
 

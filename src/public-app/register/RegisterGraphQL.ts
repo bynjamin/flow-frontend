@@ -1,6 +1,6 @@
-import gql from 'graphql-tag';
+import publicGql from 'graphql-tag';
 
-export const REGISTER = gql`
+export const REGISTER = publicGql`
   mutation RegistrationMutation(
     $company: String!
     $mail: String!
@@ -24,7 +24,7 @@ export const REGISTER = gql`
   }
 `;
 
-export const SITE_ADDRESS_CHECK = gql`
+export const SITE_ADDRESS_CHECK = publicGql`
   query IsSiteAddressAvailable($siteAddress: String!) {
     isSiteAddressAvailable(siteAddress: $siteAddress)
   }

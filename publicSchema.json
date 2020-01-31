@@ -3,7 +3,9 @@
     "queryType": {
       "name": "Query"
     },
-    "mutationType": null,
+    "mutationType": {
+      "name": "Mutation"
+    },
     "subscriptionType": null,
     "types": [
       {
@@ -12,190 +14,21 @@
         "description": null,
         "fields": [
           {
-            "name": "userQuery",
-            "description": "Get actual user data. if set id then return data for user with id = id",
+            "name": "isSiteAddressAvailable",
+            "description": "Check if site name isn't already occupied",
             "args": [
               {
-                "name": "id",
+                "name": "siteAddress",
                 "description": null,
                 "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  }
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
                 },
                 "defaultValue": null
               }
             ],
             "type": {
-              "kind": "OBJECT",
-              "name": "User",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "usersQuery",
-            "description": "Get all users",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "User",
-                  "ofType": null
-                }
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "SCALAR",
-        "name": "Int",
-        "description": "The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.",
-        "fields": null,
-        "inputFields": null,
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "User",
-        "description": "User model",
-        "fields": [
-          {
-            "name": "id",
-            "description": "User ID",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "ID",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "userName",
-            "description": "User name",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "email",
-            "description": "User email",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "firstName",
-            "description": "User first name",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "lastName",
-            "description": "User surname",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "title",
-            "description": "User title",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "isAdmin",
-            "description": "Is user Admin",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "isSuperAdmin",
-            "description": "Is user Super Admin",
-            "args": [],
-            "type": {
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
@@ -210,16 +43,6 @@
         ],
         "inputFields": null,
         "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "SCALAR",
-        "name": "ID",
-        "description": "The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `\"4\"`) or integer (such as `4`) input value will be accepted as an ID.",
-        "fields": null,
-        "inputFields": null,
-        "interfaces": null,
         "enumValues": null,
         "possibleTypes": null
       },
@@ -237,6 +60,201 @@
         "kind": "SCALAR",
         "name": "Boolean",
         "description": "The `Boolean` scalar type represents `true` or `false`.",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Mutation",
+        "description": null,
+        "fields": [
+          {
+            "name": "newRegistration",
+            "description": "Create new registration and send activation mail if success.",
+            "args": [
+              {
+                "name": "siteAddress",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "company",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "fullName",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "mail",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "password",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "passwordConfirm",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "captcha",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Tenant",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Tenant",
+        "description": "Tenant model",
+        "fields": [
+          {
+            "name": "id",
+            "description": "Tenant ID",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "uuid",
+            "description": "Tenant uuid",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "fqdn",
+            "description": "Tenant fqdn",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "ID",
+        "description": "The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `\"4\"`) or integer (such as `4`) input value will be accepted as an ID.",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -1050,13 +1068,23 @@
         "possibleTypes": null
       },
       {
+        "kind": "SCALAR",
+        "name": "Int",
+        "description": "The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "OBJECT",
-        "name": "Tenant",
-        "description": "Tenant model",
+        "name": "User",
+        "description": "User model",
         "fields": [
           {
             "name": "id",
-            "description": "Tenant ID",
+            "description": "User ID",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -1071,8 +1099,8 @@
             "deprecationReason": null
           },
           {
-            "name": "uuid",
-            "description": "Tenant uuid",
+            "name": "userName",
+            "description": "User name",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -1087,8 +1115,8 @@
             "deprecationReason": null
           },
           {
-            "name": "fqdn",
-            "description": "Tenant fqdn",
+            "name": "email",
+            "description": "User email",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -1096,6 +1124,86 @@
               "ofType": {
                 "kind": "SCALAR",
                 "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "firstName",
+            "description": "User first name",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "lastName",
+            "description": "User surname",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "title",
+            "description": "User title",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "isAdmin",
+            "description": "Is user Admin",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "isSuperAdmin",
+            "description": "Is user Super Admin",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
                 "ofType": null
               }
             },
