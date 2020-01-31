@@ -62,7 +62,13 @@
       "error",
       {
         "env": "apollo",
-        "schemaJsonFilepath": "./schema.json"
+        "schemaJsonFilepath": "./schema.json",
+        "tagName": "gql"
+      },
+      {
+        "env": "apollo",
+        "schemaJsonFilepath": "./publicSchema.json",
+        "tagName": "publicGql"
       }
     ],
 

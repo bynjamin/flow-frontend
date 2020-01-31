@@ -115,8 +115,10 @@
         "build": "yarn run tailwind && node ./purge-tailwindcss.js && cross-env GENERATE_SOURCEMAP=false react-scripts build",
         "lint:ts": "eslint --ext=ts,tsx src",
         "lint:js": "eslint --ext=js,jsx src",
-        "graphql:schema": "better-npm-run graphql:schema",
-        "graphql:types": "apollo codegen:generate --localSchemaFile=schema.json --target=typescript  --tagName=gql --addTypename --globalTypesFile=src/__generated__/globalTypes.ts",
+        "graphql:schema": "better-npm-run graphql:schema && better-npm-run public-graphql:schema",
+        "graphql:types": "yarn main-graphql:types && yarn public-graphql:types",
+        "main-graphql:types": "apollo codegen:generate --localSchemaFile=schema.json --target=typescript  --tagName=gql --addTypename --globalTypesFile=src/app/__generated__/globalTypes.ts",
+        "public-graphql:types": "apollo codegen:generate --localSchemaFile=publicSchema.json --target=typescript  --tagName=publicGql --addTypename --globalTypesFile=src/public-app/__generated__/globalTypes.ts",
         "tailwind": "./node_modules/.bin/tailwind build ./src/styles/tailwind-config.css -c ./tailwind.config.js -o ./src/styles/tailwind.css",
         "test": "react-scripts test --env=node --watchAll=false --passWithNoTests",
         "test:watch": "react-scripts test --env=node",
@@ -125,7 +127,8 @@
         "bundle-report": "yarn run tailwind && node ./purge-tailwindcss.js && cross-env GENERATE_SOURCEMAP=false craco build"
     },
     "betterScripts": {
-        "graphql:schema": "cross-env apollo service:download --endpoint $REACT_APP_API_URL"
+        "graphql:schema": "cross-env apollo service:download --endpoint $REACT_APP_API_URL",
+        "public-graphql:schema": "cross-env apollo service:download publicSchema.json --endpoint $REACT_APP_PUBLIC_API_URL"
     },
     "eslintConfig": {
         "extends": "react-app"
