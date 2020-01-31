@@ -9,7 +9,7 @@ import { SITE_ADDRESS_CHECK } from './RegisterGraphQL';
 import { RegistrationMutationVariables } from './__generated__/RegistrationMutation';
 import { IsSiteAddressAvailableVariables } from './__generated__/IsSiteAddressAvailable';
 
-const uri = process.env.REACT_APP_API_URL;
+const uri = process.env.REACT_APP_PUBLIC_API_URL;
 const link = new HttpLink({ uri });
 
 const isSiteAddressAvailable = async ({
