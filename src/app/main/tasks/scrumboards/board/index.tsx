@@ -11,11 +11,11 @@ import {
 import { Link, withRouter } from 'react-router-dom';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import clsx from 'clsx';
-//import BoardTitle from './BoardTitle';
-//import BoardList from './BoardList';
-//import BoardAddList from './BoardAddList';
-//import BoardCardDialog from './dialogs/card/BoardCardDialog';
-//import BoardSettingsSidebar from './sidebars/settings/BoardSettingsSidebar';
+// import BoardTitle from './BoardTitle';
+// import BoardList from './BoardList';
+// import BoardAddList from './BoardAddList';
+// import BoardCardDialog from './dialogs/card/BoardCardDialog';
+// import BoardSettingsSidebar from './sidebars/settings/BoardSettingsSidebar';
 
 const Board: React.FC = props => {
   return null;
