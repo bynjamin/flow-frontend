@@ -7,12 +7,20 @@ export const TasksAppConfig = {
   },
   routes: [
     {
-      path: '/tasks/:id',
-      component: React.lazy(() => import('./TasksApp')),
+      path: '/tasks/list/:id',
+      component: React.lazy(() => import('./list/TasksApp')),
     },
     {
-      path: '/tasks',
-      component: () => <Redirect to="/tasks/all" />,
+      path: '/tasks/boards/:boardId',
+      component: React.lazy(() => import('./scrumboards/board')),
+    },
+    {
+      path: '/tasks/boards',
+      component: React.lazy(() => import('./scrumboards/boards')),
+    },
+    {
+      path: ['/tasks', '/tasks/list'],
+      component: () => <Redirect to="/tasks/list/all" />,
     },
   ],
 };

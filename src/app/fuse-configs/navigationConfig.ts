@@ -15,14 +15,27 @@ const navigationConfig = [
       {
         id: 'tasks-app',
         title: 'Tasks',
-        type: 'item',
+        type: 'collapse',
         icon: 'check_box',
-        url: '/tasks',
         badge: {
           title: 3,
           bg: 'rgb(255, 111, 0)',
           fg: '#FFFFFF',
         },
+        children: [
+          {
+            id: 'task-list',
+            title: 'List',
+            type: 'item',
+            url: '/tasks/list',
+          },
+          {
+            id: 'task-bords',
+            title: 'Boards',
+            type: 'item',
+            url: '/tasks/boards',
+          },
+        ],
       },
       {
         id: 'users-app',
