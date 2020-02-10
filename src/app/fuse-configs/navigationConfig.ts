@@ -58,6 +58,13 @@ const navigationConfig = [
         icon: 'account_box',
         url: '/contacts',
       },
+      {
+        id: 'test',
+        title: 'Test',
+        type: 'item',
+        icon: 'whatshot',
+        url: '/test',
+      },
     ],
   },
 ];
