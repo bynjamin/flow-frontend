@@ -16,9 +16,22 @@ import { Auth } from './auth';
 import store from './store';
 import AppContext from '../common/AppContext';
 import routes from './fuse-configs/routesConfig';
+import { getTokens } from './services/jwtService/jwtService2';
+import Authorization from './Authorization';
 
 const client = new ApolloClient({
   uri: process.env.REACT_APP_API_URL,
+  request: operation => {
+    const tokens = getTokens();
+    if (tokens?.access_token) {
+      operation.setContext({
+        headers: {
+          Authorization: `Bearer ${tokens.access_token}`,
+          // 'x-refresh-token': tokens.refreshToken,
+        },
+      });
+    }
+  },
 });
 
 const jss = create({
@@ -40,11 +53,13 @@ const App = () => (
         <Provider store={store}>
           <Auth>
             <Router history={history}>
-              <FuseAuthorization>
-                <FuseTheme>
-                  <FuseLayout />
-                </FuseTheme>
-              </FuseAuthorization>
+              <Authorization>
+                <FuseAuthorization>
+                  <FuseTheme>
+                    <FuseLayout />
+                  </FuseTheme>
+                </FuseAuthorization>
+              </Authorization>
             </Router>
           </Auth>
         </Provider>
