@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { withRouter } from 'react-router';
+import axios from 'axios';
 import {
   Button,
   Card,
@@ -14,6 +16,7 @@ import { makeStyles } from '@material-ui/styles';
 import { FuseAnimate, TextFieldFormsy, CheckboxFormsy } from '@fuse';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
+import { saveTokens } from '../../services/jwtService/jwtService2';
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
@@ -27,32 +30,13 @@ const useStyles = makeStyles((theme: any) => ({
   },
 }));
 
-const Login: React.FC = () => {
-  async function postData(url = '', data = {}) {
-    // Default options are marked with *
-    const response = await fetch(
-      'http://flowato_api_dev.devcrebiso.sk/api/auth/login',
-      {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors', // no-cors, *cors, same-origin
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'same-origin', // include, *same-origin, omit
-        headers: {
-          'Content-Type': 'application/json',
-          // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        redirect: 'follow', // manual, *follow, error
-        referrerPolicy: 'no-referrer', // no-referrer, *client
-        body: JSON.stringify({
-          email: 'admin@test.sk',
-          password: 'dankojekral',
-        }), // body data type must match "Content-Type" header
-      },
-    );
-    // eslint-disable-next-line no-return-await
-    return await response.json(); // parses JSON response into native JavaScript objects
-  }
+type LoginModel = {
+  email: string;
+  password: string;
+  remember: boolean;
+};
 
+const Login: React.FC = (props: any) => {
   const classes = useStyles();
   const [isFormValid, setIsFormValid] = useState(false);
 
@@ -64,9 +48,22 @@ const Login: React.FC = () => {
     setIsFormValid(true);
   }
 
-  function handleSubmit(model: any) {
-    postData();
-    console.log(model);
+  async function handleSubmit(model: LoginModel) {
+    try {
+      const credentials = {
+        email: model.email,
+        password: model.password,
+      };
+      const response = await axios.post(
+        process.env.REACT_APP_LOGIN_URL!,
+        credentials,
+      );
+      saveTokens(response.data);
+      props.history.push('/');
+    } catch (e) {
+      console.log('handle bad credentials');
+      console.log(e);
+    }
   }
 
   return (
@@ -209,4 +206,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default withRouter(Login);
