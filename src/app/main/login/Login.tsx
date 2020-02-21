@@ -16,7 +16,7 @@ import { makeStyles } from '@material-ui/styles';
 import { FuseAnimate, TextFieldFormsy, CheckboxFormsy } from '@fuse';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
-import { saveTokens } from '../../services/jwtService/jwtService2';
+import { saveTokens } from '../../jwtService/jwtService2';
 
 const useStyles = makeStyles((theme: any) => ({
   root: {

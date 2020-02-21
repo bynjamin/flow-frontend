@@ -4,9 +4,7 @@ import _ from '@lodash';
 import store from 'app/store';
 import * as Actions from 'app/store/actions';
 import firebase from 'firebase/app';
-import firebaseService from 'app/services/firebaseService';
-import auth0Service from 'app/services/auth0Service';
-import jwtService from 'app/services/jwtService';
+import jwtService from 'app/jwtService';
 
 export const SET_USER_DATA = '[USER] SET DATA';
 export const REMOVE_USER_DATA = '[USER] REMOVE DATA';
@@ -172,24 +170,8 @@ export function logoutUser()
             pathname: '/'
         });
 
-        switch ( user.from )
-        {
-            case 'firebase':
-            {
-                firebaseService.signOut();
-                break;
-            }
-            case 'auth0':
-            {
-                auth0Service.logout();
-                break;
-            }
-            default:
-            {
-                jwtService.logout();
-            }
-        }
-
+        jwtService.logout();
+    
         dispatch(setInitialSettings());
 
         dispatch({
@@ -208,43 +190,11 @@ function updateUserData(user)
         return;
     }
 
-    switch ( user.from )
-    {
-        case 'firebase':
-        {
-            firebaseService.updateUserData(user)
-                .then(() => {
-                    store.dispatch(Actions.showMessage({message: "User data saved to firebase"}));
-                })
-                .catch(error => {
-                    store.dispatch(Actions.showMessage({message: error.message}));
-                });
-            break;
-        }
-        case 'auth0':
-        {
-            auth0Service.updateUserData({
-                settings : user.data.settings,
-                shortcuts: user.data.shortcuts
-            })
-                .then(() => {
-                    store.dispatch(Actions.showMessage({message: "User data saved to auth0"}));
-                })
-                .catch(error => {
-                    store.dispatch(Actions.showMessage({message: error.message}));
-                });
-            break;
-        }
-        default:
-        {
-            jwtService.updateUserData(user)
-                .then(() => {
-                    store.dispatch(Actions.showMessage({message: "User data saved with api"}));
-                })
-                .catch(error => {
-                    store.dispatch(Actions.showMessage({message: error.message}));
-                });
-            break;
-        }
-    }
+    jwtService.updateUserData(user)
+        .then(() => {
+            store.dispatch(Actions.showMessage({message: "User data saved with api"}));
+        })
+        .catch(error => {
+            store.dispatch(Actions.showMessage({message: error.message}));
+        });
 }
