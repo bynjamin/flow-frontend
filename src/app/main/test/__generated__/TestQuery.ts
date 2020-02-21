@@ -13,9 +13,9 @@ export interface TestQuery_usersQuery {
    */
   id: string;
   /**
-   * User name
+   * User full name
    */
-  userName: string;
+  fullName: string;
   /**
    * User email
    */
@@ -29,9 +29,9 @@ export interface TestQuery_userQuery {
    */
   id: string;
   /**
-   * User name
+   * User full name
    */
-  userName: string;
+  fullName: string;
   /**
    * User email
    */

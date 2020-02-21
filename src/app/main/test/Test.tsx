@@ -8,12 +8,12 @@ const TEST_QUERY = gql`
   query TestQuery {
     usersQuery {
       id
-      userName
+      fullName
       email
     }
     userQuery(id: 1) {
       id
-      userName
+      fullName
       email
     }
   }

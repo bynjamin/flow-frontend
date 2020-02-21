@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import gql from 'graphql-tag';
 import {
   Avatar,
   AppBar,
@@ -85,8 +86,12 @@ const mockData = {
   ],
 };
 
-const AboutTab: React.FC = () => {
-  const [data, setData] = useState<any>(mockData);
+type Props = {
+  data: any;
+};
+
+const AboutTab: React.FC<Props> = ({ data }) => {
+  const [datax, setDatax] = useState<any>(mockData);
   /*
   useEffect(() => {
     axios.get('/api/profile/about').then(res => {
@@ -99,7 +104,7 @@ const AboutTab: React.FC = () => {
     return null;
   }
 
-  const { general, work, contact, groups, supervisors } = data;
+  const { general, work, contact, groups, supervisors } = datax;
 
   return (
     <div className="md:flex max-w-2xl">
@@ -127,7 +132,7 @@ const AboutTab: React.FC = () => {
                 <Typography className="font-bold mb-4 text-15">
                   Gender
                 </Typography>
-                <Typography>{general.gender}</Typography>
+                <Typography>{data.gender}</Typography>
               </div>
 
               <div className="mb-24">
@@ -156,7 +161,7 @@ const AboutTab: React.FC = () => {
                 <Typography className="font-bold mb-4 text-15">
                   About Me
                 </Typography>
-                <Typography>{general.about}</Typography>
+                <Typography>{data.about}</Typography>
               </div>
             </CardContent>
           </Card>
@@ -359,3 +364,24 @@ const AboutTab: React.FC = () => {
 };
 
 export default AboutTab;
+
+export const AboutTabFragment = {
+  data: gql`
+    fragment AboutTabFragment on User {
+      id
+      fullName
+      email
+      gender
+      about
+      phone
+      gdpr
+      position
+      address {
+        street
+        zip
+        city
+        country
+      }
+    }
+  `,
+};
