@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import { FuseUtils, FuseAnimate, FuseLoading } from '@fuse';
 import ReactTable from 'react-table-6';
-import { withRouter } from 'react-router';
+import { useHistory } from 'react-router';
 import UsersMultiSelectMenu from './UsersMultiSelectMenu';
 import { UserListQuery } from './__generated__/UserListQuery';
 
@@ -27,8 +27,8 @@ const USERLIST_QUERY = gql`
   }
 `;
 
-const UsersList = (props: any) => {
-  // eslint-disable-next-line prefer-destructuring
+const UsersList = () => {
+  const history = useHistory();
   const { loading, error, data } = useQuery<UserListQuery>(USERLIST_QUERY);
   const selectedContactIds: Array<number> = [];
   const searchText = '';
@@ -58,7 +58,7 @@ const UsersList = (props: any) => {
               className: 'cursor-pointer',
               onClick: (e: any, handleOriginal: any) => {
                 if (rowInfo) {
-                  props.history.push(`/users/detail/${rowInfo.original.id}`);
+                  history.push(`/users/detail/${rowInfo.original.id}`);
                 }
               },
             };
@@ -163,4 +163,4 @@ const UsersList = (props: any) => {
   return <p>Something bad happend :D</p>;
 };
 
-export default withRouter(UsersList);
+export default UsersList;
