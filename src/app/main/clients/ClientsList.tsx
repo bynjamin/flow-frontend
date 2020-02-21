@@ -8,7 +8,6 @@ import {
 } from '@material-ui/core';
 import { FuseUtils, FuseAnimate } from '@fuse';
 import ReactTable from 'react-table-6';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
 import ClientsMultiSelectMenu from './ClientsMultiSelectMenu';
 import { DialogType } from './types';
 
@@ -41,7 +40,7 @@ const mockClients = [
 
 type Props = {
   openDialog: (type: DialogType) => void;
-} & RouteComponentProps;
+};
 
 const ClientsList: React.FC<Props> = ({ openDialog }) => {
   // eslint-disable-next-line prefer-destructuring
@@ -193,4 +192,4 @@ const ClientsList: React.FC<Props> = ({ openDialog }) => {
   );
 };
 
-export default withRouter(ClientsList);
+export default ClientsList;

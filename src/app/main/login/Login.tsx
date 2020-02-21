@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { withRouter } from 'react-router';
+import { useHistory } from 'react-router';
 import axios from 'axios';
 import {
   Button,
@@ -36,9 +36,10 @@ type LoginModel = {
   remember: boolean;
 };
 
-const Login: React.FC = (props: any) => {
+const Login: React.FC = () => {
   const classes = useStyles();
   const [isFormValid, setIsFormValid] = useState(false);
+  const history = useHistory();
 
   function disableButton() {
     setIsFormValid(false);
@@ -59,7 +60,7 @@ const Login: React.FC = (props: any) => {
         credentials,
       );
       saveTokens(response.data);
-      props.history.push('/');
+      history.push('/');
     } catch (e) {
       console.log('handle bad credentials');
       console.log(e);
@@ -191,13 +192,6 @@ const Login: React.FC = (props: any) => {
               >
                 Log in with Facebook
               </Button>
-
-              <div className="flex flex-col items-center justify-center pt-32 pb-24">
-                <span className="font-medium">Don't have an account?</span>
-                <Link className="font-medium" to="/pages/auth/register">
-                  Create an account
-                </Link>
-              </div>
             </CardContent>
           </Card>
         </FuseAnimate>
@@ -206,4 +200,4 @@ const Login: React.FC = (props: any) => {
   );
 };
 
-export default withRouter(Login);
+export default Login;
