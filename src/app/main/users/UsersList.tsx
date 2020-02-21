@@ -18,7 +18,6 @@ const USERLIST_QUERY = gql`
   query UserListQuery {
     usersQuery {
       id
-      userName
       title
       firstName
       lastName
@@ -123,11 +122,6 @@ const UsersList = () => {
               className: 'justify-center',
               width: 64,
               sortable: false,
-            },
-            {
-              Header: 'Username',
-              accessor: 'userName',
-              className: 'font-bold',
             },
             {
               Header: 'Title',

@@ -13,10 +13,6 @@ export interface UserListQuery_usersQuery {
    */
   id: string;
   /**
-   * User name
-   */
-  userName: string;
-  /**
    * User title
    */
   title: string;
@@ -25,7 +21,7 @@ export interface UserListQuery_usersQuery {
    */
   firstName: string;
   /**
-   * User surname
+   * User last name
    */
   lastName: string;
   /**
