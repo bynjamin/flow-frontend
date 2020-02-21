@@ -1,5 +1,5 @@
 import React from 'react';
-import { FuseSuspense } from '@fuse';
+import { FuseSuspense, FuseSplashScreen } from '@fuse';
 import { EnvException } from './common/exceptions';
 
 const PublicApp = React.lazy(() => import('./public-app'));
@@ -17,9 +17,9 @@ const DomainRouter = () => {
   const domains = window.location.hostname.split('.');
   if (domains.length === rootDomainNum) {
     return (
-      <FuseSuspense>
+      <React.Suspense fallback={<FuseSplashScreen />}>
         <PublicApp />
-      </FuseSuspense>
+      </React.Suspense>
     );
   }
   if (domains.length === rootDomainNum + 1) {
@@ -27,9 +27,9 @@ const DomainRouter = () => {
     console.log('Subdomain: ', subdomain);
     // Subdomain validation
     return (
-      <FuseSuspense>
+      <React.Suspense fallback={<FuseSplashScreen />}>
         <App />
-      </FuseSuspense>
+      </React.Suspense>
     );
   }
   return <div>Page not found</div>;

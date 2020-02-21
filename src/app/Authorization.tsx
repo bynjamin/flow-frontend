@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { isAuthorized } from './services/jwtService/jwtService2';
+import { isAuthorized } from './jwtService/jwtService2';
 
 type Props = {
   children: JSX.Element;

@@ -16,7 +16,7 @@ import { Auth } from './auth';
 import store from './store';
 import AppContext from '../common/AppContext';
 import routes from './fuse-configs/routesConfig';
-import { getTokens } from './services/jwtService/jwtService2';
+import { getTokens } from './jwtService/jwtService2';
 import Authorization from './Authorization';
 
 const client = new ApolloClient({
