@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Fab, Icon } from '@material-ui/core';
-import { FusePageSimple, FuseAnimate } from '@fuse';
+import FuseAnimate from '@fuse/core/FuseAnimate';
+import FusePageSimple from '@fuse/core/FusePageSimple';
 import withReducer from 'app/store/withReducer';
 import ClientsList from './ClientsList';
 import ClientsHeader from './ClientsHeader';

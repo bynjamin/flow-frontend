@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 import { makeStyles, withStyles } from '@material-ui/styles';
 import { darken } from '@material-ui/core/styles/colorManipulator';
-import { FuseAnimate } from '@fuse';
+import FuseAnimate from '@fuse/core/FuseAnimate';
 
 import RegisterForm from './RegisterForm';
 import { REGISTER } from './RegisterGraphQL';

@@ -2,7 +2,8 @@ import React from 'react';
 import { Button, Card, CardContent, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
-import { FuseAnimate, FuseAnimateGroup } from '@fuse';
+import FuseAnimate from '@fuse/core/FuseAnimate';
+import FuseAnimateGroup from '@fuse/core/FuseAnimateGroup';
 import NavigationBar from '../navigation';
 
 const useStyles = makeStyles((theme: any) => ({

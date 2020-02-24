@@ -10,7 +10,8 @@ import {
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import { FuseAnimate, NavLinkAdapter } from '@fuse';
+import FuseAnimate from '@fuse/core/FuseAnimate';
+import NavLinkAdapter from '@fuse/core/NavLinkAdapter';
 
 const useStyles = makeStyles((theme: any) => ({
   listItem: {
@@ -52,6 +53,7 @@ const ContactsSidebarContent: React.FC<any> = props => {
           <List>
             <ListItem
               button
+              // @ts-ignore
               component={NavLinkAdapter}
               to="/contacts/all"
               activeClassName="active"
@@ -68,6 +70,7 @@ const ContactsSidebarContent: React.FC<any> = props => {
             </ListItem>
             <ListItem
               button
+              // @ts-ignore
               component={NavLinkAdapter}
               to="/contacts/starred"
               activeClassName="active"

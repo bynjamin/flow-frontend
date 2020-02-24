@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import { FuseUtils } from '@fuse';
+import FuseUtils from '@fuse/utils';
 import { AboutConfig } from './about/AboutConfig';
 import { RegisterConfig } from './register/RegisterConfig';
 import { PricingConfig } from './pricing/PricingConfig';

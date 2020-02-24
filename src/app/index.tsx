@@ -8,9 +8,11 @@ import {
   createGenerateClassName,
 } from '@material-ui/styles';
 import { Router } from 'react-router-dom';
-import jssExtend from 'jss-extend';
+import jssExtend from 'jss-plugin-extend';
 import { create } from 'jss';
-import { FuseAuthorization, FuseLayout, FuseTheme } from '@fuse';
+import FuseAuthorization from '@fuse/core/FuseAuthorization';
+import FuseLayout from '@fuse/core/FuseLayout';
+import FuseTheme from '@fuse/core/FuseTheme';
 import history from '@history';
 import { Auth } from './auth';
 import store from './store';

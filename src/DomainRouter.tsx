@@ -1,5 +1,6 @@
 import React from 'react';
-import { FuseSuspense, FuseSplashScreen } from '@fuse';
+import FuseSuspense from '@fuse/core/FuseSuspense';
+import FuseSplashScreen from '@fuse/core/FuseSplashScreen';
 import { EnvException } from './common/exceptions';
 
 const PublicApp = React.lazy(() => import('./public-app'));

@@ -3,7 +3,7 @@ import Formsy from 'formsy-react';
 import { execute, makePromise } from 'apollo-link';
 import { HttpLink } from 'apollo-boost';
 import { Button, InputAdornment, Icon } from '@material-ui/core';
-import { TextFieldFormsy } from '@fuse';
+import { TextFieldFormsy } from '@fuse/core/formsy';
 import { RecaptchaFormsy } from 'common/components/formsy';
 import { SITE_ADDRESS_CHECK } from './RegisterGraphQL';
 import { RegistrationMutationVariables } from './__generated__/RegistrationMutation';

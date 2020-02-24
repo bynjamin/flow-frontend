@@ -13,7 +13,8 @@ import {
 import Formsy from 'formsy-react';
 import { darken } from '@material-ui/core/styles/colorManipulator';
 import { makeStyles } from '@material-ui/styles';
-import { FuseAnimate, TextFieldFormsy, CheckboxFormsy } from '@fuse';
+import { TextFieldFormsy, CheckboxFormsy } from '@fuse/core/formsy';
+import FuseAnimate from '@fuse/core/FuseAnimate';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 import { saveTokens } from '../../jwtService/jwtService2';

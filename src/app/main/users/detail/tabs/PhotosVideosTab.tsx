@@ -8,7 +8,7 @@ import {
   Typography,
   ListSubheader,
 } from '@material-ui/core';
-import { FuseAnimateGroup } from '@fuse';
+import FuseAnimateGroup from '@fuse/core/FuseAnimateGroup';
 import axios from 'axios';
 
 function PhotosVideosTab() {

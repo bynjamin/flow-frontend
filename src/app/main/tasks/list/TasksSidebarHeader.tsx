@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Icon, MenuItem, TextField } from '@material-ui/core';
-import { FuseAnimate } from '@fuse';
+import FuseAnimate from '@fuse/core/FuseAnimate';
 
 const accounts: { [key: string]: string } = {
   creapond: 'johndoe@creapond.com',

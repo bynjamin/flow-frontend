@@ -7,7 +7,8 @@ import {
   ListSubheader,
   Button,
 } from '@material-ui/core';
-import { FuseAnimate, NavLinkAdapter } from '@fuse';
+import FuseAnimate from '@fuse/core/FuseAnimate';
+import NavLinkAdapter from '@fuse/core/NavLinkAdapter';
 import { makeStyles } from '@material-ui/styles';
 import { tasksMockData } from './TasksMockData';
 
@@ -70,6 +71,7 @@ const TasksSidebarContent: React.FC = props => {
               folders.map(folder => (
                 <ListItem
                   button
+                  // @ts-ignore
                   component={NavLinkAdapter}
                   to={'/tasks/' + folder.handle}
                   key={folder.id}
@@ -96,6 +98,7 @@ const TasksSidebarContent: React.FC = props => {
               filters.map(filter => (
                 <ListItem
                   button
+                  // @ts-ignore
                   component={NavLinkAdapter}
                   to={'/tasks/filter/' + filter.handle}
                   activeClassName="active"
@@ -122,6 +125,7 @@ const TasksSidebarContent: React.FC = props => {
               labels.map(label => (
                 <ListItem
                   button
+                  // @ts-ignore
                   component={NavLinkAdapter}
                   to={'/tasks/label/' + label.handle}
                   key={label.id}
