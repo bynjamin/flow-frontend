@@ -12,9 +12,11 @@ import FuseAnimate from '@fuse/core/FuseAnimate';
 import FuseLoading from '@fuse/core/FuseLoading';
 import FuseUtils from '@fuse/utils';
 import ReactTable from 'react-table-6';
+import { useTable, usePagination } from 'react-table';
 import { useHistory } from 'react-router';
 import UsersMultiSelectMenu from './UsersMultiSelectMenu';
 import { UserListQuery } from './__generated__/UserListQuery';
+import DataTable from 'common/components/table/DataTable';
 
 const USERLIST_QUERY = gql`
   query UserListQuery {
@@ -39,6 +41,83 @@ const UsersList = () => {
   if (error) return <p style={{ color: 'red' }}>{error.message}</p>;
   if (data) {
     const users = data.usersQuery;
+    const columns = [
+      /*
+      {
+        id: 'col_1',
+        Header: () => (
+          <Checkbox
+            onClick={event => {
+              event.stopPropagation();
+            }}
+            onChange={event => {
+              event.target.checked
+                ? console.log('Select all users')
+                : console.log('Deselect all users');
+            }}
+            checked={
+              selectedContactIds.length === users?.length &&
+              selectedContactIds.length > 0
+            }
+            indeterminate={
+              selectedContactIds.length !== users?.length &&
+              selectedContactIds.length > 0
+            }
+          />
+        ),
+        accessor: '',
+        Cell: (row: any) => {
+          return (
+            <Checkbox
+              onClick={(event: any) => {
+                event.stopPropagation();
+              }}
+              checked={selectedContactIds.includes(row.value.id)}
+              onChange={
+                () => console.log('Select user') // dispatch(Actions.toggleInSelectedContacts(row.value.id))
+              }
+            />
+          );
+        },
+        className: 'justify-center',
+        sortable: false,
+        width: 64,
+      },
+      {
+        Header: () => selectedContactIds.length > 0 && <UsersMultiSelectMenu />,
+        accessor: 'avatar',
+        Cell: (row: any) => (
+          <Avatar className="mr-8" alt={row.original.name} src={row.value} />
+        ),
+        className: 'justify-center',
+        width: 64,
+        sortable: false,
+      },
+      */
+      {
+        Header: 'Title',
+        accessor: 'title',
+        className: 'font-bold',
+      },
+      {
+        Header: 'First Name',
+        accessor: 'firstName',
+        className: 'font-bold',
+      },
+      {
+        Header: 'Last Name',
+        accessor: 'lastName',
+        className: 'font-bold',
+      },
+      {
+        Header: 'Email',
+        accessor: 'email',
+      },
+      {
+        Header: 'Phone',
+        accessor: 'phone',
+      },
+    ];
 
     if (users.length === 0) {
       return (
@@ -52,6 +131,14 @@ const UsersList = () => {
 
     return (
       <FuseAnimate animation="transition.slideUpIn" delay={300}>
+        <DataTable
+          columns={columns}
+          data={users}
+          pageCount={10}
+          loading={loading}
+          fetchData={() => console.log('fetch')}
+        />
+        {/*
         <ReactTable
           className="-striped -highlight h-full sm:rounded-16 overflow-hidden"
           getTrProps={(state: any, rowInfo: any, column: any) => {
@@ -70,88 +157,11 @@ const UsersList = () => {
             };
           }}
           data={users}
-          columns={[
-            {
-              Header: () => (
-                <Checkbox
-                  onClick={event => {
-                    event.stopPropagation();
-                  }}
-                  onChange={event => {
-                    event.target.checked
-                      ? console.log('Select all users')
-                      : console.log('Deselect all users');
-                  }}
-                  checked={
-                    selectedContactIds.length === users?.length &&
-                    selectedContactIds.length > 0
-                  }
-                  indeterminate={
-                    selectedContactIds.length !== users?.length &&
-                    selectedContactIds.length > 0
-                  }
-                />
-              ),
-              accessor: '',
-              Cell: (row: any) => {
-                return (
-                  <Checkbox
-                    onClick={(event: any) => {
-                      event.stopPropagation();
-                    }}
-                    checked={selectedContactIds.includes(row.value.id)}
-                    onChange={
-                      () => console.log('Select user') // dispatch(Actions.toggleInSelectedContacts(row.value.id))
-                    }
-                  />
-                );
-              },
-              className: 'justify-center',
-              sortable: false,
-              width: 64,
-            },
-            {
-              Header: () =>
-                selectedContactIds.length > 0 && <UsersMultiSelectMenu />,
-              accessor: 'avatar',
-              Cell: (row: any) => (
-                <Avatar
-                  className="mr-8"
-                  alt={row.original.name}
-                  src={row.value}
-                />
-              ),
-              className: 'justify-center',
-              width: 64,
-              sortable: false,
-            },
-            {
-              Header: 'Title',
-              accessor: 'title',
-              className: 'font-bold',
-            },
-            {
-              Header: 'First Name',
-              accessor: 'firstName',
-              className: 'font-bold',
-            },
-            {
-              Header: 'Last Name',
-              accessor: 'lastName',
-              className: 'font-bold',
-            },
-            {
-              Header: 'Email',
-              accessor: 'email',
-            },
-            {
-              Header: 'Phone',
-              accessor: 'phone',
-            },
-          ]}
+          columns={columns}
           defaultPageSize={10}
           noDataText="No users found"
         />
+        */}
       </FuseAnimate>
     );
   }
