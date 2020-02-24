@@ -16,37 +16,11 @@ import {
   Typography,
 } from '@material-ui/core';
 import { FuseAnimateGroup } from '@fuse';
-import axios from 'axios';
+import { MISSING_FIELD } from 'common/constants';
+import { parseGender, formatAdress } from '../../helpers';
+import { AboutTabFragment as DataType } from './__generated__/AboutTabFragment';
 
 const mockData = {
-  general: {
-    gender: 'Male',
-    birthday: 'February 30th, 1974',
-    locations: ['London, UK', 'New York, USA'],
-    about:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis eget pharetra felis, sed ullamcorper dui. Sed et elementum neque. Vestibulum pellente viverra ultrices. Etiam justo augue, vehicula ac gravida a, interdum sit amet nisl. Integer vitae nisi id nibh dictum mollis in vitae tortor.',
-  },
-  work: {
-    occupation: 'Developer',
-    skills: 'C#, PHP, Javascript, Angular, JS, HTML, CSS',
-    jobs: [
-      {
-        company: 'Self-Employed',
-        date: '2010 - Now',
-      },
-      {
-        company: 'Google',
-        date: '2008 - 2010',
-      },
-    ],
-  },
-  contact: {
-    address:
-      'Ut pharetra luctus est quis sodales. Duis nisi tortor, bibendum eget tincidunt, aliquam ac elit. Mauris nec euismod odio.',
-    tel: ['+6 555 6600', '+9 555 5255'],
-    websites: ['withinpixels.com'],
-    emails: ['mail@withinpixels.com', 'mail@creapond.com'],
-  },
   groups: [
     {
       id: '1',
@@ -87,24 +61,16 @@ const mockData = {
 };
 
 type Props = {
-  data: any;
+  data: DataType;
 };
 
 const AboutTab: React.FC<Props> = ({ data }) => {
-  const [datax, setDatax] = useState<any>(mockData);
-  /*
-  useEffect(() => {
-    axios.get('/api/profile/about').then(res => {
-      setData(res.data);
-    });
-  }, []);
-  */
-
   if (!data) {
     return null;
   }
 
-  const { general, work, contact, groups, supervisors } = datax;
+  const { groups, supervisors } = mockData;
+  const address = data.address ? formatAdress(data.address) : MISSING_FIELD;
 
   return (
     <div className="md:flex max-w-2xl">
@@ -132,36 +98,28 @@ const AboutTab: React.FC<Props> = ({ data }) => {
                 <Typography className="font-bold mb-4 text-15">
                   Gender
                 </Typography>
-                <Typography>{data.gender}</Typography>
+                <Typography>
+                  {parseGender(data.gender) || MISSING_FIELD}
+                </Typography>
               </div>
 
               <div className="mb-24">
                 <Typography className="font-bold mb-4 text-15">
                   Birthday
                 </Typography>
-                <Typography>{general.birthday}</Typography>
-              </div>
-
-              <div className="mb-24">
-                <Typography className="font-bold mb-4 text-15">
-                  Locations
-                </Typography>
-
-                {general.locations.map((location: any) => (
-                  <div className="flex items-center" key={location}>
-                    <Typography>{location}</Typography>
-                    <Icon className="text-16 ml-4" color="action">
-                      location_on
-                    </Icon>
-                  </div>
-                ))}
+                <Typography>{MISSING_FIELD}</Typography>
               </div>
 
               <div className="mb-24">
                 <Typography className="font-bold mb-4 text-15">
                   About Me
                 </Typography>
-                <Typography>{data.about}</Typography>
+                <Typography>{data.about || MISSING_FIELD}</Typography>
+              </div>
+
+              <div className="mb-24">
+                <Typography className="font-bold mb-4 text-15">GDPR</Typography>
+                <Typography>{data.gdpr.toString()}</Typography>
               </div>
             </CardContent>
           </Card>
@@ -182,36 +140,16 @@ const AboutTab: React.FC<Props> = ({ data }) => {
             <CardContent>
               <div className="mb-24">
                 <Typography className="font-bold mb-4 text-15">
-                  Occupation
+                  Position
                 </Typography>
-                <Typography>{work.occupation}</Typography>
+                <Typography>{data.position || MISSING_FIELD}</Typography>
               </div>
 
               <div className="mb-24">
                 <Typography className="font-bold mb-4 text-15">
                   Skills
                 </Typography>
-                <Typography>{work.skills}</Typography>
-              </div>
-
-              <div className="mb-24">
-                <Typography className="font-bold mb-4 text-15">Jobs</Typography>
-                <table className="">
-                  <tbody>
-                    {work.jobs.map((job: any) => (
-                      <tr key={job.company}>
-                        <td className="pr-16">
-                          <Typography>{job.company}</Typography>
-                        </td>
-                        <td>
-                          <Typography color="textSecondary">
-                            {job.date}
-                          </Typography>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                <Typography>{MISSING_FIELD}</Typography>
               </div>
             </CardContent>
           </Card>
@@ -234,41 +172,32 @@ const AboutTab: React.FC<Props> = ({ data }) => {
                 <Typography className="font-bold mb-4 text-15">
                   Address
                 </Typography>
-                <Typography>{contact.address}</Typography>
-              </div>
 
-              <div className="mb-24">
-                <Typography className="font-bold mb-4 text-15">Tel.</Typography>
-
-                {contact.tel.map((tel: any) => (
-                  <div className="flex items-center" key={tel}>
-                    <Typography>{tel}</Typography>
-                  </div>
-                ))}
+                <div className="flex items-center">
+                  <Typography>{address}</Typography>
+                  <Icon className="text-16 ml-4" color="action">
+                    location_on
+                  </Icon>
+                </div>
               </div>
 
               <div className="mb-24">
                 <Typography className="font-bold mb-4 text-15">
-                  Website
+                  Phone
                 </Typography>
-
-                {contact.websites.map((website: any) => (
-                  <div className="flex items-center" key={website}>
-                    <Typography>{website}</Typography>
-                  </div>
-                ))}
+                <div className="flex items-center">
+                  <Typography>{data.phone || MISSING_FIELD}</Typography>
+                </div>
               </div>
 
               <div className="mb-24">
                 <Typography className="font-bold mb-4 text-15">
-                  Emails
+                  Email
                 </Typography>
 
-                {contact.emails.map((email: any) => (
-                  <div className="flex items-center" key={email}>
-                    <Typography>{email}</Typography>
-                  </div>
-                ))}
+                <div className="flex items-center">
+                  <Typography>{data.email || MISSING_FIELD}</Typography>
+                </div>
               </div>
             </CardContent>
           </Card>
