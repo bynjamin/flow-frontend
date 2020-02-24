@@ -13,7 +13,7 @@ import {
   Avatar,
 } from '@material-ui/core';
 import { useForm } from '@fuse/hooks';
-import FuseUtils from '@fuse/FuseUtils';
+import FuseUtils from '@fuse/utils';
 import { DialogType } from './types';
 
 const defaultFormState = {

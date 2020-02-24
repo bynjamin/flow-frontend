@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { Typography, Icon } from '@material-ui/core';
 import { fade } from '@material-ui/core/styles/colorManipulator';
-import { FuseAnimateGroup, FuseAnimate } from '@fuse';
+import FuseAnimate from '@fuse/core/FuseAnimate';
+import FuseAnimateGroup from '@fuse/core/FuseAnimateGroup';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';

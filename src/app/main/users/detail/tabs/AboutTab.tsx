@@ -15,7 +15,7 @@ import {
   Toolbar,
   Typography,
 } from '@material-ui/core';
-import { FuseAnimateGroup } from '@fuse';
+import FuseAnimateGroup from '@fuse/core/FuseAnimateGroup';
 import { MISSING_FIELD } from 'common/constants';
 import { parseGender, formatAdress } from '../../helpers';
 import { AboutTabFragment as DataType } from './__generated__/AboutTabFragment';

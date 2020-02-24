@@ -1,6 +1,6 @@
 import React, {useCallback} from 'react';
 import {TextField, DialogContent, DialogTitle, Icon, IconButton, Typography, Toolbar, AppBar, Avatar, InputAdornment, Tooltip, List} from '@material-ui/core';
-import {FuseChipSelect} from '@fuse';
+import FuseChipSelect from '@fuse/core/FuseChipSelect';
 import {useForm, useDebounce, useUpdateEffect} from '@fuse/hooks';
 import _ from '@lodash';
 import moment from 'moment';

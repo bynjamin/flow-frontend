@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { FusePageSimple, DemoContent } from '@fuse';
+import FusePageSimple from '@fuse/core/FusePageSimple';
+import DemoContent from '@fuse/core/DemoContent';
 import NavigationBar from '../navigation';
 
 const useStyles = makeStyles((theme: any) => ({

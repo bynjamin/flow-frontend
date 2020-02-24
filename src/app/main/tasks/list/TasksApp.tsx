@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { FusePageCarded } from '@fuse';
+import FusePageCarded from '@fuse/core/FusePageCarded';
 import TaskList from './TaskList';
 import TasksToolbar from './TasksToolbar';
 import TasksHeader from './TasksHeader';

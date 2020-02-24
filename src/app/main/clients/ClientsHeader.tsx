@@ -8,7 +8,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
-import { FuseAnimate } from '@fuse';
+import FuseAnimate from '@fuse/core/FuseAnimate';
 import { useSelector } from 'react-redux';
 
 function ClientsHeader(props: any) {

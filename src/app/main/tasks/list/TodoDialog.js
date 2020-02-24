@@ -21,7 +21,7 @@ import {
     Divider
 } from '@material-ui/core';
 import {amber, red} from '@material-ui/core/colors';
-import {FuseUtils} from '@fuse';
+import FuseUtils from '@fuse/utils';
 import {useForm} from '@fuse/hooks';
 import {useDispatch, useSelector} from 'react-redux';
 import moment from 'moment/moment';

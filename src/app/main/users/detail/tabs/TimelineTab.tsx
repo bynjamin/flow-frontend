@@ -18,7 +18,7 @@ import {
   Toolbar,
   Typography,
 } from '@material-ui/core';
-import { FuseAnimateGroup } from '@fuse';
+import FuseAnimateGroup from '@fuse/core/FuseAnimateGroup';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { orderBy } from 'lodash';
 import { List, Typography } from '@material-ui/core';
-import { FuseUtils, FuseAnimate, FuseAnimateGroup } from '@fuse';
+import FuseAnimate from '@fuse/core/FuseAnimate';
+import FuseAnimateGroup from '@fuse/core/FuseAnimateGroup';
+import FuseUtils from '@fuse/utils';
 import TaskListItem from './TaskListItem';
 import { tasksMockData } from './TasksMockData';
 

@@ -4,7 +4,9 @@ import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import { Avatar, Button, Tab, Tabs, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import { FusePageSimple, FuseAnimate, FuseLoading } from '@fuse';
+import FuseLoading from '@fuse/core/FuseLoading';
+import FusePageSimple from '@fuse/core/FusePageSimple';
+import FuseAnimate from '@fuse/core/FuseAnimate';
 import { AboutTab } from './tabs';
 import { AboutTabFragment } from './tabs/AboutTab';
 

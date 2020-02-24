@@ -1,6 +1,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { FusePageSimple, DemoContent } from '@fuse';
+import DemoContent from '@fuse/core/DemoContent';
+import FusePageSimple from '@fuse/core/FusePageSimple';
 
 const styles = (theme: any) => ({
   layoutRoot: {},

@@ -6,7 +6,8 @@ import {
   IconButton,
   Typography,
 } from '@material-ui/core';
-import { FuseUtils, FuseAnimate } from '@fuse';
+import FuseUtils from '@fuse/utils';
+import FuseAnimate from '@fuse/core/FuseAnimate';
 import ReactTable from 'react-table-6';
 import ContactsMultiSelectMenu from './ContactsMultiSelectMenu';
 import { DialogType } from './types';

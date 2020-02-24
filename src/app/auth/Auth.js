@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {FuseSplashScreen} from '@fuse';
+import FuseSplashScreen from '@fuse/core/FuseSplashScreen';
 import {connect} from 'react-redux';
 import * as userActions from 'app/auth/store/actions';
 import {bindActionCreators} from 'redux';

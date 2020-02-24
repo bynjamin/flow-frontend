@@ -8,7 +8,9 @@ import {
   IconButton,
   Typography,
 } from '@material-ui/core';
-import { FuseUtils, FuseAnimate, FuseLoading } from '@fuse';
+import FuseAnimate from '@fuse/core/FuseAnimate';
+import FuseLoading from '@fuse/core/FuseLoading';
+import FuseUtils from '@fuse/utils';
 import ReactTable from 'react-table-6';
 import { useHistory } from 'react-router';
 import UsersMultiSelectMenu from './UsersMultiSelectMenu';

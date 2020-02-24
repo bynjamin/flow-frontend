@@ -1,6 +1,6 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
-import FuseUtils from '@fuse/FuseUtils';
+import FuseUtils from '@fuse/utils';
 
 class JWTService extends FuseUtils.EventEmitter {
   init() {
