@@ -3,10 +3,10 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: UserDetailQuery
+// GraphQL fragment: AboutTabFragment
 // ====================================================
 
-export interface UserDetailQuery_userQuery_address {
+export interface AboutTabFragment_address {
   __typename: "Address";
   /**
    * Street
@@ -26,7 +26,7 @@ export interface UserDetailQuery_userQuery_address {
   country: string | null;
 }
 
-export interface UserDetailQuery_userQuery {
+export interface AboutTabFragment {
   __typename: "User";
   /**
    * User ID
@@ -63,16 +63,5 @@ export interface UserDetailQuery_userQuery {
   /**
    * User address
    */
-  address: UserDetailQuery_userQuery_address | null;
-}
-
-export interface UserDetailQuery {
-  /**
-   * Get actual user data. if set id then return data for user with id = id
-   */
-  userQuery: UserDetailQuery_userQuery | null;
-}
-
-export interface UserDetailQueryVariables {
-  id: number;
+  address: AboutTabFragment_address | null;
 }
