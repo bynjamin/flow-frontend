@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { IconContext } from 'react-icons';
-import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 import { useMutation } from '@apollo/react-hooks';
 import clsx from 'clsx';
 import {
@@ -10,13 +8,13 @@ import {
   CircularProgress,
   Button,
 } from '@material-ui/core';
+import { Alert, AlertTitle } from '@material-ui/lab';
 import { makeStyles, withStyles } from '@material-ui/styles';
 import { darken } from '@material-ui/core/styles/colorManipulator';
+// import { UndrawBeerCelebration } from 'react-undraw-illustrations';
 import FuseAnimate from '@fuse/core/FuseAnimate';
-
 import RegisterForm from './RegisterForm';
 import { REGISTER } from './RegisterGraphQL';
-import Banner from 'common/components/banner';
 import NavigationBar from '../navigation';
 import RedirectToWorkspaceDialog from './RedirectToWorkspaceDialog';
 import {
@@ -139,18 +137,12 @@ const Register = () => {
               )}
               {data && (
                 <>
-                  <IconContext.Provider
-                    value={{ color: '#7DD460', size: '9em' }}
-                  >
-                    <div>
-                      <FaCheckCircle />
-                    </div>
-                  </IconContext.Provider>
-                  <Banner
-                    type="success"
-                    title="Congratulations 🎉🎉"
-                    message="Your new workspace is ready. Go ahead and login for your first time!"
-                  />
+                  {/* <UndrawBeerCelebration /> */}
+                  <Alert severity="success">
+                    <AlertTitle>Congratulations!</AlertTitle>
+                    Your new workspace is ready. Go ahead and login for your
+                    first time!
+                  </Alert>
                   <RedirectButton2
                     color="secondary"
                     onClick={() => {
@@ -165,18 +157,10 @@ const Register = () => {
               )}
               {error && (
                 <>
-                  <IconContext.Provider
-                    value={{ color: '#FF5656', size: '9em' }}
-                  >
-                    <div>
-                      <FaTimesCircle />
-                    </div>
-                  </IconContext.Provider>
-                  <Banner
-                    type="critical"
-                    title="Something goes wrong..."
-                    message={error.message}
-                  />
+                  <Alert severity="error">
+                    <AlertTitle>Something goes wrong...</AlertTitle>
+                    {error.message}
+                  </Alert>
                 </>
               )}
             </CardContent>
