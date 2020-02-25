@@ -1,6 +1,6 @@
 import React from 'react';
 // import * as Sentry from '@sentry/browser';
-import Banner from '../banner';
+import { Alert, AlertTitle } from '@material-ui/lab';
 
 type Props = {
   children: React.ReactNode;
@@ -27,11 +27,10 @@ class ErrorBoundary extends React.Component<Props, State> {
       const message = `There was an error while processing your request. Refresh your
         page for loading results.`;
       return (
-        <Banner
-          title="Sorry, results couldn't be loaded"
-          type="critical"
-          message={message}
-        />
+        <Alert severity="error">
+          <AlertTitle>Sorry, results couldn't be loaded</AlertTitle>
+          {message}
+        </Alert>
       );
     }
     return this.props.children;
