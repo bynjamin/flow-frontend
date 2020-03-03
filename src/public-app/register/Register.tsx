@@ -11,7 +11,7 @@ import {
 import { Alert, AlertTitle } from '@material-ui/lab';
 import { makeStyles, withStyles } from '@material-ui/styles';
 import { darken } from '@material-ui/core/styles/colorManipulator';
-// import { UndrawBeerCelebration } from 'react-undraw-illustrations';
+import Illustration from '@bit/bynjamin.orbit.illustration';
 import FuseAnimate from '@fuse/core/FuseAnimate';
 import RegisterForm from './RegisterForm';
 import { REGISTER } from './RegisterGraphQL';
@@ -106,7 +106,7 @@ const Register = () => {
             className="w-full max-w-400 mx-auto m-16 md:m-0 flex justify-center items-center"
             square
           >
-            <CardContent className="flex flex-col items-center justify-center p-32 md:p-48 md:pt-128">
+            <CardContent className="flex flex-col items-center justify-center p-32 md:p-48">
               {!loading && !data && !error && (
                 <>
                   <Typography variant="h6" className="md:w-full mb-32">
@@ -137,7 +137,7 @@ const Register = () => {
               )}
               {data && (
                 <>
-                  {/* <UndrawBeerCelebration /> */}
+                  <Illustration name="Success" spaceAfter="large" />
                   <Alert severity="success">
                     <AlertTitle>Congratulations!</AlertTitle>
                     Your new workspace is ready. Go ahead and login for your
@@ -157,6 +157,7 @@ const Register = () => {
               )}
               {error && (
                 <>
+                  <Illustration name="Error" spaceAfter="large" />
                   <Alert severity="error">
                     <AlertTitle>Something goes wrong...</AlertTitle>
                     {error.message}
