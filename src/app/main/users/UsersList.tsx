@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import {
@@ -7,6 +7,7 @@ import {
   Icon,
   IconButton,
   Typography,
+  CssBaseline,
 } from '@material-ui/core';
 import FuseAnimate from '@fuse/core/FuseAnimate';
 import FuseLoading from '@fuse/core/FuseLoading';
@@ -16,7 +17,7 @@ import { useTable, usePagination } from 'react-table';
 import { useHistory } from 'react-router';
 import UsersMultiSelectMenu from './UsersMultiSelectMenu';
 import { UserListQuery } from './__generated__/UserListQuery';
-import DataTable from 'common/components/table/DataTable';
+import DataTable from 'common/components/table/DataTable2';
 
 const USERLIST_QUERY = gql`
   query UserListQuery {
@@ -33,67 +34,14 @@ const USERLIST_QUERY = gql`
 const UsersList = () => {
   const history = useHistory();
   const { loading, error, data } = useQuery<UserListQuery>(USERLIST_QUERY);
+  const [skipPageReset, setSkipPageReset] = React.useState(false);
   const selectedContactIds: Array<number> = [];
   const searchText = '';
   const user: any = {};
+  console.log('X');
 
-  if (loading) return <FuseLoading />;
-  if (error) return <p style={{ color: 'red' }}>{error.message}</p>;
-  if (data) {
-    const users = data.usersQuery;
-    const columns = [
-      /*
-      {
-        id: 'col_1',
-        Header: () => (
-          <Checkbox
-            onClick={event => {
-              event.stopPropagation();
-            }}
-            onChange={event => {
-              event.target.checked
-                ? console.log('Select all users')
-                : console.log('Deselect all users');
-            }}
-            checked={
-              selectedContactIds.length === users?.length &&
-              selectedContactIds.length > 0
-            }
-            indeterminate={
-              selectedContactIds.length !== users?.length &&
-              selectedContactIds.length > 0
-            }
-          />
-        ),
-        accessor: '',
-        Cell: (row: any) => {
-          return (
-            <Checkbox
-              onClick={(event: any) => {
-                event.stopPropagation();
-              }}
-              checked={selectedContactIds.includes(row.value.id)}
-              onChange={
-                () => console.log('Select user') // dispatch(Actions.toggleInSelectedContacts(row.value.id))
-              }
-            />
-          );
-        },
-        className: 'justify-center',
-        sortable: false,
-        width: 64,
-      },
-      {
-        Header: () => selectedContactIds.length > 0 && <UsersMultiSelectMenu />,
-        accessor: 'avatar',
-        Cell: (row: any) => (
-          <Avatar className="mr-8" alt={row.original.name} src={row.value} />
-        ),
-        className: 'justify-center',
-        width: 64,
-        sortable: false,
-      },
-      */
+  const columns = useMemo(
+    () => [
       {
         Header: 'Title',
         accessor: 'title',
@@ -117,8 +65,33 @@ const UsersList = () => {
         Header: 'Phone',
         accessor: 'phone',
       },
-    ];
+    ],
+    [],
+  );
 
+  const updateMyData = (rowIndex: any, columnId: any, value: any) => {
+    // We also turn on the flag to not reset the page
+    setSkipPageReset(true);
+    /*
+    setData(old =>
+      old.map((row, index) => {
+        if (index === rowIndex) {
+          return {
+            ...old[rowIndex],
+            [columnId]: value,
+          };
+        }
+        return row;
+      }),
+    );
+    */
+  };
+
+  if (loading) return <FuseLoading />;
+  if (error) return <p style={{ color: 'red' }}>{error.message}</p>;
+  if (data) {
+    console.log('data', data);
+    const users = data.usersQuery;
     if (users.length === 0) {
       return (
         <div className="flex flex-1 items-center justify-center h-full">
@@ -131,37 +104,16 @@ const UsersList = () => {
 
     return (
       <FuseAnimate animation="transition.slideUpIn" delay={300}>
-        <DataTable
-          columns={columns}
-          data={users}
-          pageCount={10}
-          loading={loading}
-          fetchData={() => console.log('fetch')}
-        />
-        {/*
-        <ReactTable
-          className="-striped -highlight h-full sm:rounded-16 overflow-hidden"
-          getTrProps={(state: any, rowInfo: any, column: any) => {
-            return {
-              className: 'cursor-pointer',
-              onClick: (e: any, handleOriginal: any) => {
-                if (rowInfo) {
-                  history.push(`/users/detail/${rowInfo.original.id}`);
-                }
-              },
-            };
-          }}
-          getTheadProps={(state: any, rowInfo: any, column: any) => {
-            return {
-              className: 'table-header-fix',
-            };
-          }}
-          data={users}
-          columns={columns}
-          defaultPageSize={10}
-          noDataText="No users found"
-        />
-        */}
+        <>
+          <CssBaseline />
+          <DataTable
+            columns={columns}
+            data={users}
+            setData={() => console.log('updateData')}
+            updateMyData={updateMyData}
+            skipPageReset={skipPageReset}
+          />
+        </>
       </FuseAnimate>
     );
   }
