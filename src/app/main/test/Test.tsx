@@ -7,9 +7,12 @@ import { isArray } from 'util';
 const TEST_QUERY = gql`
   query TestQuery {
     usersQuery {
-      id
-      fullName
-      email
+      count
+      users {
+        id
+        fullName
+        email
+      }
     }
     userQuery(id: 1) {
       id

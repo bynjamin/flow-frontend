@@ -1,5 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
+// @generated
 // This file was automatically generated and should not be edited.
 
 // ====================================================
@@ -63,7 +64,7 @@ export interface UserDetailQuery_userQuery {
   /**
    * User address
    */
-  address: UserDetailQuery_userQuery_address | null;
+  address: UserDetailQuery_userQuery_address;
 }
 
 export interface UserDetailQuery {

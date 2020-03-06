@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import {
@@ -17,28 +17,62 @@ import { useTable, usePagination } from 'react-table';
 import { useHistory } from 'react-router';
 import UsersMultiSelectMenu from './UsersMultiSelectMenu';
 import { UserListQuery } from './__generated__/UserListQuery';
-import DataTable from 'common/components/table/DataTable2';
+import DataTable from 'common/components/table/DataTable';
+import useTableState from '../../hooks/TableState';
+import { DEFAULT_PAGE_SIZE } from 'common/constants';
 
 const USERLIST_QUERY = gql`
-  query UserListQuery {
-    usersQuery {
-      id
-      title
-      firstName
-      lastName
-      email
+  query UserListQuery(
+    $first: Int
+    $skip: Int
+    $orderBy: String
+    $orderDirection: String
+  ) {
+    usersQuery(
+      first: $first
+      skip: $skip
+      orderBy: $orderBy
+      orderDirection: $orderDirection
+    ) {
+      count
+      users {
+        id
+        title
+        firstName
+        lastName
+        email
+      }
     }
   }
 `;
 
 const UsersList = () => {
   const history = useHistory();
-  const { loading, error, data } = useQuery<UserListQuery>(USERLIST_QUERY);
-  const [skipPageReset, setSkipPageReset] = React.useState(false);
+
+  const {
+    page,
+    pageSize,
+    orderBy,
+    orderDirection,
+    setPage,
+    setPageSize,
+    setOrderBy,
+    setOrderDirection,
+  } = useTableState();
+
+  const { loading, error, data, fetchMore } = useQuery<UserListQuery>(
+    USERLIST_QUERY,
+    {
+      variables: {
+        first: DEFAULT_PAGE_SIZE,
+        skip: 0,
+      },
+      fetchPolicy: 'cache-and-network',
+    },
+  );
+
   const selectedContactIds: Array<number> = [];
   const searchText = '';
-  const user: any = {};
-  console.log('X');
 
   const columns = useMemo(
     () => [
@@ -69,29 +103,37 @@ const UsersList = () => {
     [],
   );
 
-  const updateMyData = (rowIndex: any, columnId: any, value: any) => {
-    // We also turn on the flag to not reset the page
-    setSkipPageReset(true);
-    /*
-    setData(old =>
-      old.map((row, index) => {
-        if (index === rowIndex) {
-          return {
-            ...old[rowIndex],
-            [columnId]: value,
-          };
-        }
-        return row;
-      }),
-    );
-    */
+  const handleRowClick = (userId: number) => {
+    history.push(`/users/detail/${userId}`);
   };
+
+  const getQueryVariables = (pageNum: number) => {
+    const skip = pageNum * pageSize;
+    const first = pageSize;
+    return { first, skip, orderBy, orderDirection };
+  };
+
+  const loadPage = (pageNum: number): void => {
+    fetchMore({
+      variables: getQueryVariables(pageNum),
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!fetchMoreResult) return prev;
+        setPage(pageNum);
+        return fetchMoreResult;
+      },
+    });
+  };
+
+  const handleChangePageSize = (count: number): void => {
+    setPageSize(count);
+  };
+  const resetCursor = () => loadPage(0);
+  useEffect(resetCursor, [pageSize, orderBy, orderDirection]);
 
   if (loading) return <FuseLoading />;
   if (error) return <p style={{ color: 'red' }}>{error.message}</p>;
   if (data) {
-    console.log('data', data);
-    const users = data.usersQuery;
+    const { users, count } = data.usersQuery;
     if (users.length === 0) {
       return (
         <div className="flex flex-1 items-center justify-center h-full">
@@ -109,9 +151,16 @@ const UsersList = () => {
           <DataTable
             columns={columns}
             data={users}
-            setData={() => console.log('updateData')}
-            updateMyData={updateMyData}
-            skipPageReset={skipPageReset}
+            count={count}
+            pageIndex={page}
+            loadPage={loadPage}
+            pageSize={pageSize}
+            setPageSize={handleChangePageSize}
+            orderBy={orderBy}
+            setOrderBy={setOrderBy}
+            orderDirection={orderDirection}
+            setOrderDirection={setOrderDirection}
+            onRowClick={handleRowClick}
           />
         </>
       </FuseAnimate>

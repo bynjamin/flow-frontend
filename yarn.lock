@@ -2246,10 +2246,10 @@
     "@types/history" "*"
     "@types/react" "*"
 
-"@types/react-table@^7.0.7":
-  version "7.0.7"
-  resolved "https://registry.yarnpkg.com/@types/react-table/-/react-table-7.0.7.tgz#c478cc43a5154dac43f8573064fb4d297744f06d"
-  integrity sha512-HMjxzDNvrp2Ub2lEiJ/DYTkHpbNDRZ6ycDstzpUYWtNGoiCu0F16KcJl4fGfm2lK4OjY7UuZe6jM2qSJGmJNYg==
+"@types/react-table@^7.0.10":
+  version "7.0.10"
+  resolved "https://registry.yarnpkg.com/@types/react-table/-/react-table-7.0.10.tgz#8742cd76dfaf9857580698ca4d3a852b32377d0b"
+  integrity sha512-kpUiIlGUpHn4D/0xcLqHEQ0M8Tbg6pbgZqXBDejfn1oBK2cjnOaZKLlqPrh5poIRp8JMJrOv2UWDCRiXARUGBA==
   dependencies:
     "@types/react" "*"
 
