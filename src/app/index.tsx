@@ -2,6 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 import {
   StylesProvider,
   jssPreset,
@@ -23,6 +24,7 @@ import Authorization from './Authorization';
 
 const client = new ApolloClient({
   uri: process.env.REACT_APP_API_URL,
+  cache: new InMemoryCache(),
   request: operation => {
     const tokens = getTokens();
     if (tokens?.access_token) {
