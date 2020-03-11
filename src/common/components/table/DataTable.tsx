@@ -97,7 +97,6 @@ const EnhancedTable: React.FC<Props> = ({
     headerGroups,
     prepareRow,
     page,
-    preGlobalFilteredRows,
     setGlobalFilter,
     state: { selectedRowIds, globalFilter },
   } = useTable(
@@ -134,9 +133,13 @@ const EnhancedTable: React.FC<Props> = ({
           // @ts-ignore
           Cell: ({ row }) => (
             <div>
-              {/*
-              //@ts-ignore */}
-              <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
+              <IndeterminateCheckbox
+                // @ts-ignore
+                {...row.getToggleRowSelectedProps()}
+                onClick={(e: React.MouseEvent<HTMLInputElement>) =>
+                  e.stopPropagation()
+                }
+              />
             </div>
           ),
         },
@@ -164,7 +167,7 @@ const EnhancedTable: React.FC<Props> = ({
         numSelected={Object.keys(selectedRowIds).length}
         deleteUserHandler={() => console.log('delete')}
         addUserHandler={() => console.log('create')}
-        preGlobalFilteredRows={preGlobalFilteredRows}
+        count={count}
         setGlobalFilter={setGlobalFilter}
         globalFilter={globalFilter}
       />
