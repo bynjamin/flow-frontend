@@ -19,6 +19,7 @@ import {
   useSortBy,
   useTable,
 } from 'react-table';
+import FuseLoading from '@fuse/core/FuseLoading';
 import TablePaginationActions from './TablePaginationActions';
 import TableToolbar from './TableToolbar';
 import { OrderDirection } from '../../types/types';
@@ -75,6 +76,7 @@ type Props = {
   setOrderBy: React.Dispatch<React.SetStateAction<string | null>>;
   setOrderDirection: React.Dispatch<React.SetStateAction<OrderDirection>>;
   onRowClick: (id: number) => void;
+  loading: boolean;
 };
 
 const EnhancedTable: React.FC<Props> = ({
@@ -90,6 +92,7 @@ const EnhancedTable: React.FC<Props> = ({
   orderDirection,
   setOrderDirection,
   onRowClick,
+  loading,
 }) => {
   const classes = useStyles();
   const {
@@ -171,53 +174,57 @@ const EnhancedTable: React.FC<Props> = ({
         setGlobalFilter={setGlobalFilter}
         globalFilter={globalFilter}
       />
-      <TableContainer>
-        <MaUTable {...getTableProps()} stickyHeader>
-          <TableHead>
-            {headerGroups.map((headerGroup: any) => (
-              <TableRow {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column: any) => (
-                  <TableCell
-                    {...(column.id === 'selection'
-                      ? column.getHeaderProps()
-                      : column.getHeaderProps(column.getSortByToggleProps()))}
-                  >
-                    {column.render('Header')}
-                    {column.id !== 'selection' ? (
-                      <TableSortLabel
-                        active={column.isSorted}
-                        // react-table has a unsorted state which is not treated here
-                        direction={column.isSortedDesc ? 'desc' : 'asc'}
-                      />
-                    ) : null}
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))}
-          </TableHead>
-          <TableBody>
-            {page.map((row: any, i: number) => {
-              prepareRow(row);
-              return (
-                <TableRow
-                  {...row.getRowProps()}
-                  className={classes.dataRow}
-                  onClick={() => onRowClick(row.original.id)}
-                  hover
-                >
-                  {row.cells.map((cell: any) => {
-                    return (
-                      <TableCell {...cell.getCellProps()}>
-                        {cell.render('Cell')}
-                      </TableCell>
-                    );
-                  })}
+      {loading ? (
+        <FuseLoading />
+      ) : (
+        <TableContainer>
+          <MaUTable {...getTableProps()} stickyHeader>
+            <TableHead>
+              {headerGroups.map((headerGroup: any) => (
+                <TableRow {...headerGroup.getHeaderGroupProps()}>
+                  {headerGroup.headers.map((column: any) => (
+                    <TableCell
+                      {...(column.id === 'selection'
+                        ? column.getHeaderProps()
+                        : column.getHeaderProps(column.getSortByToggleProps()))}
+                    >
+                      {column.render('Header')}
+                      {column.id !== 'selection' ? (
+                        <TableSortLabel
+                          active={column.isSorted}
+                          // react-table has a unsorted state which is not treated here
+                          direction={column.isSortedDesc ? 'desc' : 'asc'}
+                        />
+                      ) : null}
+                    </TableCell>
+                  ))}
                 </TableRow>
-              );
-            })}
-          </TableBody>
-        </MaUTable>
-      </TableContainer>
+              ))}
+            </TableHead>
+            <TableBody>
+              {page.map((row: any, i: number) => {
+                prepareRow(row);
+                return (
+                  <TableRow
+                    {...row.getRowProps()}
+                    className={classes.dataRow}
+                    onClick={() => onRowClick(row.original.id)}
+                    hover
+                  >
+                    {row.cells.map((cell: any) => {
+                      return (
+                        <TableCell {...cell.getCellProps()}>
+                          {cell.render('Cell')}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </MaUTable>
+        </TableContainer>
+      )}
       <MaUTable>
         <TableFooter>
           <TableRow>
