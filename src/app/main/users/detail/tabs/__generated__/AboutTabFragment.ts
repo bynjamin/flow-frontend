@@ -1,5 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
+// @generated
 // This file was automatically generated and should not be edited.
 
 // ====================================================
@@ -63,5 +64,5 @@ export interface AboutTabFragment {
   /**
    * User address
    */
-  address: AboutTabFragment_address | null;
+  address: AboutTabFragment_address;
 }

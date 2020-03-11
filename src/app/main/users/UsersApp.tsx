@@ -43,7 +43,7 @@ function UsersApp(props: any) {
           leftSidebar: 'w-256 border-0',
           header: 'min-h-72 h-72 sm:h-136 sm:min-h-136',
         }}
-        header={<UsersHeader pageLayout={pageLayout} />}
+        // header={<UsersHeader pageLayout={pageLayout} />}
         content={<UsersList />}
         // leftSidebarContent={<ContactsSidebarContent />}
         sidebarInner

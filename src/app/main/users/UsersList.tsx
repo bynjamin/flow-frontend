@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import {
@@ -7,39 +7,133 @@ import {
   Icon,
   IconButton,
   Typography,
+  CssBaseline,
 } from '@material-ui/core';
 import FuseAnimate from '@fuse/core/FuseAnimate';
 import FuseLoading from '@fuse/core/FuseLoading';
 import FuseUtils from '@fuse/utils';
 import ReactTable from 'react-table-6';
+import { useTable, usePagination } from 'react-table';
 import { useHistory } from 'react-router';
 import UsersMultiSelectMenu from './UsersMultiSelectMenu';
 import { UserListQuery } from './__generated__/UserListQuery';
+import DataTable from 'common/components/table/DataTable';
+import useTableState from '../../hooks/TableState';
+import { DEFAULT_PAGE_SIZE } from 'common/constants';
 
 const USERLIST_QUERY = gql`
-  query UserListQuery {
-    usersQuery {
-      id
-      title
-      firstName
-      lastName
-      email
+  query UserListQuery(
+    $first: Int
+    $skip: Int
+    $orderBy: String
+    $orderDirection: String
+  ) {
+    usersQuery(
+      first: $first
+      skip: $skip
+      orderBy: $orderBy
+      orderDirection: $orderDirection
+    ) {
+      count
+      users {
+        id
+        title
+        firstName
+        lastName
+        email
+      }
     }
   }
 `;
 
 const UsersList = () => {
   const history = useHistory();
-  const { loading, error, data } = useQuery<UserListQuery>(USERLIST_QUERY);
+
+  const {
+    page,
+    pageSize,
+    orderBy,
+    orderDirection,
+    setPage,
+    setPageSize,
+    setOrderBy,
+    setOrderDirection,
+  } = useTableState();
+
+  const { loading, error, data, fetchMore } = useQuery<UserListQuery>(
+    USERLIST_QUERY,
+    {
+      variables: {
+        first: DEFAULT_PAGE_SIZE,
+        skip: 0,
+      },
+      fetchPolicy: 'cache-and-network',
+    },
+  );
+
   const selectedContactIds: Array<number> = [];
   const searchText = '';
-  const user: any = {};
+
+  const columns = useMemo(
+    () => [
+      {
+        Header: 'Title',
+        accessor: 'title',
+        className: 'font-bold',
+      },
+      {
+        Header: 'First Name',
+        accessor: 'firstName',
+        className: 'font-bold',
+      },
+      {
+        Header: 'Last Name',
+        accessor: 'lastName',
+        className: 'font-bold',
+      },
+      {
+        Header: 'Email',
+        accessor: 'email',
+      },
+      {
+        Header: 'Phone',
+        accessor: 'phone',
+      },
+    ],
+    [],
+  );
+
+  const handleRowClick = (userId: number) => {
+    history.push(`/users/detail/${userId}`);
+  };
+
+  const getQueryVariables = (pageNum: number) => {
+    const skip = pageNum * pageSize;
+    const first = pageSize;
+    return { first, skip, orderBy, orderDirection };
+  };
+
+  const loadPage = (pageNum: number): void => {
+    fetchMore({
+      variables: getQueryVariables(pageNum),
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!fetchMoreResult) return prev;
+        setPage(pageNum);
+        return fetchMoreResult;
+      },
+    });
+  };
+
+  const handleChangePageSize = (count: number): void => {
+    setPageSize(count);
+  };
+  const resetCursor = () => loadPage(0);
+  useEffect(resetCursor, [pageSize, orderBy, orderDirection]);
 
   if (loading) return <FuseLoading />;
   if (error) return <p style={{ color: 'red' }}>{error.message}</p>;
   if (data) {
-    const users = data.usersQuery;
-
+    const { users, count } = data.usersQuery;
     if (users.length === 0) {
       return (
         <div className="flex flex-1 items-center justify-center h-full">
@@ -52,106 +146,23 @@ const UsersList = () => {
 
     return (
       <FuseAnimate animation="transition.slideUpIn" delay={300}>
-        <ReactTable
-          className="-striped -highlight h-full sm:rounded-16 overflow-hidden"
-          getTrProps={(state: any, rowInfo: any, column: any) => {
-            return {
-              className: 'cursor-pointer',
-              onClick: (e: any, handleOriginal: any) => {
-                if (rowInfo) {
-                  history.push(`/users/detail/${rowInfo.original.id}`);
-                }
-              },
-            };
-          }}
-          getTheadProps={(state: any, rowInfo: any, column: any) => {
-            return {
-              className: 'table-header-fix',
-            };
-          }}
-          data={users}
-          columns={[
-            {
-              Header: () => (
-                <Checkbox
-                  onClick={event => {
-                    event.stopPropagation();
-                  }}
-                  onChange={event => {
-                    event.target.checked
-                      ? console.log('Select all users')
-                      : console.log('Deselect all users');
-                  }}
-                  checked={
-                    selectedContactIds.length === users?.length &&
-                    selectedContactIds.length > 0
-                  }
-                  indeterminate={
-                    selectedContactIds.length !== users?.length &&
-                    selectedContactIds.length > 0
-                  }
-                />
-              ),
-              accessor: '',
-              Cell: (row: any) => {
-                return (
-                  <Checkbox
-                    onClick={(event: any) => {
-                      event.stopPropagation();
-                    }}
-                    checked={selectedContactIds.includes(row.value.id)}
-                    onChange={
-                      () => console.log('Select user') // dispatch(Actions.toggleInSelectedContacts(row.value.id))
-                    }
-                  />
-                );
-              },
-              className: 'justify-center',
-              sortable: false,
-              width: 64,
-            },
-            {
-              Header: () =>
-                selectedContactIds.length > 0 && <UsersMultiSelectMenu />,
-              accessor: 'avatar',
-              Cell: (row: any) => (
-                <Avatar
-                  className="mr-8"
-                  alt={row.original.name}
-                  src={row.value}
-                />
-              ),
-              className: 'justify-center',
-              width: 64,
-              sortable: false,
-            },
-            {
-              Header: 'Title',
-              accessor: 'title',
-              className: 'font-bold',
-            },
-            {
-              Header: 'First Name',
-              accessor: 'firstName',
-              className: 'font-bold',
-            },
-            {
-              Header: 'Last Name',
-              accessor: 'lastName',
-              className: 'font-bold',
-            },
-            {
-              Header: 'Email',
-              accessor: 'email',
-            },
-            {
-              Header: 'Phone',
-              accessor: 'phone',
-            },
-          ]}
-          defaultPageSize={10}
-          noDataText="No users found"
-        />
+        <>
+          <CssBaseline />
+          <DataTable
+            columns={columns}
+            data={users}
+            count={count}
+            pageIndex={page}
+            loadPage={loadPage}
+            pageSize={pageSize}
+            setPageSize={handleChangePageSize}
+            orderBy={orderBy}
+            setOrderBy={setOrderBy}
+            orderDirection={orderDirection}
+            setOrderDirection={setOrderDirection}
+            onRowClick={handleRowClick}
+          />
+        </>
       </FuseAnimate>
     );
   }
