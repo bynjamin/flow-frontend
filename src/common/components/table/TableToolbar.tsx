@@ -37,7 +37,7 @@ type Props = {
   addUserHandler: any;
   deleteUserHandler: any;
   setGlobalFilter: any;
-  preGlobalFilteredRows: any[];
+  count: number;
   globalFilter: string;
 };
 
@@ -47,7 +47,7 @@ const TableToolbar: React.FC<Props> = props => {
     numSelected,
     addUserHandler,
     deleteUserHandler,
-    preGlobalFilteredRows,
+    count,
     setGlobalFilter,
     globalFilter,
   } = props;
@@ -80,7 +80,7 @@ const TableToolbar: React.FC<Props> = props => {
         </Tooltip>
       ) : (
         <GlobalFilter
-          preGlobalFilteredRows={preGlobalFilteredRows}
+          count={count}
           globalFilter={globalFilter}
           setGlobalFilter={setGlobalFilter}
         />

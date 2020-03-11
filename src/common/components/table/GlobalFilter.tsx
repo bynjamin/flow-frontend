@@ -9,9 +9,9 @@ const useStyles = makeStyles(theme => ({
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
+    backgroundColor: fade(theme.palette.common.white, 0.3),
     '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
+      backgroundColor: fade(theme.palette.common.white, 0.4),
     },
     marginRight: theme.spacing(2),
     marginLeft: 0,
@@ -44,18 +44,17 @@ const useStyles = makeStyles(theme => ({
 }));
 
 type Props = {
-  preGlobalFilteredRows: any[];
+  count: number;
   globalFilter: string;
   setGlobalFilter: any;
 };
 
 const GlobalFilter: React.FC<Props> = ({
-  preGlobalFilteredRows,
+  count,
   globalFilter,
   setGlobalFilter,
 }) => {
   const classes = useStyles();
-  const count = preGlobalFilteredRows.length;
 
   // Global filter only works with pagination from the first page.
   // This may not be a problem for server side pagination when
