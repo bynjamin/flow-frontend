@@ -130,7 +130,6 @@ const UsersList = () => {
   const resetCursor = () => loadPage(0);
   useEffect(resetCursor, [pageSize, orderBy, orderDirection]);
 
-  if (loading) return <FuseLoading />;
   if (error) return <p style={{ color: 'red' }}>{error.message}</p>;
   if (data) {
     const { users, count } = data.usersQuery;
@@ -161,13 +160,14 @@ const UsersList = () => {
             orderDirection={orderDirection}
             setOrderDirection={setOrderDirection}
             onRowClick={handleRowClick}
+            loading={loading}
           />
         </>
       </FuseAnimate>
     );
   }
 
-  return <p>Something bad happend :D</p>;
+  return <FuseLoading />;
 };
 
 export default UsersList;
