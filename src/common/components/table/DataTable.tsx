@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-key */
 import React from 'react';
 import toLower from 'lodash/toLower';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, fade } from '@material-ui/core/styles';
 import Checkbox from '@material-ui/core/Checkbox';
 import MaUTable from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -12,6 +12,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import {
   useGlobalFilter,
   usePagination,
@@ -24,16 +25,28 @@ import TablePaginationActions from './TablePaginationActions';
 import TableToolbar from './TableToolbar';
 import { OrderDirection } from '../../types/types';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
+  root: {
+    border: '1px solid rgba(224, 224, 224, 1)',
+  },
   pagination: {
-    backgroundColor: 'rgba(0, 0, 0, 0.04)',
+    // backgroundColor: 'rgba(0, 0, 0, 0.04)',
+    background: `linear-gradient(to right, ${theme.palette.primary.dark} 0%, ${theme.palette.primary.main} 100%)`,
+    backgroundColor: theme.palette.primary.dark,
     borderBottom: 0,
     borderRadius: '0 0 5px 5px',
+    color: fade(theme.palette.common.white, 0.9),
   },
   dataRow: {
     cursor: 'pointer',
   },
-});
+  headerRow: {
+    fontWeight: 'bold',
+  },
+  tablePaginationSelectIcon: {
+    color: fade(theme.palette.common.white, 0.4),
+  },
+}));
 
 const IndeterminateCheckbox = React.forwardRef(
   // @ts-ignore
@@ -177,11 +190,14 @@ const EnhancedTable: React.FC<Props> = ({
       {loading ? (
         <FuseLoading />
       ) : (
-        <TableContainer>
+        <TableContainer className={classes.root}>
           <MaUTable {...getTableProps()} stickyHeader>
             <TableHead>
               {headerGroups.map((headerGroup: any) => (
-                <TableRow {...headerGroup.getHeaderGroupProps()}>
+                <TableRow
+                  {...headerGroup.getHeaderGroupProps()}
+                  className={classes.headerRow}
+                >
                   {headerGroup.headers.map((column: any) => (
                     <TableCell
                       {...(column.id === 'selection'
@@ -230,13 +246,15 @@ const EnhancedTable: React.FC<Props> = ({
           <TableRow>
             <TablePagination
               className={classes.pagination}
+              classes={{
+                selectIcon: classes.tablePaginationSelectIcon,
+              }}
               rowsPerPageOptions={[10, 25, 50]}
               count={count}
               rowsPerPage={pageSize}
               page={pageIndex}
               SelectProps={{
                 inputProps: { 'aria-label': 'rows per page' },
-                native: true,
               }}
               onChangePage={handleChangePage}
               onChangeRowsPerPage={handleChangeRowsPerPage}

@@ -5,12 +5,24 @@ import IconButton from '@material-ui/core/IconButton';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import {
+  makeStyles,
+  useTheme,
+  withTheme,
+  fade,
+} from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexShrink: 0,
     marginLeft: theme.spacing(2.5),
+  },
+  button: {
+    color: fade(theme.palette.common.white, 0.9),
+    '&:disabled': {
+      color: fade(theme.palette.common.white, 0.4),
+      backgroundColor: 'transparent,',
+    },
   },
 }));
 
@@ -45,6 +57,7 @@ const TablePaginationActions: React.FC<Props> = props => {
   return (
     <div className={classes.root}>
       <IconButton
+        className={classes.button}
         onClick={handleFirstPageButtonClick}
         disabled={page === 0}
         aria-label="first page"
@@ -52,6 +65,7 @@ const TablePaginationActions: React.FC<Props> = props => {
         {theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon />}
       </IconButton>
       <IconButton
+        className={classes.button}
         onClick={handleBackButtonClick}
         disabled={page === 0}
         aria-label="previous page"
@@ -63,6 +77,7 @@ const TablePaginationActions: React.FC<Props> = props => {
         )}
       </IconButton>
       <IconButton
+        className={classes.button}
         onClick={handleNextButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
         aria-label="next page"
@@ -74,6 +89,7 @@ const TablePaginationActions: React.FC<Props> = props => {
         )}
       </IconButton>
       <IconButton
+        className={classes.button}
         onClick={handleLastPageButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
         aria-label="last page"

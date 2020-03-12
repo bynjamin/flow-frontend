@@ -9,9 +9,9 @@ const useStyles = makeStyles(theme => ({
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.3),
+    backgroundColor: fade(theme.palette.common.white, 0.9),
     '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.4),
+      backgroundColor: fade(theme.palette.common.white, 0.95),
     },
     marginRight: theme.spacing(2),
     marginLeft: 0,
