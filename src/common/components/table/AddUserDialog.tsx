@@ -70,7 +70,11 @@ const AddUserDialog: React.FC<Props> = props => {
   return (
     <div>
       <Tooltip title="Add">
-        <IconButton aria-label="add" onClick={handleClickOpen}>
+        <IconButton
+          aria-label="add"
+          onClick={handleClickOpen}
+          color="secondary"
+        >
           <AddIcon />
         </IconButton>
       </Tooltip>
