@@ -144,26 +144,24 @@ const UsersList = () => {
     }
 
     return (
-      <FuseAnimate animation="transition.slideUpIn" delay={300}>
-        <>
-          <CssBaseline />
-          <DataTable
-            columns={columns}
-            data={users}
-            count={count}
-            pageIndex={page}
-            loadPage={loadPage}
-            pageSize={pageSize}
-            setPageSize={handleChangePageSize}
-            orderBy={orderBy}
-            setOrderBy={setOrderBy}
-            orderDirection={orderDirection}
-            setOrderDirection={setOrderDirection}
-            onRowClick={handleRowClick}
-            loading={loading}
-          />
-        </>
-      </FuseAnimate>
+      <>
+        <CssBaseline />
+        <DataTable
+          columns={columns}
+          data={users}
+          count={count}
+          pageIndex={page}
+          loadPage={loadPage}
+          pageSize={pageSize}
+          setPageSize={handleChangePageSize}
+          orderBy={orderBy}
+          setOrderBy={setOrderBy}
+          orderDirection={orderDirection}
+          setOrderDirection={setOrderDirection}
+          onRowClick={handleRowClick}
+          loading={loading}
+        />
+      </>
     );
   }
 
