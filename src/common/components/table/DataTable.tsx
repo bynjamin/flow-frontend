@@ -78,6 +78,7 @@ const inputStyle = {
 };
 
 type Props = {
+  title: string;
   columns: any[];
   data: any[];
   count: number;
@@ -91,9 +92,11 @@ type Props = {
   setOrderDirection: React.Dispatch<React.SetStateAction<OrderDirection>>;
   onRowClick: (id: number) => void;
   loading: boolean;
+  onCreate: () => void;
 };
 
 const EnhancedTable: React.FC<Props> = ({
+  title,
   columns,
   data,
   count,
@@ -107,6 +110,7 @@ const EnhancedTable: React.FC<Props> = ({
   setOrderDirection,
   onRowClick,
   loading,
+  onCreate,
 }) => {
   const classes = useStyles();
   const {
@@ -178,12 +182,14 @@ const EnhancedTable: React.FC<Props> = ({
     <FuseAnimate animation="transition.slideUpIn" delay={300}>
       <div className="flex flex-col h-full shadow-lg">
         <TableToolbar
+          title={title}
           numSelected={Object.keys(selectedRowIds).length}
           deleteRecordHandler={() => console.log('delete')}
           addRecordHandler={() => console.log('create')}
           count={count}
           setGlobalFilter={setGlobalFilter}
           globalFilter={globalFilter}
+          onCreate={onCreate}
         />
         {loading ? (
           <FuseLoading />

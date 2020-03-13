@@ -19,6 +19,7 @@ import UsersMultiSelectMenu from './UsersMultiSelectMenu';
 import { UserListQuery } from './__generated__/UserListQuery';
 import DataTable from 'common/components/table/DataTable';
 import useTableState from '../../hooks/TableState';
+import AddUserDialog from './AddUserDialog';
 import { DEFAULT_PAGE_SIZE } from 'common/constants';
 
 const USERLIST_QUERY = gql`
@@ -48,6 +49,7 @@ const USERLIST_QUERY = gql`
 
 const UsersList = () => {
   const history = useHistory();
+  const [addDialogOpen, setAddDialogOpen] = useState<boolean>(false);
 
   const {
     page,
@@ -103,6 +105,10 @@ const UsersList = () => {
     [],
   );
 
+  const toggleAddDialogOpen = () => {
+    setAddDialogOpen(!addDialogOpen);
+  };
+
   const handleRowClick = (userId: number) => {
     history.push(`/users/detail/${userId}`);
   };
@@ -147,6 +153,7 @@ const UsersList = () => {
       <>
         <CssBaseline />
         <DataTable
+          title="Users"
           columns={columns}
           data={users}
           count={count}
@@ -160,6 +167,12 @@ const UsersList = () => {
           setOrderDirection={setOrderDirection}
           onRowClick={handleRowClick}
           loading={loading}
+          onCreate={toggleAddDialogOpen}
+        />
+        <AddUserDialog
+          addUserHandler={() => console.log('Add User')}
+          open={addDialogOpen}
+          onClose={toggleAddDialogOpen}
         />
       </>
     );
