@@ -20,6 +20,7 @@ import {
   useSortBy,
   useTable,
 } from 'react-table';
+import FuseAnimate from '@fuse/core/FuseAnimate';
 import FuseLoading from '@fuse/core/FuseLoading';
 import TablePaginationActions from './TablePaginationActions';
 import TableToolbar from './TableToolbar';
@@ -178,92 +179,96 @@ const EnhancedTable: React.FC<Props> = ({
 
   // Render the UI for your table
   return (
-    <>
-      <TableToolbar
-        numSelected={Object.keys(selectedRowIds).length}
-        deleteUserHandler={() => console.log('delete')}
-        addUserHandler={() => console.log('create')}
-        count={count}
-        setGlobalFilter={setGlobalFilter}
-        globalFilter={globalFilter}
-      />
-      {loading ? (
-        <FuseLoading />
-      ) : (
-        <TableContainer className={classes.root}>
-          <MaUTable {...getTableProps()} stickyHeader>
-            <TableHead>
-              {headerGroups.map((headerGroup: any) => (
-                <TableRow
-                  {...headerGroup.getHeaderGroupProps()}
-                  className={classes.headerRow}
-                >
-                  {headerGroup.headers.map((column: any) => (
-                    <TableCell
-                      {...(column.id === 'selection'
-                        ? column.getHeaderProps()
-                        : column.getHeaderProps(column.getSortByToggleProps()))}
-                    >
-                      {column.render('Header')}
-                      {column.id !== 'selection' ? (
-                        <TableSortLabel
-                          active={column.isSorted}
-                          // react-table has a unsorted state which is not treated here
-                          direction={column.isSortedDesc ? 'desc' : 'asc'}
-                        />
-                      ) : null}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))}
-            </TableHead>
-            <TableBody>
-              {page.map((row: any, i: number) => {
-                prepareRow(row);
-                return (
+    <FuseAnimate animation="transition.slideUpIn" delay={300}>
+      <div className="flex flex-col h-full shadow-lg">
+        <TableToolbar
+          numSelected={Object.keys(selectedRowIds).length}
+          deleteRecordHandler={() => console.log('delete')}
+          addRecordHandler={() => console.log('create')}
+          count={count}
+          setGlobalFilter={setGlobalFilter}
+          globalFilter={globalFilter}
+        />
+        {loading ? (
+          <FuseLoading />
+        ) : (
+          <TableContainer className={classes.root}>
+            <MaUTable {...getTableProps()} stickyHeader>
+              <TableHead>
+                {headerGroups.map((headerGroup: any) => (
                   <TableRow
-                    {...row.getRowProps()}
-                    className={classes.dataRow}
-                    onClick={() => onRowClick(row.original.id)}
-                    hover
+                    {...headerGroup.getHeaderGroupProps()}
+                    className={classes.headerRow}
                   >
-                    {row.cells.map((cell: any) => {
-                      return (
-                        <TableCell {...cell.getCellProps()}>
-                          {cell.render('Cell')}
-                        </TableCell>
-                      );
-                    })}
+                    {headerGroup.headers.map((column: any) => (
+                      <TableCell
+                        {...(column.id === 'selection'
+                          ? column.getHeaderProps()
+                          : column.getHeaderProps(
+                              column.getSortByToggleProps(),
+                            ))}
+                      >
+                        {column.render('Header')}
+                        {column.id !== 'selection' ? (
+                          <TableSortLabel
+                            active={column.isSorted}
+                            // react-table has a unsorted state which is not treated here
+                            direction={column.isSortedDesc ? 'desc' : 'asc'}
+                          />
+                        ) : null}
+                      </TableCell>
+                    ))}
                   </TableRow>
-                );
-              })}
-            </TableBody>
-          </MaUTable>
-        </TableContainer>
-      )}
-      <MaUTable>
-        <TableFooter>
-          <TableRow>
-            <TablePagination
-              className={classes.pagination}
-              classes={{
-                selectIcon: classes.tablePaginationSelectIcon,
-              }}
-              rowsPerPageOptions={[10, 25, 50]}
-              count={count}
-              rowsPerPage={pageSize}
-              page={pageIndex}
-              SelectProps={{
-                inputProps: { 'aria-label': 'rows per page' },
-              }}
-              onChangePage={handleChangePage}
-              onChangeRowsPerPage={handleChangeRowsPerPage}
-              ActionsComponent={TablePaginationActions}
-            />
-          </TableRow>
-        </TableFooter>
-      </MaUTable>
-    </>
+                ))}
+              </TableHead>
+              <TableBody>
+                {page.map((row: any, i: number) => {
+                  prepareRow(row);
+                  return (
+                    <TableRow
+                      {...row.getRowProps()}
+                      className={classes.dataRow}
+                      onClick={() => onRowClick(row.original.id)}
+                      hover
+                    >
+                      {row.cells.map((cell: any) => {
+                        return (
+                          <TableCell {...cell.getCellProps()}>
+                            {cell.render('Cell')}
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </MaUTable>
+          </TableContainer>
+        )}
+        <MaUTable>
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                className={classes.pagination}
+                classes={{
+                  selectIcon: classes.tablePaginationSelectIcon,
+                }}
+                rowsPerPageOptions={[10, 25, 50]}
+                count={count}
+                rowsPerPage={pageSize}
+                page={pageIndex}
+                SelectProps={{
+                  inputProps: { 'aria-label': 'rows per page' },
+                }}
+                onChangePage={handleChangePage}
+                onChangeRowsPerPage={handleChangeRowsPerPage}
+                ActionsComponent={TablePaginationActions}
+              />
+            </TableRow>
+          </TableFooter>
+        </MaUTable>
+      </div>
+    </FuseAnimate>
   );
 };
 
