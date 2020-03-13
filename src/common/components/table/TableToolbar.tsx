@@ -1,6 +1,4 @@
 import React from 'react';
-
-import AddUserDialog from './AddUserDialog';
 import clsx from 'clsx';
 import DeleteIcon from '@material-ui/icons/Delete';
 import GlobalFilter from './GlobalFilter';
@@ -9,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
+import AddIcon from '@material-ui/icons/Add';
 
 const useToolbarStyles = makeStyles(theme => ({
   root: {
@@ -26,23 +25,28 @@ const useToolbarStyles = makeStyles(theme => ({
 }));
 
 type Props = {
+  title: string;
   numSelected: number;
   addRecordHandler: any;
   deleteRecordHandler: any;
   setGlobalFilter: any;
   count: number;
   globalFilter: string;
+  onCreate: () => void;
 };
 
 const TableToolbar: React.FC<Props> = ({
+  title,
   numSelected,
   addRecordHandler,
   deleteRecordHandler,
   count,
   setGlobalFilter,
   globalFilter,
+  onCreate,
 }) => {
   const classes = useToolbarStyles();
+
   return (
     <Toolbar className={classes.root}>
       {numSelected > 0 ? (
@@ -66,9 +70,13 @@ const TableToolbar: React.FC<Props> = ({
         </>
       ) : (
         <>
-          <AddUserDialog addUserHandler={addRecordHandler} />
+          <Tooltip title="Add">
+            <IconButton aria-label="add" onClick={onCreate} color="secondary">
+              <AddIcon />
+            </IconButton>
+          </Tooltip>
           <Typography className={classes.title} variant="h6" id="tableTitle">
-            Users
+            {title}
           </Typography>
         </>
       )}
