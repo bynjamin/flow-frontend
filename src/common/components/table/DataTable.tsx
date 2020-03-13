@@ -172,10 +172,6 @@ const EnhancedTable: React.FC<Props> = ({
   const handleChangeRowsPerPage = event => {
     setPageSize(Number(event.target.value));
   };
-  // @ts-ignore
-  const removeByIndexs = (array, indexs) =>
-    // @ts-ignore
-    array.filter((_, i) => !indexs.includes(i));
 
   // Render the UI for your table
   return (
