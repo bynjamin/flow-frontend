@@ -5,12 +5,14 @@ import { AboutConfig } from './about/AboutConfig';
 import { RegisterConfig } from './register/RegisterConfig';
 import { PricingConfig } from './pricing/PricingConfig';
 import { ComingSoonConfig } from './coming-soon/ComingSoonConfig';
+import { RegisterNetflixConfig } from './registerNetflix/RegisterNetflixConfig';
 
 const routeConfigs = [
   AboutConfig,
   RegisterConfig,
   PricingConfig,
   ComingSoonConfig,
+  RegisterNetflixConfig,
 ];
 
 const routes = [
