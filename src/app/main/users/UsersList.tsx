@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import {
@@ -16,11 +16,11 @@ import ReactTable from 'react-table-6';
 import { useTable, usePagination } from 'react-table';
 import { useHistory } from 'react-router';
 import UsersMultiSelectMenu from './UsersMultiSelectMenu';
-import { UserListQuery } from './__generated__/UserListQuery';
-import DataTable from 'common/components/table/DataTable';
-import useTableState from '../../hooks/TableState';
+import DataTable from 'app/components/table/DataTable';
+import useTableState from 'app/components/table/useTableState';
 import AddUserDialog from './AddUserDialog';
-import { DEFAULT_PAGE_SIZE } from 'common/constants';
+import { UserListQuery } from './__generated__/UserListQuery';
+import { DEFAULT_PAGE_SIZE } from 'app/constants';
 
 const USERLIST_QUERY = gql`
   query UserListQuery(
@@ -54,12 +54,10 @@ const UsersList = () => {
   const {
     page,
     pageSize,
-    orderBy,
-    orderDirection,
+    order,
     setPage,
     setPageSize,
-    setOrderBy,
-    setOrderDirection,
+    setOrder,
   } = useTableState();
 
   const { loading, error, data, fetchMore } = useQuery<UserListQuery>(
@@ -114,6 +112,7 @@ const UsersList = () => {
   };
 
   const getQueryVariables = (pageNum: number) => {
+    const { orderBy, orderDirection } = order;
     const skip = pageNum * pageSize;
     const first = pageSize;
     return { first, skip, orderBy, orderDirection };
@@ -133,8 +132,6 @@ const UsersList = () => {
   const handleChangePageSize = (count: number): void => {
     setPageSize(count);
   };
-  const resetCursor = () => loadPage(0);
-  useEffect(resetCursor, [pageSize, orderBy, orderDirection]);
 
   if (error) return <p style={{ color: 'red' }}>{error.message}</p>;
   if (data) {
@@ -161,10 +158,8 @@ const UsersList = () => {
           loadPage={loadPage}
           pageSize={pageSize}
           setPageSize={handleChangePageSize}
-          orderBy={orderBy}
-          setOrderBy={setOrderBy}
-          orderDirection={orderDirection}
-          setOrderDirection={setOrderDirection}
+          order={order}
+          setOrder={setOrder}
           onRowClick={handleRowClick}
           loading={loading}
           onCreate={toggleAddDialogOpen}

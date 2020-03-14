@@ -9,7 +9,7 @@ import {
 import FuseAnimate from '@fuse/core/FuseAnimate';
 import FuseUtils from '@fuse/utils';
 import ReactTable from 'react-table-6';
-import DataTable from 'common/components/table/DataTable';
+import DataTable from 'app/components/table/DataTable';
 import ClientsMultiSelectMenu from './ClientsMultiSelectMenu';
 import { DialogType } from './types';
 
@@ -146,10 +146,8 @@ const ClientsList: React.FC<Props> = ({ openDialog }) => {
       loadPage={() => console.log('loadPage')}
       pageSize={10}
       setPageSize={() => console.log('set')}
-      orderBy={null}
-      setOrderBy={() => console.log('set')}
-      orderDirection="ASC"
-      setOrderDirection={() => console.log('set')}
+      order={{ orderBy: 'dummy_data', orderDirection: 'asc' }}
+      setOrder={() => console.log('set')}
       onRowClick={() => console.log('detail')}
       loading={false}
       onCreate={() => openDialog('new')}
