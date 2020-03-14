@@ -1,5 +1,4 @@
 import React from 'react';
-import FuseSuspense from '@fuse/core/FuseSuspense';
 import FuseSplashScreen from '@fuse/core/FuseSplashScreen';
 import { EnvException } from './common/exceptions';
 

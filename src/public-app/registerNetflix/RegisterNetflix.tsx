@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import publicGql from 'graphql-tag';
 import Button from '@material-ui/core/Button';
