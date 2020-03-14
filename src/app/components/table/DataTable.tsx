@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-key */
-import React from 'react';
-import toLower from 'lodash/toLower';
+import React, { useEffect } from 'react';
 import { makeStyles, fade } from '@material-ui/core/styles';
 import Checkbox from '@material-ui/core/Checkbox';
 import MaUTable from '@material-ui/core/Table';
@@ -12,7 +11,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import {
   useGlobalFilter,
   usePagination,
@@ -22,9 +20,9 @@ import {
 } from 'react-table';
 import FuseAnimate from '@fuse/core/FuseAnimate';
 import FuseLoading from '@fuse/core/FuseLoading';
-import TablePaginationActions from './TablePaginationActions';
-import TableToolbar from './TableToolbar';
-import { OrderDirection } from '../../types/types';
+import TablePaginationActions from './components/TablePaginationActions';
+import TableToolbar from './components/TableToolbar';
+import { OrderDirection, OrderType } from 'app/types';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -70,32 +68,23 @@ const IndeterminateCheckbox = React.forwardRef(
   },
 );
 
-const inputStyle = {
-  padding: 0,
-  margin: 0,
-  border: 0,
-  background: 'transparent',
-};
-
 type Props = {
   title: string;
   columns: any[];
   data: any[];
   count: number;
   pageIndex: number;
-  loadPage: any;
   pageSize: number;
-  orderBy: string | null;
-  orderDirection: any;
-  setPageSize: (count: number) => void;
-  setOrderBy: React.Dispatch<React.SetStateAction<string | null>>;
-  setOrderDirection: React.Dispatch<React.SetStateAction<OrderDirection>>;
-  onRowClick: (id: number) => void;
+  order: OrderType;
   loading: boolean;
+  loadPage: (pageIndex: number) => void;
+  setPageSize: (count: number) => void;
+  setOrder: React.Dispatch<React.SetStateAction<OrderType>>;
+  onRowClick: (id: number) => void;
   onCreate: () => void;
 };
 
-const EnhancedTable: React.FC<Props> = ({
+const DataTable: React.FC<Props> = ({
   title,
   columns,
   data,
@@ -104,14 +93,13 @@ const EnhancedTable: React.FC<Props> = ({
   pageSize,
   setPageSize,
   pageIndex,
-  orderBy,
-  setOrderBy,
-  orderDirection,
-  setOrderDirection,
+  order,
+  setOrder,
   onRowClick,
   loading,
   onCreate,
 }) => {
+  const { orderBy, orderDirection } = order;
   const classes = useStyles();
   const {
     getTableProps,
@@ -126,7 +114,7 @@ const EnhancedTable: React.FC<Props> = ({
       data,
       // @ts-ignore
       manualPagination: true,
-      // manualSortBy: true,
+      manualSortBy: true,
     },
     useGlobalFilter,
     useSortBy,
@@ -168,6 +156,7 @@ const EnhancedTable: React.FC<Props> = ({
       ]);
     },
   );
+
   // @ts-ignore
   const handleChangePage = (event, newPage) => {
     loadPage(newPage);
@@ -177,10 +166,41 @@ const EnhancedTable: React.FC<Props> = ({
     setPageSize(Number(event.target.value));
   };
 
-  // Render the UI for your table
+  const nextDirectionState = (
+    direction: OrderDirection,
+    orderByChanged: boolean,
+  ): OrderDirection => {
+    if (orderByChanged) {
+      return 'asc';
+    }
+
+    switch (direction) {
+      case 'asc':
+        return 'desc';
+      case 'desc':
+        return undefined;
+      default:
+        return 'asc';
+    }
+  };
+
+  const handleChangeOrder = (columnId: string) => {
+    const newOrderDirection = nextDirectionState(
+      orderDirection,
+      columnId !== orderBy,
+    );
+    setOrder({
+      orderBy: newOrderDirection ? columnId : undefined,
+      orderDirection: newOrderDirection,
+    });
+  };
+
+  const refetch = () => loadPage(0);
+  useEffect(refetch, [pageSize, order]); // Refetch to page 0 after pageSize, order or globalFilter change
+
   return (
     <FuseAnimate animation="transition.slideUpIn" delay={300}>
-      <div className="flex flex-col max-h-full shadow-lg">
+      <div className="flex flex-col h-full shadow-lg">
         <TableToolbar
           title={title}
           numSelected={Object.keys(selectedRowIds).length}
@@ -209,13 +229,14 @@ const EnhancedTable: React.FC<Props> = ({
                           : column.getHeaderProps(
                               column.getSortByToggleProps(),
                             ))}
+                        onClick={() => handleChangeOrder(column.id)}
                       >
                         {column.render('Header')}
                         {column.id !== 'selection' ? (
                           <TableSortLabel
-                            active={column.isSorted}
+                            active={orderBy === column.id}
                             // react-table has a unsorted state which is not treated here
-                            direction={column.isSortedDesc ? 'desc' : 'asc'}
+                            direction={orderDirection}
                           />
                         ) : null}
                       </TableCell>
@@ -274,4 +295,4 @@ const EnhancedTable: React.FC<Props> = ({
   );
 };
 
-export default EnhancedTable;
+export default DataTable;

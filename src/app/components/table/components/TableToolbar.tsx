@@ -1,5 +1,4 @@
 import React from 'react';
-import clsx from 'clsx';
 import DeleteIcon from '@material-ui/icons/Delete';
 import GlobalFilter from './GlobalFilter';
 import IconButton from '@material-ui/core/IconButton';
