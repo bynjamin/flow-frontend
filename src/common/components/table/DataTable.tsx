@@ -180,7 +180,7 @@ const EnhancedTable: React.FC<Props> = ({
   // Render the UI for your table
   return (
     <FuseAnimate animation="transition.slideUpIn" delay={300}>
-      <div className="flex flex-col h-full shadow-lg">
+      <div className="flex flex-col max-h-full shadow-lg">
         <TableToolbar
           title={title}
           numSelected={Object.keys(selectedRowIds).length}
