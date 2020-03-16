@@ -38,6 +38,7 @@ const useStyles = makeStyles(theme => ({
   },
   dataRow: {
     cursor: 'pointer',
+    transition: '0.3s',
   },
   headerRow: {
     fontWeight: 'bold',
