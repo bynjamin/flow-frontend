@@ -165,11 +165,17 @@ const Register = () => {
               )}
               {error && (
                 <>
-                  <Illustration name="Error" spaceAfter="large" />
-                  <Alert severity="error">
-                    <AlertTitle>Something goes wrong...</AlertTitle>
-                    {error.message}
-                  </Alert>
+                  <FuseAnimate animation="transition.slideRightIn" delay={300}>
+                    <div>
+                      <Illustration name="Error" spaceAfter="large" />
+                    </div>
+                  </FuseAnimate>
+                  <FuseAnimate animation="transition.slideLeftIn" delay={300}>
+                    <Alert severity="error">
+                      <AlertTitle>Something goes wrong...</AlertTitle>
+                      {error.message}
+                    </Alert>
+                  </FuseAnimate>
                 </>
               )}
             </CardContent>
