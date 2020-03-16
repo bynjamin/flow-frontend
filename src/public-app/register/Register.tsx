@@ -137,22 +137,30 @@ const Register = () => {
               )}
               {data && (
                 <>
-                  <Illustration name="Success" spaceAfter="large" />
-                  <Alert severity="success">
-                    <AlertTitle>Congratulations!</AlertTitle>
-                    Your new workspace is ready. Go ahead and login for your
-                    first time!
-                  </Alert>
-                  <RedirectButton2
-                    color="secondary"
-                    onClick={() => {
-                      window.location.assign(
-                        `http://${data.newRegistration.fqdn}`,
-                      );
-                    }}
-                  >
-                    Login to your workspace
-                  </RedirectButton2>
+                  <FuseAnimate animation="transition.slideRightIn" delay={300}>
+                    <div>
+                      <Illustration name="Success" spaceAfter="large" />
+                    </div>
+                  </FuseAnimate>
+                  <FuseAnimate animation="transition.slideLeftIn" delay={300}>
+                    <Alert severity="success">
+                      <AlertTitle>Congratulations!</AlertTitle>
+                      Your new workspace is ready. Go ahead and login for your
+                      first time!
+                    </Alert>
+                  </FuseAnimate>
+                  <FuseAnimate animation="transition.fadeIn" delay={300}>
+                    <RedirectButton2
+                      color="secondary"
+                      onClick={() => {
+                        window.location.assign(
+                          `http://${data.newRegistration.fqdn}`,
+                        );
+                      }}
+                    >
+                      Login to your workspace
+                    </RedirectButton2>
+                  </FuseAnimate>
                 </>
               )}
               {error && (
