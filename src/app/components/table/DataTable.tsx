@@ -186,10 +186,16 @@ const DataTable: React.FC<Props> = ({
   };
 
   const handleChangeOrder = (columnId: string) => {
+    // Do nothing on selection column click
+    if (columnId === 'selection') {
+      return;
+    }
+
     const newOrderDirection = nextDirectionState(
       orderDirection,
       columnId !== orderBy,
     );
+
     setOrder({
       orderBy: newOrderDirection ? columnId : undefined,
       orderDirection: newOrderDirection,
