@@ -67,6 +67,25 @@ const navigationConfig = [
       },
     ],
   },
+  {
+    type: 'divider',
+    id: 'divider-1',
+  },
+  {
+    id: 'admin',
+    title: 'Admin',
+    type: 'group',
+    icon: 'apps',
+    children: [
+      {
+        id: 'permissions',
+        title: 'Permissions',
+        type: 'item',
+        icon: 'supervisor_account',
+        url: '/admin/permissions',
+      },
+    ],
+  },
 ];
 
 export default navigationConfig;
