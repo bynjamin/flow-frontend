@@ -13,6 +13,7 @@ import { UserGroupsListQuery } from './__generated__/UserGroupsListQuery';
 const USERGROUPS_LIST_QUERY = gql`
   query UserGroupsListQuery {
     userGroups {
+      id
       name
       description
       users {
@@ -60,7 +61,7 @@ const UserGroupsList = () => {
   };
 
   const handleRowClick = (userGroupId: number) => {
-    history.push(`/users-groups/detail/${userGroupId}`);
+    history.push(`/user-groups/detail/${userGroupId}`);
   };
 
   const getQueryVariables = (pageNum: number) => {

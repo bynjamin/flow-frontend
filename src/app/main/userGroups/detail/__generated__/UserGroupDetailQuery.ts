@@ -4,27 +4,35 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: UserGroupsListQuery
+// GraphQL query operation: UserGroupDetailQuery
 // ====================================================
 
-export interface UserGroupsListQuery_userGroups_users {
+export interface UserGroupDetailQuery_userGroups_users {
   __typename: "User";
   /**
    * User ID
    */
   id: string;
+  /**
+   * User full name
+   */
+  fullName: string;
+  /**
+   * User email
+   */
+  email: string;
 }
 
-export interface UserGroupsListQuery_userGroups {
+export interface UserGroupDetailQuery_userGroups {
   __typename: "UserGroup";
-  /**
-   * User group ID
-   */
-  id: string;
   /**
    * User group name
    */
   name: string;
+  /**
+   * User group ID
+   */
+  id: string;
   /**
    * User group description
    */
@@ -32,12 +40,16 @@ export interface UserGroupsListQuery_userGroups {
   /**
    * User group users
    */
-  users: UserGroupsListQuery_userGroups_users[];
+  users: UserGroupDetailQuery_userGroups_users[];
 }
 
-export interface UserGroupsListQuery {
+export interface UserGroupDetailQuery {
   /**
    * Get user groups
    */
-  userGroups: UserGroupsListQuery_userGroups[];
+  userGroups: UserGroupDetailQuery_userGroups[];
+}
+
+export interface UserGroupDetailQueryVariables {
+  id: number;
 }

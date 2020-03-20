@@ -1,19 +1,8 @@
 import React, { useMemo, useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import {
-  Avatar,
-  Checkbox,
-  Icon,
-  IconButton,
-  Typography,
-  CssBaseline,
-} from '@material-ui/core';
-import FuseAnimate from '@fuse/core/FuseAnimate';
+import { Typography, CssBaseline } from '@material-ui/core';
 import FuseLoading from '@fuse/core/FuseLoading';
-import FuseUtils from '@fuse/utils';
-import ReactTable from 'react-table-6';
-import { useTable, usePagination } from 'react-table';
 import { useHistory } from 'react-router';
 import UsersMultiSelectMenu from './UsersMultiSelectMenu';
 import DataTable from 'app/components/table/DataTable';
