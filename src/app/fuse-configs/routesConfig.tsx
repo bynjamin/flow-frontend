@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import FuseUtils from '@fuse/utils';
 import { ExampleConfig } from 'app/main/example/ExampleConfig';
 import UsersConfig from 'app/main/users/UsersAppConfig';
+import UserGroupsConfig from 'app/main/userGroups/UserGroupsConfig';
 import { LoginConfig } from 'app/main/login/LoginConfig';
 import { TestConfig } from 'app/main/test/TestConfig';
 import { ContactsConfig } from 'app/main/contacts/ContactsAppConfig';
@@ -19,6 +20,7 @@ const routeConfigs = [
   TasksAppConfig,
   PermissionsConfig,
   ...UsersConfig,
+  ...UserGroupsConfig,
 ];
 
 const routes = [

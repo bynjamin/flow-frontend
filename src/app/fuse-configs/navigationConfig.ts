@@ -45,6 +45,13 @@ const navigationConfig = [
         url: '/users',
       },
       {
+        id: 'user-groups-app',
+        title: 'User Groups',
+        type: 'item',
+        icon: 'people',
+        url: '/user-groups',
+      },
+      {
         id: 'clients-app',
         title: 'Clients',
         type: 'item',

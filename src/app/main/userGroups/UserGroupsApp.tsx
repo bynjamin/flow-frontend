@@ -2,8 +2,10 @@ import React, { useRef } from 'react';
 import { Fab, Icon } from '@material-ui/core';
 import FuseAnimate from '@fuse/core/FuseAnimate';
 import FusePageSimple from '@fuse/core/FusePageSimple';
-import UsersList from './UsersList';
-import UsersHeader from './UsersHeader';
+import UserGroupsList from './UserGroupsList';
+// import UsersHeader from './UsersHeader';
+// import ContactsSidebarContent from './ContactsSidebarContent';
+// import ContactDialog from './ContactDialog';
 import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles({
@@ -15,7 +17,7 @@ const useStyles = makeStyles({
   },
 });
 
-function UsersApp(props: any) {
+function UserGroupsApp(props: any) {
   const classes = useStyles(props);
   const pageLayout = useRef(null);
 
@@ -29,7 +31,7 @@ function UsersApp(props: any) {
           header: 'min-h-72 h-72 sm:h-136 sm:min-h-136',
         }}
         // header={<UsersHeader pageLayout={pageLayout} />}
-        content={<UsersList />}
+        content={<UserGroupsList />}
         // leftSidebarContent={<ContactsSidebarContent />}
         sidebarInner
         ref={pageLayout}
@@ -50,4 +52,4 @@ function UsersApp(props: any) {
   );
 }
 
-export default UsersApp;
+export default UserGroupsApp;
