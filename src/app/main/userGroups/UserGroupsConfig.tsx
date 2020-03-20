@@ -18,8 +18,8 @@ const UserGroupsConfig = {
     },
   ],
 };
-/*
-const UserDetailConfig = {
+
+const UserGroupDetailConfig = {
   settings: {
     layout: {
       config: {},
@@ -28,9 +28,9 @@ const UserDetailConfig = {
   routes: [
     {
       path: '/user-groups/detail/:id',
-      component: React.lazy(() => import('./detail/UserDetail')),
+      component: React.lazy(() => import('./detail/UserGroupDetail')),
     },
   ],
 };
-*/
-export default [UserGroupsConfig];
+
+export default [UserGroupDetailConfig, UserGroupsConfig]; // This order is important!

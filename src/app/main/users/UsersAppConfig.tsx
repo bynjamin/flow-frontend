@@ -33,4 +33,4 @@ const UserDetailConfig = {
   ],
 };
 
-export default [UserDetailConfig, UsersConfig];
+export default [UserDetailConfig, UsersConfig]; // This order is important!

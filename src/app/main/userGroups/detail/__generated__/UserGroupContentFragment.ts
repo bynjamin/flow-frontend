@@ -4,18 +4,26 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: UserGroupsListQuery
+// GraphQL fragment: UserGroupContentFragment
 // ====================================================
 
-export interface UserGroupsListQuery_userGroups_users {
+export interface UserGroupContentFragment_users {
   __typename: "User";
   /**
    * User ID
    */
   id: string;
+  /**
+   * User full name
+   */
+  fullName: string;
+  /**
+   * User email
+   */
+  email: string;
 }
 
-export interface UserGroupsListQuery_userGroups {
+export interface UserGroupContentFragment {
   __typename: "UserGroup";
   /**
    * User group ID
@@ -32,12 +40,5 @@ export interface UserGroupsListQuery_userGroups {
   /**
    * User group users
    */
-  users: UserGroupsListQuery_userGroups_users[];
-}
-
-export interface UserGroupsListQuery {
-  /**
-   * Get user groups
-   */
-  userGroups: UserGroupsListQuery_userGroups[];
+  users: UserGroupContentFragment_users[];
 }

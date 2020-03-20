@@ -2,18 +2,17 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import { Avatar, Button, Tab, Tabs, Typography } from '@material-ui/core';
+import { Avatar, Button, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import FuseLoading from '@fuse/core/FuseLoading';
 import FusePageSimple from '@fuse/core/FusePageSimple';
 import FuseAnimate from '@fuse/core/FuseAnimate';
-import { AboutTab, PermissionsTab } from './tabs';
-import { AboutTabFragment } from './tabs/AboutTab';
+import UserGroupContent, { UserGroupContentFragment } from './UserGroupContent';
 import { MISSING_FIELD } from 'common/constants';
 import {
-  UserDetailQuery,
-  UserDetailQueryVariables,
-} from './__generated__/UserDetailQuery';
+  UserGroupDetailQuery,
+  UserGroupDetailQueryVariables,
+} from './__generated__/UserGroupDetailQuery';
 
 const useStyles = makeStyles((theme: any) => ({
   layoutHeader: {
@@ -26,32 +25,25 @@ const useStyles = makeStyles((theme: any) => ({
   },
 }));
 
-const USER_DETAIL_QUERY = gql`
-  query UserDetailQuery($id: Int!) {
-    userQuery(id: $id) {
-      id
-      fullName
-      ...AboutTabFragment
+const USERGROUP_DETAIL_QUERY = gql`
+  query UserGroupDetailQuery($id: Int!) {
+    userGroups(groupId: $id) {
+      name
+      ...UserGroupContentFragment
     }
   }
-  ${AboutTabFragment.data}
+  ${UserGroupContentFragment.data}
 `;
 
-const ProfilePage: React.FC = () => {
+const UserGroupDetail: React.FC = () => {
   const classes = useStyles();
-  const [selectedTab, setSelectedTab] = useState(0);
   const { id } = useParams();
   const { loading, error, data } = useQuery<
-    UserDetailQuery,
-    UserDetailQueryVariables
-  >(USER_DETAIL_QUERY, {
+    UserGroupDetailQuery,
+    UserGroupDetailQueryVariables
+  >(USERGROUP_DETAIL_QUERY, {
     variables: { id: parseInt(id!, 10) },
   });
-
-  // @ts-ignore
-  function handleTabChange(event, value) {
-    setSelectedTab(value);
-  }
 
   if (loading) return <FuseLoading />;
   if (error) return <p style={{ color: 'red' }}>{error.message}</p>;
@@ -73,7 +65,7 @@ const ProfilePage: React.FC = () => {
               </FuseAnimate>
               <FuseAnimate animation="transition.slideLeftIn" delay={300}>
                 <Typography className="md:ml-24" variant="h4" color="inherit">
-                  {data?.userQuery?.fullName || MISSING_FIELD}
+                  {data.userGroups[0].name || MISSING_FIELD}
                 </Typography>
               </FuseAnimate>
             </div>
@@ -90,63 +82,11 @@ const ProfilePage: React.FC = () => {
             </div>
           </div>
         }
-        contentToolbar={
-          <Tabs
-            value={selectedTab}
-            onChange={handleTabChange}
-            indicatorColor="primary"
-            textColor="primary"
-            variant="scrollable"
-            scrollButtons="off"
-            classes={{
-              root: 'h-64 w-full border-b-1',
-            }}
-          >
-            {/*
-            <Tab
-              classes={{
-                root: 'h-64',
-              }}
-              label="Timeline"
-            />
-            */}
-            <Tab
-              classes={{
-                root: 'h-64',
-              }}
-              label="About"
-            />
-            <Tab
-              classes={{
-                root: 'h-64',
-              }}
-              label="Permissions"
-            />
-            {/*
-            <Tab
-              classes={{
-                root: 'h-64',
-              }}
-              label="Photos & Videos"
-            />
-            */}
-          </Tabs>
-        }
-        content={
-          <div className="p-16 sm:p-24">
-            {/* selectedTab === 0 && <TimelineTab /> */}
-            {/* todo: nonnullable */}
-            {selectedTab === 0 && data?.userQuery && (
-              <AboutTab data={data?.userQuery} />
-            )}
-            {selectedTab === 1 && <PermissionsTab />}
-            {/* selectedTab === 2 && <PhotosVideosTab /> */}
-          </div>
-        }
+        content={<UserGroupContent data={data.userGroups[0]} />}
       />
     );
   }
   return <p>Something bad happend :D</p>;
 };
 
-export default ProfilePage;
+export default UserGroupDetail;
