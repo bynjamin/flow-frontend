@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/styles';
 import FuseLoading from '@fuse/core/FuseLoading';
 import FusePageSimple from '@fuse/core/FusePageSimple';
 import FuseAnimate from '@fuse/core/FuseAnimate';
-import { AboutTab } from './tabs';
+import { AboutTab, PermissionsTab } from './tabs';
 import { AboutTabFragment } from './tabs/AboutTab';
 
 const useStyles = makeStyles((theme: any) => ({
@@ -108,6 +108,12 @@ const ProfilePage: React.FC = () => {
               }}
               label="About"
             />
+            <Tab
+              classes={{
+                root: 'h-64',
+              }}
+              label="Permissions"
+            />
             {/*
             <Tab
               classes={{
@@ -122,6 +128,7 @@ const ProfilePage: React.FC = () => {
           <div className="p-16 sm:p-24">
             {/* selectedTab === 0 && <TimelineTab /> */}
             {selectedTab === 0 && <AboutTab data={data.userQuery} />}
+            {selectedTab === 1 && <PermissionsTab />}
             {/* selectedTab === 2 && <PhotosVideosTab /> */}
           </div>
         }
