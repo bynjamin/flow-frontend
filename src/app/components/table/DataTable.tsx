@@ -221,7 +221,7 @@ const DataTable: React.FC<Props> = ({
         {loading ? (
           <FuseLoading />
         ) : (
-          <TableContainer className={classes.root}>
+          <TableContainer className={`${classes.root} flex flex-1 flex-col`}>
             <MaUTable {...getTableProps()} stickyHeader>
               <TableHead>
                 {headerGroups.map((headerGroup: any) => (

@@ -1,56 +1,28 @@
 import React, { useMemo, useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import {
-  Avatar,
-  Checkbox,
-  Icon,
-  IconButton,
-  Typography,
-  CssBaseline,
-} from '@material-ui/core';
-import FuseAnimate from '@fuse/core/FuseAnimate';
+import { Typography, CssBaseline } from '@material-ui/core';
 import FuseLoading from '@fuse/core/FuseLoading';
-import FuseUtils from '@fuse/utils';
-import ReactTable from 'react-table-6';
-import { useTable, usePagination } from 'react-table';
 import { useHistory } from 'react-router';
-import UsersMultiSelectMenu from './UsersMultiSelectMenu';
+// import UsersMultiSelectMenu from './UsersMultiSelectMenu';
 import DataTable from 'app/components/table/DataTable';
 import useTableState from 'app/components/table/useTableState';
-import AddUserDialog from './AddUserDialog';
-import {
-  UserListQuery,
-  UserListQueryVariables,
-} from './__generated__/UserListQuery';
-import { DEFAULT_PAGE_SIZE } from 'app/constants';
+// import AddUserDialog from './AddUserDialog';
+import { UserGroupsListQuery } from './__generated__/UserGroupsListQuery';
 
-const USERLIST_QUERY = gql`
-  query UserListQuery(
-    $first: Int
-    $skip: Int
-    $orderBy: String
-    $orderDirection: String
-  ) {
-    usersQuery(
-      first: $first
-      skip: $skip
-      orderBy: $orderBy
-      orderDirection: $orderDirection
-    ) {
-      count
+const USERGROUPS_LIST_QUERY = gql`
+  query UserGroupsListQuery {
+    userGroups {
+      name
+      description
       users {
         id
-        title
-        firstName
-        lastName
-        email
       }
     }
   }
 `;
 
-const UsersList = () => {
+const UserGroupsList = () => {
   const history = useHistory();
   const [addDialogOpen, setAddDialogOpen] = useState<boolean>(false);
 
@@ -63,44 +35,21 @@ const UsersList = () => {
     setOrder,
   } = useTableState();
 
-  const { loading, error, data, fetchMore } = useQuery<
-    UserListQuery,
-    UserListQueryVariables
-  >(USERLIST_QUERY, {
-    variables: {
-      first: DEFAULT_PAGE_SIZE,
-      skip: 0,
-    },
-    fetchPolicy: 'cache-and-network',
-  });
-
-  const selectedContactIds: Array<number> = [];
-  const searchText = '';
+  const { loading, error, data, fetchMore } = useQuery<UserGroupsListQuery>(
+    USERGROUPS_LIST_QUERY,
+  );
 
   const columns = useMemo(
     () => [
       {
-        Header: 'Title',
-        accessor: 'title',
+        Header: 'Name',
+        accessor: 'name',
         className: 'font-bold',
       },
       {
-        Header: 'First Name',
-        accessor: 'firstName',
+        Header: 'Description',
+        accessor: 'description',
         className: 'font-bold',
-      },
-      {
-        Header: 'Last Name',
-        accessor: 'lastName',
-        className: 'font-bold',
-      },
-      {
-        Header: 'Email',
-        accessor: 'email',
-      },
-      {
-        Header: 'Phone',
-        accessor: 'phone',
       },
     ],
     [],
@@ -110,8 +59,8 @@ const UsersList = () => {
     setAddDialogOpen(!addDialogOpen);
   };
 
-  const handleRowClick = (userId: number) => {
-    history.push(`/users/detail/${userId}`);
+  const handleRowClick = (userGroupId: number) => {
+    history.push(`/users-groups/detail/${userGroupId}`);
   };
 
   const getQueryVariables = (pageNum: number) => {
@@ -138,12 +87,12 @@ const UsersList = () => {
 
   if (error) return <p style={{ color: 'red' }}>{error.message}</p>;
   if (data) {
-    const { users, count } = data.usersQuery;
-    if (users.length === 0) {
+    const { userGroups } = data;
+    if (userGroups.length === 0) {
       return (
         <div className="flex flex-1 items-center justify-center h-full">
           <Typography color="textSecondary" variant="h5">
-            There are no users!
+            There are no user groups!
           </Typography>
         </div>
       );
@@ -153,24 +102,19 @@ const UsersList = () => {
       <>
         <CssBaseline />
         <DataTable
-          title="Users"
+          title="User Groups"
           columns={columns}
-          data={users}
-          count={count}
+          data={userGroups}
+          count={userGroups.length}
           pageIndex={page}
           loadPage={loadPage}
-          pageSize={pageSize}
+          pageSize={userGroups.length}
           setPageSize={handleChangePageSize}
           order={order}
           setOrder={setOrder}
           onRowClick={handleRowClick}
           loading={loading}
           onCreate={toggleAddDialogOpen}
-        />
-        <AddUserDialog
-          addUserHandler={() => console.log('Add User')}
-          open={addDialogOpen}
-          onClose={toggleAddDialogOpen}
         />
       </>
     );
@@ -179,4 +123,4 @@ const UsersList = () => {
   return <FuseLoading />;
 };
 
-export default UsersList;
+export default UserGroupsList;
