@@ -7,7 +7,7 @@
 // GraphQL query operation: UserDetailQuery
 // ====================================================
 
-export interface UserDetailQuery_userQuery_address {
+export interface UserDetailQuery_user_address {
   __typename: "Address";
   /**
    * Street
@@ -27,7 +27,7 @@ export interface UserDetailQuery_userQuery_address {
   country: string | null;
 }
 
-export interface UserDetailQuery_userQuery {
+export interface UserDetailQuery_user {
   __typename: "User";
   /**
    * User ID
@@ -64,14 +64,14 @@ export interface UserDetailQuery_userQuery {
   /**
    * User address
    */
-  address: UserDetailQuery_userQuery_address;
+  address: UserDetailQuery_user_address;
 }
 
 export interface UserDetailQuery {
   /**
    * Get actual user data. if set id then return data for user with id = id
    */
-  userQuery: UserDetailQuery_userQuery | null;
+  user: UserDetailQuery_user | null;
 }
 
 export interface UserDetailQueryVariables {

@@ -2,7 +2,7 @@ import React from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import publicGql from 'graphql-tag';
 import Button from '@material-ui/core/Button';
-import { RegisterNetflixMutation as QueryDataType } from './__generated__/RegisterNetflixMutation';
+import { RegisterNetflixMutation as MutationDataType } from './__generated__/RegisterNetflixMutation';
 
 export const REGISTER_NETFLIX = publicGql`
   mutation RegisterNetflixMutation {
@@ -22,7 +22,7 @@ export const REGISTER_NETFLIX = publicGql`
 
 const RegisterNetflix: React.FC = () => {
   const [registerNetflixMutation, { data, loading, error }] = useMutation<
-    QueryDataType
+    MutationDataType
   >(REGISTER_NETFLIX);
 
   const handleRegister = (e: any) => {

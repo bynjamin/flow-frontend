@@ -4,10 +4,10 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: UserGroupsListQuery
+// GraphQL query operation: TestUserGroupsQuery
 // ====================================================
 
-export interface UserGroupsListQuery_userGroups_items_users {
+export interface TestUserGroupsQuery_userGroups_items_users {
   __typename: "User";
   /**
    * User ID
@@ -15,7 +15,7 @@ export interface UserGroupsListQuery_userGroups_items_users {
   id: string;
 }
 
-export interface UserGroupsListQuery_userGroups_items {
+export interface TestUserGroupsQuery_userGroups_items {
   __typename: "UserGroup";
   /**
    * User group ID
@@ -26,16 +26,12 @@ export interface UserGroupsListQuery_userGroups_items {
    */
   name: string;
   /**
-   * User group description
-   */
-  description: string;
-  /**
    * User group users
    */
-  users: UserGroupsListQuery_userGroups_items_users[];
+  users: TestUserGroupsQuery_userGroups_items_users[];
 }
 
-export interface UserGroupsListQuery_userGroups {
+export interface TestUserGroupsQuery_userGroups {
   __typename: "UserGroupPagination";
   /**
    * Total user group count
@@ -44,19 +40,12 @@ export interface UserGroupsListQuery_userGroups {
   /**
    * List of users groups
    */
-  items: UserGroupsListQuery_userGroups_items[];
+  items: TestUserGroupsQuery_userGroups_items[];
 }
 
-export interface UserGroupsListQuery {
+export interface TestUserGroupsQuery {
   /**
    * Get user groups
    */
-  userGroups: UserGroupsListQuery_userGroups;
-}
-
-export interface UserGroupsListQueryVariables {
-  first?: number | null;
-  skip?: number | null;
-  orderBy?: string | null;
-  orderDirection?: string | null;
+  userGroups: TestUserGroupsQuery_userGroups;
 }
