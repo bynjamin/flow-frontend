@@ -7,7 +7,7 @@
 // GraphQL query operation: UserGroupDetailQuery
 // ====================================================
 
-export interface UserGroupDetailQuery_userGroups_users {
+export interface UserGroupDetailQuery_userGroup_users {
   __typename: "User";
   /**
    * User ID
@@ -23,7 +23,7 @@ export interface UserGroupDetailQuery_userGroups_users {
   email: string;
 }
 
-export interface UserGroupDetailQuery_userGroups {
+export interface UserGroupDetailQuery_userGroup {
   __typename: "UserGroup";
   /**
    * User group name
@@ -40,14 +40,14 @@ export interface UserGroupDetailQuery_userGroups {
   /**
    * User group users
    */
-  users: UserGroupDetailQuery_userGroups_users[];
+  users: UserGroupDetailQuery_userGroup_users[];
 }
 
 export interface UserGroupDetailQuery {
   /**
-   * Get user groups
+   * Get user group
    */
-  userGroups: UserGroupDetailQuery_userGroups[];
+  userGroup: UserGroupDetailQuery_userGroup;
 }
 
 export interface UserGroupDetailQueryVariables {

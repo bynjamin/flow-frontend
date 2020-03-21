@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: any) => ({
 
 const USER_DETAIL_QUERY = gql`
   query UserDetailQuery($id: Int!) {
-    userQuery(id: $id) {
+    user(id: $id) {
       id
       fullName
       ...AboutTabFragment
@@ -73,7 +73,7 @@ const ProfilePage: React.FC = () => {
               </FuseAnimate>
               <FuseAnimate animation="transition.slideLeftIn" delay={300}>
                 <Typography className="md:ml-24" variant="h4" color="inherit">
-                  {data?.userQuery?.fullName || MISSING_FIELD}
+                  {data?.user?.fullName || MISSING_FIELD}
                 </Typography>
               </FuseAnimate>
             </div>
@@ -136,9 +136,7 @@ const ProfilePage: React.FC = () => {
           <div className="p-16 sm:p-24">
             {/* selectedTab === 0 && <TimelineTab /> */}
             {/* todo: nonnullable */}
-            {selectedTab === 0 && data?.userQuery && (
-              <AboutTab data={data?.userQuery} />
-            )}
+            {selectedTab === 0 && data?.user && <AboutTab data={data?.user} />}
             {selectedTab === 1 && <PermissionsTab />}
             {/* selectedTab === 2 && <PhotosVideosTab /> */}
           </div>

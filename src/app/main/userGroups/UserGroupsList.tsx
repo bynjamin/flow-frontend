@@ -8,16 +8,30 @@ import { useHistory } from 'react-router';
 import DataTable from 'app/components/table/DataTable';
 import useTableState from 'app/components/table/useTableState';
 // import AddUserDialog from './AddUserDialog';
+import { DEFAULT_PAGE_SIZE } from 'app/constants';
 import { UserGroupsListQuery } from './__generated__/UserGroupsListQuery';
 
 const USERGROUPS_LIST_QUERY = gql`
-  query UserGroupsListQuery {
-    userGroups {
-      id
-      name
-      description
-      users {
+  query UserGroupsListQuery(
+    $first: Int
+    $skip: Int
+    $orderBy: String
+    $orderDirection: String
+  ) {
+    userGroups(
+      first: $first
+      skip: $skip
+      orderBy: $orderBy
+      orderDirection: $orderDirection
+    ) {
+      count
+      items {
         id
+        name
+        description
+        users {
+          id
+        }
       }
     }
   }
@@ -38,6 +52,13 @@ const UserGroupsList = () => {
 
   const { loading, error, data, fetchMore } = useQuery<UserGroupsListQuery>(
     USERGROUPS_LIST_QUERY,
+    {
+      variables: {
+        first: DEFAULT_PAGE_SIZE,
+        skip: 0,
+      },
+      fetchPolicy: 'cache-and-network',
+    },
   );
 
   const columns = useMemo(
@@ -88,8 +109,8 @@ const UserGroupsList = () => {
 
   if (error) return <p style={{ color: 'red' }}>{error.message}</p>;
   if (data) {
-    const { userGroups } = data;
-    if (userGroups.length === 0) {
+    const { items, count } = data.userGroups;
+    if (items.length === 0) {
       return (
         <div className="flex flex-1 items-center justify-center h-full">
           <Typography color="textSecondary" variant="h5">
@@ -105,11 +126,11 @@ const UserGroupsList = () => {
         <DataTable
           title="User Groups"
           columns={columns}
-          data={userGroups}
-          count={userGroups.length}
+          data={items}
+          count={count}
           pageIndex={page}
           loadPage={loadPage}
-          pageSize={userGroups.length}
+          pageSize={pageSize}
           setPageSize={handleChangePageSize}
           order={order}
           setOrder={setOrder}

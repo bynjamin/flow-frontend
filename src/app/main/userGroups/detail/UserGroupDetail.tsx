@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: any) => ({
 
 const USERGROUP_DETAIL_QUERY = gql`
   query UserGroupDetailQuery($id: Int!) {
-    userGroups(groupId: $id) {
+    userGroup(groupId: $id) {
       name
       ...UserGroupContentFragment
     }
@@ -65,7 +65,7 @@ const UserGroupDetail: React.FC = () => {
               </FuseAnimate>
               <FuseAnimate animation="transition.slideLeftIn" delay={300}>
                 <Typography className="md:ml-24" variant="h4" color="inherit">
-                  {data.userGroups[0].name || MISSING_FIELD}
+                  {data.userGroup.name || MISSING_FIELD}
                 </Typography>
               </FuseAnimate>
             </div>
@@ -82,7 +82,7 @@ const UserGroupDetail: React.FC = () => {
             </div>
           </div>
         }
-        content={<UserGroupContent data={data.userGroups[0]} />}
+        content={<UserGroupContent data={data.userGroup} />}
       />
     );
   }

@@ -21,14 +21,14 @@ const USERLIST_QUERY = gql`
     $orderBy: String
     $orderDirection: String
   ) {
-    usersQuery(
+    users(
       first: $first
       skip: $skip
       orderBy: $orderBy
       orderDirection: $orderDirection
     ) {
       count
-      users {
+      items {
         id
         title
         firstName
@@ -127,8 +127,8 @@ const UsersList = () => {
 
   if (error) return <p style={{ color: 'red' }}>{error.message}</p>;
   if (data) {
-    const { users, count } = data.usersQuery;
-    if (users.length === 0) {
+    const { items, count } = data.users;
+    if (items.length === 0) {
       return (
         <div className="flex flex-1 items-center justify-center h-full">
           <Typography color="textSecondary" variant="h5">
@@ -144,7 +144,7 @@ const UsersList = () => {
         <DataTable
           title="Users"
           columns={columns}
-          data={users}
+          data={items}
           count={count}
           pageIndex={page}
           loadPage={loadPage}

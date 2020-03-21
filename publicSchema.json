@@ -1343,7 +1343,7 @@
             "deprecationReason": null
           },
           {
-            "name": "roles",
+            "name": "role",
             "description": "User role",
             "args": [],
             "type": {
@@ -1541,7 +1541,7 @@
         "fields": [
           {
             "name": "id",
-            "description": "User group ID",
+            "description": "User role ID",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -1557,7 +1557,7 @@
           },
           {
             "name": "name",
-            "description": "User group name",
+            "description": "User role name",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -1573,7 +1573,7 @@
           },
           {
             "name": "description",
-            "description": "User group description",
+            "description": "User role description",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -1589,7 +1589,7 @@
           },
           {
             "name": "permissions",
-            "description": "User group permissions",
+            "description": "User role permissions",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -1613,7 +1613,7 @@
           },
           {
             "name": "users",
-            "description": "User group users",
+            "description": "User role users",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -1770,7 +1770,7 @@
             "deprecationReason": null
           },
           {
-            "name": "users",
+            "name": "items",
             "description": "List of users",
             "args": [],
             "type": {
@@ -1785,6 +1785,57 @@
                   "ofType": {
                     "kind": "OBJECT",
                     "name": "User",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "UserGroupPagination",
+        "description": "User group pagination model",
+        "fields": [
+          {
+            "name": "count",
+            "description": "Total user group count",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "items",
+            "description": "List of users groups",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "UserGroup",
                     "ofType": null
                   }
                 }

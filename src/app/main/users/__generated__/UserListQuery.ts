@@ -7,7 +7,7 @@
 // GraphQL query operation: UserListQuery
 // ====================================================
 
-export interface UserListQuery_usersQuery_users {
+export interface UserListQuery_users_items {
   __typename: "User";
   /**
    * User ID
@@ -31,7 +31,7 @@ export interface UserListQuery_usersQuery_users {
   email: string;
 }
 
-export interface UserListQuery_usersQuery {
+export interface UserListQuery_users {
   __typename: "UserPagination";
   /**
    * Total user count
@@ -40,14 +40,14 @@ export interface UserListQuery_usersQuery {
   /**
    * List of users
    */
-  users: UserListQuery_usersQuery_users[];
+  items: UserListQuery_users_items[];
 }
 
 export interface UserListQuery {
   /**
    * Get all users
    */
-  usersQuery: UserListQuery_usersQuery;
+  users: UserListQuery_users;
 }
 
 export interface UserListQueryVariables {

@@ -14,7 +14,7 @@
         "description": null,
         "fields": [
           {
-            "name": "userQuery",
+            "name": "user",
             "description": "Get actual user data. if set id then return data for user with id = id",
             "args": [
               {
@@ -37,7 +37,7 @@
             "deprecationReason": null
           },
           {
-            "name": "usersQuery",
+            "name": "users",
             "description": "Get all users",
             "args": [
               {
@@ -149,15 +149,76 @@
             "deprecationReason": null
           },
           {
-            "name": "userGroups",
-            "description": "Get user groups",
+            "name": "userGroup",
+            "description": "Get user group",
             "args": [
               {
                 "name": "groupId",
                 "description": null,
                 "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "UserGroup",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "userGroups",
+            "description": "Get user groups",
+            "args": [
+              {
+                "name": "first",
+                "description": null,
+                "type": {
                   "kind": "SCALAR",
                   "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "skip",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "orderBy",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "orderDirection",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
                   "ofType": null
                 },
                 "defaultValue": null
@@ -167,17 +228,40 @@
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
+                "kind": "OBJECT",
+                "name": "UserGroupPagination",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "userRole",
+            "description": "Get user role",
+            "args": [
+              {
+                "name": "roleId",
+                "description": null,
+                "type": {
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
-                    "kind": "OBJECT",
-                    "name": "UserGroup",
+                    "kind": "SCALAR",
+                    "name": "Int",
                     "ofType": null
                   }
-                }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "UserRole",
+                "ofType": null
               }
             },
             "isDeprecated": false,
@@ -186,18 +270,7 @@
           {
             "name": "userRoles",
             "description": "Get user roles",
-            "args": [
-              {
-                "name": "roleId",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                },
-                "defaultValue": null
-              }
-            ],
+            "args": [],
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -500,7 +573,7 @@
             "deprecationReason": null
           },
           {
-            "name": "roles",
+            "name": "role",
             "description": "User role",
             "args": [],
             "type": {
@@ -728,7 +801,7 @@
         "fields": [
           {
             "name": "id",
-            "description": "User group ID",
+            "description": "User role ID",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -744,7 +817,7 @@
           },
           {
             "name": "name",
-            "description": "User group name",
+            "description": "User role name",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -760,7 +833,7 @@
           },
           {
             "name": "description",
-            "description": "User group description",
+            "description": "User role description",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -776,7 +849,7 @@
           },
           {
             "name": "permissions",
-            "description": "User group permissions",
+            "description": "User role permissions",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -800,7 +873,7 @@
           },
           {
             "name": "users",
-            "description": "User group users",
+            "description": "User role users",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -957,7 +1030,7 @@
             "deprecationReason": null
           },
           {
-            "name": "users",
+            "name": "items",
             "description": "List of users",
             "args": [],
             "type": {
@@ -972,6 +1045,57 @@
                   "ofType": {
                     "kind": "OBJECT",
                     "name": "User",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "UserGroupPagination",
+        "description": "User group pagination model",
+        "fields": [
+          {
+            "name": "count",
+            "description": "Total user group count",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "items",
+            "description": "List of users groups",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "UserGroup",
                     "ofType": null
                   }
                 }
@@ -1791,7 +1915,7 @@
           },
           {
             "name": "AddUsersToUserRole",
-            "description": "Add users to user group.",
+            "description": "Add users to user role.",
             "args": [
               {
                 "name": "roleId",
