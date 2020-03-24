@@ -4,10 +4,18 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL fragment: AboutTabFragment
+// GraphQL fragment: AboutTabFragment__data
 // ====================================================
 
-export interface AboutTabFragment_address {
+export interface AboutTabFragment__data_role {
+  __typename: "UserRole";
+  /**
+   * User role name
+   */
+  name: string;
+}
+
+export interface AboutTabFragment__data_address {
   __typename: "Address";
   /**
    * Street
@@ -27,7 +35,7 @@ export interface AboutTabFragment_address {
   country: string | null;
 }
 
-export interface AboutTabFragment {
+export interface AboutTabFragment__data {
   __typename: "User";
   /**
    * User ID
@@ -41,6 +49,10 @@ export interface AboutTabFragment {
    * User email
    */
   email: string;
+  /**
+   * User role
+   */
+  role: AboutTabFragment__data_role;
   /**
    * User gender
    */
@@ -62,7 +74,11 @@ export interface AboutTabFragment {
    */
   position: string;
   /**
+   * User employmentType
+   */
+  employmentType: string;
+  /**
    * User address
    */
-  address: AboutTabFragment_address;
+  address: AboutTabFragment__data_address;
 }

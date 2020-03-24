@@ -1,4 +1,4 @@
-import { AboutTabFragment_address as AddressType } from './detail/tabs/__generated__/AboutTabFragment';
+import { AboutTabFragment__data_address as AddressType } from './detail/tabs/__generated__/AboutTabFragment__data';
 
 type Gender = 'm' | 'f' | 'o';
 
