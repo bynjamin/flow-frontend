@@ -1,6 +1,6 @@
 import * as UserActions from './user.actions';
 import * as Actions from 'app/store/actions';
-import jwtService from 'app/jwtService';
+import jwtService from 'app/auth/jwtService';
 
 export const REGISTER_ERROR = 'REGISTER_ERROR';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';

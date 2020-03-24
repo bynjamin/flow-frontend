@@ -4,7 +4,7 @@ import _ from '@lodash';
 import store from 'app/store';
 import * as Actions from 'app/store/actions';
 import firebase from 'firebase/app';
-import jwtService from 'app/jwtService';
+import jwtService from 'app/auth/jwtService';
 
 export const SET_USER_DATA = '[USER] SET DATA';
 export const REMOVE_USER_DATA = '[USER] REMOVE DATA';

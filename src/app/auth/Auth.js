@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import * as userActions from 'app/auth/store/actions';
 import {bindActionCreators} from 'redux';
 import * as Actions from 'app/store/actions';
-import jwtService from 'app/jwtService';
+import jwtService from 'app/auth/jwtService';
 
 class Auth extends Component {
 
