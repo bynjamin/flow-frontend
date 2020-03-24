@@ -31,7 +31,7 @@ const USER_DETAIL_QUERY = gql`
     user(id: $id) {
       id
       fullName
-      ...AboutTabFragment
+      ...AboutTabFragment__data
     }
   }
   ${AboutTabFragment.data}

@@ -18,7 +18,7 @@ import {
 import FuseAnimateGroup from '@fuse/core/FuseAnimateGroup';
 import { MISSING_FIELD } from 'common/constants';
 import { parseGender, formatAdress } from '../../helpers';
-import { AboutTabFragment as DataType } from './__generated__/AboutTabFragment';
+import { AboutTabFragment__data as DataType } from './__generated__/AboutTabFragment__data';
 
 const mockData = {
   groups: [
@@ -65,6 +65,7 @@ type Props = {
 };
 
 const AboutTab: React.FC<Props> = ({ data }) => {
+  console.log(data)
   if (!data) {
     return null;
   }
@@ -112,7 +113,7 @@ const AboutTab: React.FC<Props> = ({ data }) => {
 
               <div className="mb-24">
                 <Typography className="font-bold mb-4 text-15">
-                  About Me
+                  About
                 </Typography>
                 <Typography>{data.about || MISSING_FIELD}</Typography>
               </div>
@@ -139,10 +140,22 @@ const AboutTab: React.FC<Props> = ({ data }) => {
 
             <CardContent>
               <div className="mb-24">
+                <Typography className="font-bold mb-4 text-15">Role</Typography>
+                <Typography>{data.role.name || MISSING_FIELD}</Typography>
+              </div>
+
+              <div className="mb-24">
                 <Typography className="font-bold mb-4 text-15">
                   Position
                 </Typography>
                 <Typography>{data.position || MISSING_FIELD}</Typography>
+              </div>
+
+              <div className="mb-24">
+                <Typography className="font-bold mb-4 text-15">
+                  Employment Type
+                </Typography>
+                <Typography>{data.employmentType || MISSING_FIELD}</Typography>
               </div>
 
               <div className="mb-24">
@@ -296,15 +309,19 @@ export default AboutTab;
 
 export const AboutTabFragment = {
   data: gql`
-    fragment AboutTabFragment on User {
+    fragment AboutTabFragment__data on User {
       id
       fullName
       email
+      role {
+        name
+      }
       gender
       about
       phone
       gdpr
       position
+      employmentType
       address {
         street
         zip

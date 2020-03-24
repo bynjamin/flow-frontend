@@ -7,6 +7,14 @@
 // GraphQL query operation: UserDetailQuery
 // ====================================================
 
+export interface UserDetailQuery_user_role {
+  __typename: "UserRole";
+  /**
+   * User role name
+   */
+  name: string;
+}
+
 export interface UserDetailQuery_user_address {
   __typename: "Address";
   /**
@@ -42,6 +50,10 @@ export interface UserDetailQuery_user {
    */
   email: string;
   /**
+   * User role
+   */
+  role: UserDetailQuery_user_role;
+  /**
    * User gender
    */
   gender: string;
@@ -61,6 +73,10 @@ export interface UserDetailQuery_user {
    * User position
    */
   position: string;
+  /**
+   * User employmentType
+   */
+  employmentType: string;
   /**
    * User address
    */
