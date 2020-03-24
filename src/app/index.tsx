@@ -11,16 +11,16 @@ import {
 import { Router } from 'react-router-dom';
 import jssExtend from 'jss-plugin-extend';
 import { create } from 'jss';
-import FuseAuthorization from '@fuse/core/FuseAuthorization';
 import FuseLayout from '@fuse/core/FuseLayout';
 import FuseTheme from '@fuse/core/FuseTheme';
 import history from '@history';
-import { Auth } from './auth';
 import store from './store';
 import AppContext from '../common/AppContext';
 import routes from './fuse-configs/routesConfig';
-import { getTokens } from './jwtService/jwtService2';
-import Authorization from './Authorization';
+import { getTokens } from './auth/jwtService/jwtService2';
+import Authorization from './auth/Authorization';
+// import FuseAuthorization from '@fuse/core/FuseAuthorization';
+// import { Auth } from './auth';
 
 const client = new ApolloClient({
   uri: process.env.REACT_APP_API_URL,
@@ -55,17 +55,13 @@ const App = () => (
     >
       <StylesProvider jss={jss} generateClassName={generateClassName}>
         <Provider store={store}>
-          <Auth>
-            <Router history={history}>
-              <Authorization>
-                <FuseAuthorization>
-                  <FuseTheme>
-                    <FuseLayout />
-                  </FuseTheme>
-                </FuseAuthorization>
-              </Authorization>
-            </Router>
-          </Auth>
+          <Router history={history}>
+            <Authorization>
+              <FuseTheme>
+                <FuseLayout />
+              </FuseTheme>
+            </Authorization>
+          </Router>
         </Provider>
       </StylesProvider>
     </AppContext.Provider>

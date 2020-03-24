@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import {
   Button,
@@ -16,8 +16,7 @@ import { makeStyles } from '@material-ui/styles';
 import { TextFieldFormsy, CheckboxFormsy } from '@fuse/core/formsy';
 import FuseAnimate from '@fuse/core/FuseAnimate';
 import clsx from 'clsx';
-import { Link } from 'react-router-dom';
-import { saveTokens } from '../../jwtService/jwtService2';
+import { saveTokens } from 'app/auth/jwtService/jwtService2';
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
@@ -41,6 +40,7 @@ const Login: React.FC = () => {
   const classes = useStyles();
   const [isFormValid, setIsFormValid] = useState(false);
   const history = useHistory();
+  const { state } = useLocation();
 
   function disableButton() {
     setIsFormValid(false);
@@ -61,7 +61,9 @@ const Login: React.FC = () => {
         credentials,
       );
       saveTokens(response.data);
-      history.push('/');
+      // @ts-ignore
+      const redirectUrl = state?.redirectUrl || '/';
+      history.push(redirectUrl);
     } catch (e) {
       console.log('handle bad credentials');
       console.log(e);

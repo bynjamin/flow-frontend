@@ -65,7 +65,6 @@ type Props = {
 };
 
 const AboutTab: React.FC<Props> = ({ data }) => {
-  console.log(data)
   if (!data) {
     return null;
   }

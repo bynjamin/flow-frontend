@@ -1,4 +1,4 @@
-import jwtService from 'app/jwtService';
+import jwtService from 'app/auth/jwtService';
 import {setUserData} from './user.actions';
 import * as Actions from 'app/store/actions';
 
