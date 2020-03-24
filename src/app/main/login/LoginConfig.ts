@@ -21,6 +21,7 @@ export const LoginConfig = {
         },
       },
     },
+    isPublic: true,
   },
   routes: [
     {
