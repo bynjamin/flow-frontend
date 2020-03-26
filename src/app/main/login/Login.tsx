@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import {
@@ -9,7 +9,9 @@ import {
   Typography,
   InputAdornment,
   Icon,
+  Snackbar,
 } from '@material-ui/core';
+import { Alert, AlertTitle } from '@material-ui/lab';
 import Formsy from 'formsy-react';
 import { darken } from '@material-ui/core/styles/colorManipulator';
 import { makeStyles } from '@material-ui/styles';
@@ -38,9 +40,11 @@ type LoginModel = {
 
 const Login: React.FC = () => {
   const classes = useStyles();
-  const [isFormValid, setIsFormValid] = useState(false);
+  const [isFormValid, setIsFormValid] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
   const history = useHistory();
   const { state } = useLocation();
+  const formRef = useRef(null);
 
   function disableButton() {
     setIsFormValid(false);
@@ -48,6 +52,10 @@ const Login: React.FC = () => {
 
   function enableButton() {
     setIsFormValid(true);
+  }
+
+  function toggleError() {
+    setError(!error);
   }
 
   async function handleSubmit(model: LoginModel) {
@@ -65,8 +73,11 @@ const Login: React.FC = () => {
       const redirectUrl = state?.redirectUrl || '/';
       history.push(redirectUrl);
     } catch (e) {
-      console.log('handle bad credentials');
+      console.log('Login error');
       console.log(e);
+      setError(true);
+      // @ts-ignore
+      formRef.current.reset();
     }
   }
 
@@ -86,16 +97,28 @@ const Login: React.FC = () => {
                 src="assets/images/logos/fuse.svg"
                 alt="logo"
               />
-
               <Typography variant="h6" className="mt-16 mb-32">
                 LOGIN TO YOUR ACCOUNT
               </Typography>
+
+              {/*
+              //@ts-ignore */}
+              {state?.sessionExpired && (
+                <FuseAnimate animation="transition.expandIn">
+                  <Alert className="mb-32" severity="warning">
+                    <AlertTitle>Your session expired</AlertTitle>
+                    Due to inactivity, your session expired. Enter your
+                    credentials to continue.
+                  </Alert>
+                </FuseAnimate>
+              )}
 
               <Formsy
                 onValidSubmit={handleSubmit}
                 onValid={enableButton}
                 onInvalid={disableButton}
                 className="flex flex-col justify-center w-full"
+                ref={formRef}
               >
                 <TextFieldFormsy
                   className="mb-16"
@@ -199,6 +222,21 @@ const Login: React.FC = () => {
           </Card>
         </FuseAnimate>
       </div>
+      <Snackbar
+        open={error}
+        autoHideDuration={9000}
+        onClose={toggleError}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert
+          onClose={toggleError}
+          severity="error"
+          elevation={6}
+          variant="filled"
+        >
+          Invalid login credentials
+        </Alert>
+      </Snackbar>
     </div>
   );
 };
