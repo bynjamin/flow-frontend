@@ -1,5 +1,9 @@
 import React from 'react';
 
-const AppContext = React.createContext({});
+type AppContextProps = {
+  routes: any[];
+};
+
+const AppContext = React.createContext({} as AppContextProps);
 
 export default AppContext;

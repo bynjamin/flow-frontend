@@ -9,7 +9,7 @@ type Props = {
 };
 
 const Authorization: React.FC<Props> = ({ children }) => {
-  const { routes } = useContext<any>(AppContext);
+  const { routes } = useContext(AppContext);
   const [authorized, setAuthorized] = useState<boolean>(false);
   const history = useHistory();
   const { pathname } = useLocation();
