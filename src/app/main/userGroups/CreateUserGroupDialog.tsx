@@ -12,9 +12,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { Backdrop } from 'common/components/backdrop';
 import { Alert, AlertTitle } from '@material-ui/lab';
 
-import { CREATE_USER_GROUP } from './createUserGroupMutatuon';
-import { USERGROUPS_LIST_QUERY } from './UserGroupsList';
-import { UserGroupsListQuery } from './__generated__/UserGroupsListQuery';
+import { CREATE_USER_GROUP } from './createUserGroupMutation';
 import {
   CreateUserGroup as ResponseType,
   CreateUserGroupVariables as InputVariables,
