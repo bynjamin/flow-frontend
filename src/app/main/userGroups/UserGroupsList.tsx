@@ -8,10 +8,11 @@ import { useHistory } from 'react-router';
 import DataTable from 'app/components/table/DataTable';
 import useTableState from 'app/components/table/useTableState';
 // import AddUserDialog from './AddUserDialog';
+import CreateUserGroupDialog from './CreateUserGroupDialog';
 import { DEFAULT_PAGE_SIZE } from 'app/constants';
-import { UserGroupsListQuery } from './__generated__/UserGroupsListQuery';
+import { UserGroupsListQuery as DataType } from './__generated__/UserGroupsListQuery';
 
-const USERGROUPS_LIST_QUERY = gql`
+export const USERGROUPS_LIST_QUERY = gql`
   query UserGroupsListQuery(
     $first: Int
     $skip: Int
@@ -39,7 +40,7 @@ const USERGROUPS_LIST_QUERY = gql`
 
 const UserGroupsList = () => {
   const history = useHistory();
-  const [addDialogOpen, setAddDialogOpen] = useState<boolean>(false);
+  const [createDialogOpen, setCreateDialogOpen] = useState<boolean>(false);
 
   const {
     page,
@@ -50,7 +51,7 @@ const UserGroupsList = () => {
     setOrder,
   } = useTableState();
 
-  const { loading, error, data, fetchMore } = useQuery<UserGroupsListQuery>(
+  const { loading, error, data, fetchMore } = useQuery<DataType>(
     USERGROUPS_LIST_QUERY,
     {
       variables: {
@@ -77,8 +78,8 @@ const UserGroupsList = () => {
     [],
   );
 
-  const toggleAddDialogOpen = () => {
-    setAddDialogOpen(!addDialogOpen);
+  const toggleCreateDialogOpen = () => {
+    setCreateDialogOpen(!createDialogOpen);
   };
 
   const handleRowClick = (userGroupId: number) => {
@@ -136,7 +137,11 @@ const UserGroupsList = () => {
           setOrder={setOrder}
           onRowClick={handleRowClick}
           loading={loading}
-          onCreate={toggleAddDialogOpen}
+          onCreate={toggleCreateDialogOpen}
+        />
+        <CreateUserGroupDialog
+          open={createDialogOpen}
+          onClose={toggleCreateDialogOpen}
         />
       </>
     );
