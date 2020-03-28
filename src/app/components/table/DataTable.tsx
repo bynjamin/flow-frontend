@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-key */
 import React, { useEffect } from 'react';
+import { truncate } from 'lodash';
 import { makeStyles, fade } from '@material-ui/core/styles';
 import Checkbox from '@material-ui/core/Checkbox';
 import MaUTable from '@material-ui/core/Table';
@@ -83,6 +84,7 @@ type Props = {
   setOrder: React.Dispatch<React.SetStateAction<OrderType>>;
   onRowClick: (id: number) => void;
   onCreate: () => void;
+  maxCellLength?: number;
 };
 
 const DataTable: React.FC<Props> = ({
@@ -99,6 +101,7 @@ const DataTable: React.FC<Props> = ({
   onRowClick,
   loading,
   onCreate,
+  maxCellLength = 24,
 }) => {
   const { orderBy, orderDirection } = order;
   const classes = useStyles();
@@ -262,6 +265,10 @@ const DataTable: React.FC<Props> = ({
                       hover
                     >
                       {row.cells.map((cell: any) => {
+                        cell.value = truncate(cell.value, {
+                          length: maxCellLength,
+                          separator: ' ',
+                        });
                         return (
                           <TableCell {...cell.getCellProps()}>
                             {cell.render('Cell')}
