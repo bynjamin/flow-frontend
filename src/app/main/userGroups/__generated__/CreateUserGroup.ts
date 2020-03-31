@@ -7,7 +7,7 @@
 // GraphQL mutation operation: CreateUserGroup
 // ====================================================
 
-export interface CreateUserGroup_CreateUserGroup {
+export interface CreateUserGroup_createUserGroup {
   __typename: "UserGroup";
   /**
    * User group ID
@@ -19,7 +19,7 @@ export interface CreateUserGroup {
   /**
    * Create new user group.
    */
-  CreateUserGroup: CreateUserGroup_CreateUserGroup;
+  createUserGroup: CreateUserGroup_createUserGroup;
 }
 
 export interface CreateUserGroupVariables {
