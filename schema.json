@@ -607,6 +607,22 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "collaborators",
+            "description": "All users and user groups that has permissions to C,R,U,D",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Collaborators",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -1048,6 +1064,26 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "userGroups",
+            "description": "User groups",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "UserGroupCollaborator",
+                  "ofType": null
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -1175,6 +1211,49 @@
       },
       {
         "kind": "OBJECT",
+        "name": "UserGroupCollaborator",
+        "description": "User group collaborators type",
+        "fields": [
+          {
+            "name": "userGroup",
+            "description": "User group",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "UserGroup",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "rules",
+            "description": "CRUD",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Crud",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "UserPagination",
         "description": "User pagination model",
         "fields": [
@@ -1281,7 +1360,7 @@
         "description": null,
         "fields": [
           {
-            "name": "CreateUser",
+            "name": "createUser",
             "description": "Create new user and create user profile.",
             "args": [
               {
@@ -1326,7 +1405,7 @@
             "deprecationReason": null
           },
           {
-            "name": "DeleteUser",
+            "name": "deleteUser",
             "description": "Delete user.",
             "args": [
               {
@@ -1357,7 +1436,7 @@
             "deprecationReason": null
           },
           {
-            "name": "UpdateAddress",
+            "name": "updateAddress",
             "description": "If given user ID update address for that user else update address for logged user.",
             "args": [
               {
@@ -1424,7 +1503,7 @@
             "deprecationReason": null
           },
           {
-            "name": "UpdateProfile",
+            "name": "updateProfile",
             "description": "If given user ID update profile for that user else update profile for logged user.",
             "args": [
               {
@@ -1577,7 +1656,7 @@
             "deprecationReason": null
           },
           {
-            "name": "UpdateUser",
+            "name": "updateUser",
             "description": "Update user profile and address.",
             "args": [
               {
@@ -1770,7 +1849,7 @@
             "deprecationReason": null
           },
           {
-            "name": "UpdatePassword",
+            "name": "updatePassword",
             "description": "Update user password.",
             "args": [
               {
@@ -1815,7 +1894,7 @@
             "deprecationReason": null
           },
           {
-            "name": "CreateUserGroup",
+            "name": "createUserGroup",
             "description": "Create new user group.",
             "args": [
               {
@@ -1860,7 +1939,7 @@
             "deprecationReason": null
           },
           {
-            "name": "DeleteUserGroup",
+            "name": "deleteUserGroup",
             "description": "Delete user group.",
             "args": [
               {
@@ -1891,7 +1970,7 @@
             "deprecationReason": null
           },
           {
-            "name": "AddUserGroupToUser",
+            "name": "addUserGroupToUser",
             "description": "Add user group to user.",
             "args": [
               {
@@ -1936,7 +2015,7 @@
             "deprecationReason": null
           },
           {
-            "name": "AddUsersToUserGroup",
+            "name": "addUsersToUserGroup",
             "description": "Add users to user group.",
             "args": [
               {
@@ -1989,7 +2068,7 @@
             "deprecationReason": null
           },
           {
-            "name": "RemoveUserGroupFromUser",
+            "name": "removeUserGroupFromUser",
             "description": "Remove user group from user.",
             "args": [
               {
@@ -2034,7 +2113,7 @@
             "deprecationReason": null
           },
           {
-            "name": "CreateUserRole",
+            "name": "createUserRole",
             "description": "Create new user role.",
             "args": [
               {
@@ -2079,7 +2158,7 @@
             "deprecationReason": null
           },
           {
-            "name": "AddUsersToUserRole",
+            "name": "addUsersToUserRole",
             "description": "Add users to user role.",
             "args": [
               {
@@ -2132,7 +2211,7 @@
             "deprecationReason": null
           },
           {
-            "name": "AddPermission",
+            "name": "addPermission",
             "description": "Add permission to group or user.",
             "args": [
               {
@@ -2191,7 +2270,7 @@
             "deprecationReason": null
           },
           {
-            "name": "RemovePermission",
+            "name": "removePermission",
             "description": "Remove permission to group or user.",
             "args": [
               {
@@ -3226,49 +3305,6 @@
               "ofType": {
                 "kind": "OBJECT",
                 "name": "Action",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "UserGroupCollaborator",
-        "description": "User group collaborators type",
-        "fields": [
-          {
-            "name": "userGroup",
-            "description": "User group",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "UserGroup",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "rules",
-            "description": "CRUD",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "Crud",
                 "ofType": null
               }
             },
