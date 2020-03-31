@@ -53,7 +53,7 @@ const AddUserGroupDialog: React.FC<Props> = ({ open, onClose }) => {
   }
 
   if (data) {
-    return <Redirect to={`/user-groups/detail/${data.CreateUserGroup.id}`} />;
+    return <Redirect to={`/user-groups/detail/${data.createUserGroup.id}`} />;
   }
 
   return (
