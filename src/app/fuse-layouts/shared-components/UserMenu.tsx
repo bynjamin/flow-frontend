@@ -6,14 +6,13 @@ import ListItemText from '@material-ui/core/ListItemText';
 import MenuItem from '@material-ui/core/MenuItem';
 import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { deleteTokens } from 'app/auth/jwtService/jwtService2';
+import { UserContext } from 'app/UserContext';
 
 const UserMenu: React.FC = () => {
-  // @ts-ignore
-  const user = useSelector(({ auth }) => auth.user);
+  const { user } = useContext(UserContext);
 
   const [userMenu, setUserMenu] = useState<HTMLElement | null>(null);
 
@@ -28,15 +27,15 @@ const UserMenu: React.FC = () => {
   return (
     <>
       <Button className="h-64" onClick={userMenuClick}>
-        {user.data.photoURL ? (
-          <Avatar className="" alt="user photo" src={user.data.photoURL} />
+        {user.photoURL ? (
+          <Avatar className="" alt="user photo" src={user.photoURL} />
         ) : (
-          <Avatar className="">{user.data.displayName[0]}</Avatar>
+          <Avatar className="">{user.fullName[0]}</Avatar>
         )}
 
         <div className="hidden md:flex flex-col mx-12 items-start">
           <Typography component="span" className="normal-case font-600 flex">
-            {user.data.displayName}
+            {user.fullName}
           </Typography>
           <Typography className="text-11 capitalize" color="textSecondary">
             {user.role.toString()}

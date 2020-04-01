@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import {
@@ -19,6 +19,7 @@ import { TextFieldFormsy, CheckboxFormsy } from '@fuse/core/formsy';
 import FuseAnimate from '@fuse/core/FuseAnimate';
 import clsx from 'clsx';
 import { saveTokens } from 'app/auth/jwtService/jwtService2';
+import { UserContext } from 'app/UserContext';
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
@@ -45,6 +46,7 @@ const Login: React.FC = () => {
   const history = useHistory();
   const { state } = useLocation();
   const formRef = useRef(null);
+  const { setUser } = useContext(UserContext);
 
   function disableButton() {
     setIsFormValid(false);
@@ -69,6 +71,11 @@ const Login: React.FC = () => {
         credentials,
       );
       saveTokens(response.data);
+      setUser({
+        fullName: 'Tomáš Jurík',
+        email: 'pridajDoLoginuUseraPls!',
+        role: 'pridajDoLoginuUseraPls!',
+      });
       // @ts-ignore
       const redirectUrl = state?.redirectUrl || '/';
       history.push(redirectUrl);
