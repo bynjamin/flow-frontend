@@ -15,7 +15,15 @@ type ErrorInfo = {
 };
 
 class ErrorBoundary extends React.Component<Props, State> {
-  state = { hasError: false };
+  constructor(props: any) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error: Error) {
+    // Update state so the next render will show the fallback UI.
+    return { hasError: true };
+  }
 
   componentDidCatch(error: Error, info: ErrorInfo) {
     this.setState({ hasError: true });
@@ -24,11 +32,11 @@ class ErrorBoundary extends React.Component<Props, State> {
 
   render() {
     if (this.state.hasError) {
-      const message = `There was an error while processing your request. Refresh your
-        page for loading results.`;
+      const message =
+        'There was an error while processing your request. Try to refresh page.';
       return (
         <Alert severity="error">
-          <AlertTitle>Sorry, results couldn't be loaded</AlertTitle>
+          <AlertTitle>Something went wrong.</AlertTitle>
           {message}
         </Alert>
       );
