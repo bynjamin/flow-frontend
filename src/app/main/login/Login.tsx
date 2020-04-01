@@ -72,6 +72,7 @@ const Login: React.FC = () => {
       );
       saveTokens(response.data);
       setUser({
+        id: 1,
         fullName: 'Tomáš Jurík',
         email: 'pridajDoLoginuUseraPls!',
         role: 'pridajDoLoginuUseraPls!',

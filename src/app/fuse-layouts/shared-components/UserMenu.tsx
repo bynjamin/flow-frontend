@@ -64,7 +64,7 @@ const UserMenu: React.FC = () => {
         <>
           <MenuItem
             component={Link}
-            to="/users/detail/1"
+            to={`/users/detail/${user.id}`}
             onClick={userMenuClose}
             role="button"
           >
