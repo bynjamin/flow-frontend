@@ -9,10 +9,10 @@ import Typography from '@material-ui/core/Typography';
 import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { deleteTokens } from 'app/auth/jwtService/jwtService2';
-import { UserContext } from 'app/UserContext';
+import { AppContext } from 'app/AppContext';
 
 const UserMenu: React.FC = () => {
-  const { user } = useContext(UserContext);
+  const { user } = useContext(AppContext);
 
   const [userMenu, setUserMenu] = useState<HTMLElement | null>(null);
 

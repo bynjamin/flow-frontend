@@ -14,11 +14,9 @@ import FuseTheme from '@fuse/core/FuseTheme';
 import FuseLayout from '@fuse/core/FuseLayout';
 import history from '@history';
 import store from '../app/store';
-import AppContext from '../common/AppContext';
 import routes from './publicRoutesConfig';
-// import Pricing from './main/pages/pricing/style-3/PricingStyle3Page';
 
-const client = new ApolloClient({
+const publicClient = new ApolloClient({
   uri: process.env.REACT_APP_PUBLIC_API_URL,
 });
 
@@ -31,22 +29,18 @@ const jss = create({
 const generateClassName = createGenerateClassName();
 
 const PublicContent = () => (
-  <ApolloProvider client={client}>
-    <AppContext.Provider
-      value={{
-        routes,
-      }}
-    >
-      <StylesProvider jss={jss} generateClassName={generateClassName}>
-        <Provider store={store}>
-          <Router history={history}>
-            <FuseTheme>
-              <FuseLayout />
-            </FuseTheme>
-          </Router>
-        </Provider>
-      </StylesProvider>
-    </AppContext.Provider>
+  <ApolloProvider client={publicClient}>
+    <StylesProvider jss={jss} generateClassName={generateClassName}>
+      <Provider store={store}>
+        <Router history={history}>
+          <FuseTheme>
+            {/*
+            // @ts-ignore */}
+            <FuseLayout routes={routes} />
+          </FuseTheme>
+        </Router>
+      </Provider>
+    </StylesProvider>
   </ApolloProvider>
 );
 

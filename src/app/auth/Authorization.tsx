@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import AppContext from 'common/AppContext';
+import { AppContext } from 'app/AppContext';
 import { useHistory, useLocation } from 'react-router-dom';
 import { matchRoutes } from 'react-router-config';
 import {

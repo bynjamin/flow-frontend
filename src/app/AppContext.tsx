@@ -1,26 +1,29 @@
 import React, { SetStateAction, Dispatch } from 'react';
 import { usePersistedState } from './hooks/usePersistedState';
+import routes from './fuse-configs/routesConfig';
 
-type UserContextProps = {
+type AppContextProps = {
+  routes: any[];
   user: any;
   setUser: Dispatch<SetStateAction<any>>;
 };
 
-export const UserContext = React.createContext({} as UserContextProps);
+export const AppContext = React.createContext({} as AppContextProps);
 
-const UserContextProvider: React.FC = props => {
+const AppContextProvider: React.FC = props => {
   const [user, setUser] = usePersistedState<any>('user', null);
 
   return (
-    <UserContext.Provider
+    <AppContext.Provider
       value={{
+        routes,
         user,
         setUser,
       }}
     >
       {props.children}
-    </UserContext.Provider>
+    </AppContext.Provider>
   );
 };
 
-export default UserContextProvider;
+export default AppContextProvider;

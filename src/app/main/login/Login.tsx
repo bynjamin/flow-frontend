@@ -19,7 +19,7 @@ import { TextFieldFormsy, CheckboxFormsy } from '@fuse/core/formsy';
 import FuseAnimate from '@fuse/core/FuseAnimate';
 import clsx from 'clsx';
 import { saveTokens } from 'app/auth/jwtService/jwtService2';
-import { UserContext } from 'app/UserContext';
+import { AppContext } from 'app/AppContext';
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
@@ -46,7 +46,7 @@ const Login: React.FC = () => {
   const history = useHistory();
   const { state } = useLocation();
   const formRef = useRef(null);
-  const { setUser } = useContext(UserContext);
+  const { setUser } = useContext(AppContext);
 
   function disableButton() {
     setIsFormValid(false);
