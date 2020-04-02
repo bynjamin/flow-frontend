@@ -4,7 +4,7 @@ import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import clsx from 'clsx';
-import { UserContext } from 'app/UserContext';
+import { AppContext } from 'app/AppContext';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
 
 const UserNavbarHeader: React.FC = () => {
   const classes = useStyles();
-  const { user } = useContext(UserContext);
+  const { user } = useContext(AppContext);
 
   return (
     <AppBar

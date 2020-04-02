@@ -1,7 +1,6 @@
 import FuseLayouts from '@fuse/layouts/FuseLayouts';
 import _ from '@lodash';
 import { withStyles } from '@material-ui/core/styles';
-import AppContext from 'common/AppContext';
 import * as Actions from 'app/store/actions';
 import { generateSettings } from 'app/store/reducers/fuse/settings.reducer';
 import React, { Component } from 'react';
@@ -48,19 +47,17 @@ const styles = theme => ({
 });
 
 class FuseLayout extends Component {
-	constructor(props, context) {
+	constructor(props) {
 		super(props);
-		const { routes } = context;
 
 		this.state = {
 			awaitRender: false,
-			routes
 		};
 	}
 
 	static getDerivedStateFromProps(props, state) {
 		const { pathname } = props.location;
-		const matched = matchRoutes(state.routes, pathname)[0];
+		const matched = matchRoutes(props.routes, pathname)[0];
 		let newSettings = props.settings;
 
 		if (state.pathname !== pathname) {
@@ -125,8 +122,6 @@ function mapStateToProps({ fuse }) {
 		settings: fuse.settings.current
 	};
 }
-
-FuseLayout.contextType = AppContext;
 
 export default withStyles(styles, { withTheme: true })(
 	withRouter(connect(mapStateToProps, mapDispatchToProps)(React.memo(FuseLayout)))
