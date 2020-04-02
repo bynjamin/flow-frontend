@@ -27,18 +27,18 @@ const UserMenu: React.FC = () => {
   return (
     <>
       <Button className="h-64" onClick={userMenuClick}>
-        {user.photoURL ? (
+        {user?.photoURL ? (
           <Avatar className="" alt="user photo" src={user.photoURL} />
         ) : (
-          <Avatar className="">{user.fullName[0]}</Avatar>
+          <Avatar className="">{user?.fullName[0]}</Avatar>
         )}
 
         <div className="hidden md:flex flex-col mx-12 items-start">
           <Typography component="span" className="normal-case font-600 flex">
-            {user.fullName}
+            {user?.fullName}
           </Typography>
           <Typography className="text-11 capitalize" color="textSecondary">
-            {user.role.toString()}
+            {user?.role.toString()}
           </Typography>
         </div>
 
@@ -64,7 +64,7 @@ const UserMenu: React.FC = () => {
         <>
           <MenuItem
             component={Link}
-            to={`/users/detail/${user.id}`}
+            to={`/users/detail/${user?.id}`}
             onClick={userMenuClose}
             role="button"
           >
