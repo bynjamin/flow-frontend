@@ -7,7 +7,7 @@
 // GraphQL fragment: UserGroupContentFragment
 // ====================================================
 
-export interface UserGroupContentFragment_users {
+export interface UserGroupContentFragment_members {
   __typename: "User";
   /**
    * User ID
@@ -40,5 +40,5 @@ export interface UserGroupContentFragment {
   /**
    * User group users
    */
-  users: UserGroupContentFragment_users[];
+  members: UserGroupContentFragment_members[];
 }

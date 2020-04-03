@@ -20,7 +20,7 @@ import FuseAnimate from '@fuse/core/FuseAnimate';
 import { MISSING_FIELD } from 'common/constants';
 import {
   UserGroupContentFragment as DataType,
-  UserGroupContentFragment_users,
+  UserGroupContentFragment_members,
 } from './__generated__/UserGroupContentFragment';
 
 type Props = {
@@ -88,26 +88,28 @@ const UserGroupContent: React.FC<Props> = ({ data }) => {
               </AppBar>
               <CardContent className="p-0">
                 <List className="p-0">
-                  {data.users.map((user: UserGroupContentFragment_users) => (
-                    <ListItem key={user.id}>
-                      <Avatar className="mx-8" alt={user.fullName}>
-                        {user.fullName[0]}
-                      </Avatar>
-                      <ListItemText
-                        primary={
-                          <Typography className="inline" paragraph={false}>
-                            {user.fullName || MISSING_FIELD}
-                          </Typography>
-                        }
-                        secondary={user.email || MISSING_FIELD}
-                      />
-                      <ListItemSecondaryAction>
-                        <IconButton>
-                          <Icon>more_vert</Icon>
-                        </IconButton>
-                      </ListItemSecondaryAction>
-                    </ListItem>
-                  ))}
+                  {data.members.map(
+                    (user: UserGroupContentFragment_members) => (
+                      <ListItem key={user.id}>
+                        <Avatar className="mx-8" alt={user.fullName}>
+                          {user.fullName[0]}
+                        </Avatar>
+                        <ListItemText
+                          primary={
+                            <Typography className="inline" paragraph={false}>
+                              {user.fullName || MISSING_FIELD}
+                            </Typography>
+                          }
+                          secondary={user.email || MISSING_FIELD}
+                        />
+                        <ListItemSecondaryAction>
+                          <IconButton>
+                            <Icon>more_vert</Icon>
+                          </IconButton>
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                    ),
+                  )}
                 </List>
               </CardContent>
             </Card>
@@ -127,7 +129,7 @@ export const UserGroupContentFragment = {
       id
       name
       description
-      users {
+      members {
         id
         fullName
         email

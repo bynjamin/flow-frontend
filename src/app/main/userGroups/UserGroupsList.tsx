@@ -30,7 +30,7 @@ export const USERGROUPS_LIST_QUERY = gql`
         id
         name
         description
-        users {
+        members {
           id
         }
       }

@@ -7,7 +7,7 @@
 // GraphQL query operation: TestUserRolesQuery
 // ====================================================
 
-export interface TestUserRolesQuery_userRoles_users {
+export interface TestUserRolesQuery_userRoles_members {
   __typename: "User";
   /**
    * User ID
@@ -28,7 +28,7 @@ export interface TestUserRolesQuery_userRoles {
   /**
    * User role users
    */
-  users: TestUserRolesQuery_userRoles_users[];
+  members: TestUserRolesQuery_userRoles_members[];
 }
 
 export interface TestUserRolesQuery {
