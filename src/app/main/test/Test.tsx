@@ -40,9 +40,10 @@ const TEST_USERGROUPS_QUERY = gql`
       items {
         id
         name
-        users {
+        members {
           id
         }
+        memberCount
       }
     }
   }
@@ -53,9 +54,10 @@ const TEST_USERGROUP_QUERY = gql`
     userGroup(groupId: 6) {
       id
       name
-      users {
+      members {
         id
       }
+      memberCount
     }
   }
 `;
@@ -65,7 +67,7 @@ const TEST_ROLES_QUERY = gql`
     userRoles {
       id
       name
-      users {
+      members {
         id
       }
     }
@@ -77,7 +79,7 @@ const TEST_ROLE_QUERY = gql`
     userRole(roleId: 3) {
       id
       name
-      users {
+      members {
         id
       }
     }

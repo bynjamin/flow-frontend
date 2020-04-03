@@ -7,7 +7,7 @@
 // GraphQL query operation: TestUserGroupQuery
 // ====================================================
 
-export interface TestUserGroupQuery_userGroup_users {
+export interface TestUserGroupQuery_userGroup_members {
   __typename: "User";
   /**
    * User ID
@@ -28,7 +28,11 @@ export interface TestUserGroupQuery_userGroup {
   /**
    * User group users
    */
-  users: TestUserGroupQuery_userGroup_users[];
+  members: TestUserGroupQuery_userGroup_members[];
+  /**
+   * User group users count
+   */
+  memberCount: number;
 }
 
 export interface TestUserGroupQuery {
