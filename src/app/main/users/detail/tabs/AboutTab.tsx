@@ -15,6 +15,7 @@ import {
   Toolbar,
   Typography,
 } from '@material-ui/core';
+import { Alert, AlertTitle } from '@material-ui/lab';
 import FuseAnimateGroup from '@fuse/core/FuseAnimateGroup';
 import { MISSING_FIELD } from 'common/constants';
 import { parseGender, formatAdress } from '../../helpers';
@@ -80,6 +81,12 @@ const AboutTab: React.FC<Props> = ({ data }) => {
             animation: 'transition.slideUpBigIn',
           }}
         >
+          {!data.gdpr && (
+            <Alert severity="warning" className="mb-12">
+              <AlertTitle>GDPR is not confirmed</AlertTitle>
+              Confirm the GDPR
+            </Alert>
+          )}
           <Card className="w-full mb-16">
             <AppBar position="static" elevation={0}>
               <Toolbar className="pl-16 pr-8">
