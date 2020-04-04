@@ -18,6 +18,7 @@ import {
   useRowSelect,
   useSortBy,
   useTable,
+  Column,
 } from 'react-table';
 import FuseAnimate from '@fuse/core/FuseAnimate';
 import FuseLoading from '@fuse/core/FuseLoading';
@@ -43,6 +44,9 @@ const useStyles = makeStyles(theme => ({
   },
   headerRow: {
     fontWeight: 'bold',
+  },
+  headerCell: {
+    zIndex: 10,
   },
   tablePaginationSelectIcon: {
     color: fade(theme.palette.common.white, 0.4),
@@ -72,7 +76,7 @@ const IndeterminateCheckbox = React.forwardRef(
 
 type Props = {
   title: string;
-  columns: any[];
+  columns: Column[];
   data: any[];
   count: number;
   pageIndex: number;
@@ -240,6 +244,7 @@ const DataTable: React.FC<Props> = ({
                               column.getSortByToggleProps(),
                             ))}
                         onClick={() => handleChangeOrder(column.id)}
+                        className={classes.headerCell}
                       >
                         {column.render('Header')}
                         {column.id !== 'selection' ? (
@@ -265,10 +270,12 @@ const DataTable: React.FC<Props> = ({
                       hover
                     >
                       {row.cells.map((cell: any) => {
-                        cell.value = truncate(cell.value, {
-                          length: maxCellLength,
-                          separator: ' ',
-                        });
+                        if (typeof cell.value === 'string') {
+                          cell.value = truncate(cell.value, {
+                            length: maxCellLength,
+                            separator: ' ',
+                          });
+                        }
                         return (
                           <TableCell {...cell.getCellProps()}>
                             {cell.render('Cell')}

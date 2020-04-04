@@ -13,6 +13,10 @@ export interface UserGroupsListQuery_userGroups_items_members {
    * User ID
    */
   id: string;
+  /**
+   * User full name
+   */
+  fullName: string;
 }
 
 export interface UserGroupsListQuery_userGroups_items {
