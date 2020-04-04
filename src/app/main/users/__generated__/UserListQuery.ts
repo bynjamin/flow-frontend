@@ -7,6 +7,18 @@
 // GraphQL query operation: UserListQuery
 // ====================================================
 
+export interface UserListQuery_users_items_groups {
+  __typename: "UserGroup";
+  /**
+   * User group ID
+   */
+  id: string;
+  /**
+   * User group name
+   */
+  name: string;
+}
+
 export interface UserListQuery_users_items {
   __typename: "User";
   /**
@@ -29,6 +41,10 @@ export interface UserListQuery_users_items {
    * User email
    */
   email: string;
+  /**
+   * User groups
+   */
+  groups: (UserListQuery_users_items_groups | null)[];
 }
 
 export interface UserListQuery_users {

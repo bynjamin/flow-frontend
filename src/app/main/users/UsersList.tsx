@@ -1,7 +1,11 @@
 import React, { useMemo, useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import { Typography, CssBaseline } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Tooltip from '@material-ui/core/Tooltip';
+import Avatar from '@material-ui/core/Avatar';
+import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import FuseLoading from '@fuse/core/FuseLoading';
 import { useHistory } from 'react-router';
 import UsersMultiSelectMenu from './UsersMultiSelectMenu';
@@ -11,6 +15,7 @@ import AddUserDialog from './AddUserDialog';
 import {
   UserListQuery,
   UserListQueryVariables,
+  UserListQuery_users_items_groups as GroupType,
 } from './__generated__/UserListQuery';
 import { DEFAULT_PAGE_SIZE } from 'app/constants';
 
@@ -34,6 +39,10 @@ const USERLIST_QUERY = gql`
         firstName
         lastName
         email
+        groups {
+          id
+          name
+        }
       }
     }
   }
@@ -90,6 +99,30 @@ const UsersList = () => {
       {
         Header: 'Phone',
         accessor: 'phone',
+      },
+      {
+        Header: 'Groups',
+        accessor: 'groups',
+        Cell: ({ cell: { value } }: any) => (
+          <Tooltip
+            placement="bottom-start"
+            title={
+              <>
+                {value.map((group: GroupType) => (
+                  <div key={group.id}>{group.name}</div>
+                ))}
+              </>
+            }
+          >
+            <AvatarGroup max={3}>
+              {value.map((group: GroupType) => (
+                <Avatar key={group.id} alt={group.name}>
+                  {group.name[0]}
+                </Avatar>
+              ))}
+            </AvatarGroup>
+          </Tooltip>
+        ),
       },
     ],
     [],

@@ -1,7 +1,11 @@
 import React, { useMemo, useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import { Typography, CssBaseline } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Tooltip from '@material-ui/core/Tooltip';
+import Avatar from '@material-ui/core/Avatar';
+import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import FuseLoading from '@fuse/core/FuseLoading';
 import { useHistory } from 'react-router';
 // import UsersMultiSelectMenu from './UsersMultiSelectMenu';
@@ -10,7 +14,10 @@ import useTableState from 'app/components/table/useTableState';
 // import AddUserDialog from './AddUserDialog';
 import CreateUserGroupDialog from './CreateUserGroupDialog';
 import { DEFAULT_PAGE_SIZE } from 'app/constants';
-import { UserGroupsListQuery as DataType } from './__generated__/UserGroupsListQuery';
+import {
+  UserGroupsListQuery as DataType,
+  UserGroupsListQuery_userGroups_items_members as MemberType,
+} from './__generated__/UserGroupsListQuery';
 
 export const USERGROUPS_LIST_QUERY = gql`
   query UserGroupsListQuery(
@@ -32,6 +39,7 @@ export const USERGROUPS_LIST_QUERY = gql`
         description
         members {
           id
+          fullName
         }
       }
     }
@@ -73,6 +81,31 @@ const UserGroupsList = () => {
         Header: 'Description',
         accessor: 'description',
         className: 'font-bold',
+      },
+      {
+        Header: 'Members',
+        accessor: 'members',
+        className: 'font-bold',
+        Cell: ({ cell: { value } }: any) => (
+          <Tooltip
+            placement="bottom-start"
+            title={
+              <>
+                {value.map((member: MemberType) => (
+                  <div key={member.id}>{member.fullName}</div>
+                ))}
+              </>
+            }
+          >
+            <AvatarGroup max={3}>
+              {value.map((member: MemberType) => (
+                <Avatar key={member.id} alt={member.fullName}>
+                  {member.fullName[0]}
+                </Avatar>
+              ))}
+            </AvatarGroup>
+          </Tooltip>
+        ),
       },
     ],
     [],
