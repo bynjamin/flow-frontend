@@ -260,7 +260,7 @@ const DataTable: React.FC<Props> = ({
                 ))}
               </TableHead>
               <TableBody>
-                {page.map((row: any, i: number) => {
+                {page.map((row: any) => {
                   prepareRow(row);
                   return (
                     <TableRow
