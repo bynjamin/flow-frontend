@@ -15,19 +15,18 @@ import {
   Toolbar,
   Typography,
 } from '@material-ui/core';
-import Permissions from 'app/main/admin/permissions/PermissionsContent';
 import FuseAnimate from '@fuse/core/FuseAnimate';
 import { MISSING_FIELD } from 'common/constants';
 import {
-  UserGroupContentFragment as DataType,
-  UserGroupContentFragment_members,
-} from './__generated__/UserGroupContentFragment';
+  AboutTabFragment as DataType,
+  AboutTabFragment_members as MemberType,
+} from './__generated__/AboutTabFragment';
 
 type Props = {
   data: DataType;
 };
 
-const UserGroupContent: React.FC<Props> = ({ data }) => {
+const AboutTab: React.FC<Props> = ({ data }) => {
   if (!data) {
     return null;
   }
@@ -88,44 +87,41 @@ const UserGroupContent: React.FC<Props> = ({ data }) => {
               </AppBar>
               <CardContent className="p-0">
                 <List className="p-0">
-                  {data.members.map(
-                    (user: UserGroupContentFragment_members) => (
-                      <ListItem key={user.id}>
-                        <Avatar className="mx-8" alt={user.fullName}>
-                          {user.fullName[0]}
-                        </Avatar>
-                        <ListItemText
-                          primary={
-                            <Typography className="inline" paragraph={false}>
-                              {user.fullName || MISSING_FIELD}
-                            </Typography>
-                          }
-                          secondary={user.email || MISSING_FIELD}
-                        />
-                        <ListItemSecondaryAction>
-                          <IconButton>
-                            <Icon>more_vert</Icon>
-                          </IconButton>
-                        </ListItemSecondaryAction>
-                      </ListItem>
-                    ),
-                  )}
+                  {data.members.map((member: MemberType) => (
+                    <ListItem key={member.id}>
+                      <Avatar className="mx-8" alt={member.fullName}>
+                        {member.fullName[0]}
+                      </Avatar>
+                      <ListItemText
+                        primary={
+                          <Typography className="inline" paragraph={false}>
+                            {member.fullName || MISSING_FIELD}
+                          </Typography>
+                        }
+                        secondary={member.email || MISSING_FIELD}
+                      />
+                      <ListItemSecondaryAction>
+                        <IconButton>
+                          <Icon>more_vert</Icon>
+                        </IconButton>
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                  ))}
                 </List>
               </CardContent>
             </Card>
           </FuseAnimate>
         </div>
       </div>
-      <Permissions />
     </div>
   );
 };
 
-export default UserGroupContent;
+export default AboutTab;
 
-export const UserGroupContentFragment = {
+export const AboutTabFragment = {
   data: gql`
-    fragment UserGroupContentFragment on UserGroup {
+    fragment AboutTabFragment on UserGroup {
       id
       name
       description
