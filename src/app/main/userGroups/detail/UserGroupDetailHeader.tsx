@@ -1,9 +1,12 @@
 import React from 'react';
 import gql from 'graphql-tag';
 import { Avatar, Button, Typography } from '@material-ui/core';
+import EditIcon from '@material-ui/icons/Edit';
 import FuseAnimate from '@fuse/core/FuseAnimate';
-import CriticalButton from 'common/components/CriticalButton';
 import { MISSING_FIELD } from 'common/constants';
+import DeleteUserGroupDialog, {
+  DeleteUserGroupDialogFragment,
+} from './DeleteUserGroupDialog';
 // eslint-disable-next-line no-unused-vars
 import { UserGroupDetailHeaderFragment as DataType } from './__generated__/UserGroupDetailHeaderFragment';
 
@@ -38,17 +41,12 @@ const UserGroupDetail: React.FC<Props> = ({ data }) => {
           variant="contained"
           color="secondary"
           aria-label="Follow"
+          startIcon={<EditIcon />}
+          onClick={() => console.log('edit')}
         >
           Edit
         </Button>
-        <CriticalButton
-          className="mr-8 normal-case"
-          variant="contained"
-          color="primary"
-          aria-label="Follow"
-        >
-          Delete
-        </CriticalButton>
+        <DeleteUserGroupDialog data={data} />
       </div>
     </div>
   );
@@ -60,6 +58,8 @@ export const UserGroupDetailHeaderFragment = {
   data: gql`
     fragment UserGroupDetailHeaderFragment on UserGroup {
       name
+      ...DeleteUserGroupDialogFragment
     }
+    ${DeleteUserGroupDialogFragment.data}
   `,
 };

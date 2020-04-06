@@ -4,17 +4,16 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL fragment: UserGroupDetailHeaderFragment
+// GraphQL mutation operation: DeleteUserGroup
 // ====================================================
 
-export interface UserGroupDetailHeaderFragment {
-  __typename: "UserGroup";
+export interface DeleteUserGroup {
   /**
-   * User group name
+   * Delete user group.
    */
-  name: string;
-  /**
-   * User group ID
-   */
-  id: string;
+  deleteUserGroup: boolean;
+}
+
+export interface DeleteUserGroupVariables {
+  id: number;
 }
