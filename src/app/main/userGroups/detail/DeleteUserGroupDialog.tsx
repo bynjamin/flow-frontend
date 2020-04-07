@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
 import { useSelector } from 'react-redux';
@@ -14,6 +14,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CriticalButton from 'common/components/CriticalButton';
 import { Backdrop } from 'common/components/backdrop';
+import { AppContext } from 'app/AppContext';
 import { DELETE_USER_GROUP } from './mutations/deleteUserGroup';
 import {
   // eslint-disable-next-line no-unused-vars
@@ -30,6 +31,7 @@ const DeleteUserGroupDialog: React.FC<Props> = ({ data }) => {
   // todo: odstranit redux
   // @ts-ignore
   const mainTheme = useSelector(({ fuse }) => fuse.settings.mainTheme);
+  const { setActionFeedback } = useContext(AppContext);
   const [isOpen, setOpen] = useState<boolean>(false);
   const [
     deleteUserGroup,
@@ -46,15 +48,34 @@ const DeleteUserGroupDialog: React.FC<Props> = ({ data }) => {
     });
   };
 
+  const dispatchErrorFeedback = () => {
+    setActionFeedback({
+      message: 'Unable to delete record',
+      severity: 'error',
+    });
+  };
+
+  const dispatchSuccessFeedback = () => {
+    setActionFeedback({
+      message: 'Record was succesfully delted',
+      severity: 'success',
+    });
+  };
+
   if (loading) {
     return <Backdrop open={true} />;
   }
 
-  // todo: handle false alebo error
   if (mutationResponse) {
     if (mutationResponse.deleteUserGroup) {
+      dispatchSuccessFeedback();
       return <Redirect to="/user-groups" />;
     }
+    dispatchErrorFeedback();
+  }
+
+  if (error) {
+    dispatchErrorFeedback();
   }
 
   return (
