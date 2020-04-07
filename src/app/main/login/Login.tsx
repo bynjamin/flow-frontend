@@ -5,7 +5,6 @@ import {
   Button,
   Card,
   CardContent,
-  Divider,
   Typography,
   InputAdornment,
   Icon,
@@ -42,11 +41,10 @@ type LoginModel = {
 const Login: React.FC = () => {
   const classes = useStyles();
   const [isFormValid, setIsFormValid] = useState<boolean>(false);
-  const [error, setError] = useState<boolean>(false);
   const history = useHistory();
   const { state } = useLocation();
   const formRef = useRef(null);
-  const { setUser } = useContext(AppContext);
+  const { setUser, setActionFeedback } = useContext(AppContext);
 
   function disableButton() {
     setIsFormValid(false);
@@ -54,10 +52,6 @@ const Login: React.FC = () => {
 
   function enableButton() {
     setIsFormValid(true);
-  }
-
-  function toggleError() {
-    setError(!error);
   }
 
   async function handleSubmit(model: LoginModel) {
@@ -83,7 +77,10 @@ const Login: React.FC = () => {
     } catch (e) {
       console.log('Login error');
       console.log(e);
-      setError(true);
+      setActionFeedback({
+        message: 'Invalid login credentials',
+        severity: 'error',
+      });
       // @ts-ignore
       formRef.current.reset();
     }
@@ -206,21 +203,6 @@ const Login: React.FC = () => {
           </Card>
         </FuseAnimate>
       </div>
-      <Snackbar
-        open={error}
-        autoHideDuration={9000}
-        onClose={toggleError}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-      >
-        <Alert
-          onClose={toggleError}
-          severity="error"
-          elevation={6}
-          variant="filled"
-        >
-          Invalid login credentials
-        </Alert>
-      </Snackbar>
     </div>
   );
 };

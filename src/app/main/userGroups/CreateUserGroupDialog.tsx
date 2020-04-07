@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useMutation } from '@apollo/react-hooks';
 import Formsy from 'formsy-react';
@@ -10,11 +10,13 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { Backdrop } from 'common/components/backdrop';
-import { Alert, AlertTitle } from '@material-ui/lab';
+import { AppContext } from 'app/AppContext';
 
 import { CREATE_USER_GROUP } from './createUserGroupMutation';
 import {
+  // eslint-disable-next-line no-unused-vars
   CreateUserGroup as ResponseType,
+  // eslint-disable-next-line no-unused-vars
   CreateUserGroupVariables as InputVariables,
 } from './__generated__/CreateUserGroup';
 
@@ -26,6 +28,7 @@ type Props = {
 const AddUserGroupDialog: React.FC<Props> = ({ open, onClose }) => {
   const [isFormValid, setIsFormValid] = useState(false);
   const formRef = useRef(null);
+  const { setActionFeedback } = useContext(AppContext);
 
   const [createUserGroup, { data, loading, error }] = useMutation<
     ResponseType,
@@ -53,7 +56,19 @@ const AddUserGroupDialog: React.FC<Props> = ({ open, onClose }) => {
   }
 
   if (data) {
+    setActionFeedback({
+      message: `New user group ${data.createUserGroup.name} was created`,
+      severity: 'success',
+    });
     return <Redirect to={`/user-groups/detail/${data.createUserGroup.id}`} />;
+  }
+
+  if (error) {
+    setActionFeedback({
+      message: 'Something went wrong. User group was not created',
+      severity: 'error',
+    });
+    handleClose();
   }
 
   return (
@@ -64,12 +79,6 @@ const AddUserGroupDialog: React.FC<Props> = ({ open, onClose }) => {
     >
       <DialogTitle id="form-dialog-title">Create new user group</DialogTitle>
       <DialogContent>
-        {error && (
-          <Alert severity="error" className="mb-12">
-            <AlertTitle>Something went wrong</AlertTitle>
-            {error.message}
-          </Alert>
-        )}
         <DialogContentText>
           Fill information about new group and click create
         </DialogContentText>

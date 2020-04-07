@@ -15,6 +15,7 @@ import store from './store';
 import Authorization from './auth/Authorization';
 import ApolloContextProvider from './ApolloContextProvider';
 import AppContextProvider, { AppContext } from './AppContext';
+import ActionFeedbackBoundary from './ActionFeedbackBoundary';
 
 const jss = create({
   ...jssPreset(),
@@ -32,15 +33,17 @@ const App = () => (
           <Router history={history}>
             <Authorization>
               <FuseTheme>
-                <AppContext.Consumer>
-                  {({ routes }) => (
-                    <>
-                      {/*
-                      // @ts-ignore */}
-                      <FuseLayout routes={routes} />
-                    </>
-                  )}
-                </AppContext.Consumer>
+                <ActionFeedbackBoundary>
+                  <AppContext.Consumer>
+                    {({ routes }) => (
+                      <>
+                        {/*
+                        // @ts-ignore */}
+                        <FuseLayout routes={routes} />
+                      </>
+                    )}
+                  </AppContext.Consumer>
+                </ActionFeedbackBoundary>
               </FuseTheme>
             </Authorization>
           </Router>
