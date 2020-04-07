@@ -23,6 +23,66 @@ export interface UserGroupDetailQuery_userGroup_members {
   email: string;
 }
 
+export interface UserGroupDetailQuery_userGroup_permissions_actions_basic {
+  __typename: "Action";
+  /**
+   * Create
+   */
+  create: boolean | null;
+  /**
+   * Read
+   */
+  read: boolean | null;
+  /**
+   * Update
+   */
+  update: boolean | null;
+  /**
+   * Delete
+   */
+  delete: boolean | null;
+}
+
+export interface UserGroupDetailQuery_userGroup_permissions_actions_global {
+  __typename: "Action";
+  /**
+   * Read
+   */
+  read: boolean | null;
+  /**
+   * Update
+   */
+  update: boolean | null;
+  /**
+   * Delete
+   */
+  delete: boolean | null;
+}
+
+export interface UserGroupDetailQuery_userGroup_permissions_actions {
+  __typename: "Actions";
+  /**
+   * Basic actions
+   */
+  basic: UserGroupDetailQuery_userGroup_permissions_actions_basic;
+  /**
+   * Global actions
+   */
+  global: UserGroupDetailQuery_userGroup_permissions_actions_global;
+}
+
+export interface UserGroupDetailQuery_userGroup_permissions {
+  __typename: "Module";
+  /**
+   * Model of module
+   */
+  model: string;
+  /**
+   * CRUD actions
+   */
+  actions: UserGroupDetailQuery_userGroup_permissions_actions;
+}
+
 export interface UserGroupDetailQuery_userGroup {
   __typename: "UserGroup";
   /**
@@ -41,6 +101,10 @@ export interface UserGroupDetailQuery_userGroup {
    * User group users
    */
   members: UserGroupDetailQuery_userGroup_members[];
+  /**
+   * User group access
+   */
+  permissions: UserGroupDetailQuery_userGroup_permissions[];
 }
 
 export interface UserGroupDetailQuery {

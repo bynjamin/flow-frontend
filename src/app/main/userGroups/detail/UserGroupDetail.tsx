@@ -3,25 +3,21 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import {
-  Avatar,
-  Button,
   Tab,
   Tabs,
-  Typography,
   // eslint-disable-next-line no-unused-vars
   Theme,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import FuseLoading from '@fuse/core/FuseLoading';
 import FusePageSimple from '@fuse/core/FusePageSimple';
-import FuseAnimate from '@fuse/core/FuseAnimate';
-import AboutTab, { AboutTabFragment } from './tabs/AboutTab';
+import UserGroupAbout, { UserGroupAboutFragment } from './tabs/UserGroupAbout';
 import UserGroupDetailHeader, {
   UserGroupDetailHeaderFragment,
 } from './UserGroupDetailHeader';
-import PermissionsTab from './tabs/PermissionsTab';
-import CriticalButton from 'common/components/CriticalButton';
-import { MISSING_FIELD } from 'common/constants';
+import UserGroupPermissions, {
+  UserGroupPermissionsFragment,
+} from './tabs/UserGroupPermissions';
 import {
   // eslint-disable-next-line no-unused-vars
   UserGroupDetailQuery,
@@ -43,11 +39,13 @@ const useStyles = makeStyles((theme: Theme) => ({
 const USERGROUP_DETAIL_QUERY = gql`
   query UserGroupDetailQuery($id: Int!) {
     userGroup(groupId: $id) {
-      ...UserGroupDetailHeaderFragment
-      ...AboutTabFragment
+      ...UserGroupDetailHeaderFragment__data
+      ...UserGroupAboutFragment__data
+      ...UserGroupPermissionsFragment__data
     }
   }
-  ${AboutTabFragment.data}
+  ${UserGroupAboutFragment.data}
+  ${UserGroupPermissionsFragment.data}
   ${UserGroupDetailHeaderFragment.data}
 `;
 
@@ -105,9 +103,11 @@ const UserGroupDetail: React.FC = () => {
         content={
           <div className="p-16 sm:p-24">
             {selectedTab === 0 && data?.userGroup && (
-              <AboutTab data={data?.userGroup} />
+              <UserGroupAbout data={data?.userGroup} />
             )}
-            {selectedTab === 1 && <PermissionsTab />}
+            {selectedTab === 1 && (
+              <UserGroupPermissions data={data?.userGroup} />
+            )}
           </div>
         }
       />

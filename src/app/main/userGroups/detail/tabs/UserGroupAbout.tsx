@@ -18,15 +18,17 @@ import {
 import FuseAnimate from '@fuse/core/FuseAnimate';
 import { MISSING_FIELD } from 'common/constants';
 import {
-  AboutTabFragment as DataType,
-  AboutTabFragment_members as MemberType,
-} from './__generated__/AboutTabFragment';
+  // eslint-disable-next-line no-unused-vars
+  UserGroupAboutFragment__data as DataType,
+  // eslint-disable-next-line no-unused-vars
+  UserGroupAboutFragment__data_members as MemberType,
+} from './__generated__/UserGroupAboutFragment__data';
 
 type Props = {
   data: DataType;
 };
 
-const AboutTab: React.FC<Props> = ({ data }) => {
+const UserGroupAbout: React.FC<Props> = ({ data }) => {
   if (!data) {
     return null;
   }
@@ -117,11 +119,11 @@ const AboutTab: React.FC<Props> = ({ data }) => {
   );
 };
 
-export default AboutTab;
+export default UserGroupAbout;
 
-export const AboutTabFragment = {
+export const UserGroupAboutFragment = {
   data: gql`
-    fragment AboutTabFragment on UserGroup {
+    fragment UserGroupAboutFragment__data on UserGroup {
       id
       name
       description

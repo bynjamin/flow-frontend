@@ -4,11 +4,15 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL fragment: DeleteUserGroupDialogFragment
+// GraphQL fragment: UserGroupDetailHeaderFragment__data
 // ====================================================
 
-export interface DeleteUserGroupDialogFragment {
+export interface UserGroupDetailHeaderFragment__data {
   __typename: "UserGroup";
+  /**
+   * User group name
+   */
+  name: string;
   /**
    * User group ID
    */

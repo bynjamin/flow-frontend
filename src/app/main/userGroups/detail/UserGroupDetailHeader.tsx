@@ -8,7 +8,7 @@ import DeleteUserGroupDialog, {
   DeleteUserGroupDialogFragment,
 } from './DeleteUserGroupDialog';
 // eslint-disable-next-line no-unused-vars
-import { UserGroupDetailHeaderFragment as DataType } from './__generated__/UserGroupDetailHeaderFragment';
+import { UserGroupDetailHeaderFragment__data as DataType } from './__generated__/UserGroupDetailHeaderFragment__data';
 
 type Props = {
   data: DataType;
@@ -56,9 +56,9 @@ export default UserGroupDetail;
 
 export const UserGroupDetailHeaderFragment = {
   data: gql`
-    fragment UserGroupDetailHeaderFragment on UserGroup {
+    fragment UserGroupDetailHeaderFragment__data on UserGroup {
       name
-      ...DeleteUserGroupDialogFragment
+      ...DeleteUserGroupDialogFragment__data
     }
     ${DeleteUserGroupDialogFragment.data}
   `,

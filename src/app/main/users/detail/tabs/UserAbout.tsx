@@ -19,7 +19,7 @@ import { Alert, AlertTitle } from '@material-ui/lab';
 import FuseAnimateGroup from '@fuse/core/FuseAnimateGroup';
 import { MISSING_FIELD } from 'common/constants';
 import { parseGender, formatAdress } from '../../helpers';
-import { AboutTabFragment__data as DataType } from './__generated__/AboutTabFragment__data';
+import { UserAboutFragment__data as DataType } from './__generated__/UserAboutFragment__data';
 
 const mockData = {
   groups: [
@@ -65,7 +65,7 @@ type Props = {
   data: DataType;
 };
 
-const AboutTab: React.FC<Props> = ({ data }) => {
+const UserAbout: React.FC<Props> = ({ data }) => {
   if (!data) {
     return null;
   }
@@ -311,11 +311,11 @@ const AboutTab: React.FC<Props> = ({ data }) => {
   );
 };
 
-export default AboutTab;
+export default UserAbout;
 
-export const AboutTabFragment = {
+export const UserAboutFragment = {
   data: gql`
-    fragment AboutTabFragment__data on User {
+    fragment UserAboutFragment__data on User {
       id
       fullName
       email
