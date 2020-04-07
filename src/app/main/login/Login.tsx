@@ -202,30 +202,6 @@ const Login: React.FC = () => {
                   Login
                 </Button>
               </Formsy>
-
-              <div className="my-24 flex items-center justify-center">
-                <Divider className="w-32" />
-                <span className="mx-8 font-bold">OR</span>
-                <Divider className="w-32" />
-              </div>
-
-              <Button
-                variant="contained"
-                color="secondary"
-                size="small"
-                className="normal-case w-192 mb-8"
-              >
-                Log in with Google
-              </Button>
-
-              <Button
-                variant="contained"
-                color="primary"
-                size="small"
-                className="normal-case w-192"
-              >
-                Log in with Facebook
-              </Button>
             </CardContent>
           </Card>
         </FuseAnimate>

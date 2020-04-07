@@ -554,19 +554,15 @@
           },
           {
             "name": "permissions",
-            "description": "User permissions",
+            "description": "User access",
             "args": [],
             "type": {
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "Permission",
-                  "ofType": null
-                }
+                "kind": "OBJECT",
+                "name": "Access",
+                "ofType": null
               }
             },
             "isDeprecated": false,
@@ -574,19 +570,15 @@
           },
           {
             "name": "allPermissions",
-            "description": "All user permissions, including perms from user groups and user roles",
+            "description": "All user access, including access from user groups and user roles",
             "args": [],
             "type": {
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "Permission",
-                  "ofType": null
-                }
+                "kind": "OBJECT",
+                "name": "Access",
+                "ofType": null
               }
             },
             "isDeprecated": false,
@@ -741,60 +733,71 @@
       },
       {
         "kind": "OBJECT",
-        "name": "Permission",
-        "description": "Permission model",
+        "name": "Access",
+        "description": "Access model",
         "fields": [
           {
-            "name": "id",
-            "description": "Permission ID",
+            "name": "User",
+            "description": "User module",
             "args": [],
             "type": {
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "SCALAR",
-                "name": "ID",
+                "kind": "OBJECT",
+                "name": "Module",
                 "ofType": null
               }
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
+          {
+            "name": "UserGroup",
+            "description": "Usergroup module",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Module",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "Permission",
+            "description": "Permission module",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Module",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Module",
+        "description": "Module model",
+        "fields": [
           {
             "name": "model",
-            "description": "Permission to model",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "model_id",
-            "description": "Defining model item by its ID",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Int",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "description",
-            "description": "Description of permission",
+            "description": "Model of module",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -836,8 +839,8 @@
         "description": "Actions type",
         "fields": [
           {
-            "name": "create",
-            "description": "Create",
+            "name": "basic",
+            "description": "Basic actions",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -852,40 +855,8 @@
             "deprecationReason": null
           },
           {
-            "name": "update",
-            "description": "Update",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "Action",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "read",
-            "description": "Read",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "Action",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "delete",
-            "description": "Delete",
+            "name": "global",
+            "description": "Global actions",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -911,33 +882,49 @@
         "description": "Action type",
         "fields": [
           {
-            "name": "enabled",
-            "description": "Is action enabled",
+            "name": "create",
+            "description": "Create",
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "isGlobal",
-            "description": "Is this permission global",
+            "name": "update",
+            "description": "Update",
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "read",
+            "description": "Read",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "delete",
+            "description": "Delete",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -1003,23 +990,15 @@
           },
           {
             "name": "permissions",
-            "description": "User role permissions",
+            "description": "User role access",
             "args": [],
             "type": {
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "OBJECT",
-                    "name": "Permission",
-                    "ofType": null
-                  }
-                }
+                "kind": "OBJECT",
+                "name": "Access",
+                "ofType": null
               }
             },
             "isDeprecated": false,
@@ -1118,6 +1097,22 @@
               "ofType": {
                 "kind": "SCALAR",
                 "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "permissions",
+            "description": "User group access",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Access",
                 "ofType": null
               }
             },
