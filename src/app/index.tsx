@@ -1,5 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import { ApolloProvider } from '@apollo/react-hooks';
 import {
   StylesProvider,
   jssPreset,
@@ -13,9 +14,9 @@ import FuseTheme from '@fuse/core/FuseTheme';
 import history from '@history';
 import store from './store';
 import Authorization from './auth/Authorization';
-import ApolloContextProvider from './ApolloContextProvider';
 import AppContextProvider, { AppContext } from './AppContext';
 import ActionFeedbackBoundary from './ActionFeedbackBoundary';
+import { mainClient } from 'apollo-clients';
 
 const jss = create({
   ...jssPreset(),
@@ -26,7 +27,7 @@ const jss = create({
 const generateClassName = createGenerateClassName();
 
 const App = () => (
-  <ApolloContextProvider>
+  <ApolloProvider client={mainClient}>
     <AppContextProvider>
       <StylesProvider jss={jss} generateClassName={generateClassName}>
         <Provider store={store}>
@@ -50,7 +51,7 @@ const App = () => (
         </Provider>
       </StylesProvider>
     </AppContextProvider>
-  </ApolloContextProvider>
+  </ApolloProvider>
 );
 
 export default App;

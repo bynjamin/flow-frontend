@@ -1,9 +1,9 @@
 import jwtDecode from 'jwt-decode';
 
 type TokensType = {
-  access_token: string;
-  token_type: string;
-  expires_in: number;
+  accessToken: string;
+  tokenType: string;
+  expiresIn: number;
 };
 
 // module for saving tokens to local storage
@@ -41,7 +41,7 @@ export const deleteTokens = (): void => {
 export const getTokens = (): TokensType | null => {
   const tokensString = localStorage.getItem(TOKEN_KEY);
   const tokens = tokensString ? JSON.parse(tokensString) : null;
-  if (!isAuthTokenValid(tokens?.access_token)) {
+  if (!isAuthTokenValid(tokens?.accessToken)) {
     deleteTokens();
     return null;
   }
