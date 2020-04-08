@@ -38,7 +38,7 @@ const UserMenu: React.FC = () => {
             {user?.fullName}
           </Typography>
           <Typography className="text-11 capitalize" color="textSecondary">
-            {user?.role.toString()}
+            {user?.role.name}
           </Typography>
         </div>
 

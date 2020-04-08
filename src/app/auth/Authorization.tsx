@@ -44,7 +44,7 @@ const Authorization: React.FC<Props> = ({ children }) => {
       console.log('setJWTCheck - loggedIn');
       const tokens = getTokens();
       if (tokens) {
-        const tokenLifetimeMS = getTokenLifetime(tokens.access_token) * 1000;
+        const tokenLifetimeMS = getTokenLifetime(tokens.accessToken) * 1000;
         setTimeout(() => {
           if (isLoggedIn()) {
             console.log('still logged in');

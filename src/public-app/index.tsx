@@ -1,6 +1,5 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
 import {
   StylesProvider,
@@ -15,10 +14,7 @@ import FuseLayout from '@fuse/core/FuseLayout';
 import history from '@history';
 import store from '../app/store';
 import routes from './publicRoutesConfig';
-
-const publicClient = new ApolloClient({
-  uri: process.env.REACT_APP_PUBLIC_API_URL,
-});
+import { publicClient } from 'apollo-clients';
 
 const jss = create({
   ...jssPreset(),
