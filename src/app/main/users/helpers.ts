@@ -1,4 +1,5 @@
-import { AboutTabFragment__data_address as AddressType } from './detail/tabs/__generated__/AboutTabFragment__data';
+// eslint-disable-next-line no-unused-vars
+import { UserAboutFragment__data_address as AddressType } from './detail/tabs/__generated__/UserAboutFragment__data';
 
 type Gender = 'm' | 'f' | 'o';
 

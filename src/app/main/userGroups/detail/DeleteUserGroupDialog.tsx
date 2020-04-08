@@ -135,7 +135,7 @@ export default DeleteUserGroupDialog;
 
 export const DeleteUserGroupDialogFragment = {
   data: gql`
-    fragment DeleteUserGroupDialogFragment on UserGroup {
+    fragment DeleteUserGroupDialogFragment__data on UserGroup {
       id
     }
   `,

@@ -35,6 +35,66 @@ export interface UserDetailQuery_user_address {
   country: string | null;
 }
 
+export interface UserDetailQuery_user_permissions_actions_basic {
+  __typename: "Action";
+  /**
+   * Create
+   */
+  create: boolean | null;
+  /**
+   * Read
+   */
+  read: boolean | null;
+  /**
+   * Update
+   */
+  update: boolean | null;
+  /**
+   * Delete
+   */
+  delete: boolean | null;
+}
+
+export interface UserDetailQuery_user_permissions_actions_global {
+  __typename: "Action";
+  /**
+   * Read
+   */
+  read: boolean | null;
+  /**
+   * Update
+   */
+  update: boolean | null;
+  /**
+   * Delete
+   */
+  delete: boolean | null;
+}
+
+export interface UserDetailQuery_user_permissions_actions {
+  __typename: "Actions";
+  /**
+   * Basic actions
+   */
+  basic: UserDetailQuery_user_permissions_actions_basic;
+  /**
+   * Global actions
+   */
+  global: UserDetailQuery_user_permissions_actions_global;
+}
+
+export interface UserDetailQuery_user_permissions {
+  __typename: "Module";
+  /**
+   * Model of module
+   */
+  model: string;
+  /**
+   * CRUD actions
+   */
+  actions: UserDetailQuery_user_permissions_actions;
+}
+
 export interface UserDetailQuery_user {
   __typename: "User";
   /**
@@ -81,6 +141,10 @@ export interface UserDetailQuery_user {
    * User address
    */
   address: UserDetailQuery_user_address;
+  /**
+   * User access
+   */
+  permissions: UserDetailQuery_user_permissions[];
 }
 
 export interface UserDetailQuery {

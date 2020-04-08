@@ -36,19 +36,20 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 type Props = {
   modelName: string;
+  permissions: any;
 };
 
-const PermissionCard: React.FC<Props> = ({ modelName }) => {
+const PermissionCard: React.FC<Props> = ({ modelName, permissions }) => {
   const classes = useStyles();
   const [isEdit, setEdit] = useState<boolean>(false);
   const [state, setState] = React.useState({
-    create: true,
-    read: true,
-    update: false,
-    delete: true,
-    readGlobal: true,
-    updateGlobal: false,
-    deleteGlobal: false,
+    create: permissions.basic.create,
+    read: permissions.basic.read,
+    update: permissions.basic.update,
+    delete: permissions.basic.delete,
+    readGlobal: permissions.global.read,
+    updateGlobal: permissions.global.update,
+    deleteGlobal: permissions.global.delete,
   });
 
   const getGlobalAction = (key: string): string | null => {

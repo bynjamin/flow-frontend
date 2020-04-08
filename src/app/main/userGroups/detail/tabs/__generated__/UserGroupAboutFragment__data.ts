@@ -4,10 +4,10 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL fragment: AboutTabFragment
+// GraphQL fragment: UserGroupAboutFragment__data
 // ====================================================
 
-export interface AboutTabFragment_members {
+export interface UserGroupAboutFragment__data_members {
   __typename: "User";
   /**
    * User ID
@@ -23,7 +23,7 @@ export interface AboutTabFragment_members {
   email: string;
 }
 
-export interface AboutTabFragment {
+export interface UserGroupAboutFragment__data {
   __typename: "UserGroup";
   /**
    * User group ID
@@ -40,5 +40,5 @@ export interface AboutTabFragment {
   /**
    * User group users
    */
-  members: AboutTabFragment_members[];
+  members: UserGroupAboutFragment__data_members[];
 }

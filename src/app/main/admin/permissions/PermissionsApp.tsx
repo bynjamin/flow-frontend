@@ -14,7 +14,7 @@ const PermissionsApp: React.FC = () => {
         header: 'min-h-72 h-72 sm:h-136 sm:min-h-136',
       }}
       // header={<ContactsHeader pageLayout={pageLayout} />}
-      content={<PermissionsContent />}
+      content={<div>a</div>}
       // leftSidebarContent={<ContactsSidebarContent />}
       // sidebarInner
       ref={pageLayout}

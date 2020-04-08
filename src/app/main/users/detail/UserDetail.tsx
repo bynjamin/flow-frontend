@@ -7,11 +7,15 @@ import { makeStyles } from '@material-ui/styles';
 import FuseLoading from '@fuse/core/FuseLoading';
 import FusePageSimple from '@fuse/core/FusePageSimple';
 import FuseAnimate from '@fuse/core/FuseAnimate';
-import { AboutTab, PermissionsTab } from './tabs';
-import { AboutTabFragment } from './tabs/AboutTab';
+import UserAbout, { UserAboutFragment } from './tabs/UserAbout';
+import UserPermissions, {
+  UserPermissionsFragment,
+} from './tabs/UserPermissions';
 import { MISSING_FIELD } from 'common/constants';
 import {
+  // eslint-disable-next-line no-unused-vars
   UserDetailQuery,
+  // eslint-disable-next-line no-unused-vars
   UserDetailQueryVariables,
 } from './__generated__/UserDetailQuery';
 
@@ -31,10 +35,12 @@ const USER_DETAIL_QUERY = gql`
     user(id: $id) {
       id
       fullName
-      ...AboutTabFragment__data
+      ...UserAboutFragment__data
+      ...UserPermissionsFragment__data
     }
   }
-  ${AboutTabFragment.data}
+  ${UserAboutFragment.data}
+  ${UserPermissionsFragment.data}
 `;
 
 const ProfilePage: React.FC = () => {
@@ -136,9 +142,10 @@ const ProfilePage: React.FC = () => {
           <div className="p-16 sm:p-24">
             {/* selectedTab === 0 && <TimelineTab /> */}
             {/* todo: nonnullable */}
-            {selectedTab === 0 && data?.user && <AboutTab data={data?.user} />}
-            {selectedTab === 1 && <PermissionsTab />}
-            {/* selectedTab === 2 && <PhotosVideosTab /> */}
+            {selectedTab === 0 && data?.user && <UserAbout data={data?.user} />}
+            {selectedTab === 1 && data?.user && (
+              <UserPermissions data={data?.user} />
+            )}
           </div>
         }
       />
