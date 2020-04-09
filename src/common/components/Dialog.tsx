@@ -12,7 +12,8 @@ type Props = {
   content?: React.ReactNode;
   contentText?: string;
   actions?: React.ReactNode;
-  controller?: React.ReactNode;
+  openController?: React.ReactNode;
+  closeController?: React.ReactNode;
 };
 
 const Dialog: React.FC<Props> = ({
@@ -20,7 +21,8 @@ const Dialog: React.FC<Props> = ({
   content,
   contentText,
   actions,
-  controller,
+  openController,
+  closeController,
 }) => {
   const [isOpen, setOpen] = useState<boolean>(false);
   // @ts-ignore
@@ -32,9 +34,9 @@ const Dialog: React.FC<Props> = ({
 
   return (
     <ThemeProvider theme={mainTheme}>
-      {!!controller && <div onClick={toggleOpen}>{controller}</div>}
+      {!!openController && <div onClick={toggleOpen}>{openController}</div>}
       <MUIDialog
-        open={!controller || isOpen}
+        open={!openController || isOpen}
         onClose={toggleOpen}
         aria-labelledby="dialog-title"
       >
@@ -45,7 +47,12 @@ const Dialog: React.FC<Props> = ({
           )}
           {content}
         </MUIDialogContent>
-        {actions && <MUIDialogActions>{actions}</MUIDialogActions>}
+        {(actions || closeController) && (
+          <MUIDialogActions>
+            <div onClick={toggleOpen}>{closeController}</div>
+            {actions}
+          </MUIDialogActions>
+        )}
       </MUIDialog>
     </ThemeProvider>
   );
