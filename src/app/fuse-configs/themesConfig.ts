@@ -1,4 +1,4 @@
-import { lightBlue, red } from '@material-ui/core/colors';
+import { lightBlue, red, orange } from '@material-ui/core/colors';
 import { skyBlue, fuseDark } from '@fuse/colors';
 
 const themesConfig = {
@@ -16,6 +16,7 @@ const themesConfig = {
         default: '#F7F7F7',
       },
       error: red,
+      warning: orange,
     },
     status: {
       danger: 'orange',

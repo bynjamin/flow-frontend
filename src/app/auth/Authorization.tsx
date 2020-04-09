@@ -1,4 +1,11 @@
-import React, { useState, useEffect, useContext, useCallback } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  useCallback,
+  useRef,
+} from 'react';
+import IdleTimer from 'react-idle-timer';
 import round from 'lodash/round';
 import { useMutation } from '@apollo/react-hooks';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -9,12 +16,15 @@ import {
   isLoggedIn,
   getTokens,
   getTokenLifetime,
+  deleteTokens,
 } from './jwtService/jwtService2';
+import InactivityDialog from './InactivityDialog';
 import { REFRESH_LOGIN } from './refreshLoginMutation';
 // eslint-disable-next-line no-unused-vars
 import { RefreshLogin as ResponseType } from './__generated__/RefreshLogin';
 
 const TRASHHOLD_OFFSET = 120000; // 2 minutes
+const TIME_TO_IDLE = 1000 * 60 * 29; // 29 minutes
 
 type Props = {
   children: React.ReactNode;
@@ -23,10 +33,12 @@ type Props = {
 const Authorization: React.FC<Props> = ({ children }) => {
   const { routes, setActionFeedback } = useContext(AppContext);
   const [authorized, setAuthorized] = useState<boolean>(true);
+  const [isIdle, setIsIdle] = useState<boolean>(false);
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
   const history = useHistory();
   const { pathname } = useLocation();
   const [refreshLogin] = useMutation<ResponseType>(REFRESH_LOGIN);
+  const idleRef = useRef(null);
 
   const redirectToLogin = useCallback(
     (expired: boolean) => {
@@ -102,24 +114,9 @@ const Authorization: React.FC<Props> = ({ children }) => {
     }
   };
 
-  // Schedule JWT check based on its expiration
-  const setJWTCheck = () => {
-    if (loggedIn) {
-      console.log('setJWTCheck - loggedIn');
-      const tokens = getTokens();
-      if (tokens) {
-        const tokenLifetimeMS = getTokenLifetime(tokens.accessToken) * 1000;
-        setTimeout(() => {
-          if (isLoggedIn()) {
-            console.log('still logged in');
-            setJWTCheck();
-          } else {
-            console.log('logout');
-            checkAuth(true);
-          }
-        }, tokenLifetimeMS + TRASHHOLD_OFFSET);
-      }
-    }
+  const sessionExpired = () => {
+    deleteTokens();
+    checkAuth(true);
   };
 
   // Check if User is authorized, every time when pathname changes
@@ -128,7 +125,24 @@ const Authorization: React.FC<Props> = ({ children }) => {
   // Schedule JWT check every time when user logs in
   useEffect(scheduleJWTRefresh, [loggedIn]);
 
-  return authorized ? <>{children}</> : null;
+  return authorized ? (
+    <>
+      <IdleTimer
+        ref={idleRef}
+        onIdle={() => setIsIdle(true)}
+        debounce={250}
+        timeout={TIME_TO_IDLE}
+      />
+      {children}
+      {isIdle &&
+      pathname !== '/login' && ( // todo: refactor
+          <InactivityDialog
+            onConfirm={() => setIsIdle(false)}
+            onLogout={sessionExpired}
+          />
+        )}
+    </>
+  ) : null;
 };
 
 export default Authorization;
