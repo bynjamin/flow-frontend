@@ -9,7 +9,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import Alert from '@material-ui/lab/Alert';
-// eslint-disable-next-line no-unused-vars
 import { ThemeProvider } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CriticalButton from 'common/components/CriticalButton';
