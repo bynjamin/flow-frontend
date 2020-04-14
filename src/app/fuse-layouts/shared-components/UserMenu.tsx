@@ -8,7 +8,7 @@ import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
 import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { deleteTokens } from 'app/auth/jwtService/jwtService2';
+import { logout } from 'app/auth/jwtService/jwtService2';
 import { AppContext } from 'app/AppContext';
 
 const UserMenu: React.FC = () => {
@@ -74,11 +74,11 @@ const UserMenu: React.FC = () => {
             <ListItemText primary="My Profile" />
           </MenuItem>
           <MenuItem
-            component={Link}
-            to="/login"
+            // component={Link}
+            // to="/login"
             role="button"
             onClick={() => {
-              deleteTokens();
+              logout();
               userMenuClose();
             }}
           >

@@ -1,4 +1,6 @@
 import jwtDecode from 'jwt-decode';
+import { logout as _logout } from './logout/logout';
+import history from '@history';
 
 type TokensType = {
   accessToken: string;
@@ -46,6 +48,15 @@ export const getTokens = (): TokensType | null => {
     return null;
   }
   return tokens;
+};
+
+export const logout = async (): Promise<void> => {
+  if (await _logout()) {
+    deleteTokens();
+    history.push('/login');
+  } else {
+    console.log('Na picu');
+  }
 };
 
 export const isLoggedIn = () => !!getTokens();
