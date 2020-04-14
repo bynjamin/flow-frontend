@@ -1,6 +1,12 @@
+/**
+ * ActionFeedbackBoundary is wrapper component which handles User action feedback.
+ * Currently using two state variables from context - loading and actionFeedback
+ */
+
 import React, { useContext, useState, useEffect } from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
+import { Backdrop } from 'common/components/backdrop';
 import { AppContext } from 'app/AppContext';
 
 type Props = {
@@ -8,7 +14,7 @@ type Props = {
 };
 
 const ActionFeedbackBoundary: React.FC<Props> = ({ children }) => {
-  const { actionFeedback, setActionFeedback } = useContext(AppContext);
+  const { actionFeedback, setActionFeedback, loading } = useContext(AppContext);
   const [open, setOpen] = useState<boolean>(false);
 
   const cleanActionFeedback = () => {
@@ -21,6 +27,7 @@ const ActionFeedbackBoundary: React.FC<Props> = ({ children }) => {
   return (
     <>
       {children}
+      <Backdrop open={loading} />
       <Snackbar
         open={open}
         autoHideDuration={9000}

@@ -12,7 +12,7 @@ import { logout } from 'app/auth/jwtService/jwtService2';
 import { AppContext } from 'app/AppContext';
 
 const UserMenu: React.FC = () => {
-  const { user } = useContext(AppContext);
+  const { user, setLoading, setActionFeedback } = useContext(AppContext);
 
   const [userMenu, setUserMenu] = useState<HTMLElement | null>(null);
 
@@ -22,6 +22,10 @@ const UserMenu: React.FC = () => {
 
   const userMenuClose = () => {
     setUserMenu(null);
+  };
+
+  const logoutFailed = () => {
+    setActionFeedback({ severity: 'error', message: 'Unable to logout' });
   };
 
   return (
@@ -78,7 +82,7 @@ const UserMenu: React.FC = () => {
             // to="/login"
             role="button"
             onClick={() => {
-              logout();
+              logout({ setLoading, onError: logoutFailed });
               userMenuClose();
             }}
           >

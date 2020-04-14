@@ -8,8 +8,10 @@ export const logout = async (): Promise<boolean> => {
     const { data, errors } = await mainClient.mutate<ResponseType>({
       mutation: LOGOUT,
     });
-    console.log(data);
-    console.log(errors);
+
+    if (errors) {
+      return false;
+    }
     return data?.logout || false;
   } catch (e) {
     console.log(e);
