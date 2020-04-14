@@ -4,31 +4,29 @@ import { useMutation } from '@apollo/react-hooks';
 import { Redirect } from 'react-router-dom';
 import { Backdrop } from 'common/components/backdrop';
 import { AppContext } from 'app/AppContext';
-import { DELETE_USER_GROUP } from './mutations/deleteUserGroup';
+import { DELETE_USER } from './mutations/deleteUser';
 import DeleteDialog from 'app/components/DeleteDialog';
 import {
   // eslint-disable-next-line no-unused-vars
-  DeleteUserGroup as ResponseType,
+  DeleteUser as ResponseType,
   // eslint-disable-next-line no-unused-vars
-  DeleteUserGroupVariables as InputVariables,
-} from './mutations/__generated__/DeleteUserGroup';
-// eslint-disable-next-line no-unused-vars
-import { DeleteUserGroupDialogFragment__data as DataType } from './__generated__/DeleteUserGroupDialogFragment__data';
+  DeleteUserVariables as InputType,
+} from './mutations/__generated__/DeleteUser';
 
 type Props = {
-  data: DataType;
+  data: any;
 };
 
-const DeleteUserGroupDialog: React.FC<Props> = ({ data }) => {
+const DeleteUserDialog: React.FC<Props> = ({ data }) => {
   const { setActionFeedback } = useContext(AppContext);
-  const [
-    deleteUserGroup,
-    { data: mutationResponse, loading, error },
-  ] = useMutation<ResponseType, InputVariables>(DELETE_USER_GROUP);
+  const [deleteUser, { data: mutationResponse, loading, error }] = useMutation<
+    ResponseType,
+    InputType
+  >(DELETE_USER);
 
-  const handleDelete = () => {
-    deleteUserGroup({
-      variables: { id: Number(data.id) },
+  const handleDelete = async () => {
+    deleteUser({
+      variables: { id: data.id },
     });
   };
 
@@ -51,9 +49,9 @@ const DeleteUserGroupDialog: React.FC<Props> = ({ data }) => {
   }
 
   if (mutationResponse) {
-    if (mutationResponse.deleteUserGroup) {
+    if (mutationResponse.deleteUser) {
       dispatchSuccessFeedback();
-      return <Redirect to="/user-groups" />;
+      return <Redirect to="/users" />;
     }
     dispatchErrorFeedback();
   }
@@ -62,14 +60,14 @@ const DeleteUserGroupDialog: React.FC<Props> = ({ data }) => {
     dispatchErrorFeedback();
   }
 
-  return <DeleteDialog title="Delete user group" onDelete={handleDelete} />;
+  return <DeleteDialog title="Delete user" onDelete={handleDelete} critical />;
 };
 
-export default DeleteUserGroupDialog;
+export default DeleteUserDialog;
 
-export const DeleteUserGroupDialogFragment = {
+export const DeleteUserDialogFragment = {
   data: gql`
-    fragment DeleteUserGroupDialogFragment__data on UserGroup {
+    fragment DeleteUserDialogFragment__data on User {
       id
     }
   `,

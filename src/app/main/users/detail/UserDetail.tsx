@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import { Avatar, Button, Tab, Tabs, Typography } from '@material-ui/core';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import { makeStyles } from '@material-ui/styles';
 import FuseLoading from '@fuse/core/FuseLoading';
 import FusePageSimple from '@fuse/core/FusePageSimple';
-import FuseAnimate from '@fuse/core/FuseAnimate';
+import UserDetailHeader, { UserDetailHeaderFragment } from './UserDetailHeader';
 import UserAbout, { UserAboutFragment } from './tabs/UserAbout';
 import UserPermissions, {
   UserPermissionsFragment,
 } from './tabs/UserPermissions';
-import { MISSING_FIELD } from 'common/constants';
 import {
   // eslint-disable-next-line no-unused-vars
   UserDetailQuery,
@@ -35,10 +35,12 @@ const USER_DETAIL_QUERY = gql`
     user(id: $id) {
       id
       fullName
+      ...UserDetailHeaderFragment__data
       ...UserAboutFragment__data
       ...UserPermissionsFragment__data
     }
   }
+  ${UserDetailHeaderFragment.data}
   ${UserAboutFragment.data}
   ${UserPermissionsFragment.data}
 `;
@@ -68,34 +70,8 @@ const ProfilePage: React.FC = () => {
           header: classes.layoutHeader,
           toolbar: 'px-16 sm:px-24',
         }}
-        header={
-          <div className="p-24 flex flex-1 flex-col items-center justify-center md:flex-row md:items-end">
-            <div className="flex flex-1 flex-col items-center justify-center md:flex-row md:items-center md:justify-start">
-              <FuseAnimate animation="transition.expandIn" delay={300}>
-                <Avatar
-                  className="w-96 h-96"
-                  src="assets/images/avatars/Velazquez.jpg"
-                />
-              </FuseAnimate>
-              <FuseAnimate animation="transition.slideLeftIn" delay={300}>
-                <Typography className="md:ml-24" variant="h4" color="inherit">
-                  {data?.user?.fullName || MISSING_FIELD}
-                </Typography>
-              </FuseAnimate>
-            </div>
-
-            <div className="flex items-center justify-end">
-              <Button
-                className="mr-8 normal-case"
-                variant="contained"
-                color="secondary"
-                aria-label="Follow"
-              >
-                Send message
-              </Button>
-            </div>
-          </div>
-        }
+        // todo: zinvestigovat preco nie je zapotreby null check pri UserGroup detaile
+        header={data?.user && <UserDetailHeader data={data?.user} />}
         contentToolbar={
           <Tabs
             value={selectedTab}
