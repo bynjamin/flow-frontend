@@ -9,6 +9,8 @@ type AppContextProps = {
   routes: any[];
   user: any;
   setUser: Dispatch<SetStateAction<any>>;
+  loading: boolean;
+  setLoading: Dispatch<SetStateAction<boolean>>;
   actionFeedback: ActionFeedback | null;
   setActionFeedback: Dispatch<SetStateAction<ActionFeedback | null>>;
 };
@@ -17,6 +19,7 @@ export const AppContext = React.createContext({} as AppContextProps);
 
 const AppContextProvider: React.FC = props => {
   const [user, setUser] = usePersistedState<any>('user', null);
+  const [loading, setLoading] = useState<boolean>(false);
   const [actionFeedback, setActionFeedback] = useState<ActionFeedback | null>(
     null,
   );
@@ -27,6 +30,8 @@ const AppContextProvider: React.FC = props => {
         routes,
         user,
         setUser,
+        loading,
+        setLoading,
         actionFeedback,
         setActionFeedback,
       }}

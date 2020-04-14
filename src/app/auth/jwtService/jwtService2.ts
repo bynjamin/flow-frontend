@@ -1,4 +1,8 @@
+// eslint-disable-next-line no-unused-vars
+import { SetStateAction, Dispatch } from 'react';
 import jwtDecode from 'jwt-decode';
+import { logout as _logout } from './logout/logout';
+import history from '@history';
 
 type TokensType = {
   accessToken: string;
@@ -46,6 +50,35 @@ export const getTokens = (): TokensType | null => {
     return null;
   }
   return tokens;
+};
+
+type LogoutOptions = {
+  onError: () => void;
+  setLoading?: Dispatch<SetStateAction<boolean>>;
+  expired?: boolean;
+};
+
+export const logout = async ({
+  setLoading,
+  onError,
+  expired,
+}: LogoutOptions): Promise<void> => {
+  if (setLoading) {
+    setLoading(true);
+  }
+
+  const success = await _logout();
+  if (success) {
+    deleteTokens();
+    history.push('/login');
+  } else {
+    console.log('Unable to logout');
+    onError();
+  }
+
+  if (setLoading) {
+    setLoading(false);
+  }
 };
 
 export const isLoggedIn = () => !!getTokens();
