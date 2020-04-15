@@ -141,6 +141,7 @@
         "clean": "rimraf node_modules",
         "lint:ts": "eslint --ext=ts,tsx src",
         "lint:js": "eslint --ext=js,jsx src",
+        "graphql": "yarn graphql:schema && yarn graphql:types",
         "graphql:schema": "better-npm-run graphql:schema && better-npm-run public-graphql:schema",
         "graphql:types": "yarn main-graphql:types && yarn public-graphql:types",
         "main-graphql:types": "apollo codegen:generate --localSchemaFile=schema.json --target=typescript  --tagName=gql --addTypename --globalTypesFile=src/app/__generated__/globalTypes.ts",
