@@ -4,10 +4,10 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL fragment: UserPermissionsFragment__data
+// GraphQL fragment: UserPermissionCardFragment__data
 // ====================================================
 
-export interface UserPermissionsFragment__data_permissions_actions_basic {
+export interface UserPermissionCardFragment__data_actions_basic {
   __typename: "Action";
   /**
    * Create
@@ -27,7 +27,7 @@ export interface UserPermissionsFragment__data_permissions_actions_basic {
   delete: boolean | null;
 }
 
-export interface UserPermissionsFragment__data_permissions_actions_global {
+export interface UserPermissionCardFragment__data_actions_global {
   __typename: "Action";
   /**
    * Read
@@ -43,19 +43,19 @@ export interface UserPermissionsFragment__data_permissions_actions_global {
   delete: boolean | null;
 }
 
-export interface UserPermissionsFragment__data_permissions_actions {
+export interface UserPermissionCardFragment__data_actions {
   __typename: "Actions";
   /**
    * Basic actions
    */
-  basic: UserPermissionsFragment__data_permissions_actions_basic;
+  basic: UserPermissionCardFragment__data_actions_basic;
   /**
    * Global actions
    */
-  global: UserPermissionsFragment__data_permissions_actions_global;
+  global: UserPermissionCardFragment__data_actions_global;
 }
 
-export interface UserPermissionsFragment__data_permissions {
+export interface UserPermissionCardFragment__data {
   __typename: "Module";
   /**
    * Model of module
@@ -64,13 +64,5 @@ export interface UserPermissionsFragment__data_permissions {
   /**
    * CRUD actions
    */
-  actions: UserPermissionsFragment__data_permissions_actions;
-}
-
-export interface UserPermissionsFragment__data {
-  __typename: "User";
-  /**
-   * User access
-   */
-  permissions: UserPermissionsFragment__data_permissions[];
+  actions: UserPermissionCardFragment__data_actions;
 }

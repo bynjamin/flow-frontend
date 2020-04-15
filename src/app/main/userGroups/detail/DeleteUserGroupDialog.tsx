@@ -10,7 +10,7 @@ import {
   // eslint-disable-next-line no-unused-vars
   DeleteUserGroup as ResponseType,
   // eslint-disable-next-line no-unused-vars
-  DeleteUserGroupVariables as InputVariables,
+  DeleteUserGroupVariables as InputType,
 } from './mutations/__generated__/DeleteUserGroup';
 // eslint-disable-next-line no-unused-vars
 import { DeleteUserGroupDialogFragment__data as DataType } from './__generated__/DeleteUserGroupDialogFragment__data';
@@ -24,7 +24,7 @@ const DeleteUserGroupDialog: React.FC<Props> = ({ data }) => {
   const [
     deleteUserGroup,
     { data: mutationResponse, loading, error },
-  ] = useMutation<ResponseType, InputVariables>(DELETE_USER_GROUP);
+  ] = useMutation<ResponseType, InputType>(DELETE_USER_GROUP);
 
   const handleDelete = () => {
     deleteUserGroup({
