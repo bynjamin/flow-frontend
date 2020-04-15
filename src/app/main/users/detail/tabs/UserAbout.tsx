@@ -19,6 +19,7 @@ import { Alert, AlertTitle } from '@material-ui/lab';
 import FuseAnimateGroup from '@fuse/core/FuseAnimateGroup';
 import { MISSING_FIELD } from 'common/constants';
 import { parseGender, formatAdress } from '../../helpers';
+// eslint-disable-next-line no-unused-vars
 import { UserAboutFragment__data as DataType } from './__generated__/UserAboutFragment__data';
 
 const mockData = {

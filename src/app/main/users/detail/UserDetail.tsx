@@ -11,7 +11,7 @@ import UserDetailHeader, { UserDetailHeaderFragment } from './UserDetailHeader';
 import UserAbout, { UserAboutFragment } from './tabs/UserAbout';
 import UserPermissions, {
   UserPermissionsFragment,
-} from './tabs/UserPermissions';
+} from './tabs/permissions/UserPermissions';
 import {
   // eslint-disable-next-line no-unused-vars
   UserDetailQuery,
