@@ -5,9 +5,10 @@ import React, {
   useCallback,
   useRef,
 } from 'react';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 import IdleTimer from 'react-idle-timer';
 import round from 'lodash/round';
-import { useMutation } from '@apollo/react-hooks';
+import FuseSplashScreen from '@fuse/core/FuseSplashScreen';
 import { useHistory, useLocation } from 'react-router-dom';
 import { matchRoutes } from 'react-router-config';
 import { AppContext } from 'app/AppContext';
@@ -21,7 +22,10 @@ import {
 import InactivityDialog from './InactivityDialog';
 import { REFRESH_LOGIN } from './refreshLoginMutation';
 // eslint-disable-next-line no-unused-vars
-import { RefreshLogin as ResponseType } from './__generated__/RefreshLogin';
+import { RefreshLogin as RefreshResponseType } from './__generated__/RefreshLogin';
+import { CURRENT_USER } from './currentUserQuery';
+// eslint-disable-next-line no-unused-vars
+import { CurrentUserQuery as ResponseType } from './__generated__/CurrentUserQuery';
 
 const TRASHHOLD_OFFSET = 120000; // 2 minutes
 const TIME_TO_IDLE = 1000 * 60 * 29; // 29 minutes
@@ -31,14 +35,19 @@ type Props = {
 };
 
 const Authorization: React.FC<Props> = ({ children }) => {
-  const { routes, setActionFeedback } = useContext(AppContext);
+  const { routes, setActionFeedback, setUser } = useContext(AppContext);
   const [authorized, setAuthorized] = useState<boolean>(true);
   const [isIdle, setIsIdle] = useState<boolean>(false);
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
   const history = useHistory();
   const { pathname } = useLocation();
-  const [refreshLogin] = useMutation<ResponseType>(REFRESH_LOGIN);
   const idleRef = useRef(null);
+  const [refreshLogin] = useMutation<RefreshResponseType>(REFRESH_LOGIN);
+  const { loading, data, refetch } = useQuery<ResponseType>(CURRENT_USER, {
+    pollInterval: 20000,
+  });
+
+  const user = data?.user;
 
   const redirectToLogin = useCallback(
     (expired: boolean) => {
@@ -51,7 +60,7 @@ const Authorization: React.FC<Props> = ({ children }) => {
   );
 
   const checkAuth = useCallback(
-    (expired: boolean) => {
+    (expired = false) => {
       if (!isLoggedIn()) {
         setLoggedIn(false);
         const isPublic =
@@ -70,21 +79,20 @@ const Authorization: React.FC<Props> = ({ children }) => {
     [pathname, redirectToLogin, routes],
   );
 
-  const refreshToken = async () => {
+  async function refreshToken() {
     try {
-      const { data } = await refreshLogin();
-      console.log('refresh', data);
-      if (data) {
-        saveTokens(data?.refreshLogin);
+      const { data: response } = await refreshLogin();
+      if (response) {
+        saveTokens(response?.refreshLogin);
         scheduleJWTRefresh();
       }
     } catch (e) {
       console.log(e);
       checkAuth(true);
     }
-  };
+  }
 
-  const scheduleJWTRefresh = () => {
+  function scheduleJWTRefresh() {
     if (loggedIn) {
       const tokens = getTokens();
       console.log('tokeny', tokens);
@@ -112,18 +120,30 @@ const Authorization: React.FC<Props> = ({ children }) => {
         }, tokenLifetimeMS - TRASHHOLD_OFFSET);
       }
     }
-  };
+  }
 
-  const sessionExpired = () => {
+  function sessionExpired() {
     deleteTokens();
     checkAuth(true);
-  };
+  }
 
   // Check if User is authorized, every time when pathname changes
-  useEffect(() => checkAuth(false), [checkAuth, pathname]);
+  useEffect(checkAuth, [checkAuth, pathname]);
 
   // Schedule JWT check every time when user logs in
   useEffect(scheduleJWTRefresh, [loggedIn]);
+
+  // refetch user when loggedIn changes
+  useEffect(() => {
+    refetch();
+  }, [loggedIn, refetch]);
+
+  // setUser after refetch
+  useEffect(() => setUser(user), [user, setUser]);
+
+  if (loading) {
+    return <FuseSplashScreen />;
+  }
 
   return authorized ? (
     <>

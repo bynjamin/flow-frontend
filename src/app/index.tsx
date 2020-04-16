@@ -32,8 +32,8 @@ const App = () => (
       <StylesProvider jss={jss} generateClassName={generateClassName}>
         <Provider store={store}>
           <Router history={history}>
-            <Authorization>
-              <FuseTheme>
+            <FuseTheme>
+              <Authorization>
                 <ActionFeedbackBoundary>
                   <AppContext.Consumer>
                     {({ routes }) => (
@@ -45,8 +45,8 @@ const App = () => (
                     )}
                   </AppContext.Consumer>
                 </ActionFeedbackBoundary>
-              </FuseTheme>
-            </Authorization>
+              </Authorization>
+            </FuseTheme>
           </Router>
         </Provider>
       </StylesProvider>

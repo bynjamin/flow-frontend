@@ -1,6 +1,5 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState, SetStateAction, Dispatch } from 'react';
-import { usePersistedState } from './hooks/usePersistedState';
 import routes from './fuse-configs/routesConfig';
 // eslint-disable-next-line no-unused-vars
 import { ActionFeedback } from './types';
@@ -18,7 +17,7 @@ type AppContextProps = {
 export const AppContext = React.createContext({} as AppContextProps);
 
 const AppContextProvider: React.FC = props => {
-  const [user, setUser] = usePersistedState<any>('user', null);
+  const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [actionFeedback, setActionFeedback] = useState<ActionFeedback | null>(
     null,
