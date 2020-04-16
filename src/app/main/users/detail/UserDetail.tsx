@@ -56,14 +56,15 @@ const ProfilePage: React.FC = () => {
     variables: { id: parseInt(id!, 10) },
   });
 
-  // @ts-ignore
-  function handleTabChange(event, value) {
+  function handleTabChange(event: React.ChangeEvent<{}>, value: number) {
     setSelectedTab(value);
   }
 
   if (loading) return <FuseLoading />;
   if (error) return <p style={{ color: 'red' }}>{error.message}</p>;
-  if (data) {
+  if (data?.user) {
+    const { user } = data;
+
     return (
       <FusePageSimple
         classes={{
@@ -71,7 +72,7 @@ const ProfilePage: React.FC = () => {
           toolbar: 'px-16 sm:px-24',
         }}
         // todo: zinvestigovat preco nie je zapotreby null check pri UserGroup detaile
-        header={data?.user && <UserDetailHeader data={data?.user} />}
+        header={<UserDetailHeader data={user} />}
         contentToolbar={
           <Tabs
             value={selectedTab}
@@ -118,10 +119,8 @@ const ProfilePage: React.FC = () => {
           <div className="p-16 sm:p-24">
             {/* selectedTab === 0 && <TimelineTab /> */}
             {/* todo: nonnullable */}
-            {selectedTab === 0 && data?.user && <UserAbout data={data?.user} />}
-            {selectedTab === 1 && data?.user && (
-              <UserPermissions data={data?.user} />
-            )}
+            {selectedTab === 0 && <UserAbout data={user} />}
+            {selectedTab === 1 && <UserPermissions data={user} />}
           </div>
         }
       />

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Backdrop } from 'common/components/backdrop';
 import { AppContext } from 'app/AppContext';
 import { DELETE_USER } from './mutations/deleteUser';
@@ -18,46 +18,40 @@ type Props = {
 };
 
 const DeleteUserDialog: React.FC<Props> = ({ data }) => {
+  const history = useHistory();
   const { setActionFeedback } = useContext(AppContext);
-  const [deleteUser, { data: mutationResponse, loading, error }] = useMutation<
-    ResponseType,
-    InputType
-  >(DELETE_USER);
+  const [deleteUser, { loading }] = useMutation<ResponseType, InputType>(
+    DELETE_USER,
+  );
 
-  const handleDelete = async () => {
-    deleteUser({
+  async function handleDelete() {
+    const { data: response } = await deleteUser({
       variables: { id: data.id },
     });
-  };
+    if (response?.deleteUser) {
+      dispatchSuccessFeedback();
+      history.push('/users');
+    } else {
+      dispatchErrorFeedback();
+    }
+  }
 
-  const dispatchErrorFeedback = () => {
+  function dispatchErrorFeedback() {
     setActionFeedback({
       message: 'Unable to delete record',
       severity: 'error',
     });
-  };
+  }
 
-  const dispatchSuccessFeedback = () => {
+  function dispatchSuccessFeedback() {
     setActionFeedback({
       message: 'Record was succesfully delted',
       severity: 'success',
     });
-  };
+  }
 
   if (loading) {
     return <Backdrop open={true} />;
-  }
-
-  if (mutationResponse) {
-    if (mutationResponse.deleteUser) {
-      dispatchSuccessFeedback();
-      return <Redirect to="/users" />;
-    }
-    dispatchErrorFeedback();
-  }
-
-  if (error) {
-    dispatchErrorFeedback();
   }
 
   return <DeleteDialog title="Delete user" onDelete={handleDelete} critical />;
