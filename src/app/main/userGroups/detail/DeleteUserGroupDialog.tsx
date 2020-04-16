@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Backdrop } from 'common/components/backdrop';
 import { AppContext } from 'app/AppContext';
 import { DELETE_USER_GROUP } from './mutations/deleteUserGroup';
@@ -20,46 +20,40 @@ type Props = {
 };
 
 const DeleteUserGroupDialog: React.FC<Props> = ({ data }) => {
+  const history = useHistory();
   const { setActionFeedback } = useContext(AppContext);
-  const [
-    deleteUserGroup,
-    { data: mutationResponse, loading, error },
-  ] = useMutation<ResponseType, InputType>(DELETE_USER_GROUP);
+  const [deleteUserGroup, { loading }] = useMutation<ResponseType, InputType>(
+    DELETE_USER_GROUP,
+  );
 
-  const handleDelete = () => {
-    deleteUserGroup({
-      variables: { id: Number(data.id) },
+  async function handleDelete() {
+    const { data: response } = await deleteUserGroup({
+      variables: { id: Number(data.id) }, // todo: remove type cast
     });
-  };
+    if (response?.deleteUserGroup) {
+      dispatchSuccessFeedback();
+      history.push('/user-groups');
+    } else {
+      dispatchErrorFeedback();
+    }
+  }
 
-  const dispatchErrorFeedback = () => {
+  function dispatchErrorFeedback() {
     setActionFeedback({
       message: 'Unable to delete record',
       severity: 'error',
     });
-  };
+  }
 
-  const dispatchSuccessFeedback = () => {
+  function dispatchSuccessFeedback() {
     setActionFeedback({
       message: 'Record was succesfully delted',
       severity: 'success',
     });
-  };
+  }
 
   if (loading) {
     return <Backdrop open={true} />;
-  }
-
-  if (mutationResponse) {
-    if (mutationResponse.deleteUserGroup) {
-      dispatchSuccessFeedback();
-      return <Redirect to="/user-groups" />;
-    }
-    dispatchErrorFeedback();
-  }
-
-  if (error) {
-    dispatchErrorFeedback();
   }
 
   return <DeleteDialog title="Delete user group" onDelete={handleDelete} />;
