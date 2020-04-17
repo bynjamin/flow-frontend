@@ -31,7 +31,7 @@ registerComponent('horizontal-divider', () => <Divider className="my-16" />);
 const useStyles = makeStyles(theme => ({
 	navigation: {
 		'& .list-item': {
-			'&:hover': {
+			'&:hover:not(.active)': {
 				backgroundColor: theme.palette.type === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0,0,0,.04)'
 			},
 			'&:focus:not(.active)': {

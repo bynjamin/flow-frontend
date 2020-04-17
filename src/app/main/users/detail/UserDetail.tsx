@@ -4,7 +4,8 @@ import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import { makeStyles } from '@material-ui/styles';
+// eslint-disable-next-line no-unused-vars
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import FuseLoading from '@fuse/core/FuseLoading';
 import FusePageSimple from '@fuse/core/FusePageSimple';
 import UserDetailHeader, { UserDetailHeaderFragment } from './UserDetailHeader';
@@ -19,7 +20,7 @@ import {
   UserDetailQueryVariables,
 } from './__generated__/UserDetailQuery';
 
-const useStyles = makeStyles((theme: any) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   layoutHeader: {
     height: 320,
     minHeight: 320,
@@ -27,6 +28,7 @@ const useStyles = makeStyles((theme: any) => ({
       height: 240,
       minHeight: 240,
     },
+    textDecoration: 'none',
   },
 }));
 
