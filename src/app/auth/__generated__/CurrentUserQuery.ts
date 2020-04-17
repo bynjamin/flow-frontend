@@ -12,7 +12,7 @@ export interface CurrentUserQuery_user_role {
   /**
    * User role ID
    */
-  id: string;
+  id: number;
   /**
    * User role name
    */
@@ -84,7 +84,7 @@ export interface CurrentUserQuery_user {
   /**
    * User ID
    */
-  id: string;
+  id: number;
   /**
    * User full name
    */

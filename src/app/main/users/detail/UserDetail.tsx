@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: any) => ({
   },
 }));
 
-const USER_DETAIL_QUERY = gql`
+export const USER_DETAIL_QUERY = gql`
   query UserDetailQuery($id: Int!) {
     user(id: $id) {
       id

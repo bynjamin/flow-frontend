@@ -26,23 +26,21 @@ const useToolbarStyles = makeStyles(theme => ({
 type Props = {
   title: string;
   numSelected: number;
-  addRecordHandler: any;
-  deleteRecordHandler: any;
   setGlobalFilter: any;
   count: number;
   globalFilter: string;
   onCreate: () => void;
+  onDelete: () => void;
 };
 
 const TableToolbar: React.FC<Props> = ({
   title,
   numSelected,
-  addRecordHandler,
-  deleteRecordHandler,
   count,
   setGlobalFilter,
   globalFilter,
   onCreate,
+  onDelete,
 }) => {
   const classes = useToolbarStyles();
 
@@ -53,7 +51,7 @@ const TableToolbar: React.FC<Props> = ({
           <Tooltip title="Delete">
             <IconButton
               aria-label="delete"
-              onClick={deleteRecordHandler}
+              onClick={onDelete}
               color="secondary"
             >
               <DeleteIcon />

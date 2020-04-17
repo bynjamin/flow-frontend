@@ -10,6 +10,10 @@
 export interface UserAboutFragment__data_role {
   __typename: "UserRole";
   /**
+   * User role ID
+   */
+  id: number;
+  /**
    * User role name
    */
   name: string;
@@ -40,7 +44,7 @@ export interface UserAboutFragment__data {
   /**
    * User ID
    */
-  id: string;
+  id: number;
   /**
    * User full name
    */

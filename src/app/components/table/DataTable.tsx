@@ -1,9 +1,11 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable react/jsx-key */
 import React, { useEffect } from 'react';
 import { truncate } from 'lodash';
 import { makeStyles, fade } from '@material-ui/core/styles';
 import Checkbox from '@material-ui/core/Checkbox';
 import MaUTable from '@material-ui/core/Table';
+import Typography from '@material-ui/core/Typography';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -18,12 +20,14 @@ import {
   useRowSelect,
   useSortBy,
   useTable,
+  // eslint-disable-next-line no-unused-vars
   Column,
 } from 'react-table';
 import FuseAnimate from '@fuse/core/FuseAnimate';
 import FuseLoading from '@fuse/core/FuseLoading';
 import TablePaginationActions from './components/TablePaginationActions';
 import TableToolbar from './components/TableToolbar';
+// eslint-disable-next-line no-unused-vars
 import { OrderDirection, OrderType } from 'app/types';
 
 const useStyles = makeStyles(theme => ({
@@ -218,16 +222,15 @@ const DataTable: React.FC<Props> = ({
         <TableToolbar
           title={title}
           numSelected={Object.keys(selectedRowIds).length}
-          deleteRecordHandler={() => console.log('delete')}
-          addRecordHandler={() => console.log('create')}
           count={count}
           setGlobalFilter={setGlobalFilter}
           globalFilter={globalFilter}
           onCreate={onCreate}
+          onDelete={() => console.log('delete')}
         />
         {loading ? (
           <FuseLoading />
-        ) : (
+        ) : page.length > 0 ? (
           <TableContainer className={`${classes.root} flex flex-1 flex-col`}>
             <MaUTable {...getTableProps()} stickyHeader>
               <TableHead>
@@ -288,6 +291,12 @@ const DataTable: React.FC<Props> = ({
               </TableBody>
             </MaUTable>
           </TableContainer>
+        ) : (
+          <div className="flex flex-1 items-center justify-center h-full">
+            <Typography color="textSecondary" variant="h5">
+              There are no records!
+            </Typography>
+          </div>
         )}
         <MaUTable>
           <TableFooter>

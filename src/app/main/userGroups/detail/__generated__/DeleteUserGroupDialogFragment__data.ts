@@ -12,5 +12,5 @@ export interface DeleteUserGroupDialogFragment__data {
   /**
    * User group ID
    */
-  id: string;
+  id: number;
 }

@@ -12,7 +12,7 @@ export interface TestUserGroupsQuery_userGroups_items_members {
   /**
    * User ID
    */
-  id: string;
+  id: number;
 }
 
 export interface TestUserGroupsQuery_userGroups_items {
@@ -20,7 +20,7 @@ export interface TestUserGroupsQuery_userGroups_items {
   /**
    * User group ID
    */
-  id: string;
+  id: number;
   /**
    * User group name
    */

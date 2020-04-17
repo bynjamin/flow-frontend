@@ -12,7 +12,7 @@ export interface CreateUserGroup_createUserGroup {
   /**
    * User group ID
    */
-  id: string;
+  id: number;
   /**
    * User group name
    */

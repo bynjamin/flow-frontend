@@ -27,13 +27,17 @@ const DeleteUserGroupDialog: React.FC<Props> = ({ data }) => {
   );
 
   async function handleDelete() {
-    const { data: response } = await deleteUserGroup({
-      variables: { id: Number(data.id) }, // todo: remove type cast
-    });
-    if (response?.deleteUserGroup) {
-      dispatchSuccessFeedback();
-      history.push('/user-groups');
-    } else {
+    try {
+      const { data: response } = await deleteUserGroup({
+        variables: { ids: [data.id] },
+      });
+      if (response?.deleteUserGroups) {
+        dispatchSuccessFeedback();
+        history.push('/user-groups');
+      } else {
+        dispatchErrorFeedback();
+      }
+    } catch {
       dispatchErrorFeedback();
     }
   }

@@ -26,11 +26,7 @@ const UserPermissions: React.FC<Props> = ({ data }) => {
           className="flex flex-wrap"
         >
           {permissions.map((module: ModuleType) => (
-            <UserPermissionCard
-              key={module.model}
-              data={module}
-              userId={Number(id)} // todo: odsatranit castovanie
-            />
+            <UserPermissionCard key={module.model} data={module} userId={id} />
           ))}
         </FuseAnimateGroup>
       </div>

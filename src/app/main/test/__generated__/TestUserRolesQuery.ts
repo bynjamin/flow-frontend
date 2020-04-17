@@ -12,7 +12,7 @@ export interface TestUserRolesQuery_userRoles_members {
   /**
    * User ID
    */
-  id: string;
+  id: number;
 }
 
 export interface TestUserRolesQuery_userRoles {
@@ -20,7 +20,7 @@ export interface TestUserRolesQuery_userRoles {
   /**
    * User role ID
    */
-  id: string;
+  id: number;
   /**
    * User role name
    */

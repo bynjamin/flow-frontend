@@ -12,7 +12,7 @@ export interface TestUsersQuery_users_items {
   /**
    * User ID
    */
-  id: string;
+  id: number;
   /**
    * User full name
    */

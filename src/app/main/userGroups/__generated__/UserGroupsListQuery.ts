@@ -12,7 +12,7 @@ export interface UserGroupsListQuery_userGroups_items_members {
   /**
    * User ID
    */
-  id: string;
+  id: number;
   /**
    * User full name
    */
@@ -24,7 +24,7 @@ export interface UserGroupsListQuery_userGroups_items {
   /**
    * User group ID
    */
-  id: string;
+  id: number;
   /**
    * User group name
    */

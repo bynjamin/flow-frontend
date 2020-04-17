@@ -9,11 +9,11 @@
 
 export interface DeleteUserGroup {
   /**
-   * Delete user group.
+   * Delete user groups.
    */
-  deleteUserGroup: boolean;
+  deleteUserGroups: number[];
 }
 
 export interface DeleteUserGroupVariables {
-  id: number;
+  ids: number[];
 }

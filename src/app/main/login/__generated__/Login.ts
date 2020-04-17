@@ -80,7 +80,7 @@ export interface Login_login_user {
   /**
    * User ID
    */
-  id: string;
+  id: number;
   /**
    * User email
    */

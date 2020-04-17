@@ -321,6 +321,7 @@ export const UserAboutFragment = {
       fullName
       email
       role {
+        id
         name
       }
       gender

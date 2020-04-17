@@ -12,5 +12,5 @@ export interface DeleteUserDialogFragment__data {
   /**
    * User ID
    */
-  id: string;
+  id: number;
 }

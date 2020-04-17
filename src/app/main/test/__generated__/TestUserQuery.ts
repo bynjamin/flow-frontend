@@ -12,7 +12,7 @@ export interface TestUserQuery_user {
   /**
    * User ID
    */
-  id: string;
+  id: number;
   /**
    * User full name
    */

@@ -16,5 +16,5 @@ export interface UserDetailHeaderFragment__data {
   /**
    * User ID
    */
-  id: string;
+  id: number;
 }

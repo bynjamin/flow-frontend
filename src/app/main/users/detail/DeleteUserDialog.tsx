@@ -25,13 +25,17 @@ const DeleteUserDialog: React.FC<Props> = ({ data }) => {
   );
 
   async function handleDelete() {
-    const { data: response } = await deleteUser({
-      variables: { id: data.id },
-    });
-    if (response?.deleteUser) {
-      dispatchSuccessFeedback();
-      history.push('/users');
-    } else {
+    try {
+      const { data: response } = await deleteUser({
+        variables: { ids: [data.id] },
+      });
+      if (response?.deleteUsers) {
+        dispatchSuccessFeedback();
+        history.push('/users');
+      } else {
+        dispatchErrorFeedback();
+      }
+    } catch {
       dispatchErrorFeedback();
     }
   }
