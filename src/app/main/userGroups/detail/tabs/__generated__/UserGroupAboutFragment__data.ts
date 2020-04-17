@@ -12,7 +12,7 @@ export interface UserGroupAboutFragment__data_members {
   /**
    * User ID
    */
-  id: string;
+  id: number;
   /**
    * User full name
    */
@@ -28,7 +28,7 @@ export interface UserGroupAboutFragment__data {
   /**
    * User group ID
    */
-  id: string;
+  id: number;
   /**
    * User group name
    */

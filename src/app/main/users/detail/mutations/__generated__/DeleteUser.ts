@@ -9,11 +9,11 @@
 
 export interface DeleteUser {
   /**
-   * Delete user.
+   * Delete users.
    */
-  deleteUser: boolean;
+  deleteUsers: number[];
 }
 
 export interface DeleteUserVariables {
-  id: number;
+  ids: number[];
 }

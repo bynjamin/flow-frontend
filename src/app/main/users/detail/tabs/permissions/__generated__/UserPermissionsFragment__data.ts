@@ -72,7 +72,7 @@ export interface UserPermissionsFragment__data {
   /**
    * User ID
    */
-  id: string;
+  id: number;
   /**
    * User access
    */

@@ -74,7 +74,7 @@ export interface UpdateUserPermissions_updateUserPermissions {
   /**
    * User ID
    */
-  id: string;
+  id: number;
   /**
    * User access
    */

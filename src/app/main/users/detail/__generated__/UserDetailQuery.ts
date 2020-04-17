@@ -10,6 +10,10 @@
 export interface UserDetailQuery_user_role {
   __typename: "UserRole";
   /**
+   * User role ID
+   */
+  id: number;
+  /**
    * User role name
    */
   name: string;
@@ -100,7 +104,7 @@ export interface UserDetailQuery_user {
   /**
    * User ID
    */
-  id: string;
+  id: number;
   /**
    * User full name
    */

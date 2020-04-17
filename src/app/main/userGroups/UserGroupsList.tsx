@@ -1,21 +1,20 @@
 import React, { useMemo, useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import Typography from '@material-ui/core/Typography';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Tooltip from '@material-ui/core/Tooltip';
 import Avatar from '@material-ui/core/Avatar';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import FuseLoading from '@fuse/core/FuseLoading';
 import { useHistory } from 'react-router';
-// import UsersMultiSelectMenu from './UsersMultiSelectMenu';
 import DataTable from 'app/components/table/DataTable';
 import useTableState from 'app/components/table/useTableState';
-// import AddUserDialog from './AddUserDialog';
 import CreateUserGroupDialog from './CreateUserGroupDialog';
 import { DEFAULT_PAGE_SIZE } from 'app/constants';
 import {
+  // eslint-disable-next-line no-unused-vars
   UserGroupsListQuery as DataType,
+  // eslint-disable-next-line no-unused-vars
   UserGroupsListQuery_userGroups_items_members as MemberType,
 } from './__generated__/UserGroupsListQuery';
 
@@ -144,15 +143,6 @@ const UserGroupsList = () => {
   if (error) return <p style={{ color: 'red' }}>{error.message}</p>;
   if (data) {
     const { items, count } = data.userGroups;
-    if (items.length === 0) {
-      return (
-        <div className="flex flex-1 items-center justify-center h-full">
-          <Typography color="textSecondary" variant="h5">
-            There are no user groups!
-          </Typography>
-        </div>
-      );
-    }
 
     return (
       <>
