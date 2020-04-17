@@ -13,8 +13,11 @@ import DataTable from 'app/components/table/DataTable';
 import useTableState from 'app/components/table/useTableState';
 import AddUserDialog from './AddUserDialog';
 import {
+  // eslint-disable-next-line no-unused-vars
   UserListQuery,
+  // eslint-disable-next-line no-unused-vars
   UserListQueryVariables,
+  // eslint-disable-next-line no-unused-vars
   UserListQuery_users_items_groups as GroupType,
 } from './__generated__/UserListQuery';
 import { DEFAULT_PAGE_SIZE } from 'app/constants';
@@ -71,9 +74,6 @@ const UsersList = () => {
     },
     fetchPolicy: 'cache-and-network',
   });
-
-  const selectedContactIds: Array<number> = [];
-  const searchText = '';
 
   const columns = useMemo(
     () => [
