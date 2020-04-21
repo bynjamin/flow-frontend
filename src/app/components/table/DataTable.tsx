@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/jsx-key */
 import React, { useEffect } from 'react';
-import { truncate } from 'lodash';
+import truncate from 'lodash/truncate';
 import { makeStyles, fade } from '@material-ui/core/styles';
 import Checkbox from '@material-ui/core/Checkbox';
 import MaUTable from '@material-ui/core/Table';
@@ -92,6 +92,7 @@ type Props = {
   setOrder: React.Dispatch<React.SetStateAction<OrderType>>;
   onRowClick: (id: number) => void;
   onCreate: () => void;
+  onDelete: (selectedRowIds: number[]) => void;
   maxCellLength?: number;
 };
 
@@ -109,6 +110,7 @@ const DataTable: React.FC<Props> = ({
   onRowClick,
   loading,
   onCreate,
+  onDelete,
   maxCellLength = 24,
 }) => {
   const { orderBy, orderDirection } = order;
@@ -119,7 +121,8 @@ const DataTable: React.FC<Props> = ({
     prepareRow,
     page,
     setGlobalFilter,
-    state: { selectedRowIds, globalFilter },
+    state: { globalFilter },
+    selectedFlatRows,
   } = useTable(
     {
       columns,
@@ -152,10 +155,9 @@ const DataTable: React.FC<Props> = ({
           // The cell can use the individual row's getToggleRowSelectedProps method
           // to the render a checkbox
           // @ts-ignore
-          Cell: ({ row }) => (
+          Cell: ({ row }: { row: any }) => (
             <div>
               <IndeterminateCheckbox
-                // @ts-ignore
                 {...row.getToggleRowSelectedProps()}
                 onClick={(e: React.MouseEvent<HTMLInputElement>) =>
                   e.stopPropagation()
@@ -170,18 +172,18 @@ const DataTable: React.FC<Props> = ({
   );
 
   // @ts-ignore
-  const handleChangePage = (event, newPage) => {
+  function handleChangePage(event, newPage) {
     loadPage(newPage);
-  };
+  }
   // @ts-ignore
-  const handleChangeRowsPerPage = event => {
+  function handleChangeRowsPerPage(event) {
     setPageSize(Number(event.target.value));
-  };
+  }
 
-  const nextDirectionState = (
+  function nextDirectionState(
     direction: OrderDirection,
     orderByChanged: boolean,
-  ): OrderDirection => {
+  ): OrderDirection {
     if (orderByChanged) {
       return 'asc';
     }
@@ -194,9 +196,9 @@ const DataTable: React.FC<Props> = ({
       default:
         return 'asc';
     }
-  };
+  }
 
-  const handleChangeOrder = (columnId: string) => {
+  function handleChangeOrder(columnId: string) {
     // Do nothing on selection column click
     if (columnId === 'selection') {
       return;
@@ -211,7 +213,11 @@ const DataTable: React.FC<Props> = ({
       orderBy: newOrderDirection ? columnId : undefined,
       orderDirection: newOrderDirection,
     });
-  };
+  }
+
+  function handleDeleteMultiple() {
+    onDelete(selectedFlatRows.map((row: any) => row.original.id));
+  }
 
   const refetch = () => loadPage(0);
   useEffect(refetch, [pageSize, order]); // Refetch to page 0 after pageSize, order or globalFilter change
@@ -221,12 +227,12 @@ const DataTable: React.FC<Props> = ({
       <div className="flex flex-col h-full shadow-lg">
         <TableToolbar
           title={title}
-          numSelected={Object.keys(selectedRowIds).length}
+          numSelected={Object.keys(selectedFlatRows).length}
           count={count}
           setGlobalFilter={setGlobalFilter}
           globalFilter={globalFilter}
           onCreate={onCreate}
-          onDelete={() => console.log('delete')}
+          onDelete={handleDeleteMultiple}
         />
         {loading ? (
           <FuseLoading />

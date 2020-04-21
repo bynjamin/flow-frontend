@@ -4,16 +4,16 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: DeleteUser
+// GraphQL mutation operation: DeleteUserGroups
 // ====================================================
 
-export interface DeleteUser {
+export interface DeleteUserGroups {
   /**
-   * Delete users.
+   * Delete user groups.
    */
-  deleteUsers: number[];
+  deleteUserGroups: number[];
 }
 
-export interface DeleteUserVariables {
+export interface DeleteUserGroupsVariables {
   ids: number[];
 }
