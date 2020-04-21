@@ -12,6 +12,7 @@ import UsersMultiSelectMenu from './UsersMultiSelectMenu';
 import DataTable from 'app/components/table/DataTable';
 import useTableState from 'app/components/table/useTableState';
 import AddUserDialog from './AddUserDialog';
+import DeleteUsersDialog from './DeleteUsersDialog';
 import {
   // eslint-disable-next-line no-unused-vars
   UserListQuery,
@@ -54,6 +55,7 @@ const USERLIST_QUERY = gql`
 const UsersList = () => {
   const history = useHistory();
   const [addDialogOpen, setAddDialogOpen] = useState<boolean>(false);
+  const [deleteIds, setDeleteIds] = useState<number[] | null>(null);
 
   const {
     page,
@@ -128,22 +130,22 @@ const UsersList = () => {
     [],
   );
 
-  const toggleAddDialogOpen = () => {
+  function toggleAddDialogOpen() {
     setAddDialogOpen(!addDialogOpen);
-  };
+  }
 
-  const handleRowClick = (userId: number) => {
+  function handleRowClick(userId: number) {
     history.push(`/users/detail/${userId}`);
-  };
+  }
 
-  const getQueryVariables = (pageNum: number) => {
+  function getQueryVariables(pageNum: number) {
     const { orderBy, orderDirection } = order;
     const skip = pageNum * pageSize;
     const first = pageSize;
     return { first, skip, orderBy, orderDirection };
-  };
+  }
 
-  const loadPage = (pageNum: number): void => {
+  function loadPage(pageNum: number): void {
     fetchMore({
       variables: getQueryVariables(pageNum),
       updateQuery: (prev, { fetchMoreResult }) => {
@@ -152,11 +154,19 @@ const UsersList = () => {
         return fetchMoreResult;
       },
     });
-  };
+  }
 
-  const handleChangePageSize = (count: number): void => {
+  function handleChangePageSize(count: number): void {
     setPageSize(count);
-  };
+  }
+
+  function handleDelete(_deleteIds: number[]): void {
+    setDeleteIds(_deleteIds);
+  }
+
+  function handleDeleteComplete() {
+    setDeleteIds(null);
+  }
 
   if (error) return <p style={{ color: 'red' }}>{error.message}</p>;
   if (data) {
@@ -188,12 +198,19 @@ const UsersList = () => {
           onRowClick={handleRowClick}
           loading={loading}
           onCreate={toggleAddDialogOpen}
+          onDelete={handleDelete}
         />
         <AddUserDialog
           addUserHandler={() => console.log('Add User')}
           open={addDialogOpen}
           onClose={toggleAddDialogOpen}
         />
+        {deleteIds && (
+          <DeleteUsersDialog
+            deleteIds={deleteIds}
+            onComplete={handleDeleteComplete}
+          />
+        )}
       </>
     );
   }

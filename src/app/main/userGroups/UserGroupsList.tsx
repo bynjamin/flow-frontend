@@ -10,6 +10,7 @@ import { useHistory } from 'react-router';
 import DataTable from 'app/components/table/DataTable';
 import useTableState from 'app/components/table/useTableState';
 import CreateUserGroupDialog from './CreateUserGroupDialog';
+import DeleteUserGroupsDialog from './DeleteUserGroupsDialog';
 import { DEFAULT_PAGE_SIZE } from 'app/constants';
 import {
   // eslint-disable-next-line no-unused-vars
@@ -48,6 +49,7 @@ export const USERGROUPS_LIST_QUERY = gql`
 const UserGroupsList = () => {
   const history = useHistory();
   const [createDialogOpen, setCreateDialogOpen] = useState<boolean>(false);
+  const [deleteIds, setDeleteIds] = useState<number[] | null>(null);
 
   const {
     page,
@@ -110,22 +112,22 @@ const UserGroupsList = () => {
     [],
   );
 
-  const toggleCreateDialogOpen = () => {
+  function toggleCreateDialogOpen() {
     setCreateDialogOpen(!createDialogOpen);
-  };
+  }
 
-  const handleRowClick = (userGroupId: number) => {
+  function handleRowClick(userGroupId: number) {
     history.push(`/user-groups/detail/${userGroupId}`);
-  };
+  }
 
-  const getQueryVariables = (pageNum: number) => {
+  function getQueryVariables(pageNum: number) {
     const { orderBy, orderDirection } = order;
     const skip = pageNum * pageSize;
     const first = pageSize;
     return { first, skip, orderBy, orderDirection };
-  };
+  }
 
-  const loadPage = (pageNum: number): void => {
+  function loadPage(pageNum: number): void {
     fetchMore({
       variables: getQueryVariables(pageNum),
       updateQuery: (prev, { fetchMoreResult }) => {
@@ -134,11 +136,19 @@ const UserGroupsList = () => {
         return fetchMoreResult;
       },
     });
-  };
+  }
 
-  const handleChangePageSize = (count: number): void => {
+  function handleChangePageSize(count: number): void {
     setPageSize(count);
-  };
+  }
+
+  function handleDelete(_deleteIds: number[]): void {
+    setDeleteIds(_deleteIds);
+  }
+
+  function handleDeleteComplete() {
+    setDeleteIds(null);
+  }
 
   if (error) return <p style={{ color: 'red' }}>{error.message}</p>;
   if (data) {
@@ -161,11 +171,18 @@ const UserGroupsList = () => {
           onRowClick={handleRowClick}
           loading={loading}
           onCreate={toggleCreateDialogOpen}
+          onDelete={handleDelete}
         />
         <CreateUserGroupDialog
           open={createDialogOpen}
           onClose={toggleCreateDialogOpen}
         />
+        {deleteIds && (
+          <DeleteUserGroupsDialog
+            deleteIds={deleteIds}
+            onComplete={handleDeleteComplete}
+          />
+        )}
       </>
     );
   }

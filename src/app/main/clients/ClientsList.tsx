@@ -151,6 +151,7 @@ const ClientsList: React.FC<Props> = ({ openDialog }) => {
       onRowClick={() => console.log('detail')}
       loading={false}
       onCreate={() => openDialog('new')}
+      onDelete={(x: number[]) => console.log(x)}
     />
   );
 };
