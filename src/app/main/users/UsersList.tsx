@@ -43,6 +43,11 @@ const USERLIST_QUERY = gql`
         firstName
         lastName
         email
+        phone
+        role {
+          id
+          name
+        }
         groups {
           id
           name
@@ -101,6 +106,10 @@ const UsersList = () => {
       {
         Header: 'Phone',
         accessor: 'phone',
+      },
+      {
+        Header: 'Role',
+        accessor: 'role.name',
       },
       {
         Header: 'Groups',

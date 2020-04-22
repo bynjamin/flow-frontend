@@ -4,10 +4,10 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL fragment: UserDetailHeaderFragment__data
+// GraphQL fragment: UpdateUserDialogFragment__data
 // ====================================================
 
-export interface UserDetailHeaderFragment__data_role {
+export interface UpdateUserDialogFragment__data_role {
   __typename: "UserRole";
   /**
    * User role ID
@@ -15,7 +15,7 @@ export interface UserDetailHeaderFragment__data_role {
   id: number;
 }
 
-export interface UserDetailHeaderFragment__data_address {
+export interface UpdateUserDialogFragment__data_address {
   __typename: "Address";
   /**
    * Street
@@ -35,12 +35,8 @@ export interface UserDetailHeaderFragment__data_address {
   country: string | null;
 }
 
-export interface UserDetailHeaderFragment__data {
+export interface UpdateUserDialogFragment__data {
   __typename: "User";
-  /**
-   * User full name
-   */
-  fullName: string;
   /**
    * User ID
    */
@@ -60,7 +56,7 @@ export interface UserDetailHeaderFragment__data {
   /**
    * User role
    */
-  role: UserDetailHeaderFragment__data_role;
+  role: UpdateUserDialogFragment__data_role;
   /**
    * User gender
    */
@@ -88,5 +84,5 @@ export interface UserDetailHeaderFragment__data {
   /**
    * User address
    */
-  address: UserDetailHeaderFragment__data_address;
+  address: UpdateUserDialogFragment__data_address;
 }

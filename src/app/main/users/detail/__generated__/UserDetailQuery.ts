@@ -110,9 +110,17 @@ export interface UserDetailQuery_user {
    */
   fullName: string;
   /**
-   * User email
+   * User first name
    */
-  email: string;
+  firstName: string;
+  /**
+   * User last name
+   */
+  lastName: string;
+  /**
+   * User title
+   */
+  title: string;
   /**
    * User role
    */
@@ -146,9 +154,25 @@ export interface UserDetailQuery_user {
    */
   address: UserDetailQuery_user_address;
   /**
+   * User email
+   */
+  email: string;
+  /**
    * User access
    */
   permissions: UserDetailQuery_user_permissions[];
+}
+
+export interface UserDetailQuery_userRoles {
+  __typename: "UserRole";
+  /**
+   * User role ID
+   */
+  id: number;
+  /**
+   * User role name
+   */
+  name: string;
 }
 
 export interface UserDetailQuery {
@@ -156,6 +180,10 @@ export interface UserDetailQuery {
    * Get actual user data. if set id then return data for user with id = id
    */
   user: UserDetailQuery_user | null;
+  /**
+   * Get user roles
+   */
+  userRoles: UserDetailQuery_userRoles[];
 }
 
 export interface UserDetailQueryVariables {
