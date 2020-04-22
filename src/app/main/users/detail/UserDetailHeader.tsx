@@ -1,18 +1,22 @@
 import React from 'react';
 import gql from 'graphql-tag';
-import { Avatar, Button, Typography } from '@material-ui/core';
-import EditIcon from '@material-ui/icons/Edit';
+import Typography from '@material-ui/core/Typography';
+import Avatar from '@material-ui/core/Avatar';
 import FuseAnimate from '@fuse/core/FuseAnimate';
 import { MISSING_FIELD } from 'common/constants';
 import DeleteUserDialog, { DeleteUserDialogFragment } from './DeleteUserDialog';
+import UpdateUserDialog, { UpdateUserDialogFragment } from './UpdateUserDialog';
 // eslint-disable-next-line no-unused-vars
 import { UserDetailHeaderFragment__data as DataType } from './__generated__/UserDetailHeaderFragment__data';
+// eslint-disable-next-line no-unused-vars
+import { UserDetailHeaderFragment__roles as RoleType } from './__generated__/UserDetailHeaderFragment__roles';
 
 type Props = {
   data: DataType;
+  roles: RoleType[];
 };
 
-const UserDetailHeader: React.FC<Props> = ({ data }) => {
+const UserDetailHeader: React.FC<Props> = ({ data, roles }) => {
   if (!data) {
     return null;
   }
@@ -34,16 +38,7 @@ const UserDetailHeader: React.FC<Props> = ({ data }) => {
       </div>
 
       <div className="flex items-center justify-end">
-        <Button
-          className="mr-8 normal-case"
-          variant="contained"
-          color="secondary"
-          aria-label="Follow"
-          startIcon={<EditIcon />}
-          onClick={() => console.log('edit')}
-        >
-          Edit
-        </Button>
+        <UpdateUserDialog data={data} roles={roles} />
         <DeleteUserDialog data={data} />
       </div>
     </div>
@@ -57,7 +52,15 @@ export const UserDetailHeaderFragment = {
     fragment UserDetailHeaderFragment__data on User {
       fullName
       ...DeleteUserDialogFragment__data
+      ...UpdateUserDialogFragment__data
     }
     ${DeleteUserDialogFragment.data}
+    ${UpdateUserDialogFragment.data}
+  `,
+  roles: gql`
+    fragment UserDetailHeaderFragment__roles on UserRole {
+      ...UpdateUserDialogFragment__roles
+    }
+    ${UpdateUserDialogFragment.roles}
   `,
 };

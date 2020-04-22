@@ -4,18 +4,22 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL fragment: UserDetailHeaderFragment__data
+// GraphQL mutation operation: UpdateUser
 // ====================================================
 
-export interface UserDetailHeaderFragment__data_role {
+export interface UpdateUser_updateUser_role {
   __typename: "UserRole";
   /**
    * User role ID
    */
   id: number;
+  /**
+   * User role name
+   */
+  name: string;
 }
 
-export interface UserDetailHeaderFragment__data_address {
+export interface UpdateUser_updateUser_address {
   __typename: "Address";
   /**
    * Street
@@ -35,32 +39,24 @@ export interface UserDetailHeaderFragment__data_address {
   country: string | null;
 }
 
-export interface UserDetailHeaderFragment__data {
+export interface UpdateUser_updateUser {
   __typename: "User";
-  /**
-   * User full name
-   */
-  fullName: string;
   /**
    * User ID
    */
   id: number;
   /**
-   * User first name
+   * User full name
    */
-  firstName: string;
+  fullName: string;
   /**
-   * User last name
+   * User email
    */
-  lastName: string;
-  /**
-   * User title
-   */
-  title: string;
+  email: string;
   /**
    * User role
    */
-  role: UserDetailHeaderFragment__data_role;
+  role: UpdateUser_updateUser_role;
   /**
    * User gender
    */
@@ -88,5 +84,30 @@ export interface UserDetailHeaderFragment__data {
   /**
    * User address
    */
-  address: UserDetailHeaderFragment__data_address;
+  address: UpdateUser_updateUser_address;
+}
+
+export interface UpdateUser {
+  /**
+   * Update user profile and address.
+   */
+  updateUser: UpdateUser_updateUser;
+}
+
+export interface UpdateUserVariables {
+  userId?: number | null;
+  firstName?: string | null;
+  lastName?: string | null;
+  title?: string | null;
+  phone?: string | null;
+  about?: string | null;
+  gender?: string | null;
+  gdpr?: boolean | null;
+  position?: string | null;
+  employmentType?: string | null;
+  street?: string | null;
+  city?: string | null;
+  zip?: string | null;
+  country?: string | null;
+  roleId?: number | null;
 }

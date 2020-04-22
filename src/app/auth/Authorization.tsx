@@ -138,7 +138,7 @@ const Authorization: React.FC<Props> = ({ children }) => {
     refetch();
   }, [loggedIn, refetch]);
 
-  // setUser after refetch
+  // setUser after refetch or user update in Apollo cache
   useEffect(() => setUser(user), [user, setUser]);
 
   if (loading) {

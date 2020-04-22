@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export const USER_DETAIL_QUERY = gql`
+const USER_DETAIL_QUERY = gql`
   query UserDetailQuery($id: Int!) {
     user(id: $id) {
       id
@@ -41,8 +41,12 @@ export const USER_DETAIL_QUERY = gql`
       ...UserAboutFragment__data
       ...UserPermissionsFragment__data
     }
+    userRoles {
+      ...UserDetailHeaderFragment__roles
+    }
   }
   ${UserDetailHeaderFragment.data}
+  ${UserDetailHeaderFragment.roles}
   ${UserAboutFragment.data}
   ${UserPermissionsFragment.data}
 `;
@@ -65,7 +69,7 @@ const ProfilePage: React.FC = () => {
   if (loading) return <FuseLoading />;
   if (error) return <p style={{ color: 'red' }}>{error.message}</p>;
   if (data?.user) {
-    const { user } = data;
+    const { user, userRoles } = data;
 
     return (
       <FusePageSimple
@@ -74,7 +78,7 @@ const ProfilePage: React.FC = () => {
           toolbar: 'px-16 sm:px-24',
         }}
         // todo: zinvestigovat preco nie je zapotreby null check pri UserGroup detaile
-        header={<UserDetailHeader data={user} />}
+        header={<UserDetailHeader data={user} roles={userRoles} />}
         contentToolbar={
           <Tabs
             value={selectedTab}
