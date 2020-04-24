@@ -1,9 +1,10 @@
+import React, { useContext } from 'react';
+import { AppContext } from 'app/AppContext';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import React from 'react';
 import FuseNavHorizontalCollapse from './horizontal/FuseNavHorizontalCollapse';
 import FuseNavHorizontalGroup from './horizontal/FuseNavHorizontalGroup';
 import FuseNavHorizontalItem from './horizontal/FuseNavHorizontalItem';
@@ -98,7 +99,22 @@ const useStyles = makeStyles(theme => ({
 
 function FuseNavigation(props) {
 	const classes = useStyles(props);
-	const { navigation, layout, active, dense, className } = props;
+  const { navigation, layout, active, dense, className } = props;
+  const { permissions } = useContext(AppContext);
+
+  console.log(navigation);
+
+  navigation[0].children = navigation[0].children.filter((item) => {
+    if (!item.model || !permissions) {
+      return true;
+    }
+    return permissions[item.model].basic.read;
+  });
+
+  console.log(navigation);
+  console.log(permissions);
+  
+ //const authorizedNavigation = navigation;
 
 	const verticalNav = (
 		<List
