@@ -25,7 +25,7 @@ const UserGroupDetail: React.FC<Props> = ({ data }) => {
         <FuseAnimate animation="transition.expandIn" delay={300}>
           <Avatar
             className="w-96 h-96"
-            src="assets/images/avatars/Velazquez.jpg"
+            src="assets/images/avatars/usergroup.png"
           />
         </FuseAnimate>
         <FuseAnimate animation="transition.slideLeftIn" delay={300}>

@@ -7,6 +7,18 @@
 // GraphQL query operation: UserGroupDetailQuery
 // ====================================================
 
+export interface UserGroupDetailQuery_userGroup_members_role {
+  __typename: "UserRole";
+  /**
+   * User role ID
+   */
+  id: number;
+  /**
+   * User role name
+   */
+  name: string;
+}
+
 export interface UserGroupDetailQuery_userGroup_members {
   __typename: "User";
   /**
@@ -14,13 +26,25 @@ export interface UserGroupDetailQuery_userGroup_members {
    */
   id: number;
   /**
-   * User full name
+   * User title
    */
-  fullName: string;
+  title: string;
+  /**
+   * User first name
+   */
+  firstName: string;
+  /**
+   * User last name
+   */
+  lastName: string;
   /**
    * User email
    */
   email: string;
+  /**
+   * User role
+   */
+  role: UserGroupDetailQuery_userGroup_members_role;
 }
 
 export interface UserGroupDetailQuery_userGroup_permissions_actions_basic {

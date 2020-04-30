@@ -149,17 +149,6 @@ const UpdateUserDialog: React.FC<Props> = ({ data, roles }) => {
                 </SelectFormsy>
               </Grid>
               <Grid item xs={6}>
-                <TextFieldFormsy
-                  className="mb-10 w-full"
-                  type="text"
-                  name="phone"
-                  value={data?.phone}
-                  label="Phone"
-                  variant="outlined"
-                  required
-                />
-              </Grid>
-              <Grid item xs={6}>
                 <SelectFormsy
                   className="mb-10 w-full"
                   // type="text"
@@ -199,13 +188,26 @@ const UpdateUserDialog: React.FC<Props> = ({ data, roles }) => {
                 <TextFieldFormsy
                   className="mb-10 w-full"
                   type="text"
-                  name="about"
-                  value={data?.about}
-                  label="About"
+                  name="phone"
+                  value={data?.phone}
+                  label="Phone"
                   variant="outlined"
                   required
                 />
               </Grid>
+            </Grid>
+            <Grid container item spacing={1}>
+              <TextFieldFormsy
+                className="mb-10 w-full"
+                type="text"
+                name="about"
+                value={data?.about}
+                label="About"
+                variant="outlined"
+                required
+                multiline
+                rows={4}
+              />
             </Grid>
             <Grid container item spacing={1}>
               <Grid item xs={6}>

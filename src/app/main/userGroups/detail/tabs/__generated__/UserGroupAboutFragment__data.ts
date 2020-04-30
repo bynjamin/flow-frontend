@@ -7,6 +7,18 @@
 // GraphQL fragment: UserGroupAboutFragment__data
 // ====================================================
 
+export interface UserGroupAboutFragment__data_members_role {
+  __typename: "UserRole";
+  /**
+   * User role ID
+   */
+  id: number;
+  /**
+   * User role name
+   */
+  name: string;
+}
+
 export interface UserGroupAboutFragment__data_members {
   __typename: "User";
   /**
@@ -14,13 +26,25 @@ export interface UserGroupAboutFragment__data_members {
    */
   id: number;
   /**
-   * User full name
+   * User title
    */
-  fullName: string;
+  title: string;
+  /**
+   * User first name
+   */
+  firstName: string;
+  /**
+   * User last name
+   */
+  lastName: string;
   /**
    * User email
    */
   email: string;
+  /**
+   * User role
+   */
+  role: UserGroupAboutFragment__data_members_role;
 }
 
 export interface UserGroupAboutFragment__data {
