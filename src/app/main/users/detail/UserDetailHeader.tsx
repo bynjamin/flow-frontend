@@ -27,7 +27,7 @@ const UserDetailHeader: React.FC<Props> = ({ data, roles }) => {
         <FuseAnimate animation="transition.expandIn" delay={300}>
           <Avatar
             className="w-96 h-96"
-            src="assets/images/avatars/Velazquez.jpg"
+            src="assets/images/avatars/profile.jpg"
           />
         </FuseAnimate>
         <FuseAnimate animation="transition.slideLeftIn" delay={300}>

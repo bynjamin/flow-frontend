@@ -52,6 +52,14 @@ const navigationConfig = [
         url: '/user-groups',
       },
       {
+        id: 'roles-app',
+        title: 'Roles',
+        type: 'item',
+        icon: 'account_box',
+        url: '/roles',
+      },
+      /*
+      {
         id: 'clients-app',
         title: 'Clients',
         type: 'item',
@@ -65,6 +73,7 @@ const navigationConfig = [
         icon: 'account_box',
         url: '/contacts',
       },
+      */
       {
         id: 'test',
         title: 'Test',
@@ -74,6 +83,7 @@ const navigationConfig = [
       },
     ],
   },
+  /*
   {
     type: 'divider',
     id: 'divider-1',
@@ -93,6 +103,7 @@ const navigationConfig = [
       },
     ],
   },
+  */
 ];
 
 export default navigationConfig;
