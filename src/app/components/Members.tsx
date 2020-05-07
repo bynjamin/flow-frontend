@@ -5,9 +5,10 @@ import DataTable from 'app/components/uncontrolledTable/DataTable';
 
 type Props = {
   members: any;
+  title?: string;
 };
 
-const Members = ({ members }: Props) => {
+const Members = ({ members, title = 'Members' }: Props) => {
   const history = useHistory();
 
   const columns = useMemo(
@@ -42,7 +43,7 @@ const Members = ({ members }: Props) => {
     <>
       <CssBaseline />
       <DataTable
-        title="Members"
+        title={title}
         columns={columns}
         data={members}
         onRowClick={handleRowClick}
