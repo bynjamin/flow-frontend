@@ -30,13 +30,9 @@ export interface UserGroupAboutFragment__data_members {
    */
   title: string;
   /**
-   * User first name
+   * User full name
    */
-  firstName: string;
-  /**
-   * User last name
-   */
-  lastName: string;
+  fullName: string;
   /**
    * User email
    */

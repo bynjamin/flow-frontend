@@ -39,6 +39,22 @@ export interface UserDetailQuery_user_address {
   country: string | null;
 }
 
+export interface UserDetailQuery_user_groups {
+  __typename: "UserGroup";
+  /**
+   * User group ID
+   */
+  id: number;
+  /**
+   * User group name
+   */
+  name: string;
+  /**
+   * User group users count
+   */
+  memberCount: number;
+}
+
 export interface UserDetailQuery_user_permissions_actions_basic {
   __typename: "Action";
   /**
@@ -157,6 +173,10 @@ export interface UserDetailQuery_user {
    * User email
    */
   email: string;
+  /**
+   * User groups
+   */
+  groups: (UserDetailQuery_user_groups | null)[];
   /**
    * User access
    */
