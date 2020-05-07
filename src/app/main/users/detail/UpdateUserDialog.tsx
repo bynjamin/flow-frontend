@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext } from 'react';
+import React, { useRef, useContext } from 'react';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
 import Button from '@material-ui/core/Button';
@@ -195,19 +195,19 @@ const UpdateUserDialog: React.FC<Props> = ({ data, roles }) => {
                   required
                 />
               </Grid>
-            </Grid>
-            <Grid container item spacing={1}>
-              <TextFieldFormsy
-                className="mb-10 w-full"
-                type="text"
-                name="about"
-                value={data?.about}
-                label="About"
-                variant="outlined"
-                required
-                multiline
-                rows={4}
-              />
+              <Grid item xs={12}>
+                <TextFieldFormsy
+                  className="mb-10 w-full"
+                  type="text"
+                  name="about"
+                  value={data?.about}
+                  label="About"
+                  variant="outlined"
+                  required
+                  multiline
+                  rows={4}
+                />
+              </Grid>
             </Grid>
             <Grid container item spacing={1}>
               <Grid item xs={6}>

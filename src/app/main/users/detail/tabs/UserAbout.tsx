@@ -1,88 +1,70 @@
 import React from 'react';
 import gql from 'graphql-tag';
-import {
-  Avatar,
-  AppBar,
-  Button,
-  Card,
-  CardContent,
-  Icon,
-  IconButton,
-  List,
-  ListItem,
-  ListItemSecondaryAction,
-  ListItemText,
-  Toolbar,
-  Typography,
-} from '@material-ui/core';
-import { Alert, AlertTitle } from '@material-ui/lab';
+import { useHistory } from 'react-router-dom';
+import Avatar from '@material-ui/core/Avatar';
+import AppBar from '@material-ui/core/AppBar';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Alert from '@material-ui/lab/Alert';
+import AlertTitle from '@material-ui/lab/AlertTitle';
+import Grid from '@material-ui/core/Grid';
+import Icon from '@material-ui/core/Icon';
+import IconButton from '@material-ui/core/IconButton';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Chip from '@material-ui/core/Chip';
 import FuseAnimateGroup from '@fuse/core/FuseAnimateGroup';
 import { MISSING_FIELD } from 'common/constants';
 import { parseGender, formatAdress } from '../../helpers';
+import { getDetailUrl } from 'app/helpers/linkResolver';
 // eslint-disable-next-line no-unused-vars
 import { UserAboutFragment__data as DataType } from './__generated__/UserAboutFragment__data';
-
-const mockData = {
-  groups: [
-    {
-      id: '1',
-      name: 'Android',
-      category: 'Technology',
-      members: '1.856.546',
-    },
-    {
-      id: '2',
-      name: 'Google',
-      category: 'Web',
-      members: '1.226.121',
-    },
-    {
-      id: '3',
-      name: 'Fallout',
-      category: 'Games',
-      members: '526.142',
-    },
-  ],
-  supervisors: [
-    {
-      id: '1',
-      name: 'Garry Newman',
-      avatar: 'assets/images/avatars/garry.jpg',
-    },
-    {
-      id: '2',
-      name: 'Carl Henderson',
-      avatar: 'assets/images/avatars/carl.jpg',
-    },
-    {
-      id: '3',
-      name: 'Jane Dean',
-      avatar: 'assets/images/avatars/jane.jpg',
-    },
-  ],
-};
 
 type Props = {
   data: DataType;
 };
 
 const UserAbout: React.FC<Props> = ({ data }) => {
+  const history = useHistory();
+
+  function redirectToGroupDetail(groupId: number) {
+    history.push(getDetailUrl('userGroups', groupId));
+  }
+
   if (!data) {
     return null;
   }
 
-  const { groups, supervisors } = mockData;
+  const {
+    title,
+    firstName,
+    lastName,
+    email,
+    gender,
+    phone,
+    about,
+    role,
+    position,
+    groups,
+    gdpr,
+    employmentType,
+  } = data;
+
   const address = data.address ? formatAdress(data.address) : MISSING_FIELD;
 
   return (
-    <div className="md:flex max-w-2xl">
+    <div className="md:flex">
       <div className="flex flex-col flex-1 md:pr-32">
         <FuseAnimateGroup
           enter={{
             animation: 'transition.slideUpBigIn',
           }}
         >
-          {!data.gdpr && (
+          {!gdpr && (
             <Alert severity="warning" className="mb-12">
               <AlertTitle>GDPR is not confirmed</AlertTitle>
               Confirm the GDPR
@@ -102,33 +84,52 @@ const UserAbout: React.FC<Props> = ({ data }) => {
             </AppBar>
 
             <CardContent>
-              <div className="mb-24">
-                <Typography className="font-bold mb-4 text-15">
-                  Gender
-                </Typography>
-                <Typography>
-                  {parseGender(data.gender) || MISSING_FIELD}
-                </Typography>
-              </div>
-
-              <div className="mb-24">
-                <Typography className="font-bold mb-4 text-15">
-                  Birthday
-                </Typography>
-                <Typography>{MISSING_FIELD}</Typography>
-              </div>
-
-              <div className="mb-24">
-                <Typography className="font-bold mb-4 text-15">
-                  About
-                </Typography>
-                <Typography>{data.about || MISSING_FIELD}</Typography>
-              </div>
-
-              <div className="mb-24">
-                <Typography className="font-bold mb-4 text-15">GDPR</Typography>
-                <Typography>{data.gdpr.toString()}</Typography>
-              </div>
+              <Grid container spacing={4}>
+                <Grid item xs={4}>
+                  <Typography className="font-bold mb-4 text-15">
+                    Title
+                  </Typography>
+                  <Typography>{title}</Typography>
+                </Grid>
+                <Grid item xs={4}>
+                  <Typography className="font-bold mb-4 text-15">
+                    First Name
+                  </Typography>
+                  <Typography>{firstName}</Typography>
+                </Grid>
+                <Grid item xs={4}>
+                  <Typography className="font-bold mb-4 text-15">
+                    Last Name
+                  </Typography>
+                  <Typography>{lastName}</Typography>
+                </Grid>
+                <Grid item xs={4}>
+                  <Typography className="font-bold mb-4 text-15">
+                    Gender
+                  </Typography>
+                  <Typography>
+                    {parseGender(gender) || MISSING_FIELD}
+                  </Typography>
+                </Grid>
+                <Grid item xs={4}>
+                  <Typography className="font-bold mb-4 text-15">
+                    Birthday
+                  </Typography>
+                  <Typography>{MISSING_FIELD}</Typography>
+                </Grid>
+                <Grid item xs={4}>
+                  <Typography className="font-bold mb-4 text-15">
+                    GDPR
+                  </Typography>
+                  <Typography>{gdpr.toString()}</Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography className="font-bold mb-4 text-15">
+                    About
+                  </Typography>
+                  <Typography>{about}</Typography>
+                </Grid>
+              </Grid>
             </CardContent>
           </Card>
 
@@ -146,31 +147,32 @@ const UserAbout: React.FC<Props> = ({ data }) => {
             </AppBar>
 
             <CardContent>
-              <div className="mb-24">
-                <Typography className="font-bold mb-4 text-15">Role</Typography>
-                <Typography>{data.role.name || MISSING_FIELD}</Typography>
-              </div>
-
-              <div className="mb-24">
-                <Typography className="font-bold mb-4 text-15">
-                  Position
-                </Typography>
-                <Typography>{data.position || MISSING_FIELD}</Typography>
-              </div>
-
-              <div className="mb-24">
-                <Typography className="font-bold mb-4 text-15">
-                  Employment Type
-                </Typography>
-                <Typography>{data.employmentType || MISSING_FIELD}</Typography>
-              </div>
-
-              <div className="mb-24">
-                <Typography className="font-bold mb-4 text-15">
-                  Skills
-                </Typography>
-                <Typography>{MISSING_FIELD}</Typography>
-              </div>
+              <Grid container spacing={4}>
+                <Grid item xs={6}>
+                  <Typography className="font-bold mb-4 text-15">
+                    Role
+                  </Typography>
+                  <Typography>{role.name || MISSING_FIELD}</Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography className="font-bold mb-4 text-15">
+                    Position
+                  </Typography>
+                  <Typography>{position || MISSING_FIELD}</Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography className="font-bold mb-4 text-15">
+                    Employment Type
+                  </Typography>
+                  <Typography>{employmentType || MISSING_FIELD}</Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography className="font-bold mb-4 text-15">
+                    Skills
+                  </Typography>
+                  <Typography>{MISSING_FIELD}</Typography>
+                </Grid>
+              </Grid>
             </CardContent>
           </Card>
 
@@ -188,48 +190,44 @@ const UserAbout: React.FC<Props> = ({ data }) => {
             </AppBar>
 
             <CardContent>
-              <div className="mb-24">
-                <Typography className="font-bold mb-4 text-15">
-                  Address
-                </Typography>
+              <Grid container spacing={4}>
+                <Grid item xs={12}>
+                  <Typography className="font-bold mb-4 text-15">
+                    Address
+                  </Typography>
 
-                <div className="flex items-center">
-                  <Typography>{address}</Typography>
-                  <Icon className="text-16 ml-4" color="action">
-                    location_on
-                  </Icon>
-                </div>
-              </div>
-
-              <div className="mb-24">
-                <Typography className="font-bold mb-4 text-15">
-                  Phone
-                </Typography>
-                <div className="flex items-center">
-                  <Typography>{data.phone || MISSING_FIELD}</Typography>
-                </div>
-              </div>
-
-              <div className="mb-24">
-                <Typography className="font-bold mb-4 text-15">
-                  Email
-                </Typography>
-
-                <div className="flex items-center">
-                  <Typography>{data.email || MISSING_FIELD}</Typography>
-                </div>
-              </div>
+                  <div className="flex items-center">
+                    <Typography>{address}</Typography>
+                    <Icon className="text-16 ml-4" color="action">
+                      location_on
+                    </Icon>
+                  </div>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography className="font-bold mb-4 text-15">
+                    Phone
+                  </Typography>
+                  <Typography>{phone || MISSING_FIELD}</Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography className="font-bold mb-4 text-15">
+                    Email
+                  </Typography>
+                  <Typography>{email || MISSING_FIELD}</Typography>
+                </Grid>
+              </Grid>
             </CardContent>
           </Card>
         </FuseAnimateGroup>
       </div>
 
-      <div className="flex flex-col md:w-320">
+      <div className="flex flex-col md:w-400">
         <FuseAnimateGroup
           enter={{
             animation: 'transition.slideUpBigIn',
           }}
         >
+          {/*
           <Card className="w-full mb-16">
             <AppBar position="static" elevation={0}>
               <Toolbar className="pl-16 pr-8">
@@ -255,6 +253,7 @@ const UserAbout: React.FC<Props> = ({ data }) => {
               </List>
             </CardContent>
           </Card>
+          */}
 
           <Card className="w-full mb-16">
             <AppBar position="static" elevation={0}>
@@ -266,35 +265,35 @@ const UserAbout: React.FC<Props> = ({ data }) => {
                 >
                   Joined Groups
                 </Typography>
-                <Button className="normal-case" color="inherit" size="small">
-                  See 6 more
-                </Button>
+                <Chip
+                  label={`Member of ${groups.length} ${
+                    groups.length > 1 ? 'groups' : 'group'
+                  }`}
+                  color="secondary"
+                />
               </Toolbar>
             </AppBar>
-            <CardContent className="p-0">
+            <CardContent className="p-0 max-h-320 overflow-auto">
               <List className="p-0">
                 {groups.map((group: any) => (
-                  <ListItem key={group.id}>
+                  <ListItem
+                    key={group.id}
+                    button
+                    onClick={() => redirectToGroupDetail(group.id)}
+                  >
                     <Avatar className="mx-8" alt={group.name}>
                       {group.name[0]}
                     </Avatar>
                     <ListItemText
                       primary={
-                        <div className="">
-                          <Typography
-                            className="inline font-medium"
-                            color="secondary"
-                            paragraph={false}
-                          >
-                            {group.name}
-                          </Typography>
-
-                          <Typography className="inline ml-4" paragraph={false}>
-                            {group.category}
-                          </Typography>
-                        </div>
+                        <Typography
+                          className="inline font-medium"
+                          paragraph={false}
+                        >
+                          {group.name}
+                        </Typography>
                       }
-                      secondary={group.members}
+                      secondary={`${group.memberCount} members`}
                     />
                     <ListItemSecondaryAction>
                       <IconButton>
@@ -318,7 +317,9 @@ export const UserAboutFragment = {
   data: gql`
     fragment UserAboutFragment__data on User {
       id
-      fullName
+      title
+      firstName
+      lastName
       email
       role {
         id
@@ -335,6 +336,11 @@ export const UserAboutFragment = {
         zip
         city
         country
+      }
+      groups {
+        id
+        name
+        memberCount
       }
     }
   `,

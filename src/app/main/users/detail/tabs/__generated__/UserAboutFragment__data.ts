@@ -39,6 +39,22 @@ export interface UserAboutFragment__data_address {
   country: string | null;
 }
 
+export interface UserAboutFragment__data_groups {
+  __typename: "UserGroup";
+  /**
+   * User group ID
+   */
+  id: number;
+  /**
+   * User group name
+   */
+  name: string;
+  /**
+   * User group users count
+   */
+  memberCount: number;
+}
+
 export interface UserAboutFragment__data {
   __typename: "User";
   /**
@@ -46,9 +62,17 @@ export interface UserAboutFragment__data {
    */
   id: number;
   /**
-   * User full name
+   * User title
    */
-  fullName: string;
+  title: string;
+  /**
+   * User first name
+   */
+  firstName: string;
+  /**
+   * User last name
+   */
+  lastName: string;
   /**
    * User email
    */
@@ -85,4 +109,8 @@ export interface UserAboutFragment__data {
    * User address
    */
   address: UserAboutFragment__data_address;
+  /**
+   * User groups
+   */
+  groups: (UserAboutFragment__data_groups | null)[];
 }
