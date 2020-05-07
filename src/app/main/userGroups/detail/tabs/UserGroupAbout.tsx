@@ -1,20 +1,10 @@
 import React from 'react';
 import gql from 'graphql-tag';
-import {
-  Avatar,
-  AppBar,
-  Button,
-  Card,
-  CardContent,
-  Icon,
-  IconButton,
-  List,
-  ListItem,
-  ListItemSecondaryAction,
-  ListItemText,
-  Toolbar,
-  Typography,
-} from '@material-ui/core';
+import AppBar from '@material-ui/core/AppBar';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 import FuseAnimate from '@fuse/core/FuseAnimate';
 import Members from 'app/components/Members';
 import { MISSING_FIELD } from 'common/constants';
