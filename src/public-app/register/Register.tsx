@@ -21,6 +21,7 @@ import {
   RegistrationMutation as QueryDataType,
   RegistrationMutationVariables as QueryVariables,
 } from './__generated__/RegistrationMutation';
+import { appName } from 'config';
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
@@ -77,14 +78,14 @@ const Register = () => {
           <FuseAnimate animation="transition.expandIn">
             <img
               className="w-128 mb-32"
-              src="assets/images/logos/fuse.svg"
+              src="assets/images/logos/flow.png"
               alt="logo"
             />
           </FuseAnimate>
 
           <FuseAnimate animation="transition.slideUpIn" delay={300}>
             <Typography variant="h3" color="inherit" className="font-light">
-              Welcome to the Flowato!
+              {`Welcome to the ${appName}!`}
             </Typography>
           </FuseAnimate>
 

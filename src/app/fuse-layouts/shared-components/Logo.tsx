@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import StarIcon from '@material-ui/icons/Star';
 import clsx from 'clsx';
 import React from 'react';
+import { appName } from 'config';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -38,14 +39,14 @@ function Logo() {
     <div className={clsx(classes.root, 'flex items-center')}>
       <img
         className="logo-icon"
-        src="assets/images/logos/fuse.svg"
+        src="assets/images/logos/flow_min.png"
         alt="logo"
       />
       <Typography
         className="text-16 mx-12 font-light logo-text"
         color="inherit"
       >
-        Flowato
+        {appName}
       </Typography>
       <div
         className={clsx(

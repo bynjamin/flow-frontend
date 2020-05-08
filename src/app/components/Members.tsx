@@ -6,9 +6,11 @@ import DataTable from 'app/components/uncontrolledTable/DataTable';
 type Props = {
   members: any;
   title?: string;
+  onAdd?: () => void;
+  onRemove?: () => void;
 };
 
-const Members = ({ members, title = 'Members' }: Props) => {
+const Members = ({ members, onAdd, onRemove, title = 'Members' }: Props) => {
   const history = useHistory();
 
   const columns = useMemo(
@@ -48,8 +50,8 @@ const Members = ({ members, title = 'Members' }: Props) => {
         data={members}
         onRowClick={handleRowClick}
         loading={false}
-        onCreate={() => console.log('add')}
-        onDelete={() => console.log('delete')}
+        onCreate={onAdd}
+        onDelete={onRemove}
         size="small"
       />
     </>
