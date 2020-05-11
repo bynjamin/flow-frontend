@@ -58,6 +58,7 @@ const UserGroupDetail: React.FC<Props> = ({ data }) => {
           aria-label="Follow"
           startIcon={<EditIcon />}
           onClick={() => console.log('edit')}
+          disableElevation
         >
           Edit
         </Button>

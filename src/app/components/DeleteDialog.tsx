@@ -40,6 +40,7 @@ const DeleteDialog: React.FC<Props> = ({
             color="primary"
             aria-label="Follow"
             startIcon={<DeleteIcon />}
+            disableElevation
           >
             Delete
           </CriticalButton>
