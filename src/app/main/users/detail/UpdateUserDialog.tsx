@@ -78,6 +78,7 @@ const UpdateUserDialog: React.FC<Props> = ({ data, roles }) => {
           color="secondary"
           aria-label="Follow"
           startIcon={<EditIcon />}
+          disableElevation
         >
           Edit
         </Button>
@@ -266,6 +267,7 @@ const UpdateUserDialog: React.FC<Props> = ({ data, roles }) => {
           aria-label="Follow"
           startIcon={<EditIcon />}
           onClick={handleSubmit}
+          disableElevation
         >
           Edit
         </Button>
