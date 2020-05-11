@@ -12,7 +12,8 @@ const useStyles = makeStyles((theme: any) => ({
     textDecoration: 'none !important',
   },
   activeLink: {
-    color: '#61DAFB !important',
+    color: '#FF994C !important',
+    // color: '#61DAFB !important',
   },
 }));
 

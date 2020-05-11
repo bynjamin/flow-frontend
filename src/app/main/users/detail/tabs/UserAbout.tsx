@@ -267,7 +267,7 @@ const UserAbout: React.FC<Props> = ({ data }) => {
                 </Typography>
                 <Chip
                   label={`Member of ${groups.length} ${
-                    groups.length > 1 ? 'groups' : 'group'
+                    groups.length === 1 ? 'group' : 'groups'
                   }`}
                   color="secondary"
                 />

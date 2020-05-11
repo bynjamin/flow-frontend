@@ -49,7 +49,7 @@ const DeleteUserDialog: React.FC<Props> = ({ data }) => {
 
   function dispatchSuccessFeedback() {
     setActionFeedback({
-      message: 'Record was succesfully delted',
+      message: 'Record was succesfully deleted',
       severity: 'success',
     });
   }

@@ -67,7 +67,9 @@ const Register = () => {
 
   return (
     <>
-      <NavigationBar />
+      {/*
+        <NavigationBar />
+      */}
       <div
         className={clsx(
           classes.root,
