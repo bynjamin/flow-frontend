@@ -49,7 +49,7 @@ const DeleteUserGroupsDialog: React.FC<Props> = ({ deleteIds, onComplete }) => {
 
   function dispatchSuccessFeedback() {
     setActionFeedback({
-      message: 'Record was succesfully delted',
+      message: 'Record was succesfully deleted',
       severity: 'success',
     });
   }

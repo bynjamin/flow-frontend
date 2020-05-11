@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: any) => ({
   },
   price: {
     backgroundColor: theme.palette.primary[600],
-    color: theme.palette.getContrastText(theme.palette.primary[600]),
+    color: theme.palette.getContrastText(theme.palette.primary.main),
   },
 }));
 

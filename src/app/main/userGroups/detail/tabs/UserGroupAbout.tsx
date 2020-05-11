@@ -20,6 +20,14 @@ type Props = {
 };
 
 const UserGroupAbout: React.FC<Props> = ({ data }) => {
+  function handleAdd() {
+    console.log('Add');
+  }
+
+  function handleRemove() {
+    console.log('Remove');
+  }
+
   if (!data) {
     return null;
   }
@@ -60,55 +68,13 @@ const UserGroupAbout: React.FC<Props> = ({ data }) => {
         </FuseAnimate>
       </div>
 
-      {/*
-        <div className="flex flex-col md:w-320">
-          <FuseAnimate animation="transition.slideUpBigIn" delay={300}>
-            <Card className="w-full mb-16">
-              <AppBar position="static" elevation={0}>
-                <Toolbar className="pl-16 pr-8">
-                  <Typography
-                    variant="subtitle1"
-                    color="inherit"
-                    className="flex-1"
-                  >
-                    Users in group
-                  </Typography>
-                  <Button className="normal-case" color="inherit" size="small">
-                    See 6 more
-                  </Button>
-                </Toolbar>
-              </AppBar>
-              <CardContent className="p-0">
-                <List className="p-0">
-                  {data.members.map((member: MemberType) => (
-                    <ListItem key={member.id}>
-                      <Avatar className="mx-8" alt={member.fullName}>
-                        {member.fullName[0]}
-                      </Avatar>
-                      <ListItemText
-                        primary={
-                          <Typography className="inline" paragraph={false}>
-                            {member.fullName || MISSING_FIELD}
-                          </Typography>
-                        }
-                        secondary={member.email || MISSING_FIELD}
-                      />
-                      <ListItemSecondaryAction>
-                        <IconButton>
-                          <Icon>more_vert</Icon>
-                        </IconButton>
-                      </ListItemSecondaryAction>
-                    </ListItem>
-                  ))}
-                </List>
-              </CardContent>
-            </Card>
-          </FuseAnimate>
-        </div>
-        */}
       <div className="flex">
         <div className="w-full h-512">
-          <Members members={data.members} />
+          <Members
+            members={data.members}
+            onAdd={handleAdd}
+            onRemove={handleRemove}
+          />
         </div>
       </div>
     </div>
