@@ -17,7 +17,7 @@ import UserGroupDetailHeader, {
 } from './UserGroupDetailHeader';
 import UserGroupPermissions, {
   UserGroupPermissionsFragment,
-} from './tabs/UserGroupPermissions';
+} from './tabs/permissions/UserGroupPermissions';
 import {
   // eslint-disable-next-line no-unused-vars
   UserGroupDetailQuery,
