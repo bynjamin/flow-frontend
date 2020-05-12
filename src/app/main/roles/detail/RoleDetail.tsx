@@ -15,7 +15,7 @@ import RoleAbout, { RoleAboutFragment } from './tabs/RoleAbout';
 import RoleDetailHeader, { RoleDetailHeaderFragment } from './RoleDetailHeader';
 import RolePermissions, {
   RolePermissionsFragment,
-} from './tabs/RolePermissions';
+} from './tabs/permissions/RolePermissions';
 import {
   // eslint-disable-next-line no-unused-vars
   RoleDetailQuery,
