@@ -7,8 +7,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import { AppContext } from 'app/AppContext';
+import UsersAutocomplete from 'app/main/users/UsersAutocomplete';
 import { ADD_USERS_TO_GROUP } from './mutations/addUsersToGroup';
 // eslint-disable-next-line no-unused-vars
 import { AddUsersToGroupDialogFragment__data as DataType } from './__generated__/AddUsersToGroupDialogFragment__data';
@@ -27,22 +27,10 @@ type Props = {
 
 const AddUsersToGroupDialog: React.FC<Props> = ({ data, open, onClose }) => {
   const { setLoading, setActionFeedback } = useContext(AppContext);
-  const [addMembersValue, setAddMemebersValue] = useState<string>('');
+  const [newMembersIds, setNewMembersIds] = useState<number[]>([]);
   const [addMembersToGroup] = useMutation<ResponseType, InputType>(
     ADD_USERS_TO_GROUP,
   );
-
-  const handleChangeAddMembersValue = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    setAddMemebersValue(event.target.value);
-  };
-
-  const sanitize = (input: string): number[] => {
-    const stringsArray = input.split(',');
-    const result = stringsArray.map((item: string) => Number(item));
-    return result;
-  };
 
   const dispatchErrorFeedback = () => {
     setActionFeedback({
@@ -59,12 +47,12 @@ const AddUsersToGroupDialog: React.FC<Props> = ({ data, open, onClose }) => {
   };
 
   const handleSubmit = async () => {
+    console.log(newMembersIds);
     try {
-      const userIds = sanitize(addMembersValue);
       onClose();
       setLoading(true);
       const { data: response } = await addMembersToGroup({
-        variables: { groupId: data.id, userIds },
+        variables: { groupId: data.id, userIds: newMembersIds },
       });
       if (response?.addUsersToUserGroup) {
         dispatchSuccessFeedback();
@@ -90,17 +78,10 @@ const AddUsersToGroupDialog: React.FC<Props> = ({ data, open, onClose }) => {
     >
       <DialogTitle id="add-members-dialog-title">Add members</DialogTitle>
       <DialogContent>
-        <DialogContentText>Search users by their email</DialogContentText>
-        <TextField
-          value={addMembersValue}
-          onChange={handleChangeAddMembersValue}
-          autoFocus
-          margin="dense"
-          id="users"
-          label="Search members"
-          type="text"
-          fullWidth
-        />
+        <DialogContentText>
+          Search users by their name or email
+        </DialogContentText>
+        <UsersAutocomplete setSelected={setNewMembersIds} />
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>

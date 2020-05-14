@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { useHistory } from 'react-router';
 import DataTable from 'app/components/uncontrolledTable/DataTable';
+import ColorAvatar from 'app/components/ColorAvatar';
 
 type Props = {
   members: any;
@@ -15,6 +16,15 @@ const Members = ({ members, onAdd, onRemove, title = 'Members' }: Props) => {
 
   const columns = useMemo(
     () => [
+      {
+        Header: ' ',
+        accessor: '',
+        Cell: ({ row: { original } }: any) => (
+          <ColorAvatar colorString={original.email}>
+            {original.fullName[0]}
+          </ColorAvatar>
+        ),
+      },
       {
         Header: 'Title',
         accessor: 'title',

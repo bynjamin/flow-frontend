@@ -17,6 +17,10 @@ export interface RolesListQuery_userRoles_members {
    * User full name
    */
   fullName: string;
+  /**
+   * User email
+   */
+  email: string;
 }
 
 export interface RolesListQuery_userRoles {
