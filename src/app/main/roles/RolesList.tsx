@@ -3,8 +3,8 @@ import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Tooltip from '@material-ui/core/Tooltip';
-import Avatar from '@material-ui/core/Avatar';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
+import ColorAvatar from 'app/components/ColorAvatar';
 import FuseLoading from '@fuse/core/FuseLoading';
 import { useHistory } from 'react-router';
 import DataTable from 'app/components/uncontrolledTable/DataTable';
@@ -24,6 +24,7 @@ export const ROLES_LIST_QUERY = gql`
       members {
         id
         fullName
+        email
       }
       memberCount
     }
@@ -64,9 +65,14 @@ const RolesList = () => {
           >
             <AvatarGroup max={3}>
               {value.map((member: MemberType) => (
-                <Avatar key={member.id} alt={member.fullName}>
+                <ColorAvatar
+                  key={member.id}
+                  colorString={member.email}
+                  // @ts-ignore
+                  // alt={member.fullName}
+                >
                   {member.fullName[0]}
-                </Avatar>
+                </ColorAvatar>
               ))}
             </AvatarGroup>
           </Tooltip>

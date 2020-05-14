@@ -6,6 +6,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Tooltip from '@material-ui/core/Tooltip';
 import Avatar from '@material-ui/core/Avatar';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
+import ColorAvatar from 'app/components/ColorAvatar';
 import FuseLoading from '@fuse/core/FuseLoading';
 import { useHistory } from 'react-router';
 import UsersMultiSelectMenu from './UsersMultiSelectMenu';
@@ -88,6 +89,15 @@ const UsersList = () => {
 
   const columns = useMemo(
     () => [
+      {
+        Header: ' ',
+        accessor: '',
+        Cell: ({ row: { original } }: any) => (
+          <ColorAvatar colorString={original.email}>
+            {original.firstName[0]}
+          </ColorAvatar>
+        ),
+      },
       {
         Header: 'Title',
         accessor: 'title',

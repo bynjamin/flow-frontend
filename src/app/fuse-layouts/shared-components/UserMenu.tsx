@@ -10,6 +10,7 @@ import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { logout } from 'app/auth/jwtService/jwtService2';
 import { AppContext } from 'app/AppContext';
+import ColorAvatar from 'app/components/ColorAvatar';
 
 const UserMenu: React.FC = () => {
   const { user, setLoading, setActionFeedback } = useContext(AppContext);
@@ -34,7 +35,9 @@ const UserMenu: React.FC = () => {
         {user?.photoURL ? (
           <Avatar className="" alt="user photo" src={user.photoURL} />
         ) : (
-          <Avatar className="">{user?.fullName[0]}</Avatar>
+          <ColorAvatar colorString={user?.email}>
+            {user?.fullName[0]}
+          </ColorAvatar>
         )}
 
         <div className="hidden md:flex flex-col mx-12 items-start">
