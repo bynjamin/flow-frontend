@@ -87,9 +87,11 @@ type Props = {
   pageSize: number;
   order: OrderType;
   loading: boolean;
+  globalFilter?: string;
   loadPage: (pageIndex: number) => void;
   setPageSize: (count: number) => void;
   setOrder: React.Dispatch<React.SetStateAction<OrderType>>;
+  setGlobalFilter?: React.Dispatch<React.SetStateAction<string>>;
   onRowClick: (id: number) => void;
   onCreate: () => void;
   onDelete: (selectedRowIds: number[]) => void;
@@ -111,6 +113,8 @@ const DataTable: React.FC<Props> = ({
   loading,
   onCreate,
   onDelete,
+  globalFilter,
+  setGlobalFilter,
   maxCellLength = 24,
 }) => {
   const { orderBy, orderDirection } = order;
@@ -120,8 +124,8 @@ const DataTable: React.FC<Props> = ({
     headerGroups,
     prepareRow,
     page,
-    setGlobalFilter,
-    state: { globalFilter },
+    setGlobalFilter: setOnPageFilter,
+    state: { globalFilter: onPageFilter },
     selectedFlatRows,
   } = useTable(
     {
@@ -220,7 +224,7 @@ const DataTable: React.FC<Props> = ({
   }
 
   const refetch = () => loadPage(0);
-  useEffect(refetch, [pageSize, order]); // Refetch to page 0 after pageSize, order or globalFilter change
+  useEffect(refetch, [pageSize, order, globalFilter]); // Refetch to page 0 after pageSize, order or globalFilter change
 
   return (
     <FuseAnimate animation="transition.slideUpIn" delay={300}>
@@ -229,8 +233,8 @@ const DataTable: React.FC<Props> = ({
           title={title}
           numSelected={Object.keys(selectedFlatRows).length}
           count={count}
-          setGlobalFilter={setGlobalFilter}
-          globalFilter={globalFilter}
+          setGlobalFilter={setGlobalFilter || setOnPageFilter}
+          globalFilter={globalFilter || onPageFilter}
           onCreate={onCreate}
           onDelete={handleDeleteMultiple}
         />
