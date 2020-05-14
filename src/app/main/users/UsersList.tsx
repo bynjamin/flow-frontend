@@ -29,12 +29,14 @@ const USERLIST_QUERY = gql`
     $skip: Int
     $orderBy: String
     $orderDirection: String
+    $search: String
   ) {
     users(
       first: $first
       skip: $skip
       orderBy: $orderBy
       orderDirection: $orderDirection
+      search: $search
     ) {
       count
       items {
@@ -66,9 +68,11 @@ const UsersList = () => {
     page,
     pageSize,
     order,
+    globalFilter,
     setPage,
     setPageSize,
     setOrder,
+    setGlobalFilter,
   } = useTableState();
 
   const { loading, error, data, fetchMore } = useQuery<
@@ -151,7 +155,7 @@ const UsersList = () => {
     const { orderBy, orderDirection } = order;
     const skip = pageNum * pageSize;
     const first = pageSize;
-    return { first, skip, orderBy, orderDirection };
+    return { first, skip, orderBy, orderDirection, search: globalFilter };
   }
 
   function loadPage(pageNum: number): void {
@@ -180,15 +184,6 @@ const UsersList = () => {
   if (error) return <p style={{ color: 'red' }}>{error.message}</p>;
   if (data) {
     const { items, count } = data.users;
-    if (items.length === 0) {
-      return (
-        <div className="flex flex-1 items-center justify-center h-full">
-          <Typography color="textSecondary" variant="h5">
-            There are no users!
-          </Typography>
-        </div>
-      );
-    }
 
     return (
       <>
@@ -205,6 +200,8 @@ const UsersList = () => {
           order={order}
           setOrder={setOrder}
           onRowClick={handleRowClick}
+          globalFilter={globalFilter}
+          setGlobalFilter={setGlobalFilter}
           loading={loading}
           onCreate={toggleAddDialogOpen}
           onDelete={handleDelete}
