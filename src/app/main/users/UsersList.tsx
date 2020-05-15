@@ -12,7 +12,7 @@ import { useHistory } from 'react-router';
 import UsersMultiSelectMenu from './UsersMultiSelectMenu';
 import DataTable from 'app/components/table/DataTable';
 import useTableState from 'app/components/table/useTableState';
-import AddUserDialog from './AddUserDialog';
+import InviteUserDialog from './InviteUserDialog';
 import DeleteUsersDialog from './DeleteUsersDialog';
 import {
   // eslint-disable-next-line no-unused-vars
@@ -62,7 +62,7 @@ const USERLIST_QUERY = gql`
 
 const UsersList = () => {
   const history = useHistory();
-  const [addDialogOpen, setAddDialogOpen] = useState<boolean>(false);
+  const [inviteDialogOpen, setInviteDialogOpen] = useState<boolean>(false);
   const [deleteIds, setDeleteIds] = useState<number[] | null>(null);
 
   const {
@@ -153,8 +153,8 @@ const UsersList = () => {
     [],
   );
 
-  function toggleAddDialogOpen() {
-    setAddDialogOpen(!addDialogOpen);
+  function toggleInviteDialogOpen() {
+    setInviteDialogOpen(!inviteDialogOpen);
   }
 
   function handleRowClick(userId: number) {
@@ -213,13 +213,12 @@ const UsersList = () => {
           globalFilter={globalFilter}
           setGlobalFilter={setGlobalFilter}
           loading={loading}
-          onCreate={toggleAddDialogOpen}
+          onCreate={toggleInviteDialogOpen}
           onDelete={handleDelete}
         />
-        <AddUserDialog
-          addUserHandler={() => console.log('Add User')}
-          open={addDialogOpen}
-          onClose={toggleAddDialogOpen}
+        <InviteUserDialog
+          open={inviteDialogOpen}
+          onClose={toggleInviteDialogOpen}
         />
         {deleteIds && (
           <DeleteUsersDialog
