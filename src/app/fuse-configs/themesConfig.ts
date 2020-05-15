@@ -6,14 +6,14 @@ const themesConfig = {
     palette: {
       type: 'light',
       primary: {
-        light: '#FF908B',
-        main: '#D0605E',
-        dark: '#9B3134',
+        light: '#6CABD4',
+        main: '#387CA3',
+        dark: '#005074',
       },
       secondary: {
-        light: '#C76A1D',
-        main: '#FF994C',
-        dark: '#FFCA7B',
+        light: '#89F6CF',
+        main: '#55C39E',
+        dark: '#159270',
         contrastText: '#FFF',
       },
       background: {

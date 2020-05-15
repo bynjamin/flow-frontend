@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import gql from 'graphql-tag';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
@@ -6,6 +6,8 @@ import FuseAnimate from '@fuse/core/FuseAnimate';
 import { MISSING_FIELD } from 'common/constants';
 import DeleteUserDialog, { DeleteUserDialogFragment } from './DeleteUserDialog';
 import UpdateUserDialog, { UpdateUserDialogFragment } from './UpdateUserDialog';
+import ChangePasswordDialog from './ChangePasswordDialog';
+import { AppContext } from 'app/AppContext';
 // eslint-disable-next-line no-unused-vars
 import { UserDetailHeaderFragment__data as DataType } from './__generated__/UserDetailHeaderFragment__data';
 // eslint-disable-next-line no-unused-vars
@@ -17,6 +19,8 @@ type Props = {
 };
 
 const UserDetailHeader: React.FC<Props> = ({ data, roles }) => {
+  const { user } = useContext(AppContext);
+
   if (!data) {
     return null;
   }
@@ -38,6 +42,7 @@ const UserDetailHeader: React.FC<Props> = ({ data, roles }) => {
       </div>
 
       <div className="flex items-center justify-end">
+        {user.id === data.id && <ChangePasswordDialog />}
         <UpdateUserDialog data={data} roles={roles} />
         <DeleteUserDialog data={data} />
       </div>
@@ -50,6 +55,7 @@ export default UserDetailHeader;
 export const UserDetailHeaderFragment = {
   data: gql`
     fragment UserDetailHeaderFragment__data on User {
+      id
       fullName
       ...DeleteUserDialogFragment__data
       ...UpdateUserDialogFragment__data
