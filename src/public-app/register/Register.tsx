@@ -113,7 +113,7 @@ const Register = () => {
               {!loading && !data && !error && (
                 <>
                   <Typography variant="h6" className="md:w-full mb-32">
-                    CREATE AN ACCOUNT
+                    CREATE A WORKSPACE
                   </Typography>
                   <RegisterForm submit={submitRegistration} />
 

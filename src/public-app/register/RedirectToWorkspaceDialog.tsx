@@ -40,6 +40,12 @@ const RedirectToWorkspaceDialog = ({ isOpen, handleClose }: Props) => {
         <TextField
           value={workspace}
           onChange={handleWorkspaceChange}
+          onKeyPress={e => {
+            if (e.key === 'Enter') {
+              handleRedirect();
+              e.preventDefault();
+            }
+          }}
           autoFocus
           margin="dense"
           id="name"
