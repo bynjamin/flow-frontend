@@ -38,13 +38,13 @@ export interface UserDetailHeaderFragment__data_address {
 export interface UserDetailHeaderFragment__data {
   __typename: "User";
   /**
-   * User full name
-   */
-  fullName: string;
-  /**
    * User ID
    */
   id: number;
+  /**
+   * User full name
+   */
+  fullName: string;
   /**
    * User first name
    */
