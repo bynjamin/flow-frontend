@@ -31,6 +31,7 @@ import {
   // eslint-disable-next-line no-unused-vars
   InviteUserVariables as InputType,
 } from './mutations/__generated__/InviteUser';
+import { Typography } from '@material-ui/core';
 
 const ROLES_QUERY = gql`
   query InviteUserDialogRolesQuery {
@@ -167,21 +168,20 @@ const InviteUserDialog: React.FC<Props> = ({ open, onClose }) => {
                   <MenuItem value="o">Other</MenuItem>
                 </SelectFormsy>
               </Grid>
-              {/*
               <Grid item xs={6}>
                 <SelectFormsy
                   className="mb-10 w-full"
                   // type="text"
                   name="roleId"
-                  label="Role*"
+                  label="Role *"
                   variant="outlined"
+                  required
                 >
                   {data?.userRoles?.map((role: RoleType) => (
                     <MenuItem value={role.id}>{role.name}</MenuItem>
                   ))}
                 </SelectFormsy>
               </Grid>
-              */}
               <Grid item xs={6}>
                 <TextFieldFormsy
                   className="mb-10 w-full"
@@ -275,6 +275,11 @@ const InviteUserDialog: React.FC<Props> = ({ open, onClose }) => {
         </Formsy>
       </DialogContent>
       <DialogActions>
+        {!isValid && (
+          <Typography color="error">
+            Fill all required fields (marked with *)
+          </Typography>
+        )}
         <Tooltip title="Add multiple">
           <Switch
             checked={addMultiple}
@@ -292,17 +297,24 @@ const InviteUserDialog: React.FC<Props> = ({ open, onClose }) => {
         >
           Cancel
         </Button>
-        <Button
-          className="mr-8 normal-case"
-          variant="contained"
-          color="secondary"
-          startIcon={<SendIcon />}
-          onClick={handleSubmit}
-          disabled={!isValid}
-          disableElevation
+        <Tooltip
+          title="Fill all required fields"
+          disableHoverListener={isValid}
         >
-          Invite
-        </Button>
+          <span>
+            <Button
+              className="mr-8 normal-case"
+              variant="contained"
+              color="secondary"
+              startIcon={<SendIcon />}
+              onClick={handleSubmit}
+              disabled={!isValid}
+              disableElevation
+            >
+              Invite
+            </Button>
+          </span>
+        </Tooltip>
       </DialogActions>
     </Dialog>
   );

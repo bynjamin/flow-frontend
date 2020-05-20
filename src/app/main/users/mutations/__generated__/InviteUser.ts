@@ -19,6 +19,7 @@ export interface InviteUserVariables {
   firstName: string;
   lastName: string;
   title?: string | null;
+  roleId: number;
   phone?: string | null;
   gender?: string | null;
   position?: string | null;

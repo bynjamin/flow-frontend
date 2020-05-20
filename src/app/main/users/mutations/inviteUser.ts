@@ -6,6 +6,7 @@ export const INVITE_USER = gql`
     $firstName: String!
     $lastName: String!
     $title: String
+    $roleId: Int!
     $phone: String
     $gender: String
     $position: String
@@ -20,6 +21,7 @@ export const INVITE_USER = gql`
       firstName: $firstName
       lastName: $lastName
       title: $title
+      roleId: $roleId
       phone: $phone
       gender: $gender
       position: $position
