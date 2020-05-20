@@ -13,6 +13,13 @@ const navigationConfig = [
         url: '/example',
       },
       {
+        id: 'projects-app',
+        title: 'Projects',
+        type: 'item',
+        icon: 'widgets',
+        url: '/projects',
+      },
+      {
         id: 'tasks-app',
         title: 'Tasks',
         type: 'collapse',

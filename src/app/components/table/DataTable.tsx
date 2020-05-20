@@ -14,6 +14,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
+import Button from '@material-ui/core/Button';
 import {
   useGlobalFilter,
   usePagination,
@@ -302,10 +303,19 @@ const DataTable: React.FC<Props> = ({
             </MaUTable>
           </TableContainer>
         ) : (
-          <div className="flex flex-1 items-center justify-center h-full">
+          <div className="flex flex-col flex-1 items-center justify-center h-full">
             <Typography color="textSecondary" variant="h5">
               There are no records!
             </Typography>
+            <Button
+              className="mt-12"
+              variant="contained"
+              color="secondary"
+              onClick={onCreate}
+              disableElevation
+            >
+              Create new record
+            </Button>
           </div>
         )}
         <MaUTable>
