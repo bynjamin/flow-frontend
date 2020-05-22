@@ -4,22 +4,22 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL fragment: ProjectDetailHeaderFragment__data
+// GraphQL mutation operation: CreateProject
 // ====================================================
 
-export interface ProjectDetailHeaderFragment__data_managers {
+export interface CreateProject_createProject_managers {
   __typename: "User";
   /**
    * User ID
    */
   id: number;
   /**
-   * User email
+   * User full name
    */
-  email: string;
+  fullName: string;
 }
 
-export interface ProjectDetailHeaderFragment__data {
+export interface CreateProject_createProject {
   __typename: "Project";
   /**
    * ID of Project
@@ -30,15 +30,24 @@ export interface ProjectDetailHeaderFragment__data {
    */
   name: string;
   /**
-   * Deleted
-   */
-  deleted: boolean;
-  /**
    * Description
    */
   description: string;
   /**
    * Managers of project
    */
-  managers: ProjectDetailHeaderFragment__data_managers[];
+  managers: CreateProject_createProject_managers[];
+}
+
+export interface CreateProject {
+  /**
+   * Create project.
+   */
+  createProject: CreateProject_createProject;
+}
+
+export interface CreateProjectVariables {
+  name: string;
+  description: string;
+  managersId: number[];
 }

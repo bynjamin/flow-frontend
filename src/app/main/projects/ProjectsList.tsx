@@ -12,6 +12,7 @@ import DataTable from 'app/components/table/DataTable';
 import useTableState from 'app/components/table/useTableState';
 import { getDetailUrl } from 'app/helpers/linkResolver';
 import { DEFAULT_PAGE_SIZE } from 'app/constants';
+import CreateProjectDialog from './CreateProjectDialog';
 import {
   ProjectsListQuery as DataType,
   ProjectsListQueryVariables as InputType,
@@ -62,7 +63,7 @@ export const PROJECTS_LIST_QUERY = gql`
 
 const ProjectsList: React.FC = () => {
   const history = useHistory();
-  // const [createDialogOpen, setCreateDialogOpen] = useState<boolean>(false);
+  const [createDialogOpen, setCreateDialogOpen] = useState<boolean>(false);
   // const [deleteIds, setDeleteIds] = useState<number[] | null>(null);
 
   const {
@@ -170,11 +171,6 @@ const ProjectsList: React.FC = () => {
     ],
     [],
   );
-  /*
-  function toggleCreateDialogOpen() {
-    setCreateDialogOpen(!createDialogOpen);
-  }
-  */
 
   function handleRowClick(recordId: number) {
     history.push(getDetailUrl('projects', recordId));
@@ -235,14 +231,14 @@ const ProjectsList: React.FC = () => {
           globalFilter={globalFilter}
           setGlobalFilter={setGlobalFilter}
           loading={loading}
-          onCreate={() => console.log('create')}
+          onCreate={() => setCreateDialogOpen(true)}
           onDelete={handleDelete}
         />
-        {/*
-        <CreateUserGroupDialog
+        <CreateProjectDialog
           open={createDialogOpen}
-          onClose={toggleCreateDialogOpen}
+          setOpen={setCreateDialogOpen}
         />
+        {/*
         {deleteIds && (
           <DeleteUserGroupsDialog
             deleteIds={deleteIds}
