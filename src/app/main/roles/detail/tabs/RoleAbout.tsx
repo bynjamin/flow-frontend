@@ -25,7 +25,7 @@ const RoleAbout: React.FC<Props> = ({ data }) => {
   }
 
   return (
-    <div className="p-16 sm:p-24">
+    <>
       <div className="flex flex-col flex-1">
         <FuseAnimate animation="transition.slideUpBigIn" delay={300}>
           <Card className="w-full mb-16">
@@ -68,7 +68,7 @@ const RoleAbout: React.FC<Props> = ({ data }) => {
           />
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

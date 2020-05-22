@@ -126,6 +126,10 @@ export interface UserDetailQuery_user {
    */
   fullName: string;
   /**
+   * User title
+   */
+  title: string;
+  /**
    * User first name
    */
   firstName: string;
@@ -133,10 +137,6 @@ export interface UserDetailQuery_user {
    * User last name
    */
   lastName: string;
-  /**
-   * User title
-   */
-  title: string;
   /**
    * User role
    */

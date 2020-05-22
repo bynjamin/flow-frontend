@@ -2,13 +2,7 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import {
-  Tab,
-  Tabs,
-  // eslint-disable-next-line no-unused-vars
-  Theme,
-} from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
+import { Tab, Tabs } from '@material-ui/core';
 import FuseLoading from '@fuse/core/FuseLoading';
 import FusePageSimple from '@fuse/core/FusePageSimple';
 import UserGroupAbout, { UserGroupAboutFragment } from './tabs/UserGroupAbout';
@@ -25,17 +19,6 @@ import {
   UserGroupDetailQueryVariables,
 } from './__generated__/UserGroupDetailQuery';
 
-const useStyles = makeStyles((theme: Theme) => ({
-  layoutHeader: {
-    height: 320,
-    minHeight: 320,
-    [theme.breakpoints.down('md')]: {
-      height: 240,
-      minHeight: 240,
-    },
-  },
-}));
-
 const USERGROUP_DETAIL_QUERY = gql`
   query UserGroupDetailQuery($id: Int!) {
     userGroup(groupId: $id) {
@@ -50,7 +33,6 @@ const USERGROUP_DETAIL_QUERY = gql`
 `;
 
 const UserGroupDetail: React.FC = () => {
-  const classes = useStyles();
   const [selectedTab, setSelectedTab] = useState(0);
   const { id } = useParams();
   const { loading, error, data } = useQuery<
@@ -70,7 +52,6 @@ const UserGroupDetail: React.FC = () => {
     return (
       <FusePageSimple
         classes={{
-          header: classes.layoutHeader,
           toolbar: 'px-16 sm:px-24',
         }}
         header={<UserGroupDetailHeader data={data?.userGroup} />}

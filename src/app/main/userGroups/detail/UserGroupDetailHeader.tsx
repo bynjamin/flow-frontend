@@ -39,7 +39,11 @@ const UserGroupDetail: React.FC<Props> = ({ data }) => {
     <div className="p-24 flex flex-1 flex-col items-center justify-center md:flex-row md:items-end">
       <div className="flex flex-1 flex-col items-center justify-center md:flex-row md:items-center md:justify-start">
         <FuseAnimate animation="transition.expandIn" delay={300}>
-          <Avatar className={`w-96 h-96 ${classes.avatar}`} alt={data.name}>
+          <Avatar
+            variant="rounded"
+            className={`w-96 h-96 ${classes.avatar}`}
+            alt={data.name}
+          >
             <GroupIcon className={classes.avatarIcon} />
           </Avatar>
         </FuseAnimate>

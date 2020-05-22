@@ -60,11 +60,11 @@ h6, .h6 {
 a[role=button] {
     text-decoration: none;
 }
-
+/*
 [role="tooltip"] {
     z-index: 999;
 }
-
+*/
 /* Medium Devices, Desktops Only */
 @media only screen and (min-width: 992px) {
     ::-webkit-scrollbar {

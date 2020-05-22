@@ -282,6 +282,7 @@ export const UpdateUserDialogFragment = {
   data: gql`
     fragment UpdateUserDialogFragment__data on User {
       id
+      title
       firstName
       lastName
       title

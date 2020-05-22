@@ -42,6 +42,10 @@ export interface UpdateUserDialogFragment__data {
    */
   id: number;
   /**
+   * User title
+   */
+  title: string;
+  /**
    * User first name
    */
   firstName: string;
@@ -49,10 +53,6 @@ export interface UpdateUserDialogFragment__data {
    * User last name
    */
   lastName: string;
-  /**
-   * User title
-   */
-  title: string;
   /**
    * User role
    */

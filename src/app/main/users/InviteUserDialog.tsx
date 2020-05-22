@@ -280,7 +280,7 @@ const InviteUserDialog: React.FC<Props> = ({ open, onClose }) => {
             Fill all required fields (marked with *)
           </Typography>
         )}
-        <Tooltip title="Add multiple">
+        <Tooltip title="Add multiple" placement="top">
           <Switch
             checked={addMultiple}
             onChange={(event, checked) => setAddMultiple(checked)}
@@ -299,6 +299,7 @@ const InviteUserDialog: React.FC<Props> = ({ open, onClose }) => {
         </Button>
         <Tooltip
           title="Fill all required fields"
+          placement="top"
           disableHoverListener={isValid}
         >
           <span>
