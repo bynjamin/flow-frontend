@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import Badge from '@material-ui/core/Badge';
 import FuseLoading from '@fuse/core/FuseLoading';
 import FusePageSimple from '@fuse/core/FusePageSimple';
 import ProjectDetailHeader, {
@@ -88,7 +89,11 @@ const ProjectDetail: React.FC = () => {
               classes={{
                 root: 'h-64',
               }}
-              label="Tasks"
+              label={
+                <Badge badgeContent={project.tasks.length} color="secondary">
+                  Tasks
+                </Badge>
+              }
             />
             {/*
             <Tab

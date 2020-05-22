@@ -5,7 +5,9 @@ import ProjectIcon from '@material-ui/icons/Widgets';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import FuseAnimate from '@fuse/core/FuseAnimate';
 import { MISSING_FIELD } from 'common/constants';
-// import DeleteUserDialog, { DeleteUserDialogFragment } from './DeleteUserDialog';
+import DeleteProjectDialog, {
+  DeleteProjectDialogFragment,
+} from './DeleteProjectDialog';
 import UpdateProjectDialog, {
   UpdateProjectDialogFragment,
 } from './UpdateProjectDialog';
@@ -38,15 +40,16 @@ const ProjectDetailHeader: React.FC<Props> = ({ data }) => {
         </FuseAnimate>
         <FuseAnimate animation="transition.slideLeftIn" delay={300}>
           <Typography className="md:ml-24" variant="h4" color="inherit">
-            {data.name || MISSING_FIELD}
+            {data.name || MISSING_FIELD} {data.deleted && '(deleted)'}
           </Typography>
         </FuseAnimate>
       </div>
-
-      <div className="flex items-center justify-end">
-        <UpdateProjectDialog data={data} />
-        {/* <DeleteUserDialog data={data} /> */}
-      </div>
+      {!data.deleted && (
+        <div className="flex items-center justify-end">
+          <UpdateProjectDialog data={data} />
+          <DeleteProjectDialog data={data} />
+        </div>
+      )}
     </div>
   );
 };
@@ -58,8 +61,11 @@ export const ProjectDetailHeaderFragment = {
     fragment ProjectDetailHeaderFragment__data on Project {
       id
       name
+      deleted
       ...UpdateProjectDialogFragment__data
+      ...DeleteProjectDialogFragment__data
     }
     ${UpdateProjectDialogFragment.data}
+    ${DeleteProjectDialogFragment.data}
   `,
 };

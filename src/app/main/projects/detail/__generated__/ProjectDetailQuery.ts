@@ -122,6 +122,10 @@ export interface ProjectDetailQuery_project {
    */
   name: string;
   /**
+   * Deleted
+   */
+  deleted: boolean;
+  /**
    * Description
    */
   description: string;
@@ -129,10 +133,6 @@ export interface ProjectDetailQuery_project {
    * Managers of project
    */
   managers: ProjectDetailQuery_project_managers[];
-  /**
-   * Deleted
-   */
-  deleted: boolean;
   /**
    * Tasks of project
    */

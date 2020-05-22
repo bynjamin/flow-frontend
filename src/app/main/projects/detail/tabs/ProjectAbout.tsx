@@ -3,6 +3,8 @@ import gql from 'graphql-tag';
 import { useHistory } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import AppBar from '@material-ui/core/AppBar';
+import Alert from '@material-ui/lab/Alert';
+import AlertTitle from '@material-ui/lab/AlertTitle';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Icon from '@material-ui/core/Icon';
@@ -43,6 +45,13 @@ const ProjectAbout: React.FC<Props> = ({ data }) => {
             animation: 'transition.slideUpBigIn',
           }}
         >
+          {data.deleted && (
+            <Alert severity="error" className="mb-12">
+              <AlertTitle>This record is deleted</AlertTitle>
+              There is no actions permited on this record. To restore it,
+              contact our support please.
+            </Alert>
+          )}
           <Card className="w-full mb-16">
             <AppBar position="static" elevation={0}>
               <Toolbar className="pl-16 pr-8">
