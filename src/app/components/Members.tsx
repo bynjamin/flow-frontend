@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { useHistory } from 'react-router';
-import DataTable from 'app/components/uncontrolledTable/DataTable';
+import DataTable from 'app/components/table/UncontrolledDataTable';
 import ColorAvatar from 'app/components/ColorAvatar';
 
 type Props = {

@@ -7,7 +7,7 @@ import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import ColorAvatar from 'app/components/ColorAvatar';
 import FuseLoading from '@fuse/core/FuseLoading';
 import { useHistory } from 'react-router';
-import DataTable from 'app/components/uncontrolledTable/DataTable';
+import DataTable from 'app/components/table/UncontrolledDataTable';
 import {
   // eslint-disable-next-line no-unused-vars
   RolesListQuery as DataType,
