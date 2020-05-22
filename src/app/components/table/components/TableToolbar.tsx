@@ -29,7 +29,7 @@ type Props = {
   setGlobalFilter: any;
   count: number;
   globalFilter: string;
-  onCreate: () => void;
+  onCreate?: () => void;
   onDelete: () => void;
 };
 
@@ -67,11 +67,13 @@ const TableToolbar: React.FC<Props> = ({
         </>
       ) : (
         <>
-          <Tooltip title="Add">
-            <IconButton aria-label="add" onClick={onCreate} color="secondary">
-              <AddIcon />
-            </IconButton>
-          </Tooltip>
+          {onCreate && (
+            <Tooltip title="Add">
+              <IconButton aria-label="add" onClick={onCreate} color="secondary">
+                <AddIcon />
+              </IconButton>
+            </Tooltip>
+          )}
           <Typography className={classes.title} variant="h6" id="tableTitle">
             {title}
           </Typography>

@@ -20,17 +20,21 @@ import Link from '@material-ui/core/Link';
 import FuseAnimateGroup from '@fuse/core/FuseAnimateGroup';
 import { MISSING_FIELD } from 'common/constants';
 import { getDetailUrl } from 'app/helpers/linkResolver';
-import { ProjectAboutFragment__data as DataType } from './__generated__/ProjectAboutFragment__data';
+import { TaskAboutFragment__data as DataType } from './__generated__/TaskAboutFragment__data';
 
 type Props = {
   data: DataType;
 };
 
-const ProjectAbout: React.FC<Props> = ({ data }) => {
+const TaskAbout: React.FC<Props> = ({ data }) => {
   const history = useHistory();
 
   const redirectToUserDetail = (userId: number) => {
     history.push(getDetailUrl('users', userId));
+  };
+
+  const redirectToProjectDetail = (projectId: number) => {
+    history.push(getDetailUrl('projects', projectId));
   };
 
   if (!data) {
@@ -67,7 +71,7 @@ const ProjectAbout: React.FC<Props> = ({ data }) => {
             <CardContent>
               <div className="mb-24">
                 <Typography className="font-bold mb-4 text-15">
-                  Project name
+                  Task name
                 </Typography>
                 <Typography>{data.name}</Typography>
               </div>
@@ -78,11 +82,43 @@ const ProjectAbout: React.FC<Props> = ({ data }) => {
                 </Typography>
                 <Typography>{data.description || MISSING_FIELD}</Typography>
               </div>
+
+              <div className="mb-24">
+                <Typography className="font-bold mb-4 text-15">
+                  Status
+                </Typography>
+                <Chip label={data.status} color="secondary" />
+              </div>
+
+              <div className="mb-24">
+                <Typography className="font-bold mb-4 text-15">
+                  Deadline
+                </Typography>
+                <Typography>{data.deadline || MISSING_FIELD}</Typography>
+              </div>
+
+              <div className="mb-24">
+                <Typography className="font-bold mb-4 text-15">
+                  Project
+                </Typography>
+                <Typography>
+                  <Link
+                    component="button"
+                    color="inherit"
+                    underline="always"
+                    onClick={() =>
+                      redirectToProjectDetail(Number(data.project.id))
+                    } // todo: Odstranit po fixe na
+                  >
+                    {data.project.name}
+                  </Link>
+                </Typography>
+              </div>
+
               <div className="mb-24">
                 <Typography className="font-bold mb-4 text-15">
                   Created By
                 </Typography>
-
                 <Typography>
                   <Link
                     component="button"
@@ -105,52 +141,6 @@ const ProjectAbout: React.FC<Props> = ({ data }) => {
             animation: 'transition.slideUpBigIn',
           }}
         >
-          <Card className="w-full mb-16">
-            <AppBar position="static" elevation={0}>
-              <Toolbar className="pl-16 pr-8">
-                <Typography
-                  variant="subtitle1"
-                  color="inherit"
-                  className="flex-1"
-                >
-                  Managers
-                </Typography>
-                <Chip label={data.managers.length} color="secondary" />
-              </Toolbar>
-            </AppBar>
-            <CardContent className="p-0 max-h-320 overflow-auto">
-              <List className="p-0">
-                {data.managers.map((item: any) => (
-                  <ListItem
-                    key={item.id}
-                    button
-                    onClick={() => redirectToUserDetail(item.id)}
-                  >
-                    <Avatar className="mx-8" alt={item.name}>
-                      {item.fullName[0]}
-                    </Avatar>
-                    <ListItemText
-                      primary={
-                        <Typography
-                          className="inline font-medium"
-                          paragraph={false}
-                        >
-                          {item.fullName}
-                        </Typography>
-                      }
-                      secondary={item.email}
-                    />
-                    <ListItemSecondaryAction>
-                      <IconButton>
-                        <Icon>more_vert</Icon>
-                      </IconButton>
-                    </ListItemSecondaryAction>
-                  </ListItem>
-                ))}
-              </List>
-            </CardContent>
-          </Card>
-
           <Card className="w-full mb-16">
             <AppBar position="static" elevation={0}>
               <Toolbar className="pl-16 pr-8">
@@ -202,24 +192,25 @@ const ProjectAbout: React.FC<Props> = ({ data }) => {
   );
 };
 
-export default ProjectAbout;
+export default TaskAbout;
 
-export const ProjectAboutFragment = {
+export const TaskAboutFragment = {
   data: gql`
-    fragment ProjectAboutFragment__data on Project {
+    fragment TaskAboutFragment__data on Task {
       id
       name
       description
       deleted
+      status
+      deadline
       assignees {
         id
         fullName
         email
       }
-      managers {
+      project {
         id
-        fullName
-        email
+        name
       }
       createdBy {
         id

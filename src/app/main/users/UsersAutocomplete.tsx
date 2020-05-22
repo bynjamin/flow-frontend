@@ -47,7 +47,6 @@ const UsersAutocomplete: React.FC<Props> = ({
       }}
       value={values}
       onChange={(event, newValues) => {
-        console.log(newValues);
         setValues(newValues);
       }}
       getOptionSelected={(option, value) => option.id === value.id}

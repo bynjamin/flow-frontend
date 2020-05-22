@@ -1,3 +1,5 @@
+import { getListUrl } from 'app/helpers/linkResolver';
+
 const navigationConfig = [
   {
     id: 'applications',
@@ -17,8 +19,9 @@ const navigationConfig = [
         title: 'Projects',
         type: 'item',
         icon: 'widgets',
-        url: '/projects',
+        url: getListUrl('projects'),
       },
+      /*
       {
         id: 'tasks-app',
         title: 'Tasks',
@@ -44,26 +47,41 @@ const navigationConfig = [
           },
         ],
       },
+      */
+      {
+        id: 'tasks-app',
+        title: 'Tasks',
+        type: 'item',
+        icon: 'check_box',
+        url: getListUrl('tasks'),
+        /*
+        badge: {
+          title: 3,
+          bg: 'rgb(255, 111, 0)',
+          fg: '#FFFFFF',
+        },
+        */
+      },
       {
         id: 'users-app',
         title: 'Users',
         type: 'item',
         icon: 'person',
-        url: '/users',
+        url: getListUrl('users'),
       },
       {
         id: 'user-groups-app',
         title: 'User Groups',
         type: 'item',
         icon: 'people',
-        url: '/user-groups',
+        url: getListUrl('userGroups'),
       },
       {
         id: 'roles-app',
         title: 'Roles',
         type: 'item',
         icon: 'account_box',
-        url: '/roles',
+        url: getListUrl('roles'),
       },
       /*
       {

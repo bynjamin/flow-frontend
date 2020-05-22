@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import gql from 'graphql-tag';
 import Tooltip from '@material-ui/core/Tooltip';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
-import DataTable from 'app/components/uncontrolledTable/DataTable';
+import DataTable from 'app/components/table/UncontrolledDataTable';
 import ColorAvatar from 'app/components/ColorAvatar';
 import {
   ProjectTasksFragment__data as DataType,
