@@ -5,7 +5,7 @@ import {useForm, useDebounce, useUpdateEffect} from '@fuse/hooks';
 import _ from '@lodash';
 import moment from 'moment';
 import {useDispatch, useSelector} from 'react-redux';
-import * as Actions from 'app/main/apps/scrumboard/store/actions/index';
+import * as Actions from 'app/main/apps/scrumboard/store/actions';
 import LabelModel from 'app/main/apps/scrumboard/model/LabelModel';
 import CardAttachment from './attachment/CardAttachment';
 import DueMenu from './toolbar/DueMenu';
