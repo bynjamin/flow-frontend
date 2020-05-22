@@ -11,11 +11,17 @@ import ColorAvatar from 'app/components/ColorAvatar';
 
 type Props = {
   setSelected: Dispatch<SetStateAction<number[]>>;
+  label?: string;
+  initialValues?: any[];
 };
 
-const UsersAutocomplete: React.FC<Props> = ({ setSelected }) => {
+const UsersAutocomplete: React.FC<Props> = ({
+  setSelected,
+  label = 'Search users',
+  initialValues = [],
+}) => {
   const [inputValue, setInputValue] = useState<string>('');
-  const [values, setValues] = useState<any>([]);
+  const [values, setValues] = useState<any>(initialValues);
   const [resultsOpen, setResultsOpen] = useState<boolean>(false);
   const { search, results, loading } = useUsersSearch();
 
@@ -41,6 +47,7 @@ const UsersAutocomplete: React.FC<Props> = ({ setSelected }) => {
       }}
       value={values}
       onChange={(event, newValues) => {
+        console.log(newValues);
         setValues(newValues);
       }}
       getOptionSelected={(option, value) => option.id === value.id}
@@ -53,7 +60,7 @@ const UsersAutocomplete: React.FC<Props> = ({ setSelected }) => {
       renderInput={params => (
         <TextField
           {...params}
-          label="Search users"
+          label={label}
           variant="outlined"
           InputProps={{
             ...params.InputProps,

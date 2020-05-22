@@ -37,6 +37,8 @@ export const UPDATE_USER = gql`
     ) {
       id
       fullName
+      firstName
+      lastName
       email
       role {
         id

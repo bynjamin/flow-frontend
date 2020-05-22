@@ -7,6 +7,7 @@ type UrlConfig = {
   users: UrlConfigItem;
   userGroups: UrlConfigItem;
   roles: UrlConfigItem;
+  projects: UrlConfigItem;
 };
 
 type Module = keyof UrlConfig;
@@ -23,6 +24,10 @@ const urlConfig: UrlConfig = {
   roles: {
     list: '/roles',
     detail: '/roles/detail',
+  },
+  projects: {
+    list: '/projects',
+    detail: '/projects/detail',
   },
 };
 

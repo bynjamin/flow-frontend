@@ -49,51 +49,50 @@ const UserGroupAbout: React.FC<Props> = ({ data }) => {
 
   return (
     <>
-      <div className="p-16 sm:p-24">
-        <div className="flex flex-col flex-1">
-          <FuseAnimate animation="transition.slideUpBigIn" delay={300}>
-            <Card className="w-full mb-16">
-              <AppBar position="static" elevation={0}>
-                <Toolbar className="pl-16 pr-8">
-                  <Typography
-                    variant="subtitle1"
-                    color="inherit"
-                    className="flex-1"
-                  >
-                    General Information
-                  </Typography>
-                </Toolbar>
-              </AppBar>
+      <div className="flex flex-col flex-1">
+        <FuseAnimate animation="transition.slideUpBigIn" delay={300}>
+          <Card className="w-full mb-16">
+            <AppBar position="static" elevation={0}>
+              <Toolbar className="pl-16 pr-8">
+                <Typography
+                  variant="subtitle1"
+                  color="inherit"
+                  className="flex-1"
+                >
+                  General Information
+                </Typography>
+              </Toolbar>
+            </AppBar>
 
-              <CardContent>
-                <div className="mb-24">
-                  <Typography className="font-bold mb-4 text-15">
-                    Group name
-                  </Typography>
-                  <Typography>{data.name}</Typography>
-                </div>
+            <CardContent>
+              <div className="mb-24">
+                <Typography className="font-bold mb-4 text-15">
+                  Group name
+                </Typography>
+                <Typography>{data.name}</Typography>
+              </div>
 
-                <div className="mb-24">
-                  <Typography className="font-bold mb-4 text-15">
-                    Description
-                  </Typography>
-                  <Typography>{data.description || MISSING_FIELD}</Typography>
-                </div>
-              </CardContent>
-            </Card>
-          </FuseAnimate>
-        </div>
+              <div className="mb-24">
+                <Typography className="font-bold mb-4 text-15">
+                  Description
+                </Typography>
+                <Typography>{data.description || MISSING_FIELD}</Typography>
+              </div>
+            </CardContent>
+          </Card>
+        </FuseAnimate>
+      </div>
 
-        <div className="flex">
-          <div className="w-full h-512">
-            <Members
-              members={data.members}
-              onAdd={openAddMembers}
-              onRemove={handleRemove}
-            />
-          </div>
+      <div className="flex">
+        <div className="w-full h-512">
+          <Members
+            members={data.members}
+            onAdd={openAddMembers}
+            onRemove={handleRemove}
+          />
         </div>
       </div>
+
       <AddUsersToGroupDialog
         data={data}
         open={addMembersOpen}

@@ -8,7 +8,6 @@ import {
   // eslint-disable-next-line no-unused-vars
   Theme,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
 import FuseLoading from '@fuse/core/FuseLoading';
 import FusePageSimple from '@fuse/core/FusePageSimple';
 import RoleAbout, { RoleAboutFragment } from './tabs/RoleAbout';
@@ -22,17 +21,6 @@ import {
   // eslint-disable-next-line no-unused-vars
   RoleDetailQueryVariables,
 } from './__generated__/RoleDetailQuery';
-
-const useStyles = makeStyles((theme: Theme) => ({
-  layoutHeader: {
-    height: 320,
-    minHeight: 320,
-    [theme.breakpoints.down('md')]: {
-      height: 240,
-      minHeight: 240,
-    },
-  },
-}));
 
 const ROLE_DETAIL_QUERY = gql`
   query RoleDetailQuery($id: Int!) {
@@ -48,7 +36,6 @@ const ROLE_DETAIL_QUERY = gql`
 `;
 
 const RoleDetail: React.FC = () => {
-  const classes = useStyles();
   const [selectedTab, setSelectedTab] = useState(0);
   const { id } = useParams();
   const { loading, error, data } = useQuery<
@@ -68,7 +55,6 @@ const RoleDetail: React.FC = () => {
     return (
       <FusePageSimple
         classes={{
-          header: classes.layoutHeader,
           toolbar: 'px-16 sm:px-24',
         }}
         header={<RoleDetailHeader data={data?.userRole} />}

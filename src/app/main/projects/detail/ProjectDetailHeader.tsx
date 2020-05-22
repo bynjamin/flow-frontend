@@ -1,10 +1,15 @@
 import React from 'react';
 import gql from 'graphql-tag';
 import Typography from '@material-ui/core/Typography';
-import RoleIcon from '@material-ui/icons/AccountBox';
+import ProjectIcon from '@material-ui/icons/Widgets';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import FuseAnimate from '@fuse/core/FuseAnimate';
-import { RoleDetailHeaderFragment__data as DataType } from './__generated__/RoleDetailHeaderFragment__data';
+import { MISSING_FIELD } from 'common/constants';
+// import DeleteUserDialog, { DeleteUserDialogFragment } from './DeleteUserDialog';
+import UpdateProjectDialog, {
+  UpdateProjectDialogFragment,
+} from './UpdateProjectDialog';
+import { ProjectDetailHeaderFragment__data as DataType } from './__generated__/ProjectDetailHeaderFragment__data';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -18,7 +23,7 @@ type Props = {
   data: DataType;
 };
 
-const RoleDetail: React.FC<Props> = ({ data }) => {
+const ProjectDetailHeader: React.FC<Props> = ({ data }) => {
   const classes = useStyles();
 
   if (!data) {
@@ -29,24 +34,32 @@ const RoleDetail: React.FC<Props> = ({ data }) => {
     <div className="p-24 flex flex-1 flex-col items-center justify-center md:flex-row md:items-end">
       <div className="flex flex-1 flex-col items-center justify-center md:flex-row md:items-center md:justify-start">
         <FuseAnimate animation="transition.expandIn" delay={300}>
-          <RoleIcon className={classes.headerIcon} />
+          <ProjectIcon className={classes.headerIcon} />
         </FuseAnimate>
         <FuseAnimate animation="transition.slideLeftIn" delay={300}>
           <Typography className="md:ml-24" variant="h4" color="inherit">
-            {`${data.name} role`}
+            {data.name || MISSING_FIELD}
           </Typography>
         </FuseAnimate>
+      </div>
+
+      <div className="flex items-center justify-end">
+        <UpdateProjectDialog data={data} />
+        {/* <DeleteUserDialog data={data} /> */}
       </div>
     </div>
   );
 };
 
-export default RoleDetail;
+export default ProjectDetailHeader;
 
-export const RoleDetailHeaderFragment = {
+export const ProjectDetailHeaderFragment = {
   data: gql`
-    fragment RoleDetailHeaderFragment__data on UserRole {
+    fragment ProjectDetailHeaderFragment__data on Project {
+      id
       name
+      ...UpdateProjectDialogFragment__data
     }
+    ${UpdateProjectDialogFragment.data}
   `,
 };

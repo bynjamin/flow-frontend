@@ -50,6 +50,14 @@ export interface UpdateUser_updateUser {
    */
   fullName: string;
   /**
+   * User first name
+   */
+  firstName: string;
+  /**
+   * User last name
+   */
+  lastName: string;
+  /**
    * User email
    */
   email: string;
