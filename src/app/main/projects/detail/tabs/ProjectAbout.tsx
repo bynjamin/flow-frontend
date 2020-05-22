@@ -87,6 +87,7 @@ const ProjectAbout: React.FC<Props> = ({ data }) => {
                   <Link
                     component="button"
                     color="inherit"
+                    underline="always"
                     onClick={() => redirectToUserDetail(data.createdBy.id)}
                   >
                     {data.createdBy.fullName}
