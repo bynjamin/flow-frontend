@@ -1,5 +1,6 @@
 import React from 'react';
 import { withFormsy } from 'formsy-react';
+import FormControl from '@material-ui/core/FormControl';
 import UsersAutocomplete from 'app/components/UsersAutocomplete';
 import { WithFormsyProps } from 'common/types/formsy';
 
@@ -21,14 +22,14 @@ const UsersAutocompleteFormsy = (props: WithFormsyProps & Props) => {
   };
 
   return (
-    <div>
+    <FormControl className="w-full">
       <UsersAutocomplete
         label={props.label}
         initialValues={value}
         setSelected={changeValue}
       />
       <span>{errorMessage}</span>
-    </div>
+    </FormControl>
   );
 };
 

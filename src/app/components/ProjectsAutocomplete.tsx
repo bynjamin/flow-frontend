@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Dispatch, SetStateAction } from 'react';
+import React, { useState, useEffect, ChangeEvent } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -10,33 +10,40 @@ import ProjectIcon from '@material-ui/icons/Widgets';
 import useProjectsSearch from 'app/hooks/useProjectsSearch';
 
 type Props = {
-  setSelected: Dispatch<SetStateAction<number[]>>;
+  setSelected: (ids: Array<number> | number) => void;
   label?: string;
-  initialValues?: any[];
+  initialValue?: any;
+  multiple?: boolean;
 };
 
 const ProjectsAutocomplete: React.FC<Props> = ({
   setSelected,
+  initialValue,
   label = 'Search projects',
-  initialValues = [],
+  multiple = false,
 }) => {
   const [inputValue, setInputValue] = useState<string>('');
-  const [values, setValues] = useState<any>(initialValues);
+  const [value, setValue] = useState<any>(initialValue);
   const [resultsOpen, setResultsOpen] = useState<boolean>(false);
   const { search, results, loading } = useProjectsSearch();
 
-  const handleSetSelectedIds = () => {
-    const selectedIds = values.map((item: any) => item.id);
-    setSelected(selectedIds);
+  const handleSetSelected = () => {
+    let selected;
+    if (multiple) {
+      selected = value.map((item: any) => item.id);
+    } else {
+      selected = value?.id;
+    }
+    setSelected(selected);
   };
 
   useEffect(() => search(inputValue), [inputValue, search]);
-  useEffect(handleSetSelectedIds, [values]);
+  useEffect(handleSetSelected, [value]);
 
   return (
     <Autocomplete
       id="projects-autocomplete"
-      style={{ width: 300 }}
+      // style={{ width: 300 }}
       noOptionsText="No results"
       open={resultsOpen}
       onOpen={() => {
@@ -45,9 +52,9 @@ const ProjectsAutocomplete: React.FC<Props> = ({
       onClose={() => {
         setResultsOpen(false);
       }}
-      value={values}
-      onChange={(event, newValues) => {
-        setValues(newValues);
+      value={value}
+      onChange={(event: any, newValue: any) => {
+        setValue(newValue);
       }}
       getOptionSelected={(option, value) => option.id === value.id}
       getOptionLabel={option => option.name}
@@ -84,7 +91,7 @@ const ProjectsAutocomplete: React.FC<Props> = ({
       )}
       ListboxComponent={List}
       openOnFocus
-      multiple
+      multiple={multiple}
       filterSelectedOptions
       freeSolo
       autoComplete

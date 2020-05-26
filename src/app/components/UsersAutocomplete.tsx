@@ -36,7 +36,7 @@ const UsersAutocomplete: React.FC<Props> = ({
   return (
     <Autocomplete
       id="users-autocomplete"
-      style={{ width: 300 }}
+      // style={{ width: 300 }}
       noOptionsText="No results"
       open={resultsOpen}
       onOpen={() => {

@@ -48,7 +48,7 @@ const CreateProjectDialog: React.FC<Props> = ({ open, setOpen }) => {
 
   const dispatchSuccessFeedback = (projectName: string) => {
     setActionFeedback({
-      message: `New user group ${projectName} was created`,
+      message: `New project ${projectName} was created`,
       severity: 'success',
     });
   };

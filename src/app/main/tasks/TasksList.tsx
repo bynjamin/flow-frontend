@@ -12,7 +12,7 @@ import DataTable from 'app/components/table/DataTable';
 import useTableState from 'app/components/table/useTableState';
 import { getDetailUrl } from 'app/helpers/linkResolver';
 import { DEFAULT_PAGE_SIZE } from 'app/constants';
-// import CreateProjectDialog from './CreateProjectDialog';
+import CreateTaskDialog from './CreateTaskDialog';
 import {
   TasksListQuery as DataType,
   TasksListQueryVariables as InputType,
@@ -85,10 +85,6 @@ const TasksList: React.FC = () => {
       fetchPolicy: 'cache-and-network',
     },
   );
-
-  const redirectToProjectDetail = (projectId: number) => {
-    history.push(getDetailUrl('projects', projectId));
-  };
 
   const columns = useMemo(
     () => [
@@ -211,11 +207,11 @@ const TasksList: React.FC = () => {
           onCreate={() => setCreateDialogOpen(true)}
           // onDelete={handleDelete}
         />
-        {/*
-        <CreateProjectDialog
+        <CreateTaskDialog
           open={createDialogOpen}
           setOpen={setCreateDialogOpen}
         />
+        {/*
         {deleteIds && (
           <DeleteUserGroupsDialog
             deleteIds={deleteIds}
