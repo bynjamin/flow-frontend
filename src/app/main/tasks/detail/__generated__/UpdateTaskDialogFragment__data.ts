@@ -4,10 +4,10 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL fragment: TaskDetailHeaderFragment__data
+// GraphQL fragment: UpdateTaskDialogFragment__data
 // ====================================================
 
-export interface TaskDetailHeaderFragment__data_assignees {
+export interface UpdateTaskDialogFragment__data_assignees {
   __typename: "User";
   /**
    * User ID
@@ -23,7 +23,7 @@ export interface TaskDetailHeaderFragment__data_assignees {
   email: string;
 }
 
-export interface TaskDetailHeaderFragment__data_project {
+export interface UpdateTaskDialogFragment__data_project {
   __typename: "Project";
   /**
    * ID of Project
@@ -35,7 +35,7 @@ export interface TaskDetailHeaderFragment__data_project {
   name: string;
 }
 
-export interface TaskDetailHeaderFragment__data {
+export interface UpdateTaskDialogFragment__data {
   __typename: "Task";
   /**
    * ID of task
@@ -45,10 +45,6 @@ export interface TaskDetailHeaderFragment__data {
    * Name of task
    */
   name: string;
-  /**
-   * Deleted
-   */
-  deleted: boolean;
   /**
    * Description of task
    */
@@ -64,9 +60,9 @@ export interface TaskDetailHeaderFragment__data {
   /**
    * Assignees of task
    */
-  assignees: TaskDetailHeaderFragment__data_assignees[];
+  assignees: UpdateTaskDialogFragment__data_assignees[];
   /**
    * Project for this task
    */
-  project: TaskDetailHeaderFragment__data_project;
+  project: UpdateTaskDialogFragment__data_project;
 }

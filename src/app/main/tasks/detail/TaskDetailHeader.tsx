@@ -5,14 +5,9 @@ import TaskIcon from '@material-ui/icons/CheckBox';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import FuseAnimate from '@fuse/core/FuseAnimate';
 import { MISSING_FIELD } from 'common/constants';
-/*
-import DeleteProjectDialog, {
-  DeleteProjectDialogFragment,
-} from './DeleteProjectDialog';
-import UpdateProjectDialog, {
-  UpdateProjectDialogFragment,
-} from './UpdateProjectDialog';
-*/
+import DeleteTaskDialog, { DeleteTaskDialogFragment } from './DeleteTaskDialog';
+import UpdateTaskDialog, { UpdateTaskDialogFragment } from './UpdateTaskDialog';
+
 import { TaskDetailHeaderFragment__data as DataType } from './__generated__/TaskDetailHeaderFragment__data';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -46,14 +41,12 @@ const TaskDetailHeader: React.FC<Props> = ({ data }) => {
           </Typography>
         </FuseAnimate>
       </div>
-      {/*
       {!data.deleted && (
         <div className="flex items-center justify-end">
-          <UpdateProjectDialog data={data} />
-          <DeleteProjectDialog data={data} />
+          <UpdateTaskDialog data={data} />
+          <DeleteTaskDialog data={data} />
         </div>
       )}
-      */}
     </div>
   );
 };
@@ -66,6 +59,10 @@ export const TaskDetailHeaderFragment = {
       id
       name
       deleted
+      ...DeleteTaskDialogFragment__data
+      ...UpdateTaskDialogFragment__data
     }
+    ${DeleteTaskDialogFragment.data}
+    ${UpdateTaskDialogFragment.data}
   `,
 };
