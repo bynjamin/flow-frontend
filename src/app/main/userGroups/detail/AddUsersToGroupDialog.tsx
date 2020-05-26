@@ -8,7 +8,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import { AppContext } from 'app/AppContext';
-import UsersAutocomplete from 'app/main/users/UsersAutocomplete';
+import UsersAutocomplete from 'app/components/UsersAutocomplete';
 import { ADD_USERS_TO_GROUP } from './mutations/addUsersToGroup';
 // eslint-disable-next-line no-unused-vars
 import { AddUsersToGroupDialogFragment__data as DataType } from './__generated__/AddUsersToGroupDialogFragment__data';
@@ -83,7 +83,11 @@ const AddUsersToGroupDialog: React.FC<Props> = ({ data, open, onClose }) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>
-        <Button onClick={handleSubmit} color="secondary">
+        <Button
+          onClick={handleSubmit}
+          color="secondary"
+          disabled={newMembersIds.length < 1}
+        >
           Add
         </Button>
       </DialogActions>

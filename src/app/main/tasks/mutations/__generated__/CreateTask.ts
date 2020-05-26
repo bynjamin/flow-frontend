@@ -4,10 +4,10 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL fragment: TaskDetailHeaderFragment__data
+// GraphQL mutation operation: CreateTask
 // ====================================================
 
-export interface TaskDetailHeaderFragment__data_assignees {
+export interface CreateTask_createTask_assignees {
   __typename: "User";
   /**
    * User ID
@@ -17,13 +17,9 @@ export interface TaskDetailHeaderFragment__data_assignees {
    * User full name
    */
   fullName: string;
-  /**
-   * User email
-   */
-  email: string;
 }
 
-export interface TaskDetailHeaderFragment__data_project {
+export interface CreateTask_createTask_project {
   __typename: "Project";
   /**
    * ID of Project
@@ -35,7 +31,7 @@ export interface TaskDetailHeaderFragment__data_project {
   name: string;
 }
 
-export interface TaskDetailHeaderFragment__data {
+export interface CreateTask_createTask {
   __typename: "Task";
   /**
    * ID of task
@@ -46,27 +42,39 @@ export interface TaskDetailHeaderFragment__data {
    */
   name: string;
   /**
-   * Deleted
-   */
-  deleted: boolean;
-  /**
    * Description of task
    */
   description: string;
-  /**
-   * Status of task
-   */
-  status: string;
   /**
    * Deadline of task
    */
   deadline: string;
   /**
+   * Status of task
+   */
+  status: string;
+  /**
    * Assignees of task
    */
-  assignees: TaskDetailHeaderFragment__data_assignees[];
+  assignees: CreateTask_createTask_assignees[];
   /**
    * Project for this task
    */
-  project: TaskDetailHeaderFragment__data_project;
+  project: CreateTask_createTask_project;
+}
+
+export interface CreateTask {
+  /**
+   * Create task.
+   */
+  createTask: CreateTask_createTask;
+}
+
+export interface CreateTaskVariables {
+  name: string;
+  description: string;
+  deadline: string;
+  status: string;
+  assigneeIds: number[];
+  projectId: number;
 }
