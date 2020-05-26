@@ -11,7 +11,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { ThemeProvider } from '@material-ui/core/styles';
 import Formsy from 'formsy-react';
 import TextFieldFormsy from '@fuse/core/formsy/TextFieldFormsy';
-import UsersAutocomplete from 'app/main/users/UsersAutocomplete';
+import { UsersAutocompleteFormsy } from 'app/components/formsy';
 import { AppContext } from 'app/AppContext';
 import { UPDATE_PROJECT } from './mutations/updateProject';
 import { UpdateProjectDialogFragment__data as DataType } from './__generated__/UpdateProjectDialogFragment__data';
@@ -27,7 +27,6 @@ type Props = {
 const UpdateProjectDialog: React.FC<Props> = ({ data }) => {
   const [open, setOpen] = useState<boolean>(false);
   const [isValid, setValid] = useState<boolean>(true);
-  const [managers, setManagers] = useState<any>(null);
   const formRef = useRef<any>(null);
   const { setActionFeedback, setLoading } = useContext(AppContext);
   const [updateProject] = useMutation<ResponseType, InputType>(UPDATE_PROJECT);
@@ -49,7 +48,6 @@ const UpdateProjectDialog: React.FC<Props> = ({ data }) => {
         variables: {
           ...formRef.current.getModel(),
           projectId: data?.id,
-          managersId: managers,
         },
       });
       if (response?.updateProject) {
@@ -126,10 +124,12 @@ const UpdateProjectDialog: React.FC<Props> = ({ data }) => {
               variant="outlined"
               required
             />
-            <UsersAutocomplete
-              setSelected={setManagers}
+            <UsersAutocompleteFormsy
+              name="managersId"
               label="Managers"
-              initialValues={data.managers}
+              value={data.managers}
+              validations="minLength:1"
+              required
             />
           </Formsy>
         </DialogContent>

@@ -15,7 +15,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import UsersAutocomplete from 'app/main/users/UsersAutocomplete';
+import { UsersAutocompleteFormsy } from 'app/components/formsy';
 import { getDetailUrl } from 'app/helpers/linkResolver';
 import { AppContext } from 'app/AppContext';
 
@@ -33,7 +33,6 @@ type Props = {
 const CreateProjectDialog: React.FC<Props> = ({ open, setOpen }) => {
   const history = useHistory();
   const [isValid, setValid] = useState<boolean>(false);
-  const [managers, setManagers] = useState<any[]>([]);
   const formRef = useRef<any>(null);
   const { setActionFeedback, setLoading } = useContext(AppContext);
 
@@ -67,7 +66,7 @@ const CreateProjectDialog: React.FC<Props> = ({ open, setOpen }) => {
       setOpen(false);
       const model = formRef.current.getModel();
       const { data: response } = await createProject({
-        variables: { ...model, managersId: managers },
+        variables: { ...model },
       });
       if (response?.createProject) {
         const { id, name } = response.createProject;
@@ -124,18 +123,19 @@ const CreateProjectDialog: React.FC<Props> = ({ open, setOpen }) => {
             variant="outlined"
             required
           />
-          <UsersAutocomplete setSelected={setManagers} label="Managers" />
+          <UsersAutocompleteFormsy
+            name="managersId"
+            label="Managers"
+            validations="minLength:1"
+            required
+          />
         </Formsy>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose} color="primary">
           Cancel
         </Button>
-        <Button
-          onClick={handleSubmit}
-          disabled={!isValid || managers.length < 1}
-          color="secondary"
-        >
+        <Button onClick={handleSubmit} disabled={!isValid} color="secondary">
           Create
         </Button>
       </DialogActions>

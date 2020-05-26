@@ -10,7 +10,7 @@ import useUsersSearch from 'app/hooks/useUsersSearch';
 import ColorAvatar from 'app/components/ColorAvatar';
 
 type Props = {
-  setSelected: Dispatch<SetStateAction<number[]>>;
+  setSelected: (userIds: number[]) => void;
   label?: string;
   initialValues?: any[];
 };
