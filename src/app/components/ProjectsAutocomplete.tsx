@@ -56,7 +56,7 @@ const ProjectsAutocomplete: React.FC<Props> = ({
       onChange={(event: any, newValue: any) => {
         setValue(newValue);
       }}
-      getOptionSelected={(option, value) => option.id === value.id}
+      getOptionSelected={(option, optionValue) => option.id === optionValue.id}
       getOptionLabel={option => option.name}
       options={results}
       loading={loading}
