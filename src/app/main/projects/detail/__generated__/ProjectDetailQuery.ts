@@ -98,6 +98,10 @@ export interface ProjectDetailQuery_project_tasks {
    */
   description: string;
   /**
+   * Status of task
+   */
+  status: string;
+  /**
    * Deleted
    */
   deleted: boolean;

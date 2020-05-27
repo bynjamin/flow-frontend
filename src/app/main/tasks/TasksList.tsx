@@ -5,7 +5,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Tooltip from '@material-ui/core/Tooltip';
 import Avatar from '@material-ui/core/Avatar';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
-import Chip from '@material-ui/core/Chip';
+import StatusChip from 'app/components/StatusChip';
 import FuseLoading from '@fuse/core/FuseLoading';
 import { useHistory } from 'react-router';
 import DataTable from 'app/components/table/DataTable';
@@ -92,9 +92,7 @@ const TasksList: React.FC = () => {
         Header: ' ',
         accessor: 'status',
         className: 'font-bold',
-        Cell: ({ cell: { value } }: any) => (
-          <Chip label={value} color="secondary" />
-        ),
+        Cell: ({ cell: { value } }: any) => <StatusChip status={value} />,
       },
       {
         Header: 'Name',
