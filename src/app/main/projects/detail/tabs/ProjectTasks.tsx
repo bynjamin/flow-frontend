@@ -1,24 +1,42 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
+import { useHistory } from 'react-router';
 import gql from 'graphql-tag';
+import StatusChip from 'app/components/StatusChip';
 import Tooltip from '@material-ui/core/Tooltip';
+import Avatar from '@material-ui/core/Avatar';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import DataTable from 'app/components/table/UncontrolledDataTable';
-import ColorAvatar from 'app/components/ColorAvatar';
+import CreateTaskDialog from 'app/main/tasks/CreateTaskDialog';
+import { getDetailUrl } from 'app/helpers/linkResolver';
+
 import {
   ProjectTasksFragment__data as DataType,
-  ProjectTasksFragment__data_assignees as AssigneeType,
+  ProjectTasksFragment__data_tasks_assignees as AssigneeType,
 } from './__generated__/ProjectTasksFragment__data';
 
 type Props = {
-  data: DataType[];
+  data: DataType;
 };
 
 const ProjectTasks: React.FC<Props> = ({ data }) => {
+  const [createDialogOpen, setCreateDialogOpen] = useState<boolean>(false);
+  const history = useHistory();
   const columns = useMemo(
     () => [
       {
+        Header: ' ',
+        accessor: 'status',
+        className: 'font-bold',
+        Cell: ({ cell: { value } }: any) => <StatusChip status={value} />,
+      },
+      {
         Header: 'Name',
         accessor: 'name',
+        className: 'font-bold',
+      },
+      {
+        Header: 'Description',
+        accessor: 'description',
         className: 'font-bold',
       },
       {
@@ -37,9 +55,7 @@ const ProjectTasks: React.FC<Props> = ({ data }) => {
           >
             <AvatarGroup max={3}>
               {value.map((item: AssigneeType) => (
-                <ColorAvatar key={item.id} colorString={item.email}>
-                  {item.fullName[0]}
-                </ColorAvatar>
+                <Avatar key={item.id}>{item.fullName[0]}</Avatar>
               ))}
             </AvatarGroup>
           </Tooltip>
@@ -48,10 +64,10 @@ const ProjectTasks: React.FC<Props> = ({ data }) => {
       {
         Header: 'Created By',
         accessor: 'createdBy',
-        Cell: ({ row: { original } }: any) => (
-          <ColorAvatar colorString={original.email}>
-            {original.fullName[0]}
-          </ColorAvatar>
+        Cell: ({ cell: { value } }: any) => (
+          <Tooltip placement="bottom-start" title={value.fullName}>
+            <Avatar>{value.fullName?.[0]}</Avatar>
+          </Tooltip>
         ),
       },
     ],
@@ -59,25 +75,33 @@ const ProjectTasks: React.FC<Props> = ({ data }) => {
   );
 
   function handleRowClick(recordId: number) {
-    // history.push(`/users/detail/${userId}`);
-    console.log('Redirect to task detail');
+    history.push(getDetailUrl('tasks', recordId));
   }
 
+  const project = { id: Number(data.id), name: data.name }; // todo: type-fix
+
   return (
-    <div className="flex">
-      <div className="w-full h-512">
-        <DataTable
-          title="Project Tasks"
-          columns={columns}
-          data={data}
-          onRowClick={handleRowClick}
-          loading={false}
-          onCreate={() => console.log('Create project task')}
-          onDelete={() => console.log('Delete project task')}
-          size="small"
-        />
+    <>
+      <div className="flex">
+        <div className="w-full h-512">
+          <DataTable
+            title="Project Tasks"
+            columns={columns}
+            data={data.tasks}
+            onRowClick={handleRowClick}
+            loading={false}
+            onCreate={() => setCreateDialogOpen(true)}
+            // onDelete={() => console.log('Delete project task')}
+            size="small"
+          />
+        </div>
       </div>
-    </div>
+      <CreateTaskDialog
+        open={createDialogOpen}
+        setOpen={setCreateDialogOpen}
+        project={project}
+      />
+    </>
   );
 };
 
@@ -85,20 +109,25 @@ export default ProjectTasks;
 
 export const ProjectTasksFragment = {
   data: gql`
-    fragment ProjectTasksFragment__data on Task {
+    fragment ProjectTasksFragment__data on Project {
       id
       name
-      description
-      deleted
-      assignees {
+      tasks {
         id
-        fullName
-        email
-      }
-      createdBy {
-        id
-        fullName
-        email
+        name
+        description
+        status
+        deleted
+        assignees {
+          id
+          fullName
+          email
+        }
+        createdBy {
+          id
+          fullName
+          email
+        }
       }
     }
   `,

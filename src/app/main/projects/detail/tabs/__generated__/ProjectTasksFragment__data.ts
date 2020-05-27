@@ -7,7 +7,7 @@
 // GraphQL fragment: ProjectTasksFragment__data
 // ====================================================
 
-export interface ProjectTasksFragment__data_assignees {
+export interface ProjectTasksFragment__data_tasks_assignees {
   __typename: "User";
   /**
    * User ID
@@ -23,7 +23,7 @@ export interface ProjectTasksFragment__data_assignees {
   email: string;
 }
 
-export interface ProjectTasksFragment__data_createdBy {
+export interface ProjectTasksFragment__data_tasks_createdBy {
   __typename: "User";
   /**
    * User ID
@@ -39,7 +39,7 @@ export interface ProjectTasksFragment__data_createdBy {
   email: string;
 }
 
-export interface ProjectTasksFragment__data {
+export interface ProjectTasksFragment__data_tasks {
   __typename: "Task";
   /**
    * ID of task
@@ -54,15 +54,35 @@ export interface ProjectTasksFragment__data {
    */
   description: string;
   /**
+   * Status of task
+   */
+  status: string;
+  /**
    * Deleted
    */
   deleted: boolean;
   /**
    * Assignees of task
    */
-  assignees: ProjectTasksFragment__data_assignees[];
+  assignees: ProjectTasksFragment__data_tasks_assignees[];
   /**
    * Creator of task
    */
-  createdBy: ProjectTasksFragment__data_createdBy;
+  createdBy: ProjectTasksFragment__data_tasks_createdBy;
+}
+
+export interface ProjectTasksFragment__data {
+  __typename: "Project";
+  /**
+   * ID of Project
+   */
+  id: string;
+  /**
+   * Name of module
+   */
+  name: string;
+  /**
+   * Tasks of project
+   */
+  tasks: ProjectTasksFragment__data_tasks[];
 }

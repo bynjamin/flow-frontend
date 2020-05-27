@@ -16,6 +16,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
+import StatusChip from 'app/components/StatusChip';
 import Link from '@material-ui/core/Link';
 import FuseAnimateGroup from '@fuse/core/FuseAnimateGroup';
 import { MISSING_FIELD } from 'common/constants';
@@ -87,7 +88,7 @@ const TaskAbout: React.FC<Props> = ({ data }) => {
                 <Typography className="font-bold mb-4 text-15">
                   Status
                 </Typography>
-                <Chip label={data.status} color="secondary" />
+                <StatusChip status={data.status} />
               </div>
 
               <div className="mb-24">

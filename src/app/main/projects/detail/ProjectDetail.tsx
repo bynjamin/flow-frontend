@@ -24,9 +24,7 @@ const PROJECT_DETAIL_QUERY = gql`
       name
       ...ProjectDetailHeaderFragment__data
       ...ProjectAboutFragment__data
-      tasks {
-        ...ProjectTasksFragment__data
-      }
+      ...ProjectTasksFragment__data
     }
   }
   ${ProjectDetailHeaderFragment.data}
@@ -110,7 +108,7 @@ const ProjectDetail: React.FC = () => {
             {/* selectedTab === 0 && <TimelineTab /> */}
             {/* todo: nonnullable */}
             {selectedTab === 0 && <ProjectAbout data={project} />}
-            {selectedTab === 1 && <ProjectTasks data={project.tasks} />}
+            {selectedTab === 1 && <ProjectTasks data={project} />}
           </div>
         }
       />

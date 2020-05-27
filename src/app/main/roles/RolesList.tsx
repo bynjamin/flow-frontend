@@ -1,12 +1,13 @@
 import React, { useMemo } from 'react';
+import { useHistory } from 'react-router';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Tooltip from '@material-ui/core/Tooltip';
+import Chip from '@material-ui/core/Chip';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import ColorAvatar from 'app/components/ColorAvatar';
 import FuseLoading from '@fuse/core/FuseLoading';
-import { useHistory } from 'react-router';
 import DataTable from 'app/components/table/UncontrolledDataTable';
 import {
   // eslint-disable-next-line no-unused-vars
@@ -82,6 +83,9 @@ const RolesList = () => {
         Header: 'Count of members',
         accessor: 'memberCount',
         className: 'font-bold',
+        Cell: ({ cell: { value } }: any) => (
+          <Chip label={value} color="secondary" />
+        ),
       },
     ],
     [],

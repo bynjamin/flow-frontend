@@ -179,9 +179,10 @@ const RolePermissionCard: React.FC<Props> = ({ data, roleId }) => {
           action={
             isEdit ? (
               <ButtonGroup
-                size="small"
-                variant="contained"
                 className="mt-10 mb-8 mr-6"
+                size="small"
+                variant="outlined"
+                color="secondary"
               >
                 <Button onClick={handleCancel}>Cancel</Button>
                 <Button onClick={handleSave} startIcon={<SaveIcon />}>

@@ -35,9 +35,13 @@ import {
 type Props = {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
+  project?: {
+    id: number;
+    name: string;
+  };
 };
 
-const CreateProjectDialog: React.FC<Props> = ({ open, setOpen }) => {
+const CreateProjectDialog: React.FC<Props> = ({ open, setOpen, project }) => {
   const history = useHistory();
   const [isValid, setValid] = useState<boolean>(false);
   const formRef = useRef<any>(null);
@@ -146,7 +150,7 @@ const CreateProjectDialog: React.FC<Props> = ({ open, setOpen }) => {
                 {(Object.keys(TASK_STATUSES) as Array<
                   keyof typeof TASK_STATUSES
                 >).map(state => (
-                  <MenuItem key={state} value={state}>
+                  <MenuItem key={state} value={TASK_STATUSES[state]}>
                     {TASK_STATUSES[state]}
                   </MenuItem>
                 ))}
@@ -158,6 +162,7 @@ const CreateProjectDialog: React.FC<Props> = ({ open, setOpen }) => {
             <Grid item xs={6}>
               <ProjectsAutocompleteFormsy
                 name="projectId"
+                value={project}
                 label="Project *"
                 required
               />

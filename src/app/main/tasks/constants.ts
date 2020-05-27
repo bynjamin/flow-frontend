@@ -6,7 +6,7 @@ export type TaskStatusType =
 
 export const TASK_STATUSES = {
   NOT_STARTED: 'Not Started',
-  IN_PROGRESS: 'In Progress',
+  IN_PROGRESS: 'In progress',
   WAITING: 'Waiting',
   FINISHED: 'Finished',
 };
