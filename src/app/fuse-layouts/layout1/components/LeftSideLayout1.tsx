@@ -1,7 +1,7 @@
 import React from 'react';
 
-function LeftSideLayout1() {
-	return <></>;
-}
+const LeftSideLayout1: React.FC = () => {
+  return <></>;
+};
 
 export default LeftSideLayout1;
