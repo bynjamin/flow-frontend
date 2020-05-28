@@ -5,7 +5,7 @@ import FuseSuspense from '@fuse/core/FuseSuspense';
 import { makeStyles } from '@material-ui/core/styles';
 import SettingsPanel from 'app/fuse-layouts/shared-components/SettingsPanel';
 import clsx from 'clsx';
-import React, { useContext } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import FooterLayout1 from './components/FooterLayout1';
@@ -79,11 +79,16 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Layout1(props) {
+type Props = {
+  children: React.ReactNode;
+  routes: any;
+};
+
+const Layout1: React.FC<Props> = ({ routes, children }) => {
+  // @ts-ignore
   const config = useSelector(({ fuse }) => fuse.settings.current.layout.config);
 
-  const classes = useStyles(props);
-  const { routes } = props;
+  const classes = useStyles();
 
   // console.warn('FuseLayout:: rendered');
 
@@ -100,7 +105,8 @@ function Layout1(props) {
             {config.toolbar.display &&
               config.toolbar.style === 'fixed' &&
               config.toolbar.position === 'above' && <ToolbarLayout1 />}
-
+            {/*
+            // @ts-ignore */}
             <FuseScrollbars className="overflow-auto" scrollToTopOnRouteChange>
               {config.toolbar.display &&
                 config.toolbar.style !== 'fixed' &&
@@ -120,7 +126,7 @@ function Layout1(props) {
 
                     <FuseSuspense>{renderRoutes(routes)}</FuseSuspense>
 
-                    {props.children}
+                    {children}
                   </div>
 
                   {config.footer.display &&
@@ -174,7 +180,8 @@ function Layout1(props) {
                 {config.toolbar.display &&
                   config.toolbar.position === 'below' &&
                   config.toolbar.style === 'fixed' && <ToolbarLayout1 />}
-
+                {/*
+                // @ts-ignore */}
                 <FuseScrollbars
                   className={classes.content}
                   scrollToTopOnRouteChange
@@ -187,7 +194,7 @@ function Layout1(props) {
 
                   <FuseSuspense>{renderRoutes(routes)}</FuseSuspense>
 
-                  {props.children}
+                  {children}
 
                   {config.footer.display &&
                     config.footer.position === 'below' &&
@@ -218,6 +225,6 @@ function Layout1(props) {
       );
     }
   }
-}
+};
 
 export default Layout1;
