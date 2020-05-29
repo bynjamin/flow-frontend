@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/jsx-key */
-import React, { useEffect } from 'react';
+import React from 'react';
 import truncate from 'lodash/truncate';
 import { makeStyles, fade } from '@material-ui/core/styles';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -30,6 +30,7 @@ import TablePaginationActions from './components/TablePaginationActions';
 import TableToolbar from './components/TableToolbar';
 // eslint-disable-next-line no-unused-vars
 import { OrderDirection, OrderType } from 'app/types';
+import useDidUpdateEffect from 'app/hooks/useDidUpdateEffect';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -229,7 +230,7 @@ const DataTable: React.FC<Props> = ({
   }
 
   const refetch = () => loadPage(0);
-  useEffect(refetch, [pageSize, order, globalFilter]); // Refetch to page 0 after pageSize, order or globalFilter change
+  useDidUpdateEffect(refetch, [pageSize, order, globalFilter]); // Refetch to page 0 after pageSize, order or globalFilter change
 
   return (
     <FuseAnimate animation="transition.slideUpIn" delay={300}>

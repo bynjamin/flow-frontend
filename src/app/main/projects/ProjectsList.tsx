@@ -77,7 +77,7 @@ const ProjectsList: React.FC = () => {
     setGlobalFilter,
   } = useTableState();
 
-  const { loading, error, data, fetchMore } = useQuery<DataType, InputType>(
+  const { loading, error, data, refetch } = useQuery<DataType, InputType>(
     PROJECTS_LIST_QUERY,
     {
       variables: {
@@ -184,14 +184,8 @@ const ProjectsList: React.FC = () => {
   }
 
   function loadPage(pageNum: number): void {
-    fetchMore({
-      variables: getQueryVariables(pageNum),
-      updateQuery: (prev, { fetchMoreResult }) => {
-        if (!fetchMoreResult) return prev;
-        setPage(pageNum);
-        return fetchMoreResult;
-      },
-    });
+    refetch(getQueryVariables(pageNum));
+    setPage(pageNum);
   }
 
   function handleChangePageSize(count: number): void {

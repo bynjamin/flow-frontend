@@ -75,7 +75,7 @@ const TasksList: React.FC = () => {
     setGlobalFilter,
   } = useTableState();
 
-  const { loading, error, data, fetchMore } = useQuery<DataType, InputType>(
+  const { loading, error, data, refetch } = useQuery<DataType, InputType>(
     TASKS_LIST_QUERY,
     {
       variables: {
@@ -160,14 +160,9 @@ const TasksList: React.FC = () => {
   }
 
   function loadPage(pageNum: number): void {
-    fetchMore({
-      variables: getQueryVariables(pageNum),
-      updateQuery: (prev, { fetchMoreResult }) => {
-        if (!fetchMoreResult) return prev;
-        setPage(pageNum);
-        return fetchMoreResult;
-      },
-    });
+    console.log('loadPage');
+    refetch(getQueryVariables(pageNum));
+    setPage(pageNum);
   }
 
   function handleChangePageSize(count: number): void {
