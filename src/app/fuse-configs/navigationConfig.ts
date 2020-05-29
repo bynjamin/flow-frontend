@@ -8,13 +8,6 @@ const navigationConfig = [
     icon: 'apps',
     children: [
       {
-        id: 'example-component',
-        title: 'Example',
-        type: 'item',
-        icon: 'whatshot',
-        url: '/example',
-      },
-      {
         id: 'projects-app',
         title: 'Projects',
         type: 'item',

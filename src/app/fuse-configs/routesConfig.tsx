@@ -1,7 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import FuseUtils from '@fuse/utils';
-import { ExampleConfig } from 'app/main/example/ExampleConfig';
 import UsersConfig from 'app/main/users/UsersAppConfig';
 import UserGroupsConfig from 'app/main/userGroups/UserGroupsConfig';
 import RolesConfig from 'app/main/roles/RolesAppConfig';
@@ -15,7 +14,6 @@ import { ClientsConfig } from 'app/main/clients/ClientsAppConfig';
 import { PermissionsConfig } from 'app/main/admin/permissions/PermissionsAppConfig';
 
 const routeConfigs = [
-  ExampleConfig,
   LoginConfig,
   TestConfig,
   ContactsConfig,
@@ -32,7 +30,7 @@ const routes = [
   ...FuseUtils.generateRoutesFromConfigs(routeConfigs),
   {
     path: '/',
-    component: () => <Redirect to="/example" />,
+    component: () => <Redirect to="/projects" />,
   },
 ];
 
