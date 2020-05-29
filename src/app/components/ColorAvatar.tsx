@@ -1,18 +1,20 @@
 import React from 'react';
 import stc from 'string-to-color';
+import clsx from 'clsx';
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles, createStyles } from '@material-ui/styles';
 import { Theme } from '@material-ui/core';
 
 interface Props {
   colorString: string;
+  classNames?: string;
   children?: React.ReactNode;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     avatar: ({ colorString }: Props) => ({
-      // color: theme.palette.getContrastText(stc(colorString)),
+      color: 'white',
       backgroundColor: stc(colorString),
     }),
   }),
@@ -21,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const ColorAvatar: React.FC<Props> = props => {
   const classes = useStyles(props);
   return (
-    <Avatar className={classes.avatar} {...props}>
+    <Avatar className={clsx(classes.avatar, props.classNames)} {...props}>
       {props.children}
     </Avatar>
   );

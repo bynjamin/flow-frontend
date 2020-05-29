@@ -76,7 +76,7 @@ const UsersList = () => {
     setGlobalFilter,
   } = useTableState();
 
-  const { loading, error, data, fetchMore } = useQuery<
+  const { loading, error, data, refetch } = useQuery<
     UserListQuery,
     UserListQueryVariables
   >(USERLIST_QUERY, {
@@ -169,6 +169,9 @@ const UsersList = () => {
   }
 
   function loadPage(pageNum: number): void {
+    refetch(getQueryVariables(pageNum));
+    setPage(pageNum);
+    /*
     fetchMore({
       variables: getQueryVariables(pageNum),
       updateQuery: (prev, { fetchMoreResult }) => {
@@ -177,6 +180,7 @@ const UsersList = () => {
         return fetchMoreResult;
       },
     });
+    */
   }
 
   function handleChangePageSize(count: number): void {
