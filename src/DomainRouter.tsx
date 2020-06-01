@@ -1,3 +1,8 @@
+/**
+ * Component which routes user either to public app or tenant
+ * specific app, based on length of the domain.
+ */
+
 import React from 'react';
 import FuseSplashScreen from '@fuse/core/FuseSplashScreen';
 import { EnvException } from './common/exceptions';
