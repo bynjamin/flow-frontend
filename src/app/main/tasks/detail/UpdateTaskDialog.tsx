@@ -151,9 +151,9 @@ const UpdateTaskDialog: React.FC<Props> = ({ data }) => {
                 >
                   {(Object.keys(TASK_STATUSES) as Array<
                     keyof typeof TASK_STATUSES
-                  >).map(state => (
-                    <MenuItem key={state} value={TASK_STATUSES[state]}>
-                      {TASK_STATUSES[state]}
+                  >).map(status => (
+                    <MenuItem key={status} value={status}>
+                      {TASK_STATUSES[status]}
                     </MenuItem>
                   ))}
                 </SelectFormsy>

@@ -6,7 +6,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Avatar from '@material-ui/core/Avatar';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import DataTable from 'app/components/table/UncontrolledDataTable';
-import CreateTaskDialog from 'app/main/tasks/CreateTaskDialog';
+import CreateTaskDialog from 'app/main/tasks/list/CreateTaskDialog';
 import { getDetailUrl } from 'app/helpers/linkResolver';
 
 import {

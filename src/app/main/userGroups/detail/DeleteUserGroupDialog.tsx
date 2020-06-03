@@ -4,14 +4,14 @@ import { useMutation } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
 import { Backdrop } from 'common/components/backdrop';
 import { AppContext } from 'app/AppContext';
-import { DELETE_USER_GROUPS } from '../mutations/deleteUserGroups';
+import { DELETE_USER_GROUPS } from '../list/mutations/deleteUserGroups';
 import DeleteDialog from 'app/components/DeleteDialog';
 import {
   // eslint-disable-next-line no-unused-vars
   DeleteUserGroups as ResponseType,
   // eslint-disable-next-line no-unused-vars
   DeleteUserGroupsVariables as InputType,
-} from '../mutations/__generated__/DeleteUserGroups';
+} from '../list/mutations/__generated__/DeleteUserGroups';
 // eslint-disable-next-line no-unused-vars
 import { DeleteUserGroupDialogFragment__data as DataType } from './__generated__/DeleteUserGroupDialogFragment__data';
 
