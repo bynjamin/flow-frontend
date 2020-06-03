@@ -4,10 +4,10 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL fragment: UserGroupDetailHeaderFragment__data
+// GraphQL fragment: UpdateUserGroupDialogFragment__data
 // ====================================================
 
-export interface UserGroupDetailHeaderFragment__data_members {
+export interface UpdateUserGroupDialogFragment__data_members {
   __typename: "User";
   /**
    * User ID
@@ -19,16 +19,16 @@ export interface UserGroupDetailHeaderFragment__data_members {
   email: string;
 }
 
-export interface UserGroupDetailHeaderFragment__data {
+export interface UpdateUserGroupDialogFragment__data {
   __typename: "UserGroup";
-  /**
-   * User group name
-   */
-  name: string;
   /**
    * User group ID
    */
   id: number;
+  /**
+   * User group name
+   */
+  name: string;
   /**
    * User group description
    */
@@ -36,5 +36,5 @@ export interface UserGroupDetailHeaderFragment__data {
   /**
    * User group users
    */
-  members: UserGroupDetailHeaderFragment__data_members[];
+  members: UpdateUserGroupDialogFragment__data_members[];
 }

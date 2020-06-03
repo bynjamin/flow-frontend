@@ -26,6 +26,10 @@ export interface UserGroupDetail_userGroup_members {
    */
   id: number;
   /**
+   * User email
+   */
+  email: string;
+  /**
    * User title
    */
   title: string;
@@ -33,10 +37,6 @@ export interface UserGroupDetail_userGroup_members {
    * User full name
    */
   fullName: string;
-  /**
-   * User email
-   */
-  email: string;
   /**
    * User role
    */

@@ -26,7 +26,7 @@ const DeleteUsersDialog: React.FC<Props> = ({ deleteIds, onComplete }) => {
     try {
       const { data: response } = await deleteUsers({
         variables: { ids: deleteIds },
-        refetchQueries: ['UserListQuery'],
+        refetchQueries: ['UserList'],
       });
       if (response?.deleteUsers) {
         dispatchSuccessFeedback();

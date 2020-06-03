@@ -74,7 +74,7 @@ const AddUsersToGroupDialog: React.FC<Props> = ({ data, open, onClose }) => {
       aria-labelledby="add-members-dialog-title"
     >
       <DialogTitle id="add-members-dialog-title">Add members</DialogTitle>
-      <DialogContent>
+      <DialogContent className="min-w-400">
         <DialogContentText>Search users by their email</DialogContentText>
         <UsersAutocomplete setSelected={setNewMembersIds} />
       </DialogContent>

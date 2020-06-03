@@ -30,7 +30,7 @@ type Props = {
 
 const UpdateUserDialog: React.FC<Props> = ({ data, roles }) => {
   const formRef = useRef<any>(null);
-  const { setActionFeedback } = useContext(AppContext);
+  const { setActionFeedback, setLoading } = useContext(AppContext);
   const [updateUser, { loading }] = useMutation<ResponseType, InputType>(
     UPDATE_USER,
   );
@@ -64,6 +64,7 @@ const UpdateUserDialog: React.FC<Props> = ({ data, roles }) => {
     });
   }
 
+  // todo: refactor Dialog component - Now, when mutation is loading, component is hidden - Both dialog and button
   if (loading) {
     return <Backdrop open={true} />;
   }

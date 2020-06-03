@@ -13,7 +13,7 @@ import { UsersAutocompleteFormsy } from 'app/components/formsy';
 import { Backdrop } from 'common/components/backdrop';
 import { AppContext } from 'app/AppContext';
 
-import { CREATE_USER_GROUP } from './mutations/createUserGroupMutation';
+import { CREATE_USER_GROUP } from './mutations/createUserGroup';
 import {
   // eslint-disable-next-line no-unused-vars
   CreateUserGroup as ResponseType,
@@ -105,6 +105,8 @@ const AddUserGroupDialog: React.FC<Props> = ({ open, onClose }) => {
             name="description"
             label="Description"
             variant="outlined"
+            multiline
+            rows={4}
           />
           <UsersAutocompleteFormsy
             name="memberIds"
