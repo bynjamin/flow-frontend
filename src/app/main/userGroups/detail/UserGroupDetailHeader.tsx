@@ -10,6 +10,9 @@ import { MISSING_FIELD } from 'common/constants';
 import DeleteUserGroupDialog, {
   DeleteUserGroupDialogFragment,
 } from './DeleteUserGroupDialog';
+import UpdateUserGroupDialog, {
+  UpdateUserGroupDialogFragment,
+} from './UpdateUserGroupDialog';
 import { UserGroupDetailHeaderFragment__data as DataType } from './__generated__/UserGroupDetailHeaderFragment__data';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -55,17 +58,7 @@ const UserGroupDetail: React.FC<Props> = ({ data }) => {
       </div>
 
       <div className="flex items-center justify-end">
-        <Button
-          className="mr-8 normal-case"
-          variant="contained"
-          color="secondary"
-          aria-label="Follow"
-          startIcon={<EditIcon />}
-          onClick={() => console.log('edit')}
-          disableElevation
-        >
-          Edit
-        </Button>
+        <UpdateUserGroupDialog data={data} />
         <DeleteUserGroupDialog data={data} />
       </div>
     </div>
@@ -78,8 +71,10 @@ export const UserGroupDetailHeaderFragment = {
   data: gql`
     fragment UserGroupDetailHeaderFragment__data on UserGroup {
       name
+      ...UpdateUserGroupDialogFragment__data
       ...DeleteUserGroupDialogFragment__data
     }
+    ${UpdateUserGroupDialogFragment.data}
     ${DeleteUserGroupDialogFragment.data}
   `,
 };

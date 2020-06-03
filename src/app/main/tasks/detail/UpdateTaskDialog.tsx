@@ -48,7 +48,7 @@ const UpdateTaskDialog: React.FC<Props> = ({ data }) => {
     resetForm();
   };
 
-  async function handleSubmit() {
+  const handleSubmit = async () => {
     try {
       setLoading(true);
       setOpen(false);
@@ -71,7 +71,7 @@ const UpdateTaskDialog: React.FC<Props> = ({ data }) => {
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   function dispatchErrorFeedback() {
     setActionFeedback({
