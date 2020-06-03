@@ -1,40 +1,25 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import FuseLoading from '@fuse/core/FuseLoading';
 import FusePageSimple from '@fuse/core/FusePageSimple';
-import TaskDetailHeader, { TaskDetailHeaderFragment } from './TaskDetailHeader';
-import TaskAbout, { TaskAboutFragment } from './tabs/TaskAbout';
-import {
-  TaskDetailQuery as DataType,
-  TaskDetailQueryVariables as InputType,
-} from './__generated__/TaskDetailQuery';
+import TaskDetailHeader from './TaskDetailHeader';
+import TaskAbout from './tabs/TaskAbout';
 
-const TASK_DETAIL_QUERY = gql`
-  query TaskDetailQuery($id: Int!) {
-    task(id: $id) {
-      id
-      name
-      ...TaskDetailHeaderFragment__data
-      ...TaskAboutFragment__data
-    }
-  }
-  ${TaskDetailHeaderFragment.data}
-  ${TaskAboutFragment.data}
-`;
+import { TASK_DETAIL } from './queries/taskDetail';
+import {
+  TaskDetail as DataType,
+  TaskDetailVariables as InputType,
+} from './queries/__generated__/TaskDetail';
 
 const TaskDetail: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState(0);
   const { id } = useParams();
-  const { loading, error, data } = useQuery<DataType, InputType>(
-    TASK_DETAIL_QUERY,
-    {
-      variables: { id: parseInt(id!, 10) },
-    },
-  );
+  const { loading, error, data } = useQuery<DataType, InputType>(TASK_DETAIL, {
+    variables: { id: parseInt(id!, 10) },
+  });
 
   function handleTabChange(event: React.ChangeEvent<{}>, value: number) {
     setSelectedTab(value);

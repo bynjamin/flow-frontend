@@ -18,13 +18,13 @@ import FuseAnimate from '@fuse/core/FuseAnimate';
 import { saveTokens } from 'app/auth/jwtService/jwtService2';
 import { AppContext } from 'app/AppContext';
 import { publicClient } from 'apollo-clients';
-import { LOGIN } from './loginMutation';
+import { LOGIN } from './mutations/login';
 import {
   // eslint-disable-next-line no-unused-vars
   Login as ResponseType,
   // eslint-disable-next-line no-unused-vars
   LoginVariables as InputType,
-} from './__generated__/Login';
+} from './mutations/__generated__/Login';
 
 const useStyles = makeStyles((theme: any) => ({
   root: {

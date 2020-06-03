@@ -4,14 +4,14 @@ import { useMutation } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
 import { Backdrop } from 'common/components/backdrop';
 import { AppContext } from 'app/AppContext';
-import { DELETE_USERS } from '../mutations/deleteUsers';
+import { DELETE_USERS } from '../list/mutations/deleteUsers';
 import DeleteDialog from 'app/components/DeleteDialog';
 import {
   // eslint-disable-next-line no-unused-vars
   DeleteUsers as ResponseType,
   // eslint-disable-next-line no-unused-vars
   DeleteUsersVariables as InputType,
-} from '../mutations/__generated__/DeleteUsers';
+} from '../list/mutations/__generated__/DeleteUsers';
 
 type Props = {
   data: any;

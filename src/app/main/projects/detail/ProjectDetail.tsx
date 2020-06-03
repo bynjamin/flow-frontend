@@ -1,42 +1,26 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Badge from '@material-ui/core/Badge';
 import FuseLoading from '@fuse/core/FuseLoading';
 import FusePageSimple from '@fuse/core/FusePageSimple';
-import ProjectDetailHeader, {
-  ProjectDetailHeaderFragment,
-} from './ProjectDetailHeader';
-import ProjectAbout, { ProjectAboutFragment } from './tabs/ProjectAbout';
-import ProjectTasks, { ProjectTasksFragment } from './tabs/ProjectTasks';
-import {
-  ProjectDetailQuery as DataType,
-  ProjectDetailQueryVariables as InputType,
-} from './__generated__/ProjectDetailQuery';
+import ProjectDetailHeader from './ProjectDetailHeader';
+import ProjectAbout from './tabs/ProjectAbout';
+import ProjectTasks from './tabs/ProjectTasks';
 
-const PROJECT_DETAIL_QUERY = gql`
-  query ProjectDetailQuery($id: Int!) {
-    project(id: $id) {
-      id
-      name
-      ...ProjectDetailHeaderFragment__data
-      ...ProjectAboutFragment__data
-      ...ProjectTasksFragment__data
-    }
-  }
-  ${ProjectDetailHeaderFragment.data}
-  ${ProjectAboutFragment.data}
-  ${ProjectTasksFragment.data}
-`;
+import { PROJECT_DETAIL } from './queries/projectDetail';
+import {
+  ProjectDetail as DataType,
+  ProjectDetailVariables as InputType,
+} from './queries/__generated__/ProjectDetail';
 
 const ProjectDetail: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState(0);
   const { id } = useParams();
   const { loading, error, data } = useQuery<DataType, InputType>(
-    PROJECT_DETAIL_QUERY,
+    PROJECT_DETAIL,
     {
       variables: { id: parseInt(id!, 10) },
     },

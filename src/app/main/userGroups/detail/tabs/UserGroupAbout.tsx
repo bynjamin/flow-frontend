@@ -11,18 +11,7 @@ import { MISSING_FIELD } from 'common/constants';
 import AddUsersToGroupDialog, {
   AddUsersToGroupDialogFragment,
 } from '../AddUsersToGroupDialog';
-import {
-  // eslint-disable-next-line no-unused-vars
-  UserGroupAboutFragment__data as DataType,
-  // eslint-disable-next-line no-unused-vars
-  UserGroupAboutFragment__data_members as MemberType,
-} from './__generated__/UserGroupAboutFragment__data';
-import {
-  // eslint-disable-next-line no-unused-vars
-  AddUsersToUserGroup as ResponseType,
-  // eslint-disable-next-line no-unused-vars
-  AddUsersToUserGroupVariables as InputType,
-} from '../mutations/__generated__/AddUsersToUserGroup';
+import { UserGroupAboutFragment__data as DataType } from './__generated__/UserGroupAboutFragment__data';
 
 type Props = {
   data: DataType;

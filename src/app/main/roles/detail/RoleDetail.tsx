@@ -10,38 +10,20 @@ import {
 } from '@material-ui/core';
 import FuseLoading from '@fuse/core/FuseLoading';
 import FusePageSimple from '@fuse/core/FusePageSimple';
-import RoleAbout, { RoleAboutFragment } from './tabs/RoleAbout';
-import RoleDetailHeader, { RoleDetailHeaderFragment } from './RoleDetailHeader';
-import RolePermissions, {
-  RolePermissionsFragment,
-} from './tabs/permissions/RolePermissions';
-import {
-  // eslint-disable-next-line no-unused-vars
-  RoleDetailQuery,
-  // eslint-disable-next-line no-unused-vars
-  RoleDetailQueryVariables,
-} from './__generated__/RoleDetailQuery';
+import RoleAbout from './tabs/RoleAbout';
+import RoleDetailHeader from './RoleDetailHeader';
+import RolePermissions from './tabs/permissions/RolePermissions';
 
-const ROLE_DETAIL_QUERY = gql`
-  query RoleDetailQuery($id: Int!) {
-    userRole(roleId: $id) {
-      ...RoleDetailHeaderFragment__data
-      ...RoleAboutFragment__data
-      ...RolePermissionsFragment__data
-    }
-  }
-  ${RoleAboutFragment.data}
-  ${RolePermissionsFragment.data}
-  ${RoleDetailHeaderFragment.data}
-`;
+import { ROLE_DETAIL } from './queries/roleDetial';
+import {
+  RoleDetail as DataType,
+  RoleDetailVariables as InputType,
+} from './queries/__generated__/RoleDetail';
 
 const RoleDetail: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState(0);
   const { id } = useParams();
-  const { loading, error, data } = useQuery<
-    RoleDetailQuery,
-    RoleDetailQueryVariables
-  >(ROLE_DETAIL_QUERY, {
+  const { loading, error, data } = useQuery<DataType, InputType>(ROLE_DETAIL, {
     variables: { id: parseInt(id!, 10) },
   });
 

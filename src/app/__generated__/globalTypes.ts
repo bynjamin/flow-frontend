@@ -8,6 +8,16 @@
 //==============================================================
 
 /**
+ * Task state
+ */
+export enum TaskState {
+  FINISHED = "FINISHED",
+  IN_PROGRESS = "IN_PROGRESS",
+  NOT_STARTED = "NOT_STARTED",
+  WAITING = "WAITING",
+}
+
+/**
  * Access input type
  */
 export interface AccessInput {

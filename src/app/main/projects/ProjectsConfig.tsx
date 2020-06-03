@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
-const ProjectsConfig = {
+const ProjectsListConfig = {
   settings: {
     layout: {
       config: {},
@@ -10,7 +10,7 @@ const ProjectsConfig = {
   routes: [
     {
       path: '/projects/:id',
-      component: React.lazy(() => import('./ProjectsApp')),
+      component: React.lazy(() => import('./list/ProjectsListContainer')),
     },
     {
       path: '/projects',
@@ -33,4 +33,4 @@ const ProjectDetailConfig = {
   ],
 };
 
-export default [ProjectDetailConfig, ProjectsConfig]; // This order is important!
+export default [ProjectDetailConfig, ProjectsListConfig]; // This order is important!

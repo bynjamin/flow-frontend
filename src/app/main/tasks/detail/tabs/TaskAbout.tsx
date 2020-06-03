@@ -19,6 +19,7 @@ import Chip from '@material-ui/core/Chip';
 import StatusChip from 'app/components/StatusChip';
 import Link from '@material-ui/core/Link';
 import FuseAnimateGroup from '@fuse/core/FuseAnimateGroup';
+import { TASK_STATUSES } from '../../constants';
 import { MISSING_FIELD } from 'common/constants';
 import { getDetailUrl } from 'app/helpers/linkResolver';
 import { TaskAboutFragment__data as DataType } from './__generated__/TaskAboutFragment__data';
@@ -88,7 +89,7 @@ const TaskAbout: React.FC<Props> = ({ data }) => {
                 <Typography className="font-bold mb-4 text-15">
                   Status
                 </Typography>
-                <StatusChip status={data.status} />
+                <StatusChip status={TASK_STATUSES[data.status]} />
               </div>
 
               <div className="mb-24">

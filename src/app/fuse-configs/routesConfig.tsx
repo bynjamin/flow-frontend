@@ -1,9 +1,9 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import FuseUtils from '@fuse/utils';
-import UsersConfig from 'app/main/users/UsersAppConfig';
+import UsersConfig from 'app/main/users/UsersConfig';
 import UserGroupsConfig from 'app/main/userGroups/UserGroupsConfig';
-import RolesConfig from 'app/main/roles/RolesAppConfig';
+import RolesConfig from 'app/main/roles/RolesConfig';
 import ProjectsConfig from 'app/main/projects/ProjectsConfig';
 import TasksConfig from 'app/main/tasks/TasksConfig';
 import { LoginConfig } from 'app/main/login/LoginConfig';

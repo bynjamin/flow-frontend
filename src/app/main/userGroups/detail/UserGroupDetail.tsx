@@ -1,46 +1,28 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
 import { Tab, Tabs } from '@material-ui/core';
 import FuseLoading from '@fuse/core/FuseLoading';
 import FusePageSimple from '@fuse/core/FusePageSimple';
-import UserGroupAbout, { UserGroupAboutFragment } from './tabs/UserGroupAbout';
-import UserGroupDetailHeader, {
-  UserGroupDetailHeaderFragment,
-} from './UserGroupDetailHeader';
-import UserGroupPermissions, {
-  UserGroupPermissionsFragment,
-} from './tabs/permissions/UserGroupPermissions';
-import {
-  // eslint-disable-next-line no-unused-vars
-  UserGroupDetailQuery,
-  // eslint-disable-next-line no-unused-vars
-  UserGroupDetailQueryVariables,
-} from './__generated__/UserGroupDetailQuery';
+import UserGroupAbout from './tabs/UserGroupAbout';
+import UserGroupDetailHeader from './UserGroupDetailHeader';
+import UserGroupPermissions from './tabs/permissions/UserGroupPermissions';
 
-const USERGROUP_DETAIL_QUERY = gql`
-  query UserGroupDetailQuery($id: Int!) {
-    userGroup(groupId: $id) {
-      ...UserGroupDetailHeaderFragment__data
-      ...UserGroupAboutFragment__data
-      ...UserGroupPermissionsFragment__data
-    }
-  }
-  ${UserGroupAboutFragment.data}
-  ${UserGroupPermissionsFragment.data}
-  ${UserGroupDetailHeaderFragment.data}
-`;
+import { USERGROUP_DETAIL } from './queries/userGroupDetail';
+import {
+  UserGroupDetail as DataType,
+  UserGroupDetailVariables as InputType,
+} from './queries/__generated__/UserGroupDetail';
 
 const UserGroupDetail: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState(0);
   const { id } = useParams();
-  const { loading, error, data } = useQuery<
-    UserGroupDetailQuery,
-    UserGroupDetailQueryVariables
-  >(USERGROUP_DETAIL_QUERY, {
-    variables: { id: parseInt(id!, 10) },
-  });
+  const { loading, error, data } = useQuery<DataType, InputType>(
+    USERGROUP_DETAIL,
+    {
+      variables: { id: parseInt(id!, 10) },
+    },
+  );
 
   const handleTabChange = (event: any, value: number) => {
     setSelectedTab(value);

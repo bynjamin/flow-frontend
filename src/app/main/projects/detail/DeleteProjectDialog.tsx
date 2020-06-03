@@ -7,13 +7,14 @@ import { AppContext } from 'app/AppContext';
 import { DELETE_PROJECT } from './mutations/deleteProject';
 import DeleteDialog from 'app/components/DeleteDialog';
 import { getListUrl } from 'app/helpers/linkResolver';
+import { DeleteProjectDialogFragment__data as DataType } from './__generated__/DeleteProjectDialogFragment__data';
 import {
   DeleteProject as ResponseType,
   DeleteProjectVariables as InputType,
 } from './mutations/__generated__/DeleteProject';
 
 type Props = {
-  data: any;
+  data: DataType;
 };
 
 const DeleteProjectDialog: React.FC<Props> = ({ data }) => {
@@ -26,7 +27,7 @@ const DeleteProjectDialog: React.FC<Props> = ({ data }) => {
   async function handleDelete() {
     try {
       const { data: response } = await deleteProject({
-        variables: { id: data.id },
+        variables: { id: Number(data.id) },
       });
       if (response?.deleteProject) {
         dispatchSuccessFeedback();

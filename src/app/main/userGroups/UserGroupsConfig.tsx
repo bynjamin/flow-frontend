@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
-const UserGroupsConfig = {
+const UserGroupsListConfig = {
   settings: {
     layout: {
       config: {},
@@ -10,7 +10,7 @@ const UserGroupsConfig = {
   routes: [
     {
       path: '/user-groups/:id',
-      component: React.lazy(() => import('./UserGroupsApp')),
+      component: React.lazy(() => import('./list/UserGroupsListContainer')),
     },
     {
       path: '/user-groups',
@@ -33,4 +33,4 @@ const UserGroupDetailConfig = {
   ],
 };
 
-export default [UserGroupDetailConfig, UserGroupsConfig]; // This order is important!
+export default [UserGroupDetailConfig, UserGroupsListConfig]; // This order is important!

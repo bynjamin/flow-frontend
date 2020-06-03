@@ -7,10 +7,10 @@ import {
   CheckCircle,
 } from '@material-ui/icons';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { red, blue, amber } from '@material-ui/core/colors';
+import { red, blue } from '@material-ui/core/colors';
 
 const STATUS_COLORS = {
-  'Not Started': amber[500],
+  'Not Started': '#FF994C',
   'In progress': '#55C39E',
   Waiting: blue[500],
   Finished: red[400],

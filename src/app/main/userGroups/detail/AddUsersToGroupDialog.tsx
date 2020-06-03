@@ -10,12 +10,9 @@ import Button from '@material-ui/core/Button';
 import { AppContext } from 'app/AppContext';
 import UsersAutocomplete from 'app/components/UsersAutocomplete';
 import { ADD_USERS_TO_GROUP } from './mutations/addUsersToGroup';
-// eslint-disable-next-line no-unused-vars
 import { AddUsersToGroupDialogFragment__data as DataType } from './__generated__/AddUsersToGroupDialogFragment__data';
 import {
-  // eslint-disable-next-line no-unused-vars
   AddUsersToUserGroup as ResponseType,
-  // eslint-disable-next-line no-unused-vars
   AddUsersToUserGroupVariables as InputType,
 } from './mutations/__generated__/AddUsersToUserGroup';
 

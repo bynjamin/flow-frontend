@@ -3,6 +3,8 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+import { TaskState } from "./../../../../../__generated__/globalTypes";
+
 // ====================================================
 // GraphQL fragment: TaskAboutFragment__data
 // ====================================================
@@ -68,7 +70,7 @@ export interface TaskAboutFragment__data {
   /**
    * Status of task
    */
-  status: string;
+  status: TaskState;
   /**
    * Deadline of task
    */

@@ -6,7 +6,7 @@ export const UPDATE_TASK = gql`
     $name: String!
     $description: String!
     $deadline: String!
-    $status: String!
+    $status: TaskState!
     $assigneeIds: [Int!]!
     $projectId: Int!
   ) {

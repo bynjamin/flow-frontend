@@ -3,6 +3,8 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+import { TaskState } from "./../../../../../__generated__/globalTypes";
+
 // ====================================================
 // GraphQL mutation operation: UpdateTask
 // ====================================================
@@ -56,7 +58,7 @@ export interface UpdateTask_updateTask {
   /**
    * Status of task
    */
-  status: string;
+  status: TaskState;
   /**
    * Assignees of task
    */
@@ -79,7 +81,7 @@ export interface UpdateTaskVariables {
   name: string;
   description: string;
   deadline: string;
-  status: string;
+  status: TaskState;
   assigneeIds: number[];
   projectId: number;
 }

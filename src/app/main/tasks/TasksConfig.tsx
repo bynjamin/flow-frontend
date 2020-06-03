@@ -10,7 +10,7 @@ const TasksConfig = {
   routes: [
     {
       path: '/tasks/:id',
-      component: React.lazy(() => import('./TasksApp')),
+      component: React.lazy(() => import('./list/TasksListContainer')),
     },
     {
       path: '/tasks',
