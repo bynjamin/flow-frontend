@@ -36,14 +36,13 @@ const UpdateProjectDialog: React.FC<Props> = ({ data }) => {
 
   const resetForm = () => formRef.current.reset();
   const handleClose = () => {
-    setOpen(false);
     resetForm();
+    setOpen(false);
   };
 
   async function handleSubmit() {
     try {
       setLoading(true);
-      setOpen(false);
       const { data: response } = await updateProject({
         variables: {
           ...formRef.current.getModel(),
@@ -55,11 +54,9 @@ const UpdateProjectDialog: React.FC<Props> = ({ data }) => {
         handleClose();
       } else {
         dispatchErrorFeedback();
-        setOpen(true);
       }
     } catch {
       dispatchErrorFeedback();
-      setOpen(true);
     } finally {
       setLoading(false);
     }

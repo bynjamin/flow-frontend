@@ -44,14 +44,13 @@ const UpdateTaskDialog: React.FC<Props> = ({ data }) => {
 
   const resetForm = () => formRef.current.reset();
   const handleClose = () => {
-    setOpen(false);
     resetForm();
+    setOpen(false);
   };
 
   const handleSubmit = async () => {
     try {
       setLoading(true);
-      setOpen(false);
       const { data: response } = await updateTask({
         variables: {
           ...formRef.current.getModel(),
@@ -63,11 +62,9 @@ const UpdateTaskDialog: React.FC<Props> = ({ data }) => {
         handleClose();
       } else {
         dispatchErrorFeedback();
-        setOpen(true);
       }
     } catch {
       dispatchErrorFeedback();
-      setOpen(true);
     } finally {
       setLoading(false);
     }

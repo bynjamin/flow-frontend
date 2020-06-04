@@ -76,8 +76,8 @@ const UserGroupAbout: React.FC<Props> = ({ data }) => {
         <div className="w-full h-512">
           <Members
             members={data.members}
-            onAdd={openAddMembers}
-            onRemove={handleRemove}
+            // onAdd={openAddMembers} // todo: Only for purposes of Bachelor Thesis - In production uncomment
+            // onRemove={handleRemove}
           />
         </div>
       </div>

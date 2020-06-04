@@ -45,8 +45,8 @@ const UpdateUserGroupDialog: React.FC<Props> = ({ data }) => {
 
   const resetForm = () => formRef.current.reset();
   const handleClose = () => {
-    setOpen(false);
     resetForm();
+    setOpen(false);
   };
 
   const dispatchErrorFeedback = () => {
@@ -66,7 +66,6 @@ const UpdateUserGroupDialog: React.FC<Props> = ({ data }) => {
   const handleSubmit = async () => {
     try {
       setLoading(true);
-      setOpen(false);
       const { data: response } = await updateUserGroup({
         variables: {
           ...formRef.current.getModel(),
@@ -78,11 +77,9 @@ const UpdateUserGroupDialog: React.FC<Props> = ({ data }) => {
         handleClose();
       } else {
         dispatchErrorFeedback();
-        setOpen(true);
       }
-    } catch {
+    } catch (e) {
       dispatchErrorFeedback();
-      setOpen(true);
     } finally {
       setLoading(false);
     }
