@@ -51,8 +51,8 @@ const CreateProjectDialog: React.FC<Props> = ({ open, setOpen, project }) => {
 
   const resetForm = () => formRef.current.reset();
   const handleClose = () => {
-    setOpen(false);
     resetForm();
+    setOpen(false);
   };
 
   const dispatchSuccessFeedback = (taskName: string) => {
@@ -72,7 +72,6 @@ const CreateProjectDialog: React.FC<Props> = ({ open, setOpen, project }) => {
   const handleSubmit = async () => {
     try {
       setLoading(true);
-      setOpen(false);
       const model = formRef.current.getModel();
       const { data: response } = await createTask({
         variables: { ...model },
@@ -84,11 +83,9 @@ const CreateProjectDialog: React.FC<Props> = ({ open, setOpen, project }) => {
         history.push(getDetailUrl('tasks', Number(id)));
       } else {
         dispatchErrorFeedback();
-        setOpen(true);
       }
     } catch {
       dispatchErrorFeedback();
-      setOpen(true);
     } finally {
       setLoading(false);
     }

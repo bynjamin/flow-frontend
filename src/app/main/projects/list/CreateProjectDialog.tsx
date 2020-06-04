@@ -42,8 +42,8 @@ const CreateProjectDialog: React.FC<Props> = ({ open, setOpen }) => {
 
   const resetForm = () => formRef.current.reset();
   const handleClose = () => {
-    setOpen(false);
     resetForm();
+    setOpen(false);
   };
 
   const dispatchSuccessFeedback = (projectName: string) => {
@@ -63,7 +63,6 @@ const CreateProjectDialog: React.FC<Props> = ({ open, setOpen }) => {
   const handleSubmit = async () => {
     try {
       setLoading(true);
-      setOpen(false);
       const model = formRef.current.getModel();
       const { data: response } = await createProject({
         variables: { ...model },
@@ -75,11 +74,9 @@ const CreateProjectDialog: React.FC<Props> = ({ open, setOpen }) => {
         history.push(getDetailUrl('projects', Number(id)));
       } else {
         dispatchErrorFeedback();
-        setOpen(true);
       }
     } catch {
       dispatchErrorFeedback();
-      setOpen(true);
     } finally {
       setLoading(false);
     }
