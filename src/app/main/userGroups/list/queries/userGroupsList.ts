@@ -6,12 +6,14 @@ export const USERGROUPS_LIST = gql`
     $skip: Int
     $orderBy: String
     $orderDirection: String
+    $search: String
   ) {
     userGroups(
       first: $first
       skip: $skip
       orderBy: $orderBy
       orderDirection: $orderDirection
+      search: $search
     ) {
       count
       items {

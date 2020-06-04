@@ -63,4 +63,5 @@ export interface UserGroupsListVariables {
   skip?: number | null;
   orderBy?: string | null;
   orderDirection?: string | null;
+  search?: string | null;
 }

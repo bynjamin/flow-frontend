@@ -41,7 +41,7 @@ export interface UpdateProject_updateProject {
 
 export interface UpdateProject {
   /**
-   * Create project.
+   * Update project.
    */
   updateProject: UpdateProject_updateProject;
 }
