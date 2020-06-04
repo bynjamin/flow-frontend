@@ -27,9 +27,11 @@ const UserGroupsList = () => {
     page,
     pageSize,
     order,
+    globalFilter,
     setPage,
     setPageSize,
     setOrder,
+    setGlobalFilter,
   } = useTableState();
 
   const { loading, error, data, refetch } = useQuery<DataType>(
@@ -96,7 +98,7 @@ const UserGroupsList = () => {
     const { orderBy, orderDirection } = order;
     const skip = pageNum * pageSize;
     const first = pageSize;
-    return { first, skip, orderBy, orderDirection };
+    return { first, skip, orderBy, orderDirection, search: globalFilter };
   }
 
   function loadPage(pageNum: number): void {
@@ -135,6 +137,8 @@ const UserGroupsList = () => {
           order={order}
           setOrder={setOrder}
           onRowClick={handleRowClick}
+          globalFilter={globalFilter}
+          setGlobalFilter={setGlobalFilter}
           loading={loading}
           onCreate={toggleCreateDialogOpen}
           onDelete={handleDelete}
