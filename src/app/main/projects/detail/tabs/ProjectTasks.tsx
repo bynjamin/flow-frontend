@@ -8,6 +8,7 @@ import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import DataTable from 'app/components/table/UncontrolledDataTable';
 import CreateTaskDialog from 'app/main/tasks/list/CreateTaskDialog';
 import { getDetailUrl } from 'app/helpers/linkResolver';
+import { TASK_STATUSES, TaskStatusType } from 'app/main/tasks/constants';
 
 import {
   ProjectTasksFragment__data as DataType,
@@ -27,7 +28,9 @@ const ProjectTasks: React.FC<Props> = ({ data }) => {
         Header: ' ',
         accessor: 'status',
         className: 'font-bold',
-        Cell: ({ cell: { value } }: any) => <StatusChip status={value} />,
+        Cell: ({ cell: { value } }: any) => (
+          <StatusChip status={TASK_STATUSES[value as TaskStatusType]} />
+        ),
       },
       {
         Header: 'Name',

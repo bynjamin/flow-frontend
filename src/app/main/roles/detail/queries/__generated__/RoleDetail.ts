@@ -98,7 +98,7 @@ export interface RoleDetail_userRole {
    */
   description: string;
   /**
-   * User group users count
+   * User role users count
    */
   memberCount: number;
   /**

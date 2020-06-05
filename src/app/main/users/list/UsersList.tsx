@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useContext } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -13,6 +13,7 @@ import useTableState from 'app/components/table/useTableState';
 import InviteUserDialog from './InviteUserDialog';
 import DeleteUsersDialog from './DeleteUsersDialog';
 import { DEFAULT_PAGE_SIZE } from 'app/constants';
+import { AppContext } from 'app/AppContext';
 
 import { USERS_LIST } from './queries/usersList';
 import {
@@ -23,6 +24,7 @@ import {
 
 const UsersList = () => {
   const history = useHistory();
+  const { permissions } = useContext(AppContext);
   const [inviteDialogOpen, setInviteDialogOpen] = useState<boolean>(false);
   const [deleteIds, setDeleteIds] = useState<number[] | null>(null);
 
@@ -156,6 +158,8 @@ const UsersList = () => {
     setDeleteIds(null);
   }
 
+  const canCreate = () => permissions.User.basic.create;
+
   if (error) return <p style={{ color: 'red' }}>{error.message}</p>;
   if (data) {
     const { items, count } = data.users;
@@ -178,7 +182,7 @@ const UsersList = () => {
           globalFilter={globalFilter}
           setGlobalFilter={setGlobalFilter}
           loading={loading}
-          onCreate={toggleInviteDialogOpen}
+          onCreate={canCreate() ? toggleInviteDialogOpen : undefined}
           onDelete={handleDelete}
         />
         <InviteUserDialog

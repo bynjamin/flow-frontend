@@ -79,7 +79,8 @@ const navigationConfig = [
         type: 'item',
         icon: 'account_box',
         url: getListUrl('roles'),
-        model: 'Role',
+        model: 'UserGroup',
+        // model: 'Role',
       },
       /*
       {

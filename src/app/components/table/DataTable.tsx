@@ -312,15 +312,17 @@ const DataTable: React.FC<Props> = ({
             <Typography color="textSecondary" variant="h5">
               There are no records!
             </Typography>
-            <Button
-              className="mt-12"
-              variant="contained"
-              color="secondary"
-              onClick={onCreate}
-              disableElevation
-            >
-              Create new record
-            </Button>
+            {onCreate && (
+              <Button
+                className="mt-12"
+                variant="contained"
+                color="secondary"
+                onClick={onCreate}
+                disableElevation
+              >
+                Create new record
+              </Button>
+            )}
           </div>
         )}
         <MaUTable>

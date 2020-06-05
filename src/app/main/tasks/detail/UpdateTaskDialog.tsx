@@ -175,7 +175,7 @@ const UpdateTaskDialog: React.FC<Props> = ({ data }) => {
                 <UsersAutocompleteFormsy
                   name="assigneeIds"
                   value={data.assignees}
-                  label="Managers *"
+                  label="Assignees *"
                   validations="minLength:1"
                   required
                 />

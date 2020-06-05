@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import gql from 'graphql-tag';
 import Typography from '@material-ui/core/Typography';
 import ProjectIcon from '@material-ui/icons/Widgets';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import FuseAnimate from '@fuse/core/FuseAnimate';
 import { MISSING_FIELD } from 'common/constants';
+import { AppContext } from 'app/AppContext';
+
 import DeleteProjectDialog, {
   DeleteProjectDialogFragment,
 } from './DeleteProjectDialog';
@@ -27,6 +29,24 @@ type Props = {
 
 const ProjectDetailHeader: React.FC<Props> = ({ data }) => {
   const classes = useStyles();
+  const { permissions, user } = useContext(AppContext);
+
+  const isOwner = () => data.createdBy.id === user.id;
+  const isManager = () => data.managers.some(manager => manager.id === user.id);
+
+  const canUpdate = () => {
+    if (isOwner() || isManager()) {
+      return permissions.Project.basic.update;
+    }
+    return permissions.Project.global.update;
+  };
+
+  const canDelete = () => {
+    if (isOwner() || isManager()) {
+      return permissions.Project.basic.delete;
+    }
+    return permissions.Project.global.delete;
+  };
 
   if (!data) {
     return null;
@@ -46,8 +66,8 @@ const ProjectDetailHeader: React.FC<Props> = ({ data }) => {
       </div>
       {!data.deleted && (
         <div className="flex items-center justify-end">
-          <UpdateProjectDialog data={data} />
-          <DeleteProjectDialog data={data} />
+          {canUpdate() && <UpdateProjectDialog data={data} />}
+          {canDelete() && <DeleteProjectDialog data={data} />}
         </div>
       )}
     </div>
@@ -62,6 +82,12 @@ export const ProjectDetailHeaderFragment = {
       id
       name
       deleted
+      managers {
+        id
+      }
+      createdBy {
+        id
+      }
       ...UpdateProjectDialogFragment__data
       ...DeleteProjectDialogFragment__data
     }

@@ -160,7 +160,9 @@ const UpdateUserDialog: React.FC<Props> = ({ data, roles }) => {
                   variant="outlined"
                 >
                   {roles?.map((role: RoleType) => (
-                    <MenuItem value={role.id}>{role.name}</MenuItem>
+                    <MenuItem key={role.id} value={role.id}>
+                      {role.name}
+                    </MenuItem>
                   ))}
                 </SelectFormsy>
               </Grid>

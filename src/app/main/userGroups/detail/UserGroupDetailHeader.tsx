@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import gql from 'graphql-tag';
-import { Avatar, Button, Typography } from '@material-ui/core';
-import EditIcon from '@material-ui/icons/Edit';
+import { Avatar, Typography } from '@material-ui/core';
 import GroupIcon from '@material-ui/icons/People';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { blueGrey } from '@material-ui/core/colors';
 import FuseAnimate from '@fuse/core/FuseAnimate';
 import { MISSING_FIELD } from 'common/constants';
+import { AppContext } from 'app/AppContext';
+
 import DeleteUserGroupDialog, {
   DeleteUserGroupDialogFragment,
 } from './DeleteUserGroupDialog';
@@ -31,8 +32,12 @@ type Props = {
   data: DataType;
 };
 
-const UserGroupDetail: React.FC<Props> = ({ data }) => {
+const UserGroupDetailHeader: React.FC<Props> = ({ data }) => {
   const classes = useStyles();
+  const { permissions } = useContext(AppContext);
+
+  const canUpdate = () => permissions.UserGroup.basic.update;
+  const canDelete = () => permissions.UserGroup.basic.delete;
 
   if (!data) {
     return null;
@@ -58,14 +63,14 @@ const UserGroupDetail: React.FC<Props> = ({ data }) => {
       </div>
 
       <div className="flex items-center justify-end">
-        <UpdateUserGroupDialog data={data} />
-        <DeleteUserGroupDialog data={data} />
+        {canUpdate() && <UpdateUserGroupDialog data={data} />}
+        {canDelete() && <DeleteUserGroupDialog data={data} />}
       </div>
     </div>
   );
 };
 
-export default UserGroupDetail;
+export default UserGroupDetailHeader;
 
 export const UserGroupDetailHeaderFragment = {
   data: gql`
