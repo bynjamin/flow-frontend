@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState, SetStateAction, Dispatch } from 'react';
+import React, { useState, useEffect, SetStateAction, Dispatch } from 'react';
 import routes from './fuse-configs/routesConfig';
 // eslint-disable-next-line no-unused-vars
 import { ActionFeedback } from './types';
@@ -12,6 +12,7 @@ type AppContextProps = {
   setLoading: Dispatch<SetStateAction<boolean>>;
   actionFeedback: ActionFeedback | null;
   setActionFeedback: Dispatch<SetStateAction<ActionFeedback | null>>;
+  permissions: any;
 };
 
 export const AppContext = React.createContext({} as AppContextProps);
@@ -22,6 +23,22 @@ const AppContextProvider: React.FC = props => {
   const [actionFeedback, setActionFeedback] = useState<ActionFeedback | null>(
     null,
   );
+  const [permissions, setPermissions] = useState<any>(null);
+
+  function updatePermissions() {
+    if (!user) {
+      return;
+    }
+    const permissionsMap: any = {};
+
+    user.allPermissions.forEach((item: any) => {
+      permissionsMap[item.model as string] = item.actions;
+    });
+
+    setPermissions(permissionsMap);
+  }
+
+  useEffect(updatePermissions, [user]);
 
   return (
     <AppContext.Provider
@@ -33,6 +50,7 @@ const AppContextProvider: React.FC = props => {
         setLoading,
         actionFeedback,
         setActionFeedback,
+        permissions,
       }}
     >
       {props.children}

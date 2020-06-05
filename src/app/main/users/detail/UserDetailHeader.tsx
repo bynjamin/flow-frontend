@@ -19,7 +19,21 @@ type Props = {
 };
 
 const UserDetailHeader: React.FC<Props> = ({ data, roles }) => {
-  const { user } = useContext(AppContext);
+  const { user, permissions } = useContext(AppContext);
+
+  const isCurrentUser = () => user.id === data.id;
+  const canUpdate = () => {
+    if (isCurrentUser()) {
+      return permissions.User.basic.update;
+    }
+    return permissions.User.global.update;
+  };
+  const canDelete = () => {
+    if (isCurrentUser()) {
+      return permissions.User.basic.delete;
+    }
+    return permissions.User.global.delete;
+  };
 
   if (!data) {
     return null;
@@ -42,9 +56,9 @@ const UserDetailHeader: React.FC<Props> = ({ data, roles }) => {
       </div>
 
       <div className="flex items-center justify-end">
-        {user.id === data.id && <ChangePasswordDialog />}
-        <UpdateUserDialog data={data} roles={roles} />
-        <DeleteUserDialog data={data} />
+        {isCurrentUser() && <ChangePasswordDialog />}
+        {canUpdate() && <UpdateUserDialog data={data} roles={roles} />}
+        {canDelete() && <DeleteUserDialog data={data} />}
       </div>
     </div>
   );

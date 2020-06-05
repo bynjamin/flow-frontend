@@ -4,8 +4,8 @@ import { useQuery } from '@apollo/react-hooks';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Tooltip from '@material-ui/core/Tooltip';
 import Chip from '@material-ui/core/Chip';
+import Avatar from '@material-ui/core/Avatar';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
-import ColorAvatar from 'app/components/ColorAvatar';
 import FuseLoading from '@fuse/core/FuseLoading';
 import DataTable from 'app/components/table/UncontrolledDataTable';
 
@@ -49,14 +49,9 @@ const RolesList = () => {
           >
             <AvatarGroup max={3}>
               {value.map((member: MemberType) => (
-                <ColorAvatar
-                  key={member.id}
-                  colorString={member.email}
-                  // @ts-ignore
-                  // alt={member.fullName}
-                >
+                <Avatar key={member.id} alt={member.fullName}>
                   {member.fullName[0]}
-                </ColorAvatar>
+                </Avatar>
               ))}
             </AvatarGroup>
           </Tooltip>

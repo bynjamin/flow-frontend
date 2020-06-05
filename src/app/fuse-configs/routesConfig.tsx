@@ -6,6 +6,7 @@ import UserGroupsConfig from 'app/main/userGroups/UserGroupsConfig';
 import RolesConfig from 'app/main/roles/RolesConfig';
 import ProjectsConfig from 'app/main/projects/ProjectsConfig';
 import TasksConfig from 'app/main/tasks/TasksConfig';
+import { WelcomeConfig } from 'app/main/welcome/WelcomeConfig';
 import { LoginConfig } from 'app/main/login/LoginConfig';
 import { TestConfig } from 'app/main/test/TestConfig';
 import { ContactsConfig } from 'app/main/contacts/ContactsAppConfig';
@@ -14,6 +15,7 @@ import { ClientsConfig } from 'app/main/clients/ClientsAppConfig';
 import { PermissionsConfig } from 'app/main/admin/permissions/PermissionsAppConfig';
 
 const routeConfigs = [
+  WelcomeConfig,
   LoginConfig,
   TestConfig,
   ContactsConfig,
@@ -30,7 +32,7 @@ const routes = [
   ...FuseUtils.generateRoutesFromConfigs(routeConfigs),
   {
     path: '/',
-    component: () => <Redirect to="/projects" />,
+    component: () => <Redirect to="/welcome" />,
   },
 ];
 

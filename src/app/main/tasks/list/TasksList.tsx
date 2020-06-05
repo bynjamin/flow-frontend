@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useContext } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -13,6 +13,7 @@ import { getDetailUrl } from 'app/helpers/linkResolver';
 import { DEFAULT_PAGE_SIZE } from 'app/constants';
 import { TASK_STATUSES, TaskStatusType } from '../constants';
 import CreateTaskDialog from './CreateTaskDialog';
+import { AppContext } from 'app/AppContext';
 
 import { TASKS_LIST } from './queries/tasksList';
 import {
@@ -23,6 +24,7 @@ import {
 
 const TasksList: React.FC = () => {
   const history = useHistory();
+  const { permissions } = useContext(AppContext);
   const [createDialogOpen, setCreateDialogOpen] = useState<boolean>(false);
   // const [deleteIds, setDeleteIds] = useState<number[] | null>(null);
 
@@ -133,6 +135,8 @@ const TasksList: React.FC = () => {
     setPageSize(count);
   }
 
+  const canCreate = () => permissions.Task.basic.create;
+
   /*
   function handleDeleteComplete() {
     setDeleteIds(null);
@@ -161,7 +165,7 @@ const TasksList: React.FC = () => {
           globalFilter={globalFilter}
           setGlobalFilter={setGlobalFilter}
           loading={loading}
-          onCreate={() => setCreateDialogOpen(true)}
+          onCreate={canCreate() ? () => setCreateDialogOpen(true) : undefined}
           // onDelete={handleDelete}
         />
         <CreateTaskDialog

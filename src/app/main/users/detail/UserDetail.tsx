@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 import Tabs from '@material-ui/core/Tabs';
@@ -9,6 +9,7 @@ import FusePageSimple from '@fuse/core/FusePageSimple';
 import UserDetailHeader from './UserDetailHeader';
 import UserAbout from './tabs/UserAbout';
 import UserPermissions from './tabs/permissions/UserPermissions';
+import { AppContext } from 'app/AppContext';
 
 import { USER_DETAIL } from './queries/userDetail';
 import {
@@ -30,6 +31,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const ProfilePage: React.FC = () => {
   const classes = useStyles();
+  const { permissions } = useContext(AppContext);
   const [selectedTab, setSelectedTab] = useState(0);
   const { id } = useParams();
   const { loading, error, data } = useQuery<DataType, InputType>(USER_DETAIL, {
@@ -39,6 +41,8 @@ const ProfilePage: React.FC = () => {
   function handleTabChange(event: React.ChangeEvent<{}>, value: number) {
     setSelectedTab(value);
   }
+
+  const canUpdatePermissions = () => permissions.Permission.basic.update;
 
   if (loading) return <FuseLoading />;
   if (error) return <p style={{ color: 'red' }}>{error.message}</p>;
@@ -79,12 +83,14 @@ const ProfilePage: React.FC = () => {
               }}
               label="About"
             />
-            <Tab
-              classes={{
-                root: 'h-64',
-              }}
-              label="Permissions"
-            />
+            {canUpdatePermissions() && (
+              <Tab
+                classes={{
+                  root: 'h-64',
+                }}
+                label="Permissions"
+              />
+            )}
             {/*
             <Tab
               classes={{
@@ -100,7 +106,9 @@ const ProfilePage: React.FC = () => {
             {/* selectedTab === 0 && <TimelineTab /> */}
             {/* todo: nonnullable */}
             {selectedTab === 0 && <UserAbout data={user} />}
-            {selectedTab === 1 && <UserPermissions data={user} />}
+            {canUpdatePermissions() && selectedTab === 1 && (
+              <UserPermissions data={user} />
+            )}
           </div>
         }
       />

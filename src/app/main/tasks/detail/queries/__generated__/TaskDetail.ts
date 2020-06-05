@@ -9,6 +9,18 @@ import { TaskState } from "./../../../../../__generated__/globalTypes";
 // GraphQL query operation: TaskDetail
 // ====================================================
 
+export interface TaskDetail_task_createdBy {
+  __typename: "User";
+  /**
+   * User ID
+   */
+  id: number;
+  /**
+   * User full name
+   */
+  fullName: string;
+}
+
 export interface TaskDetail_task_assignees {
   __typename: "User";
   /**
@@ -25,6 +37,14 @@ export interface TaskDetail_task_assignees {
   email: string;
 }
 
+export interface TaskDetail_task_project_managers {
+  __typename: "User";
+  /**
+   * User ID
+   */
+  id: number;
+}
+
 export interface TaskDetail_task_project {
   __typename: "Project";
   /**
@@ -32,21 +52,13 @@ export interface TaskDetail_task_project {
    */
   id: string;
   /**
+   * Managers of project
+   */
+  managers: TaskDetail_task_project_managers[];
+  /**
    * Name of module
    */
   name: string;
-}
-
-export interface TaskDetail_task_createdBy {
-  __typename: "User";
-  /**
-   * User ID
-   */
-  id: number;
-  /**
-   * User full name
-   */
-  fullName: string;
 }
 
 export interface TaskDetail_task {
@@ -64,6 +76,18 @@ export interface TaskDetail_task {
    */
   deleted: boolean;
   /**
+   * Creator of task
+   */
+  createdBy: TaskDetail_task_createdBy;
+  /**
+   * Assignees of task
+   */
+  assignees: TaskDetail_task_assignees[];
+  /**
+   * Project for this task
+   */
+  project: TaskDetail_task_project;
+  /**
    * Description of task
    */
   description: string;
@@ -75,18 +99,6 @@ export interface TaskDetail_task {
    * Deadline of task
    */
   deadline: string;
-  /**
-   * Assignees of task
-   */
-  assignees: TaskDetail_task_assignees[];
-  /**
-   * Project for this task
-   */
-  project: TaskDetail_task_project;
-  /**
-   * Creator of task
-   */
-  createdBy: TaskDetail_task_createdBy;
 }
 
 export interface TaskDetail {

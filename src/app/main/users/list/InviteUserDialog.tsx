@@ -61,6 +61,7 @@ const InviteUserDialog: React.FC<Props> = ({ open, onClose }) => {
       }
       const { data: response } = await inviteUser({
         variables: { ...formRef.current.getModel() },
+        refetchQueries: ['UsersList'],
       });
       if (response?.inviteUser) {
         dispatchSuccessFeedback();
@@ -166,7 +167,9 @@ const InviteUserDialog: React.FC<Props> = ({ open, onClose }) => {
                   required
                 >
                   {data?.userRoles?.map((role: RoleType) => (
-                    <MenuItem value={role.id}>{role.name}</MenuItem>
+                    <MenuItem key={role.id} value={role.id}>
+                      {role.name}
+                    </MenuItem>
                   ))}
                 </SelectFormsy>
               </Grid>

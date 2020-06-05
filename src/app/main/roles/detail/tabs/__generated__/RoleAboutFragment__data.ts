@@ -38,7 +38,7 @@ export interface RoleAboutFragment__data {
    */
   description: string;
   /**
-   * User group users count
+   * User role users count
    */
   memberCount: number;
   /**

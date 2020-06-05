@@ -36,6 +36,7 @@ export const UPDATE_USER = gql`
       roleId: $roleId
     ) {
       id
+      title
       fullName
       firstName
       lastName

@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
 import {
   Tab,
   Tabs,
@@ -13,6 +12,7 @@ import FusePageSimple from '@fuse/core/FusePageSimple';
 import RoleAbout from './tabs/RoleAbout';
 import RoleDetailHeader from './RoleDetailHeader';
 import RolePermissions from './tabs/permissions/RolePermissions';
+import { AppContext } from 'app/AppContext';
 
 import { ROLE_DETAIL } from './queries/roleDetial';
 import {
@@ -21,6 +21,7 @@ import {
 } from './queries/__generated__/RoleDetail';
 
 const RoleDetail: React.FC = () => {
+  const { permissions } = useContext(AppContext);
   const [selectedTab, setSelectedTab] = useState(0);
   const { id } = useParams();
   const { loading, error, data } = useQuery<DataType, InputType>(ROLE_DETAIL, {
@@ -30,6 +31,8 @@ const RoleDetail: React.FC = () => {
   const handleTabChange = (event: any, value: number) => {
     setSelectedTab(value);
   };
+
+  const canUpdatePermissions = () => permissions.Permission.basic.update;
 
   if (loading) return <FuseLoading />;
   if (error) return <p style={{ color: 'red' }}>{error.message}</p>;
@@ -58,18 +61,22 @@ const RoleDetail: React.FC = () => {
               }}
               label="About"
             />
-            <Tab
-              classes={{
-                root: 'h-64',
-              }}
-              label="Permissions"
-            />
+            {canUpdatePermissions() && (
+              <Tab
+                classes={{
+                  root: 'h-64',
+                }}
+                label="Permissions"
+              />
+            )}
           </Tabs>
         }
         content={
           <div className="p-16 sm:p-24">
             {selectedTab === 0 && <RoleAbout data={data?.userRole} />}
-            {selectedTab === 1 && <RolePermissions data={data?.userRole} />}
+            {canUpdatePermissions() && selectedTab === 1 && (
+              <RolePermissions data={data?.userRole} />
+            )}
           </div>
         }
       />

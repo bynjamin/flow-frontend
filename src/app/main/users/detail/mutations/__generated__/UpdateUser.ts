@@ -46,6 +46,10 @@ export interface UpdateUser_updateUser {
    */
   id: number;
   /**
+   * User title
+   */
+  title: string;
+  /**
    * User full name
    */
   fullName: string;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import gql from 'graphql-tag';
 import Typography from '@material-ui/core/Typography';
 import TaskIcon from '@material-ui/icons/CheckBox';
@@ -9,6 +9,7 @@ import DeleteTaskDialog, { DeleteTaskDialogFragment } from './DeleteTaskDialog';
 import UpdateTaskDialog, { UpdateTaskDialogFragment } from './UpdateTaskDialog';
 
 import { TaskDetailHeaderFragment__data as DataType } from './__generated__/TaskDetailHeaderFragment__data';
+import { AppContext } from 'app/AppContext';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -24,6 +25,27 @@ type Props = {
 
 const TaskDetailHeader: React.FC<Props> = ({ data }) => {
   const classes = useStyles();
+  const { permissions, user } = useContext(AppContext);
+
+  const isOwner = () => data.createdBy.id === user.id;
+  const isAssignee = () =>
+    data.assignees.some(assignee => assignee.id === user.id);
+  const isProjectManager = () =>
+    data.project.managers.some(manager => manager.id === user.id);
+
+  const canUpdate = () => {
+    if (isOwner() || isProjectManager() || isAssignee()) {
+      return permissions.Project.basic.update;
+    }
+    return permissions.Project.global.update;
+  };
+
+  const canDelete = () => {
+    if (isOwner() || isProjectManager()) {
+      return permissions.Project.basic.delete;
+    }
+    return permissions.Project.global.delete;
+  };
 
   if (!data) {
     return null;
@@ -43,8 +65,8 @@ const TaskDetailHeader: React.FC<Props> = ({ data }) => {
       </div>
       {!data.deleted && (
         <div className="flex items-center justify-end">
-          <UpdateTaskDialog data={data} />
-          <DeleteTaskDialog data={data} />
+          {canUpdate() && <UpdateTaskDialog data={data} />}
+          {canDelete() && <DeleteTaskDialog data={data} />}
         </div>
       )}
     </div>
@@ -59,6 +81,18 @@ export const TaskDetailHeaderFragment = {
       id
       name
       deleted
+      createdBy {
+        id
+      }
+      assignees {
+        id
+      }
+      project {
+        id
+        managers {
+          id
+        }
+      }
       ...DeleteTaskDialogFragment__data
       ...UpdateTaskDialogFragment__data
     }

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useContext } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -11,6 +11,7 @@ import useTableState from 'app/components/table/useTableState';
 import CreateUserGroupDialog from './CreateUserGroupDialog';
 import DeleteUserGroupsDialog from './DeleteUserGroupsDialog';
 import { DEFAULT_PAGE_SIZE } from 'app/constants';
+import { AppContext } from 'app/AppContext';
 
 import { USERGROUPS_LIST } from './queries/userGroupsList';
 import {
@@ -20,6 +21,7 @@ import {
 
 const UserGroupsList = () => {
   const history = useHistory();
+  const { permissions } = useContext(AppContext);
   const [createDialogOpen, setCreateDialogOpen] = useState<boolean>(false);
   const [deleteIds, setDeleteIds] = useState<number[] | null>(null);
 
@@ -118,6 +120,8 @@ const UserGroupsList = () => {
     setDeleteIds(null);
   }
 
+  const canCreate = () => permissions.UserGroup.basic.create;
+
   if (error) return <p style={{ color: 'red' }}>{error.message}</p>;
   if (data) {
     const { items, count } = data.userGroups;
@@ -140,7 +144,7 @@ const UserGroupsList = () => {
           globalFilter={globalFilter}
           setGlobalFilter={setGlobalFilter}
           loading={loading}
-          onCreate={toggleCreateDialogOpen}
+          onCreate={canCreate() ? toggleCreateDialogOpen : undefined}
           onDelete={handleDelete}
         />
         <CreateUserGroupDialog

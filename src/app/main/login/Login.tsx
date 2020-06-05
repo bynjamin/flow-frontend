@@ -58,6 +58,15 @@ const Login: React.FC = () => {
     setIsFormValid(true);
   };
 
+  const onError = () => {
+    setActionFeedback({
+      message: 'Invalid login credentials',
+      severity: 'error',
+    });
+    // @ts-ignore
+    formRef.current.reset();
+  };
+
   const handleSubmit = async (model: InputType) => {
     try {
       setLoading(true);
@@ -67,12 +76,7 @@ const Login: React.FC = () => {
       setLoading(false);
 
       if (errors) {
-        setActionFeedback({
-          message: 'Invalid login credentials',
-          severity: 'error',
-        });
-        // @ts-ignore
-        formRef.current.reset();
+        onError();
       }
 
       if (data) {
@@ -86,12 +90,7 @@ const Login: React.FC = () => {
       }
     } catch {
       setLoading(false);
-      setActionFeedback({
-        message: 'Invalid login credentials',
-        severity: 'error',
-      });
-      // @ts-ignore
-      formRef.current.reset();
+      onError();
     }
   };
 

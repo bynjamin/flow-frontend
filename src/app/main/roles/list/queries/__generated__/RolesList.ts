@@ -42,7 +42,7 @@ export interface RolesList_userRoles {
    */
   members: RolesList_userRoles_members[];
   /**
-   * User group users count
+   * User role users count
    */
   memberCount: number;
 }

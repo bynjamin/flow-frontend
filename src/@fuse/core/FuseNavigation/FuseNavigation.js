@@ -1,9 +1,10 @@
+import React, { useContext } from 'react';
+import { AppContext } from 'app/AppContext';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import React from 'react';
 import FuseNavHorizontalCollapse from './horizontal/FuseNavHorizontalCollapse';
 import FuseNavHorizontalGroup from './horizontal/FuseNavHorizontalGroup';
 import FuseNavHorizontalItem from './horizontal/FuseNavHorizontalItem';
@@ -98,7 +99,22 @@ const useStyles = makeStyles(theme => ({
 
 function FuseNavigation(props) {
 	const classes = useStyles(props);
-	const { navigation, layout, active, dense, className } = props;
+  const { navigation, layout, active, dense, className } = props;
+  const { permissions } = useContext(AppContext);
+
+  const navigationCopy = JSON.parse(JSON.stringify(navigation));
+
+  navigationCopy[0].children = navigationCopy[0].children.filter((item) => {
+    if (!item.model || !permissions) {
+      return true;
+    }
+    console.log(item.model);
+    console.log(permissions[item.model]);
+    return permissions[item.model].basic.read;
+  });
+
+  console.log(navigationCopy);
+  console.log(permissions);
 
 	const verticalNav = (
 		<List
@@ -111,7 +127,7 @@ function FuseNavigation(props) {
 				className
 			)}
 		>
-			{navigation.map(_item => (
+			{navigationCopy.map(_item => (
 				<FuseNavItem key={_item.id} type={`vertical-${_item.type}`} item={_item} nestedLevel={0} />
 			))}
 		</List>
@@ -128,7 +144,7 @@ function FuseNavigation(props) {
 				className
 			)}
 		>
-			{navigation.map(_item => (
+			{navigationCopy.map(_item => (
 				<FuseNavItem
 					key={_item.id}
 					type={`horizontal-${_item.type}`}
@@ -140,7 +156,7 @@ function FuseNavigation(props) {
 		</List>
 	);
 
-	if (navigation.length > 0) {
+	if (navigationCopy.length > 0) {
 		switch (layout) {
 			case 'horizontal': {
 				return horizontalNav;

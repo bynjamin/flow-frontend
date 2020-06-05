@@ -19,6 +19,14 @@ export interface ProjectDetailHeaderFragment__data_managers {
   email: string;
 }
 
+export interface ProjectDetailHeaderFragment__data_createdBy {
+  __typename: "User";
+  /**
+   * User ID
+   */
+  id: number;
+}
+
 export interface ProjectDetailHeaderFragment__data {
   __typename: "Project";
   /**
@@ -34,11 +42,15 @@ export interface ProjectDetailHeaderFragment__data {
    */
   deleted: boolean;
   /**
-   * Description
-   */
-  description: string;
-  /**
    * Managers of project
    */
   managers: ProjectDetailHeaderFragment__data_managers[];
+  /**
+   * Creator of project
+   */
+  createdBy: ProjectDetailHeaderFragment__data_createdBy;
+  /**
+   * Description
+   */
+  description: string;
 }

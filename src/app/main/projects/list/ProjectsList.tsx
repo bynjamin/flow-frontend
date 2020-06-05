@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useContext } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -12,6 +12,7 @@ import useTableState from 'app/components/table/useTableState';
 import { getDetailUrl } from 'app/helpers/linkResolver';
 import { DEFAULT_PAGE_SIZE } from 'app/constants';
 import CreateProjectDialog from './CreateProjectDialog';
+import { AppContext } from 'app/AppContext';
 
 import { PROJECTS_LIST } from './queries/projectsList';
 import {
@@ -23,6 +24,7 @@ import {
 
 const ProjectsList: React.FC = () => {
   const history = useHistory();
+  const { permissions } = useContext(AppContext);
   const [createDialogOpen, setCreateDialogOpen] = useState<boolean>(false);
   // const [deleteIds, setDeleteIds] = useState<number[] | null>(null);
 
@@ -157,6 +159,8 @@ const ProjectsList: React.FC = () => {
     console.log('delete');
   }
 
+  const canCreate = () => permissions.Project.basic.create;
+
   /*
   function handleDeleteComplete() {
     setDeleteIds(null);
@@ -185,8 +189,8 @@ const ProjectsList: React.FC = () => {
           globalFilter={globalFilter}
           setGlobalFilter={setGlobalFilter}
           loading={loading}
-          onCreate={() => setCreateDialogOpen(true)}
-          onDelete={handleDelete}
+          onCreate={canCreate() ? () => setCreateDialogOpen(true) : undefined}
+          // onDelete={handleDelete}
         />
         <CreateProjectDialog
           open={createDialogOpen}

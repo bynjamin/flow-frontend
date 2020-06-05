@@ -13,6 +13,7 @@ const navigationConfig = [
         type: 'item',
         icon: 'widgets',
         url: getListUrl('projects'),
+        model: 'Project',
       },
       /*
       {
@@ -47,6 +48,7 @@ const navigationConfig = [
         type: 'item',
         icon: 'check_box',
         url: getListUrl('tasks'),
+        model: 'Task',
         /*
         badge: {
           title: 3,
@@ -61,6 +63,7 @@ const navigationConfig = [
         type: 'item',
         icon: 'person',
         url: getListUrl('users'),
+        model: 'User',
       },
       {
         id: 'user-groups-app',
@@ -68,6 +71,7 @@ const navigationConfig = [
         type: 'item',
         icon: 'people',
         url: getListUrl('userGroups'),
+        model: 'UserGroup',
       },
       {
         id: 'roles-app',
@@ -75,6 +79,8 @@ const navigationConfig = [
         type: 'item',
         icon: 'account_box',
         url: getListUrl('roles'),
+        model: 'UserGroup',
+        // model: 'Role',
       },
       /*
       {
