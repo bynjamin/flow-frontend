@@ -151,7 +151,7 @@ const Authorization: React.FC<Props> = ({ children }) => {
     }
   }, [called, getUser, loggedIn, startPolling, stopPolling]);
 
-  if (loading || !called) {
+  if (loading || (!called && loggedIn)) {
     return <FuseSplashScreen />;
   }
 
