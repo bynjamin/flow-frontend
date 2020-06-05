@@ -5,7 +5,7 @@ import React, {
   useCallback,
   useRef,
 } from 'react';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useLazyQuery, useMutation } from '@apollo/react-hooks';
 import IdleTimer from 'react-idle-timer';
 import round from 'lodash/round';
 import FuseSplashScreen from '@fuse/core/FuseSplashScreen';
@@ -43,7 +43,10 @@ const Authorization: React.FC<Props> = ({ children }) => {
   const { pathname } = useLocation();
   const idleRef = useRef(null);
   const [refreshLogin] = useMutation<RefreshResponseType>(REFRESH_LOGIN);
-  const { loading, data, refetch } = useQuery<ResponseType>(CURRENT_USER, {
+  const [
+    getUser,
+    { called, loading, data, startPolling, stopPolling },
+  ] = useLazyQuery<ResponseType>(CURRENT_USER, {
     pollInterval: 20000,
   });
 
@@ -133,15 +136,22 @@ const Authorization: React.FC<Props> = ({ children }) => {
   // Schedule JWT check every time when user logs in
   useEffect(scheduleJWTRefresh, [loggedIn]);
 
-  // refetch user when loggedIn changes
-  useEffect(() => {
-    refetch();
-  }, [loggedIn, refetch]);
-
   // setUser after refetch or user update in Apollo cache
   useEffect(() => setUser(user), [user, setUser]);
 
-  if (loading) {
+  useEffect(() => {
+    if (loggedIn) {
+      if (called) {
+        startPolling(20000);
+      } else {
+        getUser();
+      }
+    } else if (called) {
+      stopPolling();
+    }
+  }, [called, getUser, loggedIn, startPolling, stopPolling]);
+
+  if (loading || !called) {
     return <FuseSplashScreen />;
   }
 
