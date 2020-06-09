@@ -58,6 +58,14 @@ const navigationConfig = [
         */
       },
       {
+        id: 'attendance-app',
+        title: 'Attendance',
+        type: 'item',
+        icon: 'schedule',
+        url: getListUrl('attendance'),
+        // model: 'Attendance',
+      },
+      {
         id: 'users-app',
         title: 'Users',
         type: 'item',

@@ -10,6 +10,7 @@ import UserMenu from 'app/fuse-layouts/shared-components/UserMenu';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import LanguageSwitcher from '../../shared-components/LanguageSwitcher';
+import AttendanceButton from 'app/main/attendance/attendanceButton';
 
 const useStyles = makeStyles((theme: Theme) => ({
   separator: {
@@ -44,11 +45,15 @@ const ToolbarLayout1: React.FC = () => {
           )}
 
           <div className="flex flex-1">
+            <div className="ml-16">
+              <AttendanceButton />
+            </div>
+            {/*
             <Hidden mdDown>
-              {/*
-              // @ts-ignore */}
+              // @ts-ignore
               <FuseShortcuts className="px-16" />
             </Hidden>
+            */}
           </div>
 
           <div className="flex">
@@ -56,9 +61,9 @@ const ToolbarLayout1: React.FC = () => {
 
             <div className={classes.separator} />
 
+            {/*
             <FuseSearch />
 
-            {/*
 						<div className={classes.separator} />
 
 						<LanguageSwitcher />

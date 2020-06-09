@@ -17,34 +17,6 @@ export enum AttendanceState {
   WORK = "WORK",
 }
 
-/**
- * Task state
- */
-export enum TaskState {
-  FINISHED = "FINISHED",
-  IN_PROGRESS = "IN_PROGRESS",
-  NOT_STARTED = "NOT_STARTED",
-  WAITING = "WAITING",
-}
-
-/**
- * Access input type
- */
-export interface AccessInput {
-  basic: ActionInput;
-  global: ActionInput;
-}
-
-/**
- * Action input type
- */
-export interface ActionInput {
-  create: boolean;
-  read: boolean;
-  update: boolean;
-  delete: boolean;
-}
-
 //==============================================================
 // END Enums and Input Objects
 //==============================================================

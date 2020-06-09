@@ -27,11 +27,11 @@ const TaskDetailHeader: React.FC<Props> = ({ data }) => {
   const classes = useStyles();
   const { permissions, user } = useContext(AppContext);
 
-  const isOwner = () => data.createdBy.id === user.id;
+  const isOwner = () => data.createdBy.id === user?.id;
   const isAssignee = () =>
-    data.assignees.some(assignee => assignee.id === user.id);
+    data.assignees.some(assignee => assignee.id === user?.id);
   const isProjectManager = () =>
-    data.project.managers.some(manager => manager.id === user.id);
+    data.project.managers.some(manager => manager.id === user?.id);
 
   const canUpdate = () => {
     if (isOwner() || isProjectManager() || isAssignee()) {

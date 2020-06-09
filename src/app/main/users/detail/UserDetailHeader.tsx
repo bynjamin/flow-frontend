@@ -21,7 +21,7 @@ type Props = {
 const UserDetailHeader: React.FC<Props> = ({ data, roles }) => {
   const { user, permissions } = useContext(AppContext);
 
-  const isCurrentUser = () => user.id === data.id;
+  const isCurrentUser = () => user?.id === data.id;
   const canUpdate = () => {
     if (isCurrentUser()) {
       return permissions.User.basic.update;
