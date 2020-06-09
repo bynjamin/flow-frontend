@@ -32,7 +32,8 @@ const ProjectDetailHeader: React.FC<Props> = ({ data }) => {
   const { permissions, user } = useContext(AppContext);
 
   const isOwner = () => data.createdBy.id === user?.id;
-  const isManager = () => data.managers.some(manager => manager.id === user?.id);
+  const isManager = () =>
+    data.managers.some(manager => manager.id === user?.id);
 
   const canUpdate = () => {
     if (isOwner() || isManager()) {
