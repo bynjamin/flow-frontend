@@ -94,7 +94,7 @@ type Props = {
   setPageSize: (count: number) => void;
   setOrder: React.Dispatch<React.SetStateAction<OrderType>>;
   setGlobalFilter?: React.Dispatch<React.SetStateAction<string>>;
-  onRowClick: (id: number) => void;
+  onRowClick?: (id: number) => void;
   onCreate?: () => void;
   onDelete?: (selectedRowIds: number[]) => void;
   maxCellLength?: number;
@@ -285,7 +285,11 @@ const DataTable: React.FC<Props> = ({
                     <TableRow
                       {...row.getRowProps()}
                       className={classes.dataRow}
-                      onClick={() => onRowClick(row.original.id)}
+                      onClick={() => {
+                        if (onRowClick) {
+                          onRowClick(row.original.id);
+                        }
+                      }}
                       hover
                     >
                       {row.cells.map((cell: any) => {

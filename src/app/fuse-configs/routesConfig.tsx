@@ -9,18 +9,15 @@ import TasksConfig from 'app/main/tasks/TasksConfig';
 import { WelcomeConfig } from 'app/main/welcome/WelcomeConfig';
 import { LoginConfig } from 'app/main/login/LoginConfig';
 import { TestConfig } from 'app/main/test/TestConfig';
-import { ContactsConfig } from 'app/main/contacts/ContactsAppConfig';
-import { ClientsConfig } from 'app/main/clients/ClientsAppConfig';
-// import { TasksAppConfig } from 'app/main/tasks-old/TakskAppConfig';
+import { AttendanceConfig } from 'app/main/attendance/AttendanceConfig';
 import { PermissionsConfig } from 'app/main/admin/permissions/PermissionsAppConfig';
 
 const routeConfigs = [
   WelcomeConfig,
   LoginConfig,
   TestConfig,
-  ContactsConfig,
-  ClientsConfig,
   PermissionsConfig,
+  AttendanceConfig,
   ...UsersConfig,
   ...UserGroupsConfig,
   ...RolesConfig,

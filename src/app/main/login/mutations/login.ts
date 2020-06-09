@@ -11,7 +11,9 @@ export const LOGIN = publicGql`
         id
         email
         fullName
+        workState
         role {
+          id
           name
         }
         allPermissions {

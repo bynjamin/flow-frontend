@@ -3,6 +3,8 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+import { AttendanceState } from "./../../__generated__/globalTypes";
+
 // ====================================================
 // GraphQL query operation: CurrentUserQuery
 // ====================================================
@@ -97,6 +99,10 @@ export interface CurrentUserQuery_user {
    * User role
    */
   role: CurrentUserQuery_user_role;
+  /**
+   * User work state
+   */
+  workState: AttendanceState;
   /**
    * All user access, including access from user groups and user roles
    */

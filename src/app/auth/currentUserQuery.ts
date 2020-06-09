@@ -10,6 +10,7 @@ export const CURRENT_USER = gql`
         id
         name
       }
+      workState
       allPermissions {
         model
         actions {

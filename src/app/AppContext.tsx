@@ -3,11 +3,14 @@ import React, { useState, useEffect, SetStateAction, Dispatch } from 'react';
 import routes from './fuse-configs/routesConfig';
 // eslint-disable-next-line no-unused-vars
 import { ActionFeedback } from './types';
+import { CurrentUserQuery } from 'app/auth/__generated__/CurrentUserQuery';
+
+type UserType = CurrentUserQuery['user'];
 
 type AppContextProps = {
   routes: any[];
-  user: any;
-  setUser: Dispatch<SetStateAction<any>>;
+  user: UserType;
+  setUser: Dispatch<SetStateAction<UserType>>;
   loading: boolean;
   setLoading: Dispatch<SetStateAction<boolean>>;
   actionFeedback: ActionFeedback | null;
@@ -18,7 +21,7 @@ type AppContextProps = {
 export const AppContext = React.createContext({} as AppContextProps);
 
 const AppContextProvider: React.FC = props => {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<UserType>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [actionFeedback, setActionFeedback] = useState<ActionFeedback | null>(
     null,

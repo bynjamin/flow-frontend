@@ -3,12 +3,18 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+import { AttendanceState } from "./../../../../../public-app/__generated__/globalTypes";
+
 // ====================================================
 // GraphQL mutation operation: Login
 // ====================================================
 
 export interface Login_login_user_role {
   __typename: "UserRole";
+  /**
+   * User role ID
+   */
+  id: number;
   /**
    * User role name
    */
@@ -89,6 +95,10 @@ export interface Login_login_user {
    * User full name
    */
   fullName: string;
+  /**
+   * User work state
+   */
+  workState: AttendanceState;
   /**
    * User role
    */

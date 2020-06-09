@@ -53,23 +53,19 @@ const UserNavbarHeader: React.FC = () => {
         className="username text-16 whitespace-no-wrap"
         color="inherit"
       >
-        {user.fullName}
+        {user?.fullName}
       </Typography>
       <Typography
         className="email text-13 mt-8 opacity-50 whitespace-no-wrap"
         color="inherit"
       >
-        {user.email}
+        {user?.email}
       </Typography>
 
       <Avatar
         className={clsx(classes.avatar, 'avatar')}
         alt="user photo"
-        src={
-          user?.photoURL && user.photoURL !== ''
-            ? user.photoURL
-            : 'assets/images/avatars/profile.jpg'
-        }
+        src="assets/images/avatars/profile.jpg"
       />
     </AppBar>
   );

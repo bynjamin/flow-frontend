@@ -50,7 +50,7 @@ const Authorization: React.FC<Props> = ({ children }) => {
     pollInterval: 20000,
   });
 
-  const user = data?.user;
+  const user = data?.user || null;
 
   const redirectToLogin = useCallback(
     (expired: boolean) => {

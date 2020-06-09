@@ -1,6 +1,7 @@
 import React from 'react';
 import gql from 'graphql-tag';
 import { useHistory } from 'react-router-dom';
+import LuxonAdapter from '@date-io/luxon';
 import Avatar from '@material-ui/core/Avatar';
 import AppBar from '@material-ui/core/AppBar';
 import Alert from '@material-ui/lab/Alert';
@@ -23,6 +24,8 @@ import { TASK_STATUSES } from '../../constants';
 import { MISSING_FIELD } from 'common/constants';
 import { getDetailUrl } from 'app/helpers/linkResolver';
 import { TaskAboutFragment__data as DataType } from './__generated__/TaskAboutFragment__data';
+
+const luxon = new LuxonAdapter();
 
 type Props = {
   data: DataType;
@@ -96,7 +99,11 @@ const TaskAbout: React.FC<Props> = ({ data }) => {
                 <Typography className="font-bold mb-4 text-15">
                   Deadline
                 </Typography>
-                <Typography>{data.deadline || MISSING_FIELD}</Typography>
+                <Typography>
+                  {data.deadline
+                    ? luxon.format(luxon.date(data.deadline), 'fullDate')
+                    : MISSING_FIELD}
+                </Typography>
               </div>
 
               <div className="mb-24">
