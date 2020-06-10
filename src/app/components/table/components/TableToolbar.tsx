@@ -31,6 +31,7 @@ type Props = {
   globalFilter: string;
   onCreate?: () => void;
   onDelete: () => void;
+  customFilterComponent?: React.ReactNode;
 };
 
 const TableToolbar: React.FC<Props> = ({
@@ -41,6 +42,7 @@ const TableToolbar: React.FC<Props> = ({
   globalFilter,
   onCreate,
   onDelete,
+  customFilterComponent,
 }) => {
   const classes = useToolbarStyles();
 
@@ -79,11 +81,13 @@ const TableToolbar: React.FC<Props> = ({
           </Typography>
         </>
       )}
-      <GlobalFilter
-        count={count}
-        globalFilter={globalFilter}
-        setGlobalFilter={setGlobalFilter}
-      />
+      {customFilterComponent || (
+        <GlobalFilter
+          count={count}
+          globalFilter={globalFilter}
+          setGlobalFilter={setGlobalFilter}
+        />
+      )}
     </Toolbar>
   );
 };

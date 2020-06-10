@@ -97,6 +97,7 @@ type Props = {
   onRowClick?: (id: number) => void;
   onCreate?: () => void;
   onDelete?: (selectedRowIds: number[]) => void;
+  customFilterComponent?: React.ReactNode;
   maxCellLength?: number;
 };
 
@@ -117,6 +118,7 @@ const DataTable: React.FC<Props> = ({
   onDelete,
   globalFilter,
   setGlobalFilter,
+  customFilterComponent,
   maxCellLength = 24,
 }) => {
   const { orderBy, orderDirection } = order;
@@ -243,6 +245,7 @@ const DataTable: React.FC<Props> = ({
           globalFilter={globalFilter || onPageFilter}
           onCreate={onCreate}
           onDelete={handleDeleteMultiple}
+          customFilterComponent={customFilterComponent}
         />
         {loading ? (
           <FuseLoading />
@@ -337,7 +340,7 @@ const DataTable: React.FC<Props> = ({
                 classes={{
                   selectIcon: classes.tablePaginationSelectIcon,
                 }}
-                rowsPerPageOptions={[2, 10, 25, 50]}
+                rowsPerPageOptions={[10, 25, 50]}
                 count={count}
                 rowsPerPage={pageSize}
                 page={pageIndex}

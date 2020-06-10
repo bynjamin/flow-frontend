@@ -1,12 +1,14 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import LuxonAdapter from '@date-io/luxon';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Tooltip from '@material-ui/core/Tooltip';
 import Avatar from '@material-ui/core/Avatar';
 import FuseLoading from '@fuse/core/FuseLoading';
+import useDidUpdateEffect from 'app/hooks/useDidUpdateEffect';
 import DataTable from 'app/components/table/DataTable';
 import useTableState from 'app/components/table/useTableState';
+import UsersAutocomplete from 'app/components/UsersAutocomplete';
 import { DEFAULT_PAGE_SIZE } from 'app/constants';
 import { MISSING_FIELD } from 'common/constants';
 
@@ -19,6 +21,7 @@ import {
 const luxon = new LuxonAdapter();
 
 const AttendanceList: React.FC = () => {
+  const [userIdFilter, setUserIdFilter] = useState<number | null>(null);
   const {
     page,
     pageSize,
@@ -42,7 +45,7 @@ const AttendanceList: React.FC = () => {
   const columns = useMemo(
     () => [
       {
-        Header: 'User',
+        Header: '',
         accessor: 'user',
         className: 'font-bold',
         Cell: ({ cell: { value } }: any) => (
@@ -109,7 +112,7 @@ const AttendanceList: React.FC = () => {
     const { orderBy, orderDirection } = order;
     const skip = pageNum * pageSize;
     const first = pageSize;
-    return { first, skip, orderBy, orderDirection };
+    return { first, skip, orderBy, orderDirection, userId: userIdFilter };
   }
 
   function loadPage(pageNum: number): void {
@@ -120,6 +123,11 @@ const AttendanceList: React.FC = () => {
   function handleChangePageSize(count: number): void {
     setPageSize(count);
   }
+
+  const filterByUser = (userId: number) => {
+    setUserIdFilter(userId);
+  };
+  useDidUpdateEffect(() => loadPage(0), [userIdFilter]);
 
   if (error) return <p style={{ color: 'red' }}>{error.message}</p>;
   if (data) {
@@ -140,6 +148,15 @@ const AttendanceList: React.FC = () => {
           order={order}
           setOrder={setOrder}
           loading={loading}
+          customFilterComponent={
+            <div className="w-400 p-6 bg-white rounded">
+              <UsersAutocomplete
+                size="small"
+                label="Filter by user"
+                setSelected={filterByUser}
+              />
+            </div>
+          }
         />
       </>
     );

@@ -142,6 +142,7 @@ const UpdateUserGroupDialog: React.FC<Props> = ({ data }) => {
               name="memberIds"
               label="Members"
               value={data.members}
+              multiple
             />
           </Formsy>
         </DialogContent>

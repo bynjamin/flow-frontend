@@ -76,7 +76,7 @@ const AddUsersToGroupDialog: React.FC<Props> = ({ data, open, onClose }) => {
       <DialogTitle id="add-members-dialog-title">Add members</DialogTitle>
       <DialogContent className="min-w-400">
         <DialogContentText>Search users by their email</DialogContentText>
-        <UsersAutocomplete setSelected={setNewMembersIds} />
+        <UsersAutocomplete setSelected={setNewMembersIds} multiple />
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>

@@ -169,6 +169,7 @@ const CreateProjectDialog: React.FC<Props> = ({ open, setOpen, project }) => {
                 name="assigneeIds"
                 label="Managers *"
                 validations="minLength:1"
+                multiple
                 required
               />
             </Grid>
