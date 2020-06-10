@@ -185,11 +185,13 @@ const TaskAbout: React.FC<Props> = ({ data }) => {
                       }
                       secondary={item.email}
                     />
+                    {/*
                     <ListItemSecondaryAction>
                       <IconButton>
                         <Icon>more_vert</Icon>
                       </IconButton>
                     </ListItemSecondaryAction>
+                    */}
                   </ListItem>
                 ))}
               </List>

@@ -8,9 +8,9 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Switch from '@material-ui/core/Switch';
 import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
 import SendIcon from '@material-ui/icons/Send';
 import Grid from '@material-ui/core/Grid';
-import { Typography } from '@material-ui/core';
 import Formsy from 'formsy-react';
 import TextFieldFormsy from '@fuse/core/formsy/TextFieldFormsy';
 import SelectFormsy from '@fuse/core/formsy/SelectFormsy';
@@ -39,11 +39,18 @@ const InviteUserDialog: React.FC<Props> = ({ open, onClose }) => {
   const [addMultiple, setAddMultiple] = useState<boolean>(false);
   const [isValid, setValid] = useState<boolean>(false);
   const formRef = useRef<any>(null);
-  const { setActionFeedback } = useContext(AppContext);
+  const { setActionFeedback, user } = useContext(AppContext);
   const { data } = useQuery<DataType>(ROLES); // todo: error handling
   const [inviteUser, { loading }] = useMutation<ResponseType, InputType>(
     INVITE_USER,
   );
+
+  const availableRoles =
+    data && user
+      ? data?.userRoles.filter(
+          (role: RoleType) => role.level >= user?.role.level,
+        )
+      : [];
 
   const resetForm = () => formRef.current.reset();
 
@@ -166,7 +173,7 @@ const InviteUserDialog: React.FC<Props> = ({ open, onClose }) => {
                   variant="outlined"
                   required
                 >
-                  {data?.userRoles?.map((role: RoleType) => (
+                  {availableRoles.map((role: RoleType) => (
                     <MenuItem key={role.id} value={role.id}>
                       {role.name}
                     </MenuItem>

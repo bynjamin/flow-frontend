@@ -180,7 +180,7 @@ const Login: React.FC = () => {
                   variant="outlined"
                   required
                 />
-
+                {/*
                 <div className="flex items-center justify-center">
                   <Link
                     className="font-medium"
@@ -189,7 +189,7 @@ const Login: React.FC = () => {
                     Forgot Password?
                   </Link>
                 </div>
-
+                */}
                 <Button
                   type="submit"
                   variant="contained"

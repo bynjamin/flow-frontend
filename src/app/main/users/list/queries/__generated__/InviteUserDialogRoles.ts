@@ -17,6 +17,10 @@ export interface InviteUserDialogRoles_userRoles {
    * User role name
    */
   name: string;
+  /**
+   * User role level
+   */
+  level: number;
 }
 
 export interface InviteUserDialogRoles {

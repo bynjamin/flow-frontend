@@ -17,4 +17,8 @@ export interface UserDetailHeaderFragment__roles {
    * User role name
    */
   name: string;
+  /**
+   * User role level
+   */
+  level: number;
 }

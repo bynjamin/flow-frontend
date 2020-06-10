@@ -15,6 +15,7 @@ export const LOGIN = publicGql`
         role {
           id
           name
+          level
         }
         allPermissions {
           model

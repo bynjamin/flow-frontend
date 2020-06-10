@@ -9,6 +9,7 @@ export const CURRENT_USER = gql`
       role {
         id
         name
+        level
       }
       workState
       allPermissions {

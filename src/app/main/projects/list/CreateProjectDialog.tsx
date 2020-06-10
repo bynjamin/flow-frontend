@@ -122,7 +122,7 @@ const CreateProjectDialog: React.FC<Props> = ({ open, setOpen }) => {
           />
           <UsersAutocompleteFormsy
             name="managersId"
-            label="Managers"
+            label="Managers *"
             validations="minLength:1"
             multiple
             required
