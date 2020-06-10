@@ -74,6 +74,10 @@ export interface RolePermissionsFragment__data {
    */
   id: number;
   /**
+   * User role level
+   */
+  level: number;
+  /**
    * User role access
    */
   permissions: RolePermissionsFragment__data_permissions[];

@@ -50,9 +50,14 @@ const useStyles = makeStyles((theme: Theme) => ({
 type Props = {
   data: DataType;
   roleId: number;
+  canEdit?: boolean;
 };
 
-const RolePermissionCard: React.FC<Props> = ({ data, roleId }) => {
+const RolePermissionCard: React.FC<Props> = ({
+  data,
+  roleId,
+  canEdit = true,
+}) => {
   const { actions, model } = data;
   const classes = useStyles();
   const [isEdit, setEdit] = useState<boolean>(false);
@@ -190,13 +195,15 @@ const RolePermissionCard: React.FC<Props> = ({ data, roleId }) => {
                 </Button>
               </ButtonGroup>
             ) : (
-              <IconButton
-                aria-label="settings"
-                color="secondary"
-                onClick={handleEdit}
-              >
-                <EditIcon />
-              </IconButton>
+              canEdit && (
+                <IconButton
+                  aria-label="settings"
+                  color="secondary"
+                  onClick={handleEdit}
+                >
+                  <EditIcon />
+                </IconButton>
+              )
             )
           }
           classes={{
