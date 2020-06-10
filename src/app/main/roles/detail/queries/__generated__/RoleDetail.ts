@@ -106,6 +106,10 @@ export interface RoleDetail_userRole {
    */
   members: RoleDetail_userRole_members[];
   /**
+   * User role level
+   */
+  level: number;
+  /**
    * User role access
    */
   permissions: RoleDetail_userRole_permissions[];

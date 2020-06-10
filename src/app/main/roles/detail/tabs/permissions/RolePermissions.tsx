@@ -15,7 +15,9 @@ type Props = {
 };
 
 const RolePermissions: React.FC<Props> = ({ data }) => {
-  const { permissions, id } = data;
+  const { permissions, id, level } = data;
+  const isSuperAdmin = level === 1;
+
   return (
     <div className="md:flex">
       <div className="flex flex-col flex-1 md:pr-32">
@@ -26,7 +28,12 @@ const RolePermissions: React.FC<Props> = ({ data }) => {
           className="flex flex-wrap"
         >
           {permissions.map((module: ModuleType) => (
-            <RolePermissionCard key={module.model} data={module} roleId={id} />
+            <RolePermissionCard
+              key={module.model}
+              data={module}
+              roleId={id}
+              canEdit={!isSuperAdmin}
+            />
           ))}
         </FuseAnimateGroup>
       </div>
@@ -40,6 +47,7 @@ export const RolePermissionsFragment = {
   data: gql`
     fragment RolePermissionsFragment__data on UserRole {
       id
+      level
       permissions {
         ...RolePermissionCardFragment__data
       }
