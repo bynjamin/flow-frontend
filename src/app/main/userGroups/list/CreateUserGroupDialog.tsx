@@ -111,6 +111,7 @@ const AddUserGroupDialog: React.FC<Props> = ({ open, onClose }) => {
           <UsersAutocompleteFormsy
             name="memberIds"
             label="Members"
+            multiple
             // validations="minLength:1"
             // required
           />

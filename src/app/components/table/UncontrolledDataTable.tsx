@@ -273,7 +273,7 @@ const DataTable: React.FC<Props> = ({
                 classes={{
                   selectIcon: classes.tablePaginationSelectIcon,
                 }}
-                rowsPerPageOptions={[2, 10, 25, 50]}
+                rowsPerPageOptions={[10, 25, 50]}
                 count={data.length}
                 rowsPerPage={pageSize}
                 page={pageIndex}

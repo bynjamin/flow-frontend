@@ -9,32 +9,40 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import useUsersSearch from 'app/hooks/useUsersSearch';
 import ColorAvatar from 'app/components/ColorAvatar';
 
+type SetSingle = (id: number) => void;
+type SetMultiple = (ids: Array<number>) => void;
+
 type Props = {
-  setSelected: (userIds: number[]) => void;
+  setSelected: SetSingle | SetMultiple;
   label?: string;
-  initialValues?: any[];
+  initialValue?: any[];
+  multiple?: boolean;
+  size?: 'medium' | 'small';
 };
 
 const UsersAutocomplete: React.FC<Props> = ({
   setSelected,
   label = 'Search users',
-  initialValues = [],
+  initialValue = [],
+  multiple = false,
+  size = 'medium',
 }) => {
   const [inputValue, setInputValue] = useState<string>('');
-  const [values, setValues] = useState<any>(initialValues);
+  const [value, setValue] = useState<any>(initialValue);
   const [resultsOpen, setResultsOpen] = useState<boolean>(false);
   const { search, results, loading } = useUsersSearch();
 
   const handleSetSelectedIds = () => {
-    const selectedIds = values.map((item: any) => item.id);
-    setSelected(selectedIds);
+    const selected = multiple ? value.map((item: any) => item.id) : value?.id;
+    setSelected(selected);
   };
 
   useEffect(() => search(inputValue), [inputValue, search]);
-  useEffect(handleSetSelectedIds, [values]);
+  useEffect(handleSetSelectedIds, [value]);
 
   return (
     <Autocomplete
+      classes={{ inputRoot: 'bg-white' }}
       id="users-autocomplete"
       // style={{ width: 300 }}
       noOptionsText="No results"
@@ -45,11 +53,11 @@ const UsersAutocomplete: React.FC<Props> = ({
       onClose={() => {
         setResultsOpen(false);
       }}
-      value={values}
-      onChange={(event, newValues) => {
-        setValues(newValues);
+      value={value}
+      onChange={(event, newValue) => {
+        setValue(newValue);
       }}
-      getOptionSelected={(option, value) => option.id === value.id}
+      getOptionSelected={(option, optionValue) => option.id === optionValue.id}
       getOptionLabel={option => option.email}
       options={results}
       loading={loading}
@@ -89,11 +97,13 @@ const UsersAutocomplete: React.FC<Props> = ({
       )}
       ListboxComponent={List}
       openOnFocus
-      multiple
+      multiple={multiple}
       filterSelectedOptions
       freeSolo
+      fullWidth
       autoComplete
       includeInputInList
+      size={size}
     />
   );
 };

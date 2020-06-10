@@ -124,6 +124,7 @@ const CreateProjectDialog: React.FC<Props> = ({ open, setOpen }) => {
             name="managersId"
             label="Managers"
             validations="minLength:1"
+            multiple
             required
           />
         </Formsy>

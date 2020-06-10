@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import CriticalButton from 'common/components/CriticalButton';
+import LeavelIcon from '@material-ui/icons/WorkOffOutlined';
 import { AppContext } from 'app/AppContext';
 
 import { LEAVE } from './mutations/leave';
@@ -49,7 +50,12 @@ const LeaveButton: React.FC = () => {
   };
 
   return (
-    <CriticalButton onClick={handleSubmit} variant="contained" disableElevation>
+    <CriticalButton
+      onClick={handleSubmit}
+      startIcon={<LeavelIcon />}
+      variant="contained"
+      disableElevation
+    >
       Leave
     </CriticalButton>
   );

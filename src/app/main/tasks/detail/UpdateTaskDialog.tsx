@@ -177,6 +177,7 @@ const UpdateTaskDialog: React.FC<Props> = ({ data }) => {
                   value={data.assignees}
                   label="Assignees *"
                   validations="minLength:1"
+                  multiple
                   required
                 />
               </Grid>

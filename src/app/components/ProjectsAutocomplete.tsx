@@ -28,12 +28,7 @@ const ProjectsAutocomplete: React.FC<Props> = ({
   const { search, results, loading } = useProjectsSearch();
 
   const handleSetSelected = () => {
-    let selected;
-    if (multiple) {
-      selected = value.map((item: any) => item.id);
-    } else {
-      selected = value?.id;
-    }
+    const selected = multiple ? value.map((item: any) => item.id) : value?.id;
     setSelected(selected);
   };
 

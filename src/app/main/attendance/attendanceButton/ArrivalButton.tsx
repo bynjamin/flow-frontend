@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import Button from '@material-ui/core/Button';
+import ArrivalIcon from '@material-ui/icons/WorkOutline';
 import { AppContext } from 'app/AppContext';
 
 import { ARRIVAL } from './mutations/arrival';
@@ -52,6 +53,7 @@ const ArrivalButton: React.FC = () => {
     <Button
       onClick={handleSubmit}
       color="secondary"
+      startIcon={<ArrivalIcon />}
       variant="contained"
       disableElevation
     >

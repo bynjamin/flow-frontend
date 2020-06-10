@@ -126,6 +126,7 @@ const UpdateProjectDialog: React.FC<Props> = ({ data }) => {
               label="Managers"
               value={data.managers}
               validations="minLength:1"
+              multiple
               required
             />
           </Formsy>

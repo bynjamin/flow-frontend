@@ -6,6 +6,7 @@ import { WithFormsyProps } from 'common/types/formsy';
 
 type Props = {
   label?: string;
+  multiple?: boolean;
 };
 
 const UsersAutocompleteFormsy = (props: WithFormsyProps & Props) => {
@@ -13,7 +14,7 @@ const UsersAutocompleteFormsy = (props: WithFormsyProps & Props) => {
   const errorMessage = props.getErrorMessage();
   const value = props.getValue();
 
-  const changeValue = (userIds: Array<number>) => {
+  const changeValue = (userIds: Array<number> | number) => {
     // setValue() will set the value of the component, which in
     // turn will validate it and the rest of the form
     // Important: Don't skip this step. This pattern is required
@@ -25,8 +26,9 @@ const UsersAutocompleteFormsy = (props: WithFormsyProps & Props) => {
     <FormControl className="w-full">
       <UsersAutocomplete
         label={props.label}
-        initialValues={value}
+        initialValue={value}
         setSelected={changeValue}
+        multiple={props.multiple}
       />
       <span>{errorMessage}</span>
     </FormControl>
