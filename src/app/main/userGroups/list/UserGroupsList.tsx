@@ -146,6 +146,7 @@ const UserGroupsList = () => {
           loading={loading}
           onCreate={canCreate() ? toggleCreateDialogOpen : undefined}
           onDelete={handleDelete}
+          sortableColumns={['name', 'description']}
         />
         <CreateUserGroupDialog
           open={createDialogOpen}

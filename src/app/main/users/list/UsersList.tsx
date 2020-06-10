@@ -184,6 +184,7 @@ const UsersList = () => {
           loading={loading}
           onCreate={canCreate() ? toggleInviteDialogOpen : undefined}
           onDelete={handleDelete}
+          sortableColumns={['title', 'firstName', 'lastName', 'email']}
         />
         <InviteUserDialog
           open={inviteDialogOpen}
