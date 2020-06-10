@@ -35,16 +35,16 @@ const TaskDetailHeader: React.FC<Props> = ({ data }) => {
 
   const canUpdate = () => {
     if (isOwner() || isProjectManager() || isAssignee()) {
-      return permissions.Project.basic.update;
+      return permissions.Task.basic.update;
     }
-    return permissions.Project.global.update;
+    return permissions.Task.global.update;
   };
 
   const canDelete = () => {
     if (isOwner() || isProjectManager()) {
-      return permissions.Project.basic.delete;
+      return permissions.Task.basic.delete;
     }
-    return permissions.Project.global.delete;
+    return permissions.Task.global.delete;
   };
 
   if (!data) {

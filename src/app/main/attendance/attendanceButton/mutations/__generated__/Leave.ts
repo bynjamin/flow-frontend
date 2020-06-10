@@ -12,7 +12,7 @@ export interface Leave_leave {
   /**
    * User start of work
    */
-  start: string;
+  start: string | null;
   /**
    * User end of work
    */
