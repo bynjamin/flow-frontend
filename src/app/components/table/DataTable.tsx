@@ -98,6 +98,7 @@ type Props = {
   onCreate?: () => void;
   onDelete?: (selectedRowIds: number[]) => void;
   customFilterComponent?: React.ReactNode;
+  sortableColumns?: string[];
   maxCellLength?: number;
 };
 
@@ -119,6 +120,7 @@ const DataTable: React.FC<Props> = ({
   globalFilter,
   setGlobalFilter,
   customFilterComponent,
+  sortableColumns = [],
   maxCellLength = 24,
 }) => {
   const { orderBy, orderDirection } = order;
@@ -258,26 +260,33 @@ const DataTable: React.FC<Props> = ({
                     {...headerGroup.getHeaderGroupProps()}
                     className={classes.headerRow}
                   >
-                    {headerGroup.headers.map((column: any) => (
-                      <TableCell
-                        {...(column.id === 'selection'
-                          ? column.getHeaderProps()
-                          : column.getHeaderProps(
-                              column.getSortByToggleProps(),
-                            ))}
-                        onClick={() => handleChangeOrder(column.id)}
-                        className={classes.headerCell}
-                      >
-                        {column.render('Header')}
-                        {column.id !== 'selection' ? (
-                          <TableSortLabel
-                            active={orderBy === column.id}
-                            // react-table has a unsorted state which is not treated here
-                            direction={orderDirection}
-                          />
-                        ) : null}
-                      </TableCell>
-                    ))}
+                    {headerGroup.headers.map((column: any) => {
+                      const isSortable = sortableColumns.includes(column.id);
+                      return (
+                        <TableCell
+                          {...(isSortable
+                            ? column.getHeaderProps(
+                                column.getSortByToggleProps(),
+                              )
+                            : column.getHeaderProps())}
+                          onClick={() => {
+                            if (isSortable) {
+                              handleChangeOrder(column.id);
+                            }
+                          }}
+                          className={classes.headerCell}
+                        >
+                          {column.render('Header')}
+                          {column.id !== 'selection' ? (
+                            <TableSortLabel
+                              active={orderBy === column.id}
+                              // react-table has a unsorted state which is not treated here
+                              direction={orderDirection}
+                            />
+                          ) : null}
+                        </TableCell>
+                      );
+                    })}
                   </TableRow>
                 ))}
               </TableHead>

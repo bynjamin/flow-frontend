@@ -191,6 +191,7 @@ const ProjectsList: React.FC = () => {
           loading={loading}
           onCreate={canCreate() ? () => setCreateDialogOpen(true) : undefined}
           // onDelete={handleDelete}
+          sortableColumns={['name', 'description']}
         />
         <CreateProjectDialog
           open={createDialogOpen}
