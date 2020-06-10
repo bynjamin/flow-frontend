@@ -41,7 +41,7 @@ type Props = {
   };
 };
 
-const CreateProjectDialog: React.FC<Props> = ({ open, setOpen, project }) => {
+const CreateTaskDialog: React.FC<Props> = ({ open, setOpen, project }) => {
   const history = useHistory();
   const [isValid, setValid] = useState<boolean>(false);
   const formRef = useRef<any>(null);
@@ -167,7 +167,7 @@ const CreateProjectDialog: React.FC<Props> = ({ open, setOpen, project }) => {
             <Grid item xs={6}>
               <UsersAutocompleteFormsy
                 name="assigneeIds"
-                label="Managers *"
+                label="Assignees *"
                 validations="minLength:1"
                 multiple
                 required
@@ -188,4 +188,4 @@ const CreateProjectDialog: React.FC<Props> = ({ open, setOpen, project }) => {
   );
 };
 
-export default CreateProjectDialog;
+export default CreateTaskDialog;

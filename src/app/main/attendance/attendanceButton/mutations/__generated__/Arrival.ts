@@ -12,7 +12,7 @@ export interface Arrival_arrival {
   /**
    * User start of work
    */
-  start: string;
+  start: string | null;
 }
 
 export interface Arrival {

@@ -24,7 +24,7 @@ export interface AttendanceList_attendances_items {
   /**
    * User start of work
    */
-  start: string;
+  start: string | null;
   /**
    * User end of work
    */

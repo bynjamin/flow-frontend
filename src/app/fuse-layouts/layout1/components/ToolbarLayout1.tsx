@@ -7,10 +7,11 @@ import Toolbar from '@material-ui/core/Toolbar';
 import NavbarMobileToggleButton from 'app/fuse-layouts/shared-components/NavbarMobileToggleButton';
 import QuickPanelToggleButton from 'app/fuse-layouts/shared-components/quickPanel/QuickPanelToggleButton';
 import UserMenu from 'app/fuse-layouts/shared-components/UserMenu';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useSelector } from 'react-redux';
 import LanguageSwitcher from '../../shared-components/LanguageSwitcher';
 import AttendanceButton from 'app/main/attendance/attendanceButton';
+import { AppContext } from 'app/AppContext';
 
 const useStyles = makeStyles((theme: Theme) => ({
   separator: {
@@ -21,12 +22,15 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 const ToolbarLayout1: React.FC = () => {
+  const { permissions } = useContext(AppContext);
   // @ts-ignore
   const config = useSelector(({ fuse }) => fuse.settings.current.layout.config);
   // @ts-ignore
   const toolbarTheme = useSelector(({ fuse }) => fuse.settings.toolbarTheme);
 
   const classes = useStyles();
+
+  const canCreateAttendance = permissions?.Attendance.basic.create;
 
   return (
     <ThemeProvider theme={toolbarTheme}>
@@ -45,9 +49,11 @@ const ToolbarLayout1: React.FC = () => {
           )}
 
           <div className="flex flex-1">
-            <div className="ml-16">
-              <AttendanceButton />
-            </div>
+            {canCreateAttendance && (
+              <div className="ml-16">
+                <AttendanceButton />
+              </div>
+            )}
             {/*
             <Hidden mdDown>
               // @ts-ignore

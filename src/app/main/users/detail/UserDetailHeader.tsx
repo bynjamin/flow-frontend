@@ -30,7 +30,7 @@ const UserDetailHeader: React.FC<Props> = ({ data, roles }) => {
   };
   const canDelete = () => {
     if (isCurrentUser()) {
-      return permissions.User.basic.delete;
+      return false; // permissions.User.basic.delete;
     }
     return permissions.User.global.delete;
   };
