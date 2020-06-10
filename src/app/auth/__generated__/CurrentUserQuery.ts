@@ -19,6 +19,10 @@ export interface CurrentUserQuery_user_role {
    * User role name
    */
   name: string;
+  /**
+   * User role level
+   */
+  level: number;
 }
 
 export interface CurrentUserQuery_user_allPermissions_actions_basic {

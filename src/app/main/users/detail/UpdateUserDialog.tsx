@@ -30,10 +30,12 @@ type Props = {
 
 const UpdateUserDialog: React.FC<Props> = ({ data, roles }) => {
   const formRef = useRef<any>(null);
-  const { setActionFeedback, setLoading } = useContext(AppContext);
+  const { setActionFeedback, setLoading, user } = useContext(AppContext);
   const [updateUser, { loading }] = useMutation<ResponseType, InputType>(
     UPDATE_USER,
   );
+
+  const isAdmin = user ? user?.role.level < 3 : false;
 
   async function handleSubmit() {
     try {
@@ -150,22 +152,24 @@ const UpdateUserDialog: React.FC<Props> = ({ data, roles }) => {
                   <MenuItem value="o">Other</MenuItem>
                 </SelectFormsy>
               </Grid>
-              <Grid item xs={6}>
-                <SelectFormsy
-                  className="mb-10 w-full"
-                  // type="text"
-                  name="roleId"
-                  value={data?.role.id}
-                  label="Role"
-                  variant="outlined"
-                >
-                  {roles?.map((role: RoleType) => (
-                    <MenuItem key={role.id} value={role.id}>
-                      {role.name}
-                    </MenuItem>
-                  ))}
-                </SelectFormsy>
-              </Grid>
+              {isAdmin && (
+                <Grid item xs={6}>
+                  <SelectFormsy
+                    className="mb-10 w-full"
+                    // type="text"
+                    name="roleId"
+                    value={data?.role.id}
+                    label="Role"
+                    variant="outlined"
+                  >
+                    {roles?.map((role: RoleType) => (
+                      <MenuItem key={role.id} value={role.id}>
+                        {role.name}
+                      </MenuItem>
+                    ))}
+                  </SelectFormsy>
+                </Grid>
+              )}
               <Grid item xs={6}>
                 <TextFieldFormsy
                   className="mb-10 w-full"
@@ -310,6 +314,7 @@ export const UpdateUserDialogFragment = {
     fragment UpdateUserDialogFragment__roles on UserRole {
       id
       name
+      level
     }
   `,
 };

@@ -19,6 +19,10 @@ export interface Login_login_user_role {
    * User role name
    */
   name: string;
+  /**
+   * User role level
+   */
+  level: number;
 }
 
 export interface Login_login_user_allPermissions_actions_basic {

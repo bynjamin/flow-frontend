@@ -193,6 +193,10 @@ export interface UserDetail_userRoles {
    * User role name
    */
   name: string;
+  /**
+   * User role level
+   */
+  level: number;
 }
 
 export interface UserDetail {

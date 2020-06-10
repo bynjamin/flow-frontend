@@ -5,6 +5,7 @@ export const ROLES = gql`
     userRoles {
       id
       name
+      level
     }
   }
 `;
