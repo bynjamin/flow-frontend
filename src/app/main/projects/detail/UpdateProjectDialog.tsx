@@ -123,7 +123,7 @@ const UpdateProjectDialog: React.FC<Props> = ({ data }) => {
             />
             <UsersAutocompleteFormsy
               name="managersId"
-              label="Managers"
+              label="Managers *"
               value={data.managers}
               validations="minLength:1"
               multiple
