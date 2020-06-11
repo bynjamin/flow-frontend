@@ -27,6 +27,18 @@ export interface ProjectDetailHeaderFragment__data_createdBy {
   id: number;
 }
 
+export interface ProjectDetailHeaderFragment__data_tasks {
+  __typename: "Task";
+  /**
+   * ID of task
+   */
+  id: string;
+  /**
+   * Name of task
+   */
+  name: string;
+}
+
 export interface ProjectDetailHeaderFragment__data {
   __typename: "Project";
   /**
@@ -53,4 +65,8 @@ export interface ProjectDetailHeaderFragment__data {
    * Description
    */
   description: string;
+  /**
+   * Tasks of project
+   */
+  tasks: ProjectDetailHeaderFragment__data_tasks[];
 }

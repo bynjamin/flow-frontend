@@ -55,15 +55,12 @@ const useUsersSearch = (): Output => {
       if (errors) {
         setResults([]);
         console.log('Error: Unable to search users');
-        console.log(errors);
       } else {
-        console.log(data.users);
         setResults(data.users.items);
       }
     } catch (e) {
       setResults([]);
       console.log('Error: Unable to search users');
-      console.log(e);
     } finally {
       setLoading(false);
     }
