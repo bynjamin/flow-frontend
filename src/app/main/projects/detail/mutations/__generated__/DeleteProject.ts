@@ -16,4 +16,5 @@ export interface DeleteProject {
 
 export interface DeleteProjectVariables {
   id: number;
+  deleteTasks?: boolean | null;
 }

@@ -37,22 +37,6 @@ export interface ProjectDetail_project_createdBy {
   fullName: string;
 }
 
-export interface ProjectDetail_project_assignees {
-  __typename: "User";
-  /**
-   * User ID
-   */
-  id: number;
-  /**
-   * User full name
-   */
-  fullName: string;
-  /**
-   * User email
-   */
-  email: string;
-}
-
 export interface ProjectDetail_project_tasks_assignees {
   __typename: "User";
   /**
@@ -117,6 +101,22 @@ export interface ProjectDetail_project_tasks {
   createdBy: ProjectDetail_project_tasks_createdBy;
 }
 
+export interface ProjectDetail_project_assignees {
+  __typename: "User";
+  /**
+   * User ID
+   */
+  id: number;
+  /**
+   * User full name
+   */
+  fullName: string;
+  /**
+   * User email
+   */
+  email: string;
+}
+
 export interface ProjectDetail_project {
   __typename: "Project";
   /**
@@ -146,11 +146,11 @@ export interface ProjectDetail_project {
   /**
    * Tasks of project
    */
-  assignees: ProjectDetail_project_assignees[];
+  tasks: ProjectDetail_project_tasks[];
   /**
    * Tasks of project
    */
-  tasks: ProjectDetail_project_tasks[];
+  assignees: ProjectDetail_project_assignees[];
 }
 
 export interface ProjectDetail {
