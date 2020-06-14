@@ -145,7 +145,7 @@ const UserGroupsList = () => {
           setGlobalFilter={setGlobalFilter}
           loading={loading}
           onCreate={canCreate() ? toggleCreateDialogOpen : undefined}
-          onDelete={handleDelete}
+          // onDelete={handleDelete}
           sortableColumns={['name', 'description']}
         />
         <CreateUserGroupDialog
