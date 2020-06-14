@@ -128,6 +128,7 @@ const Authorization: React.FC<Props> = ({ children }) => {
   function sessionExpired() {
     deleteTokens();
     checkAuth(true);
+    setIsIdle(false);
   }
 
   // Check if User is authorized, every time when pathname changes
