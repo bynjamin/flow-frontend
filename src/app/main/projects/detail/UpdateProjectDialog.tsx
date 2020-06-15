@@ -95,7 +95,7 @@ const UpdateProjectDialog: React.FC<Props> = ({ data }) => {
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">Update Project</DialogTitle>
-        <DialogContent>
+        <DialogContent className="min-w-400">
           <Formsy
             // onValidSubmit={handleSubmit}
             onValid={() => setValid(true)}
