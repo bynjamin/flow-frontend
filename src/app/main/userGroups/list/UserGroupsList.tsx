@@ -21,7 +21,7 @@ import {
 
 const UserGroupsList = () => {
   const history = useHistory();
-  const { permissions } = useContext(AppContext);
+  const { user } = useContext(AppContext);
   const [createDialogOpen, setCreateDialogOpen] = useState<boolean>(false);
   const [deleteIds, setDeleteIds] = useState<number[] | null>(null);
 
@@ -120,7 +120,7 @@ const UserGroupsList = () => {
     setDeleteIds(null);
   }
 
-  const canCreate = () => permissions.UserGroup.basic.create;
+  const canCreate = () => (user ? user.role.level < 3 : false);
 
   if (error) return <p style={{ color: 'red' }}>{error.message}</p>;
   if (data) {

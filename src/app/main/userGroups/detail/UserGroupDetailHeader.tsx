@@ -34,10 +34,10 @@ type Props = {
 
 const UserGroupDetailHeader: React.FC<Props> = ({ data }) => {
   const classes = useStyles();
-  const { permissions } = useContext(AppContext);
+  const { user } = useContext(AppContext);
 
-  const canUpdate = () => permissions.UserGroup.basic.update;
-  const canDelete = () => permissions.UserGroup.basic.delete;
+  const canUpdate = () => (user ? user.role.level < 3 : false); // permissions.UserGroup.basic.update;
+  const canDelete = () => (user ? user.role.level < 3 : false); // permissions.UserGroup.basic.delete;
 
   if (!data) {
     return null;

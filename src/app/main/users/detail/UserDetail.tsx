@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const ProfilePage: React.FC = () => {
   const classes = useStyles();
-  const { permissions } = useContext(AppContext);
+  const { user: currentUser } = useContext(AppContext);
   const [selectedTab, setSelectedTab] = useState(0);
   const { id } = useParams();
   const { loading, error, data } = useQuery<DataType, InputType>(USER_DETAIL, {
@@ -42,7 +42,8 @@ const ProfilePage: React.FC = () => {
     setSelectedTab(value);
   }
 
-  const canUpdatePermissions = () => permissions.Permission.basic.update;
+  const canUpdatePermissions = () =>
+    currentUser ? currentUser.role.level < 3 : false;
 
   if (loading) return <FuseLoading />;
   if (error) return <p style={{ color: 'red' }}>{error.message}</p>;
