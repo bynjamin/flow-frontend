@@ -21,7 +21,7 @@ import {
 } from './queries/__generated__/RoleDetail';
 
 const RoleDetail: React.FC = () => {
-  const { permissions } = useContext(AppContext);
+  const { user } = useContext(AppContext);
   const [selectedTab, setSelectedTab] = useState(0);
   const { id } = useParams();
   const { loading, error, data } = useQuery<DataType, InputType>(ROLE_DETAIL, {
@@ -32,7 +32,7 @@ const RoleDetail: React.FC = () => {
     setSelectedTab(value);
   };
 
-  const canUpdatePermissions = () => permissions.Permission.basic.update;
+  const canUpdatePermissions = () => (user ? user.role.level < 3 : false);
 
   if (loading) return <FuseLoading />;
   if (error) return <p style={{ color: 'red' }}>{error.message}</p>;

@@ -152,7 +152,7 @@ const AttendanceList: React.FC = () => {
             <div className="w-400 p-6 bg-white rounded">
               <UsersAutocomplete
                 size="small"
-                label="Filter by user"
+                label="Filter by user email"
                 setSelected={filterByUser}
               />
             </div>

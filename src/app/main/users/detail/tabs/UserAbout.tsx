@@ -64,12 +64,12 @@ const UserAbout: React.FC<Props> = ({ data }) => {
             animation: 'transition.slideUpBigIn',
           }}
         >
-          {!gdpr && (
+          {/* !gdpr && (
             <Alert severity="warning" className="mb-12">
               <AlertTitle>GDPR is not confirmed</AlertTitle>
               Confirm the GDPR
             </Alert>
-          )}
+          ) */}
           <Card className="w-full mb-16">
             <AppBar position="static" elevation={0}>
               <Toolbar className="pl-16 pr-8">
@@ -111,6 +111,7 @@ const UserAbout: React.FC<Props> = ({ data }) => {
                     {parseGender(gender) || MISSING_FIELD}
                   </Typography>
                 </Grid>
+                {/*
                 <Grid item xs={4}>
                   <Typography className="font-bold mb-4 text-15">
                     Birthday
@@ -123,6 +124,7 @@ const UserAbout: React.FC<Props> = ({ data }) => {
                   </Typography>
                   <Typography>{gdpr.toString()}</Typography>
                 </Grid>
+                */}
                 <Grid item xs={12}>
                   <Typography className="font-bold mb-4 text-15">
                     About
@@ -166,12 +168,14 @@ const UserAbout: React.FC<Props> = ({ data }) => {
                   </Typography>
                   <Typography>{employmentType || MISSING_FIELD}</Typography>
                 </Grid>
+                {/*
                 <Grid item xs={6}>
                   <Typography className="font-bold mb-4 text-15">
                     Skills
                   </Typography>
                   <Typography>{MISSING_FIELD}</Typography>
                 </Grid>
+                */}
               </Grid>
             </CardContent>
           </Card>

@@ -10,12 +10,19 @@ import {
   UserPermissionsFragment__data_permissions as ModuleType,
 } from './__generated__/UserPermissionsFragment__data';
 
+const unavailablePermissions = ['UserGroup', 'Permission'];
+
 type Props = {
   data: DataType;
 };
 
 const UserPermissions: React.FC<Props> = ({ data }) => {
   const { permissions, id } = data;
+
+  const availablePermissions = permissions.filter((module: ModuleType) => {
+    return !unavailablePermissions.includes(module.model);
+  });
+
   return (
     <div className="md:flex">
       <div className="flex flex-col flex-1 md:pr-32">
@@ -25,7 +32,7 @@ const UserPermissions: React.FC<Props> = ({ data }) => {
           }}
           className="flex flex-wrap"
         >
-          {permissions.map((module: ModuleType) => (
+          {availablePermissions.map((module: ModuleType) => (
             <UserPermissionCard key={module.model} data={module} userId={id} />
           ))}
         </FuseAnimateGroup>

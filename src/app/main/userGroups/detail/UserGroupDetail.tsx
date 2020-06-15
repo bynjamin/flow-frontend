@@ -16,7 +16,7 @@ import {
 } from './queries/__generated__/UserGroupDetail';
 
 const UserGroupDetail: React.FC = () => {
-  const { permissions } = useContext(AppContext);
+  const { user } = useContext(AppContext);
   const [selectedTab, setSelectedTab] = useState(0);
   const { id } = useParams();
   const { loading, error, data } = useQuery<DataType, InputType>(
@@ -26,7 +26,7 @@ const UserGroupDetail: React.FC = () => {
     },
   );
 
-  const canUpdatePermissions = () => permissions.Permission.basic.update;
+  const canUpdatePermissions = () => (user ? user.role.level < 3 : false);
 
   const handleTabChange = (event: any, value: number) => {
     setSelectedTab(value);

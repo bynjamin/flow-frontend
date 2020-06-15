@@ -41,7 +41,7 @@ const Dialog: React.FC<Props> = ({
         aria-labelledby="dialog-title"
       >
         {title && <MUIDialogTitle id="dialog-title">{title}</MUIDialogTitle>}
-        <MUIDialogContent>
+        <MUIDialogContent className="min-w-400">
           {contentText && (
             <MUIDialogContentText>{contentText}</MUIDialogContentText>
           )}

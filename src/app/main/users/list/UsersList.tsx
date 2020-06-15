@@ -183,7 +183,7 @@ const UsersList = () => {
           setGlobalFilter={setGlobalFilter}
           loading={loading}
           onCreate={canCreate() ? toggleInviteDialogOpen : undefined}
-          onDelete={handleDelete}
+          // onDelete={handleDelete}
           sortableColumns={['title', 'firstName', 'lastName', 'email']}
         />
         <InviteUserDialog

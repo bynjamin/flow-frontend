@@ -10,6 +10,8 @@ import {
   RolePermissionsFragment__data_permissions as ModuleType,
 } from './__generated__/RolePermissionsFragment__data';
 
+const unavailablePermissions = ['UserGroup', 'Permission'];
+
 type Props = {
   data: DataType;
 };
@@ -17,6 +19,10 @@ type Props = {
 const RolePermissions: React.FC<Props> = ({ data }) => {
   const { permissions, id, level } = data;
   const isSuperAdmin = level === 1;
+
+  const availablePermissions = permissions.filter((module: ModuleType) => {
+    return !unavailablePermissions.includes(module.model);
+  });
 
   return (
     <div className="md:flex">
@@ -27,7 +33,7 @@ const RolePermissions: React.FC<Props> = ({ data }) => {
           }}
           className="flex flex-wrap"
         >
-          {permissions.map((module: ModuleType) => (
+          {availablePermissions.map((module: ModuleType) => (
             <RolePermissionCard
               key={module.model}
               data={module}
